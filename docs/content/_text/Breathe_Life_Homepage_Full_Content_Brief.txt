@@ -1,0 +1,210 @@
+
+Breathe Life Healing Centers
+Homepage Content Brief — Full Copy
+Every word for the page. The designer organizes color and image; this is the content.
+STANDING RULE: everything below defers to the BLHC Content Client Profile (Jasmine's document) as the authoritative source. Where this brief and that document ever conflict in the future, the client profile wins — flag it, don't silently override it.
+STILL OPEN, NOT YET RESOLVED IN THIS COPY: the Beck Gee/Beck Guy name spelling, and how Brad Lamm/Deb Hughes are positioned as founders. The Leadership section below is written generically until that's answered — do not finalize it as-is.
+
+HEADER
+Utility bar (top, full width)
+Admissions@BreatheLHC.org  ·  Get Help 24/7  ·  (877) 239-8684
+Primary navigation (left to right)
+About Us — Our Team, Careers
+What We Treat — Alcohol, Methamphetamine, Cocaine, Opioids, Xanax, Benzodiazepines, Kratom, Marijuana, Co-Occurring Eating Disorders
+Conditions — Depression, Anxiety, Complex Trauma, Trauma, Dual Diagnosis
+Programs — Residential, Detox, PHP, IOP, Outpatient Rehab, Sober Living, Family Program, Alumni Program
+Signature Services — Chemsex Treatment, Flight Attendant Program, LGBTQ+ Treatment
+Therapies — CBT, DBT, ACT, Somatic Therapy, and more
+Areas We Service — West Hollywood, Beverly Hills, Santa Monica, Santa Barbara
+Admissions — Insurance, For Families, What to Bring
+Contact Us
+Header CTA (always visible, right-aligned)
+[ Start Your Treatment ]
+Keep the phone number visible in the header at every scroll depth — this was already true on the live site and is worth protecting.
+
+HERO BANNER
+Layout
+Two columns. Left: headline, subhead, supporting line, two buttons. Right: a short lead-capture form, as requested.
+Headline
+Take Your First Full Breath in Years.
+Subhead
+LGBTQ+-centered addiction, trauma, and mental health treatment in Los Angeles — built by people who've lived it, for people ready to live it differently.
+Supporting line
+Residential, detox, PHP, and IOP care from a team where lived recovery experience isn't a credential — it's who answers the phone.
+Buttons (left column)
+[ Start Your Treatment ]
+[ Call Us 24/7: (877) 239-8684 ]
+Right column: banner form
+Short headline above the form: “Reach Out — We Answer 24/7”
+	•	Field: Full Name
+	•	Field: Phone Number
+	•	Field: Email
+	•	Field: Insurance Provider (dropdown, optional)
+	•	Field: Briefly, what brings you here today? (short text, optional)
+[ Send My Message ]
+Microcopy under the form, small text: “Everything you share is confidential. A real person responds — not a bot.”
+
+TRUST BAR
+Full-width strip directly under the hero. Three rows or one scrolling row:
+Row 1 — In-Network Insurance
+Logos: Anthem, Aetna, Blue Cross Blue Shield, Cigna, Beacon Health Options, Carelon Behavioral Health
+[ Verify My Insurance in Minutes ]
+Row 2 — Accreditation & Licensing
+Joint Commission Gold Seal of Approval  ·  LegitScript Certified  ·  Licensed by the California Department of Health Care Services
+Row 3 — As Seen On
+Good Morning America  ·  Oprah  ·  Today Show
+This row exists on the live site today and is real earned-media credibility that's currently undersold — give it real visual weight, don't bury it as a small logo strip.
+
+EMPATHY / CRISIS STATEMENT
+Full-width section, generous white space, no imagery competing with the text — per the brand brief's breath motif, this section should feel like the pause before someone exhales.
+Every human being was born with worth that can't be earned, destroyed, or taken — no matter what's happened to you, or what you've done to survive it.
+Substance use. Eating disorders. Trauma. Mental health that's gone quiet in the wrong direction. Whatever brought you here, it's been keeping you from the full aliveness that was always yours. That's what we're here to give back.
+This language already exists on the live site in a rougher form — refined here to match the confirmed Voice & Tone (direct, warm, not clinical) while keeping the real substance.
+
+WHY BREATHE — SIX THINGS THAT MAKE US DIFFERENT
+This section does not exist on the live homepage today. It should. This is the entire strategic basis of the brand and currently appears nowhere a visitor can see it in under 30 seconds.
+1. Staff who've lived it
+Every person here, from the front desk to clinical leadership, has personal recovery experience. You're not being treated by someone who studied your experience from the outside.
+2. A real chemsex treatment track
+Crystal meth, GHB, and other substances used in sexual contexts are treated here as their own clinical issue — not a moral failing, not folded into general sex addiction treatment. One of the only programs in the country built specifically around this.
+3. Sexual health as part of care
+STI testing, HIV status support, hormone continuity, and PrEP-aware language — built into treatment, not bolted on.
+4. Gender-affirming care, woven in
+Correct names, correct pronouns, gender-appropriate facilities, and a clinical team trained in the minority stress model — the default here, not a specialty add-on.
+5. Chosen family, welcomed
+Family therapy doesn't assume blood relationships. Partners, chosen family, and community are valid participants in your recovery.
+6. The hard stuff, taken seriously
+Religious trauma, discrimination, minority stress, and collective grief are treated with the same clinical weight as any other presenting issue — never background noise.
+[ Learn More About Our Approach ]
+
+LEVELS OF CARE
+Card grid, one card per program, each with a short line and its own button.
+Medical Detox
+Safe, medically supervised withdrawal — the first full breath of the process.
+[ Learn More ]
+Residential Treatment
+Live-in care in a structured, supportive environment while you rebuild.
+[ Learn More ]
+PHP (Partial Hospitalization)
+Full-day clinical care while you sleep somewhere that isn't a hospital.
+[ Learn More ]
+Intensive Outpatient (IOP)
+Structured treatment that flexes around a life you're already rebuilding.
+[ Learn More ]
+Outpatient Rehab
+Ongoing support at a lighter touch, for the next stage of recovery.
+[ Learn More ]
+Enhanced Sober Living
+A stable, substance-free home base as you find your footing.
+[ Learn More ]
+Family Program
+Healing that includes the people — chosen or blood — who are healing alongside you.
+[ Learn More ]
+Alumni Program
+Recovery doesn't end at discharge. Neither does our support.
+[ Learn More ]
+
+SIGNATURE SERVICES
+Three cards, larger and more visually prominent than the Levels of Care cards — this is what makes Breathe different, it should not read as a smaller version of the same module.
+Chemsex & Sexualized Drug Use Treatment
+A dedicated program most rehabs don't offer, treating the connection between substances, intimacy, and attachment — without shame, without euphemism.
+[ Explore Chemsex Treatment ]
+LGBTQ+ Treatment
+Built for our community first. Every clinician here understands minority stress, gender-affirming practice, and the specific weight of coming out, coming in, or coming home.
+[ Explore LGBTQ+ Care ]
+Flight Attendant Program
+A program built around the realities of airline schedules, union benefits, and a workforce we know well.
+[ Explore the Flight Attendant Program ]
+
+LOCATION
+Two columns: left is address/map, right is descriptive copy.
+Address
+8060 Melrose Avenue, 3rd Floor, Los Angeles, CA 90046
+Embedded map here.
+Copy
+Our residential campus sits in the quiet hills of Laurel Canyon — acres of outdoor space, natural light, and room to breathe, minutes from West Hollywood.
+Areas We Service
+Proudly serving clients from West Hollywood, Beverly Hills, Santa Monica, Santa Barbara, and greater Los Angeles.
+[ Take a Complete Campus Tour ]
+[ Get Directions ]
+
+LEADERSHIP & TEAM
+DO NOT FINALIZE this section's copy until the Beck Gee/Beck Guy spelling and the Brad Lamm/Deb Hughes founder question are resolved. Structure below is safe to build against; names/titles are not.
+A short leadership row (CEO, Medical Director, Clinical Director) followed by “Meet the Full Team” linking to the team page. Every bio should open with recovery experience where the person has it, per the brand's core differentiator — not credentials first.
+[ Meet Our Team ]
+
+REVIEWS
+Pulled directly from the Reviews Compilation document. This section is currently empty on the live site (a heading with no content) — filling it is a stated priority.
+“They were patient enough with me... most of the staff are extremely empathetic towards everyone, not just people within the LGBTQ community.”
+— Zahara Nakia R.
+“Breathe Life Healing Center was the only treatment center that said they would do this — treat my family member's eating disorder and alcoholism simultaneously.”
+— Babbi Anderson
+“I have brought LGBTQ clients and straight or cisgender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance.”
+— Stephen Timmer, Interventionist
+“I was able to process my trauma from issues I faced growing up as a gay boy in the 1980's... The trauma and shame that I grew up with fueled my lack of self worth.”
+— Matt Berg
+[ Read More Reviews ]
+
+INSURANCE
+Standalone section, not just a logo strip — this is a real objection to overcome, give it real space.
+Headline
+Treatment Shouldn't Wait on a Phone Call You're Dreading.
+Body
+We're in-network with most major insurance providers, including Anthem Blue Cross, Aetna, Blue Cross Blue Shield, Cigna, Beacon Health Options, and Carelon Behavioral Health. Our admissions team verifies your benefits for you — usually within minutes, always before you commit to anything.
+We do not accept Medi-Cal or Medicare at this time. If that's your coverage, we'll tell you honestly and help point you somewhere that can help.
+[ Verify My Insurance ]
+[ Ask About Payment Options ]
+
+FREQUENTLY ASKED QUESTIONS
+Homepage FAQ module — in addition to the per-page FAQ sections already confirmed sitewide. These should be the highest-intent, most differentiating questions, not generic rehab FAQs.
+Is Breathe Life only for LGBTQ+ people?
+No. We're built for the LGBTQ+ community first, and that shapes everything about how we treat people — but our doors are open to anyone whose values align with how we operate.
+What is chemsex, and how is it different from what other rehabs treat?
+Chemsex is the use of substances like crystal meth, GHB, or mephedrone in sexual contexts — common in gay and queer men's communities and rarely addressed as its own clinical issue. We treat it as exactly that: not a moral failing, and not the same thing as sex addiction.
+Do you accept my insurance?
+Most likely, yes. We're in-network with most major providers. Our team verifies your specific benefits before you commit to anything — usually within minutes.
+Will my information be confidential?
+Yes. Your privacy is protected under federal law, and we never share your information without your consent.
+Can my family be involved in my treatment?
+Yes — and we don't assume family means blood relatives. Partners, chosen family, and close community are welcome participants in our Family Program.
+What if I've tried treatment before and it didn't work?
+That doesn't disqualify you from anything here. A lot of the people we treat have tried before. That's part of the story, not a reason to turn you away.
+Do you offer gender-affirming care during treatment?
+Yes — correct names, correct pronouns, gender-appropriate facilities, and clinical staff trained specifically in gender-affirming practice. It's built into the program, not an add-on.
+How long does treatment take?
+It depends on the level of care and your individual needs. Most stays start with a 30-day minimum and are shaped around your progress, not a fixed calendar.
+What happens after I finish treatment?
+Our Alumni Program includes ongoing support groups and community — recovery doesn't end at discharge, and neither do we.
+
+FINAL CTA
+Headline
+Are You Ready to Take the First Step?
+Kept from the live site — it already echoes real caller language almost exactly and shouldn't be replaced.
+[ Call Us 24/7: (877) 239-8684 ]
+[ Send Us a Message ]
+
+FOOTER
+Column 1 — Contact
+Admissions@BreatheLHC.org
+Call Us 24/7: (877) 239-8684
+8060 Melrose Avenue, 3rd Floor
+Los Angeles, California 90046, United States
+Column 2 — Quick Links
+About Us
+Admissions
+Careers
+Contact Us
+Blog
+Column 3 — Legal
+Privacy Policy
+Terms of Use
+Confidentiality Form
+Licensed by the California Department of Health Care Services.
+License: 190788AP | Exp: 9/30/2026
+License: 190788BP | Exp: 9/30/2027
+Column 4 — Follow Us
+Facebook  ·  Instagram  ·  LinkedIn  ·  YouTube  ·  TikTok  ·  X  ·  BlueSky  ·  Pinterest
+All social icons already exist on the live site — carry them forward as-is.
+Bottom bar
+Joint Commission Gold Seal  ·  LegitScript Certified  ·  DHCS Licensed logos, centered
+© Copyright 2026 Breathe Life Healing Centers. All Rights Reserved.
