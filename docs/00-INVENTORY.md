@@ -1,7 +1,7 @@
 # Breathe Website — Document Inventory & Gap Review
 
 _Last reviewed: 2026-08-31. Source: `docs/_inbox/` (now sorted into the folders below)._
-_Update 2026-08-31: the approved sitemap arrived — see `context/Breathe_Life_Sitemap_v12.xlsx` and `context/Breathe_Life_FINAL_Sitemap_for_Approval.docx`. Gap #4 below is now closed._
+_Update 2026-08-31: approved **sitemap** (`context/Breathe_Life_Sitemap_v12.xlsx`) and approved **redirect map** (`context/Breathe_Life_Redirect_Map_v6_FINAL.xlsx`) received. Sitemap gap closed; redirect map is page-complete with 3 open URL classes (blog / team bios / archives) — see Redirects section._
 
 This is a review of everything supplied so far, what it gives us, and what's still
 missing before build. **Nothing is being built yet** — this is the context pass.
@@ -14,7 +14,7 @@ missing before build. **Nothing is being built yet** — this is the context pas
 |---|---|
 | `brand/` | Brand manual PDF (8pp), Brand Brief, primary logo (JPG) |
 | `content/` | Full page-copy briefs: Homepage, Alcohol, Family Program, Reviews compilation |
-| `context/` | **BLHC Content Client Profile** (authoritative source) + **approved Sitemap** (`v12.xlsx` annotated, `FINAL_..._for_Approval.docx` clean) |
+| `context/` | **BLHC Content Client Profile** (authoritative source) + **approved Sitemap** (`v12.xlsx`, `FINAL_..._for_Approval.docx`) + **approved Redirect Map** (`Redirect_Map_v6_FINAL.xlsx`) |
 | `design/` | `v1-landing-page-full-screenshot.png` — full-page render of the existing v1 landing page |
 | `seo/` | Old-site sitemap, Semrush organic (positions + pages), backlinks, GSC performance, CallTrackingMetrics call export |
 | `_text/` subfolders | Plain-text conversions of every `.docx` / PDF, for quick diffing and reference |
@@ -74,7 +74,17 @@ missing before build. **Nothing is being built yet** — this is the context pas
 5. **Only 3 of ~75 pages are briefed.** Homepage, Alcohol, Family Program have full copy. The approved sitemap defines ~75 URLs — the other ~72 (all Therapies pages, most What-We-Treat, all Conditions, Signature Services, Areas We Service, About, Admissions, Resources) have **no copy yet**. → need briefs, or a decision on **launch scope** (which pages ship in v1 vs. follow later).
 
 ### Redirects
-6. **No redirect map yet.** Now buildable — we have both endpoints (old `seo/sitemap_urls.csv` + the approved new structure). → **deliverable to produce:** `11-REDIRECTS.md` — every indexed/linked old URL → its new 301 destination, prioritised by `organic-pages` + `backlinks` + `gsc-performance`. Known special cases: `/about/-our-team/` (double dash, has traffic), the `?utm_source=gmb…` homepage variants, the 3→1 Family consolidation, 12 old service pages → `/what-we-treat/eating-disorders/`, `/breathe-services/*` → `/programs/*`, `/therapies/<level-of-care>/` → `/programs/<level>/`, 216 blog posts (keep paths / map to new blog), 43 Team URLs (`/our-team/*` → `/about/our-team/#…` or per-person), `/joint-commission/` → `/about/`.
+6. **Approved redirect map received** (`context/Breathe_Life_Redirect_Map_v6_FINAL.xlsx`) — 111 rows + 24 "articles stay live" + status legend. **Page-level coverage is complete and clean**, but three URL classes from the old sitemap have no rule (see Reconciliation below):
+   - **~192 of 216 blog Posts** — only 24 eating-disorder articles are explicitly kept live. High-traffic posts have no row: `/toxic-codependency-looks-like/` (935 GSC clicks/12mo), `/sex-addiction-drug-addiction/` (466), `/vicious-cycle-addiction/` (207), `/mackenzie-phillips-joins-breathe-as-addiction-counselor/` (210 + BuzzFeed/VF/Daily Mail backlinks), `/prevent-failure-launch-children/`, `/manage-nicotine-withdrawal/`, `/5-weird-things-alcohol-withdrawal/`, `/drug-induced-psychosis/`, `/hookah-smoking-smoking-tobacco/`. → **needs a blog decision** (keep a blog at same paths = they stay live; kill it = each high-traffic post needs a 301).
+   - **42 of 43 Team bios** — only Kathleen Murphy is mapped (Brad Lamm removed; 2 `/staff/*` handled). Bios with traffic: Valerio Iovino (94), Emmy Olea (72), Megan Etheridge (61). → needs a blanket `/our-team/* → /about/our-team/` rule (or per-person).
+   - **33 archive URLs** — 19 Category, 4 Author, 3 Gallery, 7 Members-Category — no rules. Low value but should get a blanket → `/` or `/resources/` to avoid 404s.
+7. Minor: the `/12-types-eating-disorders-explained/` row self-flags "verify against Articles tab"; sheet 2 keeps a near-twin `/types-eating-disorders-explained/` live — confirm both are handled.
+
+### Redirect map reconciliation (v6 vs. old sitemap + approved sitemap)
+- ✅ **All 82 old "Pages" are covered**, and every redirect **target resolves to a real URL in the approved sitemap** — no dangling targets.
+- ✅ Adds legacy-pattern rules the old sitemap didn't list: `/treatment/*`, `/staff/*`, `/eating-disorder-treatment/*` (12 rows → `/what-we-treat/eating-disorders/`), auto-generated slugs, and `TECH` http→https / www sitewide rules.
+- ✅ Legend states **no `CLARIFY` rows remain** in v6.
+- ⚠️ Gaps = the three classes in item 6 above (blog / team / archives).
 
 ### Content decisions (flagged inside the briefs — not ours to decide)
 7. **CEO name spelling: "Beck Guy" vs "Beck Gee".** Brand manual and Client Profile say **Beck Guy**; the v1 landing screenshot says "Beck Gee". Needs one answer.
@@ -87,9 +97,9 @@ missing before build. **Nothing is being built yet** — this is the context pas
 
 ## Suggested next deliverables (in `docs/`, still not touching `src/`)
 
-1. `11-REDIRECTS.md` — 301 map: old URLs → approved new URLs, traffic-prioritised from `seo/` data.
+1. `11-REDIRECTS-GAPFILL.md` — proposed rules for the 3 uncovered classes (blog Posts, `/our-team/*` bios, Category/Author/Gallery/Members archives), pending the blog decision. The approved `Redirect_Map_v6_FINAL.xlsx` covers everything else.
 2. `12-BRAND-TOKENS.md` — a working design-token set (color, type, spacing) inferred from the manual + v1 site, to be confirmed against the missing brand-manual pages.
 3. `13-LAUNCH-SCOPE.md` — which of the ~75 approved pages ship in v1 (proposal: Homepage + the 3 briefed pages + section overviews + Admissions + Contact + legal; everything else stubbed with redirects until briefed).
-4. A decision log capturing answers to items 7–11 above.
+4. A decision log capturing answers to items 7–11 above, plus: **the blog decision** (keep articles at existing paths, or retire + 301 the high-traffic ones).
 
-_(`10-SITEMAP.md` no longer needed — the approved `context/` sitemap is the source of truth.)_
+_(`10-SITEMAP.md` no longer needed — the approved `context/` sitemap is the source of truth. Redirect map is largely done — see item 1 for the remaining gap-fill.)_
