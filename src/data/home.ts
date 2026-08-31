@@ -138,6 +138,19 @@ export const faqGroups = [
   },
 ] as const;
 
+/** Leadership — the design's three cards. Brad Lamm and Deb Hughes restored at
+ *  the client's request (2026-08-31), reversing the earlier "Beck Gee only".
+ *  NB: this re-adds Brad Lamm to the homepage while the approved sitemap removes
+ *  his bio page — flagged for the client in docs/BUILD-NOTES.md. */
+export const team = [
+  { name: "Brad Lamm", badge: "CIP", role: "Founder", photo: "/Asset/Our%20Team/Brad-Lamm.webp",
+    bio: "Founded Breathe after his own recovery in 2003 — personally selects every clinician on staff." },
+  { name: "Beck Gee", badge: "CADC-II, AMFT", role: "Chief Executive Officer", photo: "/Asset/Our%20Team/Beck-Gee.jpg",
+    bio: "A trans man in recovery, leading Breathe's clinical and operational vision day to day." },
+  { name: "Deb Hughes", badge: "CAS", role: "Co-founder, Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg",
+    bio: "Oversees family programming and community partnerships." },
+] as const;
+
 export const insurers = [
   { name: "Aetna", src: "/Asset/Insurances/Aetna.svg", h: 34 },
   { name: "Anthem", src: "/Asset/Insurances/Anthem.svg", h: 44 },

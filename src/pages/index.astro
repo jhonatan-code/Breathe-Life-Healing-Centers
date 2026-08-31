@@ -5,7 +5,7 @@ import Schema from "../components/Schema.astro";
 import { site } from "../config/site";
 import {
   gallery, galleryImg, substances, mentalHealth, levels, signature,
-  why, steps, reviews, faqGroups, insurers,
+  why, team, steps, reviews, faqGroups, insurers,
 } from "../data/home";
 
 const PH = site.phoneDisplay;              // (877) 239-8684  — brief; design showed (877) 516-2604
@@ -62,7 +62,7 @@ const S = {
       <img src={galleryImg("facility-16-facility-entrance-drive.jpg")} alt="Evening arrival at the Breathe Life facility entrance" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.92;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.92) 0%,rgba(22,41,61,0.78) 46%,rgba(22,41,61,0.34) 100%);"></div>
       <div style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
-        <div style="flex:1 1 560px;max-width:820px;">
+        <div style="flex:1 1 560px;">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:24px;">LGBTQIA+-Affirming Treatment Center · Laurel Canyon</div>
           <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 28px;text-wrap:balance;">LGBTQIA+-Affirming Addiction &amp; Mental Health Treatment</h1>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(19px,1.9vw,24px);line-height:1.45;font-weight:300;color:#E6EDF4;margin:0 0 28px;">We've built care around one fact:</p>
@@ -335,20 +335,22 @@ const S = {
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Leadership</div>
           <h2 style={`${S.h2}max-width:30ch;`}>The people behind Breathe</h2>
-          <p style={`${S.intro}max-width:80ch;`}>Every bio opens with recovery experience where the person has it — not credentials first.</p>
+          <p style={`${S.intro}max-width:80ch;`}>Three leaders who built Breathe around one idea: treat every person like family.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,320px));gap:24px;justify-content:center;max-width:1100px;margin:0 auto;">
-          <div style="background:#FFFFFF;border:1px solid #E2DED7;border-radius:12px;overflow:hidden;">
-            <div style="position:relative;overflow:hidden;">
-              <img src="/Asset/Our%20Team/Beck-Gee.jpg" alt="Beck Gee" style="width:100%;height:400px;object-fit:cover;object-position:center 14%;transform:scale(1.06);display:block;" />
-              <span style="position:absolute;top:16px;right:16px;font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;background:#FFFFFF;color:#2C5A64;padding:6px 10px;">CADC-II, AMFT</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto;">
+          {team.map((p) => (
+            <div style="background:#FFFFFF;border:1px solid #E2DED7;border-radius:12px;overflow:hidden;">
+              <div style="position:relative;overflow:hidden;">
+                <img src={p.photo} alt={p.name} loading="lazy" style="width:100%;height:400px;object-fit:cover;object-position:center 14%;transform:scale(1.06);display:block;" />
+                <span style="position:absolute;top:16px;right:16px;font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;background:#FFFFFF;color:#2C5A64;padding:6px 10px;">{p.badge}</span>
+              </div>
+              <div style="padding:28px 30px;">
+                <div style="font-size:22px;font-weight:600;letter-spacing:-0.018em;">{p.name}</div>
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.08em;color:#2C5A64;margin:8px 0 14px;">{p.role}</div>
+                <p style={S.card}>{p.bio}</p>
+              </div>
             </div>
-            <div style="padding:28px 30px;">
-              <div style="font-size:22px;font-weight:600;letter-spacing:-0.018em;">Beck Gee</div>
-              <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.08em;color:#2C5A64;margin:8px 0 14px;">Chief Executive Officer</div>
-              <p style={S.card}>A trans man in recovery, leading Breathe's clinical and operational vision day to day.</p>
-            </div>
-          </div>
+          ))}
         </div>
         <p style="text-align:center;margin:24px 0 0;font-family:'Montserrat',sans-serif;font-size:15px;">
           <a href="/about/our-team/" style="color:#33679C;font-weight:600;">Meet the full team →</a>
