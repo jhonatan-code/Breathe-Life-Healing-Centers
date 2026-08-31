@@ -1,0 +1,157 @@
+Breathe Life Healing Centers
+Final Sitemap
+This document reflects the approved site structure and final URLs for the new website. A Homepage “Reviews” section will feature client reviews prominently, separate from the Testimonials page.
+
+Page
+Final URL
+Homepage
+Homepage
+/
+Programs / Levels of Care
+Residential Treatment
+/programs/residential-treatment/
+Medical Detox
+/programs/medical-detox/
+PHP (Partial Hospitalization Program)
+/programs/php/
+Intensive Outpatient (IOP)
+/programs/intensive-outpatient/
+Outpatient Rehab
+/programs/outpatient-rehab/
+Enhanced Sober Living
+/programs/sober-living/
+Case Management
+/programs/case-management/
+Medication-Assisted Treatment (MAT)
+/programs/medication-assisted-treatment/
+Family Program
+/programs/family-program/
+Alumni Program
+/programs/alumni-program/
+Levels of Care (overview)
+/programs/
+What We Treat
+Alcohol
+/what-we-treat/alcohol/
+Methamphetamine
+/what-we-treat/methamphetamine/
+Cocaine
+/what-we-treat/cocaine/
+Opioids
+/what-we-treat/opioids/
+Xanax
+/what-we-treat/xanax/
+Benzodiazepines
+/what-we-treat/benzodiazepines/
+Kratom
+/what-we-treat/kratom/
+Marijuana
+/what-we-treat/marijuana/
+Designer / Synthetic Drugs
+/what-we-treat/designer-drugs/
+Inhalants
+/what-we-treat/inhalants/
+Co-Occurring Eating Disorders
+/what-we-treat/eating-disorders/
+What We Treat (overview)
+/what-we-treat/
+Conditions & Co-Occurring Disorders
+Conditions We Treat (overview)
+/conditions/
+Depression
+/conditions/depression/
+Anxiety
+/conditions/anxiety/
+Complex Trauma / C-PTSD
+/conditions/complex-trauma/
+Trauma
+/conditions/trauma/
+Dual Diagnosis
+/conditions/dual-diagnosis/
+Signature Services
+Chemsex & Sexualized Drug Use Treatment
+/signature-services/chemsex-treatment/
+Flight Attendant Program
+/signature-services/flight-attendant-program/
+LGBTQ+ Treatment
+/signature-services/lgbtq/
+Areas We Service
+West Hollywood
+/areas-we-service/west-hollywood/
+Beverly Hills
+/areas-we-service/beverly-hills/
+Santa Monica
+/areas-we-service/santa-monica/
+Santa Barbara
+/areas-we-service/santa-barbara/
+Therapies
+Cognitive Behavioral Therapy (CBT)
+/therapies/cbt/
+Dialectical Behavior Therapy (DBT)
+/therapies/dbt/
+Acceptance & Commitment Therapy (ACT)
+/therapies/act/
+Somatic Therapy
+/therapies/somatic-therapy/
+Motivational Interviewing
+/therapies/motivational-interviewing/
+Trauma-Focused Therapy
+/therapies/trauma-focused-therapy/
+Gender-Affirming Care
+/therapies/gender-affirming-care/
+Yoga & Mindfulness
+/therapies/yoga-mindfulness/
+Art Therapy
+/therapies/art-therapy/
+Music Therapy
+/therapies/music-therapy/
+Holistic Therapy
+/therapies/holistic-therapy/
+Experiential Therapies
+/therapies/experiential-therapies/
+About
+About (overview)
+/about/
+Our Team
+/about/our-team/
+Testimonials
+/about/testimonials/
+Reviews (Homepage feature)
+Homepage section
+Careers
+/about/careers/
+Campus Photos
+/about/campus-photos/
+Outpatient Photos
+/about/outpatient-photos/
+Video Tour
+/about/video-tour/
+Sero Mental Health
+/about/sero-mental-health/
+Admissions
+Admissions (overview)
+/admissions/
+Insurance
+/admissions/insurance/
+For Families
+/admissions/for-families/
+What to Bring
+/admissions/what-to-bring/
+Professional Referral
+/admissions/professional-referral/
+Self-Assessment Forms
+/admissions/self-assessment/
+Resources
+Resources (overview)
+/resources/
+Media / Press
+/resources/media/
+Contact Us
+Contact Us
+/contact-us/
+Terms of Use
+/terms-of-use/
+Notice of Privacy Practices
+/notice-of-privacy-practices/
+Confidentiality Form
+/confidentiality-form/

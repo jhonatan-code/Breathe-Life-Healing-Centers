@@ -1,6 +1,7 @@
 # Breathe Website — Document Inventory & Gap Review
 
 _Last reviewed: 2026-08-31. Source: `docs/_inbox/` (now sorted into the folders below)._
+_Update 2026-08-31: the approved sitemap arrived — see `context/Breathe_Life_Sitemap_v12.xlsx` and `context/Breathe_Life_FINAL_Sitemap_for_Approval.docx`. Gap #4 below is now closed._
 
 This is a review of everything supplied so far, what it gives us, and what's still
 missing before build. **Nothing is being built yet** — this is the context pass.
@@ -13,7 +14,7 @@ missing before build. **Nothing is being built yet** — this is the context pas
 |---|---|
 | `brand/` | Brand manual PDF (8pp), Brand Brief, primary logo (JPG) |
 | `content/` | Full page-copy briefs: Homepage, Alcohol, Family Program, Reviews compilation |
-| `context/` | **BLHC Content Client Profile** — the authoritative source doc; everything defers to it |
+| `context/` | **BLHC Content Client Profile** (authoritative source) + **approved Sitemap** (`v12.xlsx` annotated, `FINAL_..._for_Approval.docx` clean) |
 | `design/` | `v1-landing-page-full-screenshot.png` — full-page render of the existing v1 landing page |
 | `seo/` | Old-site sitemap, Semrush organic (positions + pages), backlinks, GSC performance, CallTrackingMetrics call export |
 | `_text/` subfolders | Plain-text conversions of every `.docx` / PDF, for quick diffing and reference |
@@ -39,7 +40,19 @@ missing before build. **Nothing is being built yet** — this is the context pas
 ### Design
 - One artifact: the **v1 landing page** full-page screenshot. Structure closely tracks the homepage brief (hero w/ insurance form, Laurel Canyon facility, "Whoever you are", What we treat, Levels of Care, Signature Services, "More than a rehab", People Behind Breathe, Four Simple Steps, reviews, insurers, location, FAQ, final CTA). Useful as a reference for what's already live.
 
-### SEO / analytics (for the sitemap + redirect work)
+### Sitemap / IA (NEW — approved)
+- **`context/Breathe_Life_Sitemap_v12.xlsx`** — the approved new site structure, ~75 pages across 11 sections, each row marked `CONFIRMED` / `RECOMMENDED` / `NEW` / `OPTIMIZE` / `CLARIFY` with consolidation notes. Key decisions baked in:
+  - **Programs** `/programs/*` (11 pages) — replaces old `/breathe-services/*` and `/therapies/<level>/`. Alumni Program sourced from old `/breathe-services/breatheout/`.
+  - **What We Treat** `/what-we-treat/*` (renamed from "Substances We Treat") — Opioids absorbs heroin/fentanyl/prescription; Methamphetamine absorbs amphetamines; Eating Disorders absorbs 12 old service-page redirects and is framed as co-occurring body-image, **not** a standalone ED program.
+  - **Conditions** `/conditions/*` (5) — Depression & Anxiety flagged OPTIMIZE (title/meta rewrite); Trauma must include a video.
+  - **Signature Services** `/signature-services/*` (3) — LGBTQ+ moved here from its own menu.
+  - **Areas We Service** `/areas-we-service/*` (4) — West Hollywood confirmed; Beverly Hills / Santa Monica / Santa Barbara NEW, justified by CTM call counts.
+  - **Therapies** `/therapies/*` (12) — all NEW pages to build except Experiential Therapies.
+  - **About** `/about/*` — absorbs old Locations hub, **Mission & Vision** and **Accreditations & Memberships** merged into `/about/` (no longer separate URLs; also kills the `/joint-commission/` duplicate). Sero Mental Health kept, moved under About. **Brad Lamm bio page: REMOVED (confirmed).**
+  - **Removed / redirected:** standalone `/faq/` → homepage; `/drug-rehab/` → `/what-we-treat/`; Brad's Books → `/resources/`; `/test/`, `/test-page/`, `/breathe-services-old/` → deleted; `/latest-news/` and a stray `/sero-mental-health/` → homepage (CLARIFY).
+- Clean list also in `context/Breathe_Life_FINAL_Sitemap_for_Approval.docx`.
+
+### SEO / analytics (for the redirect work)
 - **Old-site sitemap** (`seo/sitemap_urls.csv`) — 374 URLs: 82 Pages, 216 Posts, 43 Team, 19 Category, plus Author/Gallery/Members.
 - **Semrush organic positions** (`seo/organic-positions.xlsx`) — 1,937 ranking keywords with URL, position, volume.
 - **Semrush organic pages** (`seo/organic-pages.xlsx`) — 155 URLs by traffic share. Top earners: `/addiction-treatment-program/drug-addiction-treatment/` (eating-disorder LA cluster, #1), `/sex-addiction-drug-addiction/`, homepage, `/addiction-treatment-program/meth-addiction-treatment/`, `/addiction-treatment-program/alcohol-rehab/`, `/toxic-codependency-looks-like/`, `/prevent-failure-launch-children/`.
@@ -57,11 +70,11 @@ missing before build. **Nothing is being built yet** — this is the context pas
 3. **No favicon "B" mark** as a standalone asset.
 
 ### Sitemap / IA
-4. **No new-site sitemap yet.** We have the *old* sitemap and the homepage nav (which implies the new IA), but no consolidated new URL structure. → **deliverable to produce:** `10-SITEMAP.md` — proposed new IA, page-by-page, with which old URLs each new page absorbs.
-5. **Only 3 of ~25+ pages are briefed.** Homepage, Alcohol, Family Program have full copy. The nav calls for: 8 more "What We Treat" pages (Meth, Cocaine, Opioids, Xanax, Benzo, Kratom, Marijuana, Co-occurring Eating Disorders), 5 Conditions pages, 6 more Program pages, 3 Signature Services pages, Therapies, About/Team/Careers, Admissions x3, Contact, Areas-We-Service x4. → need briefs or a decision on launch scope (which pages ship v1).
+4. ~~No new-site sitemap yet.~~ **RESOLVED 2026-08-31** — approved sitemap received (`context/Breathe_Life_Sitemap_v12.xlsx`). Still open within it: the `CLARIFY` row for `/latest-news/` + stray `/sero-mental-health/`, and final page name for "Sero Mental Health".
+5. **Only 3 of ~75 pages are briefed.** Homepage, Alcohol, Family Program have full copy. The approved sitemap defines ~75 URLs — the other ~72 (all Therapies pages, most What-We-Treat, all Conditions, Signature Services, Areas We Service, About, Admissions, Resources) have **no copy yet**. → need briefs, or a decision on **launch scope** (which pages ship in v1 vs. follow later).
 
 ### Redirects
-6. **No redirect map yet.** This is buildable now from `seo/` data. → **deliverable to produce:** `11-REDIRECTS.md` — every indexed/linked old URL → its new destination (301), prioritised by the organic-pages + backlinks + GSC data so we don't drop traffic or link equity. Special cases already visible: `/about/-our-team/` (double dash, has traffic), the `?utm_source=gmb…` homepage variants, the consolidated Family URLs, 216 blog posts (keep paths / map to new blog), Team member URLs (`/our-team/*` vs `/about/our-team/`).
+6. **No redirect map yet.** Now buildable — we have both endpoints (old `seo/sitemap_urls.csv` + the approved new structure). → **deliverable to produce:** `11-REDIRECTS.md` — every indexed/linked old URL → its new 301 destination, prioritised by `organic-pages` + `backlinks` + `gsc-performance`. Known special cases: `/about/-our-team/` (double dash, has traffic), the `?utm_source=gmb…` homepage variants, the 3→1 Family consolidation, 12 old service pages → `/what-we-treat/eating-disorders/`, `/breathe-services/*` → `/programs/*`, `/therapies/<level-of-care>/` → `/programs/<level>/`, 216 blog posts (keep paths / map to new blog), 43 Team URLs (`/our-team/*` → `/about/our-team/#…` or per-person), `/joint-commission/` → `/about/`.
 
 ### Content decisions (flagged inside the briefs — not ours to decide)
 7. **CEO name spelling: "Beck Guy" vs "Beck Gee".** Brand manual and Client Profile say **Beck Guy**; the v1 landing screenshot says "Beck Gee". Needs one answer.
@@ -74,7 +87,9 @@ missing before build. **Nothing is being built yet** — this is the context pas
 
 ## Suggested next deliverables (in `docs/`, still not touching `src/`)
 
-1. `10-SITEMAP.md` — proposed new IA + old→new page consolidation.
-2. `11-REDIRECTS.md` — 301 map from `seo/` data, traffic-prioritised.
-3. `12-BRAND-TOKENS.md` — a working design-token set (color, type, spacing) inferred from the manual + v1 site, to be confirmed against the missing brand-manual pages.
+1. `11-REDIRECTS.md` — 301 map: old URLs → approved new URLs, traffic-prioritised from `seo/` data.
+2. `12-BRAND-TOKENS.md` — a working design-token set (color, type, spacing) inferred from the manual + v1 site, to be confirmed against the missing brand-manual pages.
+3. `13-LAUNCH-SCOPE.md` — which of the ~75 approved pages ship in v1 (proposal: Homepage + the 3 briefed pages + section overviews + Admissions + Contact + legal; everything else stubbed with redirects until briefed).
 4. A decision log capturing answers to items 7–11 above.
+
+_(`10-SITEMAP.md` no longer needed — the approved `context/` sitemap is the source of truth.)_
