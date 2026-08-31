@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+
+# elev8 Website System — synced by .elev8/sync.sh, never committed
+.elev8/system/
