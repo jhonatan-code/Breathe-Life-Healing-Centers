@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand blue — identity color #32679C, with lighter/darker variations */
+  --color-brand-50: #eff5fa;
+  --color-brand-100: #dbe9f3;
+  --color-brand-200: #b8d2e7;
+  --color-brand-300: #8ab3d6;
+  --color-brand-400: #5a91c1;
+  --color-brand-500: #3d76a9;
+  --color-brand-600: #32679c;
+  --color-brand-700: #285480;
+  --color-brand-800: #204266;
+  --color-brand-900: #1b374f;
+  --color-brand-950: #0f1f2c;
+
+  /* Warm terracotta — CTA / accent color */
+  --color-accent-50: #fdf5f0;
+  --color-accent-100: #fbe8db;
+  --color-accent-200: #f5cdb2;
+  --color-accent-300: #eda87e;
+  --color-accent-400: #e37f4f;
+  --color-accent-500: #d8622f;
+  --color-accent-600: #c04d22;
+  --color-accent-700: #9f3c1e;
+  --color-accent-800: #81321f;
+  --color-accent-900: #6a2c1c;
+
+  /* Warm neutral background */
+  --color-cream-50: #fdfbf7;
+  --color-cream-100: #faf6ee;
+  --color-cream-200: #f3ebd9;
+
+  /* Ink — button text color */
+  --color-ink-50: #eaf3f4;
+  --color-ink-100: #d3e6e8;
+  --color-ink-500: #478694;
+  --color-ink-600: #3c717d;
+
+  /* Paragraph — body copy color */
+  --color-paragraph-500: #1b364f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll-triggered fade-in for sections. JS in Layout.astro adds
+   .is-visible the first time a section enters the viewport; it is never
+   removed, so sections stay visible once revealed. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
