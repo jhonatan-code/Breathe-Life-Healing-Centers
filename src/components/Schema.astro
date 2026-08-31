@@ -2,18 +2,15 @@
 /**
  * Homepage JSON-LD. Required: Organization, BreadcrumbList, FAQPage.
  * Added: MedicalBusiness + aggregateRating (schema.md — Homepage row).
- *
- * - `specialty` is a real MedicalSpecialty member, full URL form. There is no
- *   "addiction" member; addiction + mental health map to Psychiatric.
- * - Every FAQ answer string is rendered verbatim on the page (same `faq` data),
- *   so the markup matches the DOM.
- * - aggregateRating uses the real supplied count from site.google.
+ * `specialty` → https://schema.org/Psychiatric (no addiction member exists).
+ * FAQ answers are emitted verbatim from the same `faqGroups` data rendered
+ * on the page, so the markup matches the DOM.
  */
 import { site } from "../config/site";
-import { faq } from "../data/home";
+import { faqGroups } from "../data/home";
 
 const org = new URL("/#organization", site.domain).href;
-const faqItems = faq.groups.flatMap((g) => g.items);
+const faqItems = faqGroups.flatMap((g) => g.items);
 
 const graph = {
   "@context": "https://schema.org",
@@ -45,9 +42,7 @@ const graph = {
     },
     {
       "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
-      ],
+      itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" }],
     },
     {
       "@type": "FAQPage",

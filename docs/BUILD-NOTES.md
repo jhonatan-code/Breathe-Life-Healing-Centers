@@ -1,80 +1,77 @@
 # Homepage build — notes, deviations & TODOs
 
-_v1 evaluation build, 2026-08-31. Homepage + header + footer only._
+_v2 — **design-faithful port** of `Breathe Life Homepage.dc.html`, 2026-08-31._
+_Homepage + its scroll nav + footer only. Local build; not pushed to GitHub._
 
-Built from: the approved content brief (`docs/content/…Homepage…`), the client
-profile, and the Claude Design comp (`Breathe Life Homepage (standalone).html`,
-layout only — not a fact source, per `design-system.md §10`).
+The homepage is now a close reproduction of the approved Claude Design comp: same
+section order, same layout, same inline styling, same fonts
+(**Instrument Sans headings, Montserrat body**), same section backgrounds, same
+carousels/marquee/accordion. Ported to Astro; the DC component runtime was
+re-implemented as vanilla JS.
 
-## Stack / where things live
+## Where things live
 
-| | |
+| Path | What |
 |---|---|
-| Framework | Astro 7 + Tailwind v4 (`@theme` in `src/styles/global.css`) |
-| Design tokens | `src/styles/global.css` — colour by role, type scale, spacing, radii, breakpoints, motion |
-| Client facts | `src/config/site.ts` (phone, email, address, nav model, socials) — **single source** |
-| Homepage copy | `src/data/home.ts` — kept out of components |
-| Components | `Header`, `Footer`, `Button`, `Icon`, `InsuranceForm`, `Schema` |
-| Page | `src/pages/index.astro` (sections inline, copy from `home.ts`) |
+| `src/pages/index.astro` | the whole page — design markup + inline styles + ported behavior script |
+| `src/data/home.ts` | content arrays (gallery, treat cards, levels, signature, why, steps, reviews, FAQ, insurers) |
+| `src/config/site.ts` | client facts — the one place the phone number lives |
+| `src/styles/global.css` | the design's 3 KB of global CSS (reveal, carousel, accordion) + CTA hover states + fonts |
+| `src/components/Icon.astro` | inline-SVG social glyphs (replaces the comp's Font Awesome) |
+| `src/components/Schema.astro` | JSON-LD (Organization + MedicalBusiness + BreadcrumbList + FAQPage) |
+| `src/layouts/Layout.astro` | `<head>`, canonical, OG, Google Fonts incl. Material Symbols |
 
-Run: `npm install && npm run dev` → http://localhost:4321 · `npm run build` passes.
+`npm run dev` → http://localhost:4321 · `npm run build` passes.
 
-## Decisions applied
+## Content fixes applied to the design (as agreed)
 
-- **CEO name: "Beck Gee"** (confirmed by client 2026-08-31). Updated everywhere.
-- **Sea Glass (`#7fb3bc`)** is now used for **one thing only** — the short rule on
-  section eyebrows — plus a single accent border on the insurance exclusion note.
-  Well under the 2% the client asked for (down from the brand book's 4%). Token:
-  `--color-seaglass`, decorative only.
-- **Phone number** — used `(877) 239-8684` from the content brief. The design comp
-  and the PPC call-tracking exports show `(877) 516-2604`. One constant in
-  `site.ts`; **confirm the real sitewide DNI number with the CTM owner.**
-- **Nav consolidated to 6 top-level items** (`navigation.md §3` ceiling): Programs ·
-  What We Treat · Signature Services · About · Admissions · Contact. Conditions fold
-  under What We Treat; Therapies / Areas We Service / Resources are in the mega
-  panels or footer. The content brief listed 10 top-level items — not compliant.
-- **Leadership section shows only Beck Gee.** Brad Lamm / Deb Hughes founder
-  positioning is an open client decision and the approved sitemap removes the Brad
-  Lamm bio — so the design's 3-person leadership row (with "Founder in Long-Term
-  Recovery – Brad Lamm") was **not** carried over. The "Why Breathe" differentiator
-  became "Staff who've lived it" (brand pillar #1) instead of naming a founder.
-- **No room / bed counts.** The design's "twenty-two rooms / three residential
-  homes" is a census figure — `what-not-to-publish.md §1`. Campus is described by
-  character, not numbers.
-- **No founding year.** The design's "Since 2013" isn't in the brief or profile;
-  omitted pending confirmation (`design-system.md §10`).
-- **FAQ answers are visible** (not an accordion) and appear verbatim in the DOM, so
-  the `FAQPage` schema matches (`schema.md` rule 2). 9 questions from the brief.
-- **Schema**: `Organization` + `MedicalBusiness` + `BreadcrumbList` + `FAQPage`.
-  `medicalSpecialty: https://schema.org/Psychiatric` (there is no addiction member).
-  `aggregateRating` 4.1 / 155 from the reviews compilation — owned number, refresh
-  on the next export.
-- **Reviews**: the four pre-curated homepage quotes from the reviews compilation
-  (none centre Brad Lamm), verbatim, Google-yellow stars, "individual results may
-  vary" disclaimer.
-- **Icons** are inline SVG (`Icon.astro`) — no Font Awesome / Material Symbols
-  dependency from the comp.
+| Design | This build |
+|---|---|
+| "The people behind Breathe" — Brad Lamm (Founder), Beck Gee, Deb Hughes | **Beck Gee only** + "Meet the full team →". Brad Lamm's bio is removed in the approved sitemap; founder positioning is an open client decision. |
+| "Why Breathe" card 8 — "Founder in Long-Term Recovery / Brad Lamm, in recovery since 2003" | replaced with **"Staff Who've Lived It"** (lived-experience pillar, no name). Same icon/layout. |
+| Hero: "Since 2013, we've built care around one fact:" | "We've built care around one fact:" — founding year unverified. |
+| Facility: "three residential homes… Twenty-two rooms and views across three homes" | "residential homes set in the quiet hills of Laurel Canyon" / "Slide through and tap any frame…" — no room/home counts (`what-not-to-publish.md §1`). |
+| Phone `(877) 516-2604` throughout | `(877) 239-8684` from the content brief. One constant in `site.ts`. **Confirm the real DNI number.** |
+| Review carousel — 8 embellished quotes | 8 **verbatim** quotes from `Breathe_Life_Reviews_Compilation` (`components.md §5` — a rewritten review is a fabricated one). Same card design; avatar = coloured initial. |
+| FAQ: "most people who call sound exactly like that" | "and that is a very common place to be starting from" (`content-specificity.md §3` — don't quantify the source). |
+| FAQ: "Residential stays commonly run 30 to 90 days" | reworded to "shaped around your progress… varies by level of care and by what a plan authorises" (`what-not-to-publish.md §2` — no length-of-stay presented as standard). |
+| Insurance form: name / phone / carrier only | added **email**, **date of birth** (required), member ID + carrier optional, separate unchecked SMS opt-in (`components.md §11`). |
+| Footer socials: Font Awesome `<i>` from a CDN | inline-SVG `Icon.astro`, same 8 accounts, no external dependency. |
 
-## 🔴 Blocked / not wired (need decisions or later phases)
+## Design elements reproduced 1:1
+
+Sticky scroll-nav header (7 anchor links + phone button) · hero with entrance-drive
+photo + gradient + bullet list + white insurance card · facility main-image +
+2-row thumbnail scroller with counter · belonging 2-up with photo cluster · What We
+Treat — two horizontal card scrollers (15 substances + 5 conditions) with ‹ ›
+buttons · Levels of Care — photo + bordered list, "Flagship" tag · Signature
+Services — dark band, auto-scrolling marquee (pauses on hover/focus) · Why Breathe
+8-card grid · Four Steps on navy · Reviews — infinite drag/keyboard carousel with
+dots · Insurance logo row · Location — Google Maps embed + hover-reveal panel ·
+FAQ — sticky intro + 3 groups of `<details>` accordions · Final CTA with bg photo ·
+dark footer with accreditation badges.
+
+## 🔴 Still blocked / not wired
 
 | Item | Why | Standard |
 |---|---|---|
-| **Insurance form submission** | No verified PHI destination. Form renders + validates, then tells the user to call. Do **not** set `action` without the CTM SOP. | `forms-ctm.md` 🔴, `phi-data-handling.md` |
-| **SMS opt-in wording** | Placeholder TCPA-style text; needs counsel sign-off. | `privacy-consent.md` 🔴 |
-| **Analytics / tracking** | No GA4 / GTM / DNI. No tracking layer on the page yet. | `tracking.md` 🔴 |
-| **CWV / performance targets** | No agreed thresholds; images are raw JP(no `<Image>` optimisation yet). | `technical-seo-performance.md` 🔴 |
-| **Social profile URLs** | 8 icons render with `href="#"`. Real/created profiles to be collected. | `social-media.md` 🔴, `asset-standards.md` |
-| **Accreditation verification URLs** | Footer badges link to each issuer's general lookup, not the Breathe-specific record. Collect exact URLs in asset prep. | `components.md §4` |
-| **"As seen on" (GMA / Oprah / Today)** | In the brief; no logos or article/segment URLs supplied. Omitted — an unlinked publication logo isn't allowed. | `components.md §6` |
-| **OG image** | `Layout.astro` references `/og-default.jpg` — not created yet. | `seo-page-requirements.md §6` |
-| **Vector logo** | Using the existing `White Logo.svg` / `Logo Breathe.svg` from the v1 project. Confirm these are the approved brand-book lockups. | `design-system.md §1` |
-| **Nav / footer links** | Point at real sitemap URLs that 404 until those pages exist. Fine for this eval; every link must resolve before launch. | `internal-linking.md §4` |
-| **Design tokens** | Provisional — inferred from the comp + one brand hex. Reconcile with the full brand book (colour/type/spacing sections are missing from the 8-page PDF). | `design-system.md §1–2` |
-| **Clinical reviewer byline** | Homepage doesn't strictly need one; note it for program/condition pages. | `medical-clinical-review.md` |
+| Insurance form submission | No verified PHI destination. Validates, then tells the user to call. | `forms-ctm.md` 🔴, `phi-data-handling.md` |
+| SMS opt-in wording | Placeholder; needs counsel. | `privacy-consent.md` 🔴 |
+| Analytics / tracking / DNI | None on the page. | `tracking.md` 🔴 |
+| CWV / performance | Raw JPEGs, no `<Image>` optimisation; Material Symbols + Google Fonts are render-blocking. No agreed thresholds. | `technical-seo-performance.md` 🔴 |
+| Social profile URLs | 8 icons link to `#footer`. | `social-media.md` 🔴 |
+| Accreditation verification URLs | Footer badges are images only, not linked to the issuer's record. | `components.md §4`, `navigation.md §6` |
+| "As seen on" (GMA / Oprah / Today) | In the brief; no logos or article URLs. Not in the design; omitted. | `components.md §6` |
+| OG image | `Layout.astro` references `/og-default.jpg` — not created. | `seo-page-requirements.md §6` |
+| Real site navigation | The design's header is a single-page **scroll nav** (`#treat`, `#levels`…). The real ≤6-item wayfinding nav with mega menus and links to other pages is a separate task. | `navigation.md` |
+| Mobile | The comp is desktop-first (1440). Sections use `flex-wrap` / `auto-fit` so they reflow, but there's no dedicated mobile nav or a persistent mobile contact bar. | `design-system.md §9`, `navigation.md §2` |
+| FAQ accordion | Answers are in the DOM on load (schema-safe), but hidden behind `<details>`; `components.md §7` prefers visible answers. Kept collapsed to match the comp. |
+| "What We Treat" cards | Display-only in the design (not links). Left as-is; several (Heroin, Fentanyl, Amphetamine…) don't map 1:1 to the approved sitemap. |
+| Google Maps `<iframe>` | Third-party embed — revisit against `phi-data-handling.md` / privacy-consent before launch. |
+| Design tokens | This port uses the comp's inline literals, not a token system. Reconcile with the full brand book. | `design-system.md §1–2` |
 
-## Open client questions this build touched
+## Open client questions this build touches
 
-- Founder / co-founder positioning (Brad Lamm, Deb Hughes) — see `00-INVENTORY.md #8`.
-- Reviews that centre Brad Lamm — strategy still open (`#10`).
-- Verified SAMHSA stat — not used on the homepage.
-- Confirmed production domain — `site.ts` has `breathelifehealingcenters.com` as a placeholder for canonicals.
+Founder / co-founder positioning (Brad Lamm, Deb Hughes) · reviews that centre Brad
+Lamm · verified SAMHSA stat (not used here) · confirmed production domain · final
+name for "Sero Mental Health".

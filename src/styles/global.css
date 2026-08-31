@@ -1,223 +1,140 @@
 @import "tailwindcss";
 
-/* ────────────────────────────────────────────────────────────────────────────
-   Design tokens — derived from the Breathe brand book + the approved homepage
-   design (Claude Design export, 2026-08-31).
+/* ───────────────────────────────────────────────────────────────────────────
+   Global styles ported from the approved Claude Design homepage
+   (Breathe Life Homepage.dc.html). The design carries its styling as inline
+   attributes on elements; this file holds only what has to be global:
+   fonts, the reveal animation, the reviews carousel, the FAQ accordion marker,
+   and the CTA hover states (the design expressed hovers via a non-standard
+   `style-hover` attribute that browsers ignore).
 
-   ⚠️ PROVISIONAL. The brand manual PDF stops after the Logo section — it does
-   not define colour, type or spacing. These values are inferred from the design
-   comp and the one confirmed brand hex (#33679C). They must be reconciled with
-   the full brand book before this is treated as the system of record
-   (.elev8/system/standards/design-system.md §1–2).
+   ⚠️ This is a design-faithful port, not the tokenised system in
+   design-system.md §2. Reconcile once the full brand book exists.
+   ─────────────────────────────────────────────────────────────────────────── */
 
-   Colour is named by ROLE, not hue, so a rebrand changes values here only.
-   ──────────────────────────────────────────────────────────────────────────── */
-@theme {
-  /* Families */
-  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-
-  /* ---- Colour, by role ---- */
-  --color-surface: #ffffff;
-  --color-surface-warm: #f7f5f1;   /* paper / warm section band */
-  --color-surface-alt: #fdfcfa;
-  --color-surface-ink: #16293d;    /* deep navy — dark sections */
-  --color-surface-ink-2: #1e2a4a;
-
-  --color-text: #14181c;
-  --color-text-muted: #3a444d;
-  --color-text-soft: #646d76;
-  --color-on-ink: #f1f5f9;         /* text on dark surfaces */
-  --color-on-ink-muted: #b9cbdc;
-
-  --color-border: #dce6ef;
-  --color-border-warm: #e2ded7;
-  --color-border-strong: #c9d2da;
-
-  --color-accent: #33679c;         /* brand blue — primary action + identity */
-  --color-accent-hover: #285480;
-  --color-accent-tint: #eff5fa;
-  --color-on-accent: #ffffff;
-
-  --color-seaglass: #7fb3bc;       /* "Sea Glass" — decorative only, ≤2% of the
-                                       page surface. Client reduced it from 4%.
-                                       Used for the eyebrow rule and nothing that
-                                       carries meaning. */
-  --color-gold: #ffbe5c;           /* warm accent — sparing (step numerals) */
-
-  --color-success: #2c5a64;
-  --color-warning: #8a5a00;
-  --color-error: #c0392b;          /* red is reserved for errors (design-system §3) */
-
-  /* Google review stars — the recognisable Google treatment, never the brand
-     colour (components.md §5). */
-  --color-google-star: #fbbc04;
-
-  /* ---- Type scale (fixed steps, not arbitrary sizes) ---- */
-  --text-xs: 0.8125rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.375rem;
-  --text-2xl: 1.75rem;
-  --text-3xl: 2.25rem;
-  --text-4xl: clamp(2.5rem, 4vw + 1rem, 3.25rem);
-  --text-5xl: clamp(3rem, 5vw + 1rem, 4rem);
-
-  --leading-tight: 1.15;
-  --leading-snug: 1.35;
-  --leading-normal: 1.65;   /* long-form reading, ~65ch measure */
-  --tracking-eyebrow: 0.14em;
-
-  /* ---- Spacing scale — every gap comes from this ---- */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-24: 6rem;
-  --space-32: 8rem;
-
-  /* ---- Radii ---- */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-pill: 999px;
-
-  /* ---- Elevation ---- */
-  --shadow-sm: 0 1px 2px rgba(20, 24, 28, 0.06), 0 1px 3px rgba(20, 24, 28, 0.05);
-  --shadow-md: 0 6px 20px rgba(20, 24, 28, 0.08);
-  --shadow-lg: 0 20px 50px rgba(22, 41, 61, 0.16);
-
-  /* ---- Layout ---- */
-  --container-max: 1200px;
-  --container-prose: 66ch;
-
-  /* ---- Breakpoints (named; used by components) ---- */
-  --bp-sm: 640px;
-  --bp-md: 768px;
-  --bp-lg: 1024px;
-  --bp-xl: 1280px;
-
-  /* ---- Motion ---- */
-  --dur-fast: 150ms;
-  --dur: 240ms;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ─── Base ─────────────────────────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  line-height: var(--leading-normal);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  line-height: var(--leading-tight);
-  font-weight: 700;
-  color: var(--color-text);
-  text-wrap: balance;
-}
-
+h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 
-/* Links: colour carries the affordance. Underline is scoped to prose only
-   (design-system.md §6). */
-a { color: inherit; text-decoration: none; }
-.prose a {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+/* Design: body copy = Montserrat, headings = Instrument Sans */
+p, li, label, input, select, textarea, button, figcaption {
+  font-family: "Montserrat", Helvetica, sans-serif;
 }
-.prose a:hover { color: var(--color-accent-hover); }
-
-/* Focus is never removed. */
-:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
+h1, h2, h3, h4, .display {
+  font-family: "Instrument Sans", Helvetica, sans-serif;
 }
 
-img { max-width: 100%; height: auto; display: block; }
+body { margin: 0; background: #f7f5f1; -webkit-font-smoothing: antialiased; }
+a { color: #33679c; text-decoration: none; }
+a:hover { color: #2c5a64; }
+::selection { background: #c8dae9; }
+input::placeholder { color: #8b949c; }
+html { scroll-behavior: smooth; }
 
-/* Shared layout helpers */
-.container {
-  width: 100%;
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--space-6);
-}
-@media (min-width: 768px) {
-  .container { padding-inline: var(--space-8); }
-}
+img { max-width: 100%; transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1); }
 
-.section { padding-block: var(--space-24); }
-@media (max-width: 767px) {
-  .section { padding-block: var(--space-16); }
-}
-
-.eyebrow {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--color-text-soft);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-/* The one sanctioned use of Sea Glass — a short decorative rule. Decorative
-   only: the heading beneath must stand alone without it (design-system §4). */
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 2px;
-  background: var(--color-seaglass);
-  flex: none;
+a, button, summary, input, select {
+  transition: background-color 320ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 320ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 320ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 320ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Skip link — first focusable element (navigation.md §8) */
+:focus-visible { outline: 3px solid #33679c; outline-offset: 2px; }
+
+/* Skip link */
 .skip-link {
   position: absolute;
-  left: var(--space-4);
-  top: var(--space-4);
+  left: 16px;
+  top: 10px;
   z-index: 200;
-  background: var(--color-surface);
-  color: var(--color-accent);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-150%);
-  transition: transform var(--dur) var(--ease);
+  background: #fff;
+  color: #33679c;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(20, 24, 28, 0.18);
+  transform: translateY(-160%);
+  transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .skip-link:focus { transform: translateY(0); }
 
-/* Scroll-reveal — JS in Layout adds .is-visible once, never removes it. */
-.reveal-on-scroll {
+/* CTA hover states (design used style-hover="…") */
+.cta { }
+.cta:hover { background: #16293d !important; color: #fff !important; }
+.cta--light:hover { background: #c8dae9 !important; color: #16293d !important; }
+.nav-link:hover { color: #33679c !important; }
+.icon-btn:hover { background: #f1f5f9 !important; }
+.rev-arrow:hover { background: #1e2a4a !important; color: #fff !important; }
+.social-btn:hover { background: #33679c !important; color: #fff !important; }
+.footer-link:hover { color: #fff !important; }
+
+/* Section reveal on scroll */
+.blhc-reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+  transform: translateY(26px);
+  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.reveal-on-scroll.is-visible { opacity: 1; transform: none; }
+.blhc-reveal.is-visible { opacity: 1; transform: none; }
+
+/* Reviews carousel */
+.reviews-carousel { --visible-cards: 3; --gap: 30px; }
+@media (max-width: 1023px) { .reviews-carousel { --visible-cards: 2; } }
+@media (max-width: 639px) { .reviews-carousel { --visible-cards: 1; --gap: 1rem; } }
+.reviews-carousel-track {
+  display: flex;
+  gap: var(--gap);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 10px;
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.reviews-carousel-track.is-dragging { transition: none; cursor: grabbing; }
+.reviews-slide {
+  flex: 0 0 calc((100% - (var(--visible-cards) - 1) * var(--gap)) / var(--visible-cards));
+  box-sizing: border-box;
+}
+.reviews-carousel:focus-visible { outline: 3px solid #1e2a4a; outline-offset: 6px; border-radius: 18px; }
+.reviews-quote::-webkit-scrollbar { width: 4px; }
+.reviews-quote::-webkit-scrollbar-thumb { background: #c9d2e4; border-radius: 999px; }
+
+/* Location hover-reveal panel */
+[data-reveal] [data-reveal-veil],
+[data-reveal] [data-reveal-body] {
+  transition: opacity 520ms cubic-bezier(0.4, 0, 0.2, 1), transform 520ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-reveal] [data-reveal-body] { opacity: 0; }
+[data-reveal]:hover [data-reveal-veil] { opacity: 0.55; }
+[data-reveal]:hover [data-reveal-body] { opacity: 1; }
+[data-reveal]:focus-within [data-reveal-body] { opacity: 1; }
+
+/* FAQ accordion */
+summary::-webkit-details-marker { display: none; }
+summary { list-style: none; cursor: pointer; }
+details[open] summary span[data-plus] { transform: rotate(45deg); }
+
+/* Hide scrollbars on the horizontal scrollers */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    transition-duration: 0.001ms !important;
-  }
+  .blhc-reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* Material Symbols */
+.msym {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+.msym--fill { font-variation-settings: "FILL" 1, "wght" 500; }
