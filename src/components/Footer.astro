@@ -1,0 +1,174 @@
+---
+import { site, socials, primaryNav } from "../config/site";
+import Icon from "./Icon.astro";
+
+const year = new Date().getFullYear();
+
+// Accreditation / licensing badges. Every one links to the issuing body's own
+// record (navigation.md §6). TODO: confirm the exact verification URLs during
+// asset prep — placeholders point at the issuer's public lookup.
+const badges = [
+  { src: "/Asset/Accreditations/The%20Joint%20Commission.svg", label: "The Joint Commission — Gold Seal of Approval", href: "https://www.qualitycheck.org/" },
+  { src: "/Asset/Accreditations/Legit.svg", label: "LegitScript Certified", href: "https://www.legitscript.com/" },
+  { src: "/Asset/Accreditations/DHCS.svg", label: "Licensed by the California DHCS", href: "https://www.dhcs.ca.gov/individuals/Pages/SUD-Licensed-Certified.aspx" },
+  { src: "/Asset/Logo/HIPAA.svg", label: "HIPAA compliant", href: "/notice-of-privacy-practices/" },
+];
+
+const careLinks = primaryNav.find((n) => n.label === "Programs")?.groups?.[0].links ?? [];
+---
+
+<footer class="site-footer" id="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="/Asset/Logo/White%20Logo.svg" alt={site.name} width="190" height="46" />
+        <p class="footer__addr">
+          {site.address.line1}<br />
+          {site.address.city}, {site.address.region} {site.address.postalCode}
+        </p>
+        <p class="footer__contact">
+          <a href={site.emailHref}>{site.email}</a><br />
+          <a class="footer__phone" href={site.phoneHref}>
+            <Icon name="phone" size={16} /> Call 24/7 · {site.phoneDisplay}
+          </a>
+        </p>
+        <p class="footer__campus">
+          Residential campus in {site.campusArea}. Exact address is shared privately at admissions.
+        </p>
+      </div>
+
+      <nav class="footer__col" aria-label="Levels of care">
+        <h2>Levels of Care</h2>
+        <ul>
+          {careLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label="Company">
+        <h2>Breathe</h2>
+        <ul>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/about/our-team/">Our Team</a></li>
+          <li><a href="/about/careers/">Careers</a></li>
+          <li><a href="/admissions/">Admissions</a></li>
+          <li><a href="/admissions/insurance/">Verify Insurance</a></li>
+          <li><a href="/signature-services/lgbtq/">LGBTQ+ Treatment</a></li>
+          <li><a href="/contact-us/">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label="Resources and legal">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="/resources/">Resources &amp; Media</a></li>
+          <li><a href="/sitemap-index.xml">Sitemap</a></li>
+          <li><a href="/notice-of-privacy-practices/">Notice of Privacy Practices</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="/terms-of-use/">Terms of Use</a></li>
+          <li><a href="/confidentiality-form/">Confidentiality Form</a></li>
+          <li><a href="/accessibility/">Accessibility</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer__badges">
+      {
+        badges.map((b) => (
+          <a href={b.href} rel="noopener" target="_blank" title={`Verify: ${b.label}`}>
+            <img src={b.src} alt={b.label} loading="lazy" />
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="footer__bottom">
+      <ul class="footer__social" aria-label="Breathe on social media">
+        {
+          socials.map((s) => (
+            <li>
+              <a href={s.href} rel="noopener" target="_blank" aria-label={`Breathe on ${s.label}`}>
+                <Icon name={s.icon} size={18} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="footer__legal">
+        Licensed by the California Department of Health Care Services.
+        {site.licenses.map((l, i) => (
+          <span>{i > 0 ? " · " : " "}License {l.number} (exp {new Date(l.expires).toLocaleDateString("en-US", { month: "numeric", day: "numeric", year: "numeric" })})</span>
+        ))}
+      </p>
+      <p class="footer__copy">
+        © {year} {site.name}. All rights reserved. ·
+        <a href="/consent-preferences/">Consent preferences</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-surface-ink);
+    color: var(--color-on-ink-muted);
+    padding-block: var(--space-16) var(--space-8);
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+  .footer__brand img { height: 44px; width: auto; margin-bottom: var(--space-4); }
+  .footer__addr { margin-bottom: var(--space-3); }
+  .footer__contact a { color: var(--color-on-ink); }
+  .footer__contact a:hover { text-decoration: underline; }
+  .footer__phone { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; margin-top: 0.25rem; }
+  .footer__campus { margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-on-ink-muted); max-width: 34ch; }
+
+  .footer__col h2 {
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: var(--space-4);
+  }
+  .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .footer__col a { font-size: var(--text-sm); }
+  .footer__col a:hover { color: #fff; text-decoration: underline; }
+
+  .footer__badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+    padding-block: var(--space-8);
+    border-block: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer__badges img { height: 46px; width: auto; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer__badges a:hover img { opacity: 1; }
+
+  .footer__bottom { margin-top: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+  .footer__social { list-style: none; display: flex; gap: var(--space-3); }
+  .footer__social a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-pill);
+    color: var(--color-on-ink);
+  }
+  .footer__social a:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+  .footer__legal,
+  .footer__copy { font-size: var(--text-xs); }
+  .footer__copy a { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .footer__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .footer__grid { grid-template-columns: 1fr; }
+  }
+</style>

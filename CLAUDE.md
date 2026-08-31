@@ -74,7 +74,7 @@ _These live here because they are true of this client only._
 | **Tag manager** | `<TBD — GTM container ID>` |
 | **Call tracking** | CallTrackingMetrics — account "Breathe Life Healing Center" (Account Id 163520) |
 | **Clinical reviewer(s)** | `<TBD — name, credential; who can sign YMYL content>` |
-| **CEO / author voice** | Beck Guy (trans man, lived recovery experience) — _spelling "Beck Guy" per brand book + client profile; v1 landing page says "Beck Gee", unresolved_ |
+| **CEO / author voice** | **Beck Gee** (trans man, lived recovery experience) — spelling confirmed by client 2026-08-31. Ignore "Beck Guy" in the brand book / client profile. |
 
 ## Client-specific rules
 
@@ -98,6 +98,9 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
   program.
 - **Brad Lamm** — bio page removed; do not reintroduce. Founder positioning and the reviews
   that centre him are an open client decision (see `docs/00-INVENTORY.md`).
+- **"Sea Glass" (`#7fb3bc`)** — decorative only, keep to ~2% of any page's surface (client
+  reduced it from the brand book's 4%). Token: `--color-seaglass`. Never carries meaning.
+- **No founding year** on pages until confirmed (design comps show "Since 2013" — unverified).
 
 ## Project docs (client-specific, this repo)
 

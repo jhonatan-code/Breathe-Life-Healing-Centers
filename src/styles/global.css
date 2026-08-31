@@ -1,71 +1,223 @@
 @import "tailwindcss";
 
+/* ────────────────────────────────────────────────────────────────────────────
+   Design tokens — derived from the Breathe brand book + the approved homepage
+   design (Claude Design export, 2026-08-31).
+
+   ⚠️ PROVISIONAL. The brand manual PDF stops after the Logo section — it does
+   not define colour, type or spacing. These values are inferred from the design
+   comp and the one confirmed brand hex (#33679C). They must be reconciled with
+   the full brand book before this is treated as the system of record
+   (.elev8/system/standards/design-system.md §1–2).
+
+   Colour is named by ROLE, not hue, so a rebrand changes values here only.
+   ──────────────────────────────────────────────────────────────────────────── */
 @theme {
+  /* Families */
   --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand blue — identity color #32679C, with lighter/darker variations */
-  --color-brand-50: #eff5fa;
-  --color-brand-100: #dbe9f3;
-  --color-brand-200: #b8d2e7;
-  --color-brand-300: #8ab3d6;
-  --color-brand-400: #5a91c1;
-  --color-brand-500: #3d76a9;
-  --color-brand-600: #32679c;
-  --color-brand-700: #285480;
-  --color-brand-800: #204266;
-  --color-brand-900: #1b374f;
-  --color-brand-950: #0f1f2c;
+  /* ---- Colour, by role ---- */
+  --color-surface: #ffffff;
+  --color-surface-warm: #f7f5f1;   /* paper / warm section band */
+  --color-surface-alt: #fdfcfa;
+  --color-surface-ink: #16293d;    /* deep navy — dark sections */
+  --color-surface-ink-2: #1e2a4a;
 
-  /* Warm terracotta — CTA / accent color */
-  --color-accent-50: #fdf5f0;
-  --color-accent-100: #fbe8db;
-  --color-accent-200: #f5cdb2;
-  --color-accent-300: #eda87e;
-  --color-accent-400: #e37f4f;
-  --color-accent-500: #d8622f;
-  --color-accent-600: #c04d22;
-  --color-accent-700: #9f3c1e;
-  --color-accent-800: #81321f;
-  --color-accent-900: #6a2c1c;
+  --color-text: #14181c;
+  --color-text-muted: #3a444d;
+  --color-text-soft: #646d76;
+  --color-on-ink: #f1f5f9;         /* text on dark surfaces */
+  --color-on-ink-muted: #b9cbdc;
 
-  /* Warm neutral background */
-  --color-cream-50: #fdfbf7;
-  --color-cream-100: #faf6ee;
-  --color-cream-200: #f3ebd9;
+  --color-border: #dce6ef;
+  --color-border-warm: #e2ded7;
+  --color-border-strong: #c9d2da;
 
-  /* Ink — button text color */
-  --color-ink-50: #eaf3f4;
-  --color-ink-100: #d3e6e8;
-  --color-ink-500: #478694;
-  --color-ink-600: #3c717d;
+  --color-accent: #33679c;         /* brand blue — primary action + identity */
+  --color-accent-hover: #285480;
+  --color-accent-tint: #eff5fa;
+  --color-on-accent: #ffffff;
 
-  /* Paragraph — body copy color */
-  --color-paragraph-500: #1b364f;
+  --color-seaglass: #7fb3bc;       /* "Sea Glass" — decorative only, ≤2% of the
+                                       page surface. Client reduced it from 4%.
+                                       Used for the eyebrow rule and nothing that
+                                       carries meaning. */
+  --color-gold: #ffbe5c;           /* warm accent — sparing (step numerals) */
+
+  --color-success: #2c5a64;
+  --color-warning: #8a5a00;
+  --color-error: #c0392b;          /* red is reserved for errors (design-system §3) */
+
+  /* Google review stars — the recognisable Google treatment, never the brand
+     colour (components.md §5). */
+  --color-google-star: #fbbc04;
+
+  /* ---- Type scale (fixed steps, not arbitrary sizes) ---- */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: clamp(2.5rem, 4vw + 1rem, 3.25rem);
+  --text-5xl: clamp(3rem, 5vw + 1rem, 4rem);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.65;   /* long-form reading, ~65ch measure */
+  --tracking-eyebrow: 0.14em;
+
+  /* ---- Spacing scale — every gap comes from this ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---- Radii ---- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ---- Elevation ---- */
+  --shadow-sm: 0 1px 2px rgba(20, 24, 28, 0.06), 0 1px 3px rgba(20, 24, 28, 0.05);
+  --shadow-md: 0 6px 20px rgba(20, 24, 28, 0.08);
+  --shadow-lg: 0 20px 50px rgba(22, 41, 61, 0.16);
+
+  /* ---- Layout ---- */
+  --container-max: 1200px;
+  --container-prose: 66ch;
+
+  /* ---- Breakpoints (named; used by components) ---- */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* ---- Motion ---- */
+  --dur-fast: 150ms;
+  --dur: 240ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-/* Scroll-triggered fade-in for sections. JS in Layout.astro adds
-   .is-visible the first time a section enters the viewport; it is never
-   removed, so sections stay visible once revealed. */
+body {
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+/* Links: colour carries the affordance. Underline is scoped to prose only
+   (design-system.md §6). */
+a { color: inherit; text-decoration: none; }
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.prose a:hover { color: var(--color-accent-hover); }
+
+/* Focus is never removed. */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* Shared layout helpers */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+@media (min-width: 768px) {
+  .container { padding-inline: var(--space-8); }
+}
+
+.section { padding-block: var(--space-24); }
+@media (max-width: 767px) {
+  .section { padding-block: var(--space-16); }
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+/* The one sanctioned use of Sea Glass — a short decorative rule. Decorative
+   only: the heading beneath must stand alone without it (design-system §4). */
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--color-seaglass);
+  flex: none;
+}
+
+/* Skip link — first focusable element (navigation.md §8) */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 200;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-150%);
+  transition: transform var(--dur) var(--ease);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Scroll-reveal — JS in Layout adds .is-visible once, never removes it. */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
 }
-
-.reveal-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal-on-scroll.is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  html { scroll-behavior: auto; }
+  .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
   }
 }

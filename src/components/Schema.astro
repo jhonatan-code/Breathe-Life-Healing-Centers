@@ -1,0 +1,64 @@
+---
+/**
+ * Homepage JSON-LD. Required: Organization, BreadcrumbList, FAQPage.
+ * Added: MedicalBusiness + aggregateRating (schema.md — Homepage row).
+ *
+ * - `specialty` is a real MedicalSpecialty member, full URL form. There is no
+ *   "addiction" member; addiction + mental health map to Psychiatric.
+ * - Every FAQ answer string is rendered verbatim on the page (same `faq` data),
+ *   so the markup matches the DOM.
+ * - aggregateRating uses the real supplied count from site.google.
+ */
+import { site } from "../config/site";
+import { faq } from "../data/home";
+
+const org = new URL("/#organization", site.domain).href;
+const faqItems = faq.groups.flatMap((g) => g.items);
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "MedicalBusiness"],
+      "@id": org,
+      name: site.name,
+      url: site.domain + "/",
+      email: site.email,
+      telephone: site.phoneDisplay,
+      medicalSpecialty: "https://schema.org/Psychiatric",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: site.address.line1,
+        addressLocality: site.address.city,
+        addressRegion: site.address.region,
+        postalCode: site.address.postalCode,
+        addressCountry: site.address.country,
+      },
+      areaServed: ["West Hollywood", "Beverly Hills", "Santa Monica", "Santa Barbara", "Los Angeles"],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: site.google.rating,
+        reviewCount: site.google.count,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((it) => ({
+        "@type": "Question",
+        name: it.q,
+        acceptedAnswer: { "@type": "Answer", text: it.a },
+      })),
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />
