@@ -13,7 +13,7 @@ const HREF = site.phoneHref;               // tel:+18772398684
 
 const title = "LGBTQ+ Addiction & Mental Health Treatment in Los Angeles | Breathe";
 const description =
-  "LGBTQIA+-affirming residential, detox, PHP and IOP treatment in Los Angeles. Built by people in recovery, for the LGBTQIA+ community first. In-network with most major insurers. Call 24/7.";
+  "LGBTQIA+-affirming addiction, detox and mental health treatment in Los Angeles — residential, PHP and IOP. In-network with most major insurers. Call 24/7.";
 
 const socials = [
   { label: "Facebook", icon: "facebook" }, { label: "Instagram", icon: "instagram" },
@@ -38,13 +38,13 @@ const S = {
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
 
-    <!-- ══════════════  HEADER  ══════════════ -->
-    <div style="position:sticky;top:0;z-index:50;background:#FFFFFF;border-bottom:1px solid #E2DED7;box-shadow:0 1px 3px rgba(20,24,28,0.06);">
-      <div style="max-width:1440px;margin:0 auto;padding:16px 37px;display:flex;align-items:center;gap:32px;justify-content:space-between;">
-        <a href="#top" style="flex:0 0 auto;display:flex;align-items:center;">
-          <img src="/Asset/Logo/Logo%20Breathe.svg" alt="Breathe Life Healing Centers" style="width:172px;display:block;" />
+    {/* ══════════════  HEADER  ══════════════ */}
+    <div class="site-hdr" style="position:sticky;top:0;z-index:50;background:#FFFFFF;border-bottom:1px solid #E2DED7;box-shadow:0 1px 3px rgba(20,24,28,0.06);">
+      <div class="hdr-row" style="max-width:1440px;margin:0 auto;padding:16px 37px;display:flex;align-items:center;gap:32px;justify-content:space-between;">
+        <a href="#top" class="hdr-logo" style="flex:0 0 auto;display:flex;align-items:center;">
+          <img src="/Asset/Logo/Logo%20Breathe.svg" alt="Breathe Life Healing Centers" width="172" height="34" style="width:172px;height:auto;display:block;" />
         </a>
-        <nav style="display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;font-size:15px;">
+        <nav id="m-nav" class="hdr-nav" aria-label="Primary" style="display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;font-size:15px;">
           <a class="nav-link" href="#treat" style="color:#14181C;padding:4px 0;">What We Treat</a>
           <a class="nav-link" href="#levels" style="color:#14181C;padding:4px 0;">Levels of Care</a>
           <a class="nav-link" href="#team" style="color:#14181C;padding:4px 0;">Meet the Team</a>
@@ -52,12 +52,20 @@ const S = {
           <a class="nav-link" href="#community" style="color:#14181C;padding:4px 0;">Community</a>
           <a class="nav-link" href="#reviews" style="color:#14181C;padding:4px 0;">Reviews</a>
           <a class="nav-link" href="#insurance" style="color:#14181C;padding:4px 0;">Insurance</a>
+          <a class="nav-link m-only-block" href={HREF} style="color:#33679C;font-weight:600;padding:4px 0;">Call 24/7: {PH}</a>
         </nav>
-        <a class="cta" href={HREF} style={`flex:0 0 auto;${S.ctaBlue}`}>Call Now: {PH}</a>
+        <a class="cta hdr-call d-only" href={HREF} style={`flex:0 0 auto;${S.ctaBlue}`}>Call Now: {PH}</a>
+        <button type="button" id="m-burger" class="hdr-burger m-only" aria-label="Menu" aria-expanded="false" aria-controls="m-nav">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
 
-    <!-- ══════════════  HERO  ══════════════ -->
+    <a class="m-callbar m-only" href={HREF} aria-label={`Call Breathe 24/7 at ${PH}`}>
+      <Icon name="phone" size={18} /> Call 24/7 · {PH}
+    </a>
+
+    {/* ══════════════  HERO  ══════════════ */}
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src={galleryImg("facility-16-facility-entrance-drive.jpg")} alt="Evening arrival at the Breathe Life facility entrance" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.92;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.92) 0%,rgba(22,41,61,0.78) 46%,rgba(22,41,61,0.34) 100%);"></div>
@@ -106,7 +114,7 @@ const S = {
               <input type="date" name="dob" required style="width:100%;box-sizing:border-box;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:11px 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
             </label>
             <label style="display:block;">
-              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Insurance carrier <i style="font-style:normal;color:#8B949C;">optional</i></span>
+              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Insurance carrier <i style="font-style:normal;color:#6B7480;">optional</i></span>
               <select name="carrier" style="width:100%;box-sizing:border-box;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:11px 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;">
                 <option>Select</option>
                 <option>Aetna</option><option>Anthem</option><option>Blue Cross Blue Shield</option>
@@ -115,7 +123,7 @@ const S = {
               </select>
             </label>
             <label style="display:block;">
-              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Membership / policy ID <i style="font-style:normal;color:#8B949C;">optional</i></span>
+              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Membership / policy ID <i style="font-style:normal;color:#6B7480;">optional</i></span>
               <input type="text" name="member_id" placeholder="If you have it to hand" style="width:100%;box-sizing:border-box;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:11px 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
             </label>
             <label style="grid-column:1 / -1;display:flex;gap:10px;align-items:flex-start;font-family:'Montserrat',sans-serif;font-size:13px;color:#646D76;">
@@ -130,7 +138,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  FACILITY  ══════════════ -->
+    {/* ══════════════  FACILITY  ══════════════ */}
     <section id="photos" data-screen-label="Facility" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="display:grid;gap:14px;margin-bottom:32px;">
@@ -169,7 +177,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  BELONGING  ══════════════ -->
+    {/* ══════════════  BELONGING  ══════════════ */}
     <section id="community" data-screen-label="Belonging" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:64px;align-items:center;">
         <div>
@@ -194,7 +202,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  WHAT WE TREAT  ══════════════ -->
+    {/* ══════════════  WHAT WE TREAT  ══════════════ */}
     <section id="treat" data-screen-label="What we treat" style="padding:70px 37px;background:#F0F5FA;border-top:1px solid #E2DED7;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -245,7 +253,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  LEVELS OF CARE  ══════════════ -->
+    {/* ══════════════  LEVELS OF CARE  ══════════════ */}
     <section id="levels" data-screen-label="Levels of care" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -273,7 +281,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  SIGNATURE SERVICES  ══════════════ -->
+    {/* ══════════════  SIGNATURE SERVICES  ══════════════ */}
     <section id="signature" data-screen-label="Signature services" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -304,7 +312,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  WHY BREATHE  ══════════════ -->
+    {/* ══════════════  WHY BREATHE  ══════════════ */}
     <section id="why" data-screen-label="Why Breathe" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -329,7 +337,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  TEAM  ══════════════ -->
+    {/* ══════════════  TEAM  ══════════════ */}
     <section id="team" data-screen-label="Team" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -358,7 +366,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  FOUR STEPS  ══════════════ -->
+    {/* ══════════════  FOUR STEPS  ══════════════ */}
     <section id="admissions" data-screen-label="Four steps" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -380,7 +388,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  REVIEWS  ══════════════ -->
+    {/* ══════════════  REVIEWS  ══════════════ */}
     <section id="reviews" data-screen-label="Reviews" style="padding:90px 37px;background:#F0F5FA;border-top:2px solid #1E2A4A;">
       <div style="max-width:1100px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:44px;">
@@ -391,9 +399,9 @@ const S = {
             <span style="display:flex;gap:2px;" aria-label={`${site.google.rating} out of 5, ${site.google.count} reviews`}>
               {Array.from({ length: 5 }).map(() => <span class="msym msym--fill" style="font-size:18px;color:#FFBE5C;">star</span>)}
             </span>
-            <span style="font-family:'Instrument Sans',sans-serif;font-size:15px;color:#7A828C;">{site.google.rating.toFixed(1)} · {site.google.count} Google reviews</span>
+            <span style="font-family:'Instrument Sans',sans-serif;font-size:15px;color:#5B6570;">{site.google.rating.toFixed(1)} · {site.google.count} Google reviews</span>
           </div>
-          <p style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#9AA1AB;margin:0;">Individual results may vary. Recovery is not guaranteed.</p>
+          <p style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#5B6570;margin:0;">Individual results may vary. Recovery is not guaranteed.</p>
         </div>
 
         <div class="reviews-carousel" id="rev-car" role="region" aria-roledescription="carousel" aria-label="Client reviews" tabindex="0" style="position:relative;">
@@ -439,7 +447,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  INSURANCE  ══════════════ -->
+    {/* ══════════════  INSURANCE  ══════════════ */}
     <section id="insurance" data-screen-label="Insurance" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Cost &amp; coverage</div>
@@ -455,7 +463,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  LOCATION  ══════════════ -->
+    {/* ══════════════  LOCATION  ══════════════ */}
     <section id="location" data-screen-label="Location" style="padding:70px 37px;background:#FDFBF8;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
@@ -503,7 +511,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  FAQ  ══════════════ -->
+    {/* ══════════════  FAQ  ══════════════ */}
     <section id="faq" data-screen-label="FAQ" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:start;">
         <div style="position:sticky;top:110px;">
@@ -548,7 +556,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  FINAL CTA  ══════════════ -->
+    {/* ══════════════  FINAL CTA  ══════════════ */}
     <section data-screen-label="Final CTA" style="position:relative;overflow:hidden;background:#16293D;">
       <img src="/Asset/Backgrounds/final-cta-bg.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.42;" />
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0.84),rgba(22,41,61,0.7));"></div>
@@ -560,7 +568,7 @@ const S = {
       </div>
     </section>
 
-    <!-- ══════════════  FOOTER  ══════════════ -->
+    {/* ══════════════  FOOTER  ══════════════ */}
     <footer id="footer" data-screen-label="Footer" style="background:#0F1F2E;color:#DCE6EF;padding:44px 37px 22px;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:32px 40px;padding-bottom:28px;border-bottom:1px solid #22405E;">
@@ -793,6 +801,21 @@ const S = {
       }, 150);
     });
     requestAnimationFrame(() => { measure(); place(false); syncDots(); });
+  })();
+
+  // ── Mobile nav toggle ───────────────────────────────────────────────────
+  (() => {
+    const burger = document.getElementById("m-burger");
+    const nav = document.getElementById("m-nav");
+    if (!burger || !nav) return;
+    const close = () => { burger.setAttribute("aria-expanded", "false"); nav.classList.remove("is-open"); };
+    burger.addEventListener("click", () => {
+      const open = burger.getAttribute("aria-expanded") === "true";
+      burger.setAttribute("aria-expanded", String(!open));
+      nav.classList.toggle("is-open", !open);
+    });
+    nav.addEventListener("click", (e) => { if ((e.target as HTMLElement).tagName === "A") close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   })();
 
   // ── Insurance form: no verified PHI destination yet (forms-ctm.md BLOCKED) ─

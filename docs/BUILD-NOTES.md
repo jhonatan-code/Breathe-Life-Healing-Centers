@@ -27,7 +27,7 @@ re-implemented as vanilla JS.
 
 | Design | This build |
 |---|---|
-| "The people behind Breathe" — Brad Lamm (Founder), Beck Gee, Deb Hughes | **Beck Gee only** + "Meet the full team →". Brad Lamm's bio is removed in the approved sitemap; founder positioning is an open client decision. |
+| "The people behind Breathe" — Brad Lamm (Founder), Beck Gee, Deb Hughes | ~~Beck Gee only~~ → **all three restored at client request (2026-08-31)**. ⚠️ This re-adds Brad Lamm to the homepage while the approved sitemap removes his bio page — the founder-positioning question is still formally open. |
 | "Why Breathe" card 8 — "Founder in Long-Term Recovery / Brad Lamm, in recovery since 2003" | replaced with **"Staff Who've Lived It"** (lived-experience pillar, no name). Same icon/layout. |
 | Hero: "Since 2013, we've built care around one fact:" | "We've built care around one fact:" — founding year unverified. |
 | Facility: "three residential homes… Twenty-two rooms and views across three homes" | "residential homes set in the quiet hills of Laurel Canyon" / "Slide through and tap any frame…" — no room/home counts (`what-not-to-publish.md §1`). |

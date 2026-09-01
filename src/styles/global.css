@@ -140,3 +140,107 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
   -webkit-font-smoothing: antialiased;
 }
 .msym--fill { font-variation-settings: "FILL" 1, "wght" 500; }
+
+/* ═══════════════════════════  MOBILE LAYER  ═══════════════════════════
+   The design comp is a 1440px desktop artboard with inline styles. This
+   block adapts it for phones/tablets: a real toggle nav, a persistent
+   call bar, tighter gutters, shorter hero, shorter tall images, no sticky
+   FAQ rail, and an overflow guard. */
+
+.m-only, .m-callbar { display: none; }
+
+html, body { overflow-x: hidden; }
+img { height: auto; }
+
+@media (max-width: 1024px) {
+  .d-only { display: none !important; }
+  .hdr-burger.m-only { display: inline-flex; }
+  .m-only-block { display: block !important; }
+  .m-callbar { display: flex; }
+
+  /* header */
+  .hdr-row { padding: 12px 18px !important; gap: 14px !important; }
+  .hdr-logo img { width: 140px !important; }
+  .site-hdr { position: sticky; }
+
+  .hdr-burger {
+    flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+  }
+  .hdr-burger span {
+    display: block; width: 24px; height: 2px; background: #14181c; border-radius: 2px;
+    transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  }
+  .hdr-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hdr-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hdr-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .hdr-nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column !important; align-items: stretch !important;
+    gap: 0 !important;
+    background: #fff; border-bottom: 1px solid #e2ded7;
+    box-shadow: 0 12px 24px rgba(20, 24, 28, 0.12);
+    padding: 4px 18px 14px;
+    max-height: 0; overflow: hidden; visibility: hidden;
+    transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s;
+  }
+  .hdr-nav.is-open { max-height: 82vh; overflow-y: auto; visibility: visible; }
+  .hdr-nav .nav-link {
+    padding: 13px 4px !important; font-size: 16px;
+    border-bottom: 1px solid #f1eee8;
+  }
+
+  /* persistent contact — reachable without opening the menu (navigation.md §2) */
+  .m-callbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+    align-items: center; justify-content: center; gap: 8px;
+    background: #33679c; color: #fff; font-weight: 700; font-size: 15px;
+    font-family: "Instrument Sans", sans-serif;
+    padding: 13px; box-shadow: 0 -4px 16px rgba(20, 24, 28, 0.16);
+  }
+  body { padding-bottom: 52px; }
+
+  /* gutters + vertical rhythm */
+  section, footer { padding-left: 18px !important; padding-right: 18px !important; }
+  section[style*="padding:70px 37px"],
+  section[style*="padding:90px 37px"] { padding-top: 44px !important; padding-bottom: 44px !important; }
+
+  /* hero */
+  #top > div { padding: 44px 18px !important; gap: 26px !important; }
+  #top h1 { font-size: clamp(27px, 8vw, 40px) !important; }
+
+  /* tall images shorter */
+  #gal-main { min-height: 240px !important; }
+  #levels img { min-height: 200px !important; }
+  #location [style*="height:440px"] { height: 300px !important; }
+
+  #community > div { gap: 26px !important; }
+
+  /* FAQ: drop the sticky rail on mobile */
+  #faq [style*="position:sticky"] { position: static !important; }
+
+  /* reviews: keep arrows inside the viewport */
+  #reviews { overflow: hidden; }
+  #rev-car [data-rev="prev"] { left: 0 !important; }
+  #rev-car [data-rev="next"] { right: 0 !important; }
+
+  /* signature marquee: card a touch narrower than the smallest phone */
+  #sig-track > div { flex-basis: 280px !important; }
+
+  /* footer bottom line stacks */
+  #footer > div > div:last-child {
+    flex-direction: column; align-items: flex-start !important; gap: 6px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #verify > div[style*="minmax(150px,1fr)"] { grid-template-columns: 1fr !important; }
+  #top a[style*="min-width:270px"], .m-callbar { font-size: 14px; }
+  .hdr-logo img { width: 128px !important; }
+}
+
+@media (max-width: 639px) {
+  /* single-up review cards — no need to clip the quote for card alignment */
+  .reviews-quote { height: auto !important; max-height: none !important; }
+}
