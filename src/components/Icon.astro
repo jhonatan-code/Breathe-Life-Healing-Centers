@@ -32,7 +32,7 @@ const paths: Record<string, string> = {
   star: "M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1L12 2Z",
   facebook: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z",
   instagram:
-    "M2 8a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6ZM16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4ZM17.5 6.5h.01",
+    "M8,2 H16 A6,6 0 0 1 22,8 V16 A6,6 0 0 1 16,22 H8 A6,6 0 0 1 2,16 V8 A6,6 0 0 1 8,2 Z M9,4 H15 A4,4 0 0 1 19,8 V16 A4,4 0 0 1 15,20 H9 A4,4 0 0 1 5,16 V8 A4,4 0 0 1 9,4 Z M12,8 A4,4 0 1 1 12,16 A4,4 0 1 1 12,8 Z M12,10 A2,2 0 1 1 12,14 A2,2 0 1 1 12,10 Z M17.5,5.4 A1.1,1.1 0 1 1 17.5,7.6 A1.1,1.1 0 1 1 17.5,5.4 Z",
   linkedin:
     "M4 4h4v16H4zM4 4h4v4H4zM10 9h4v2h.05A4 4 0 0 1 20 12v8h-4v-7a2 2 0 0 0-4 0v7h-4z",
   youtube:
@@ -47,6 +47,9 @@ const paths: Record<string, string> = {
 
 const d = paths[name] ?? "";
 const filled = ["star", "facebook", "instagram", "linkedin", "youtube", "tiktok", "x-twitter", "bluesky", "pinterest", "heart"].includes(name);
+// The Instagram glyph is built from nested ring/hole subpaths (rounded-square
+// frame, lens circle, flash dot) — needs evenodd or the holes fill solid.
+const fillRule = name === "instagram" ? "evenodd" : undefined;
 ---
 
 <svg
@@ -62,5 +65,5 @@ const filled = ["star", "facebook", "instagram", "linkedin", "youtube", "tiktok"
   aria-hidden="true"
   focusable="false"
 >
-  <path d={d}></path>
+  <path d={d} fill-rule={fillRule}></path>
 </svg>

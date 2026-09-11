@@ -1,0 +1,376 @@
+---
+/**
+ * /about/testimonials/ — rebuilt per docs/content/Breathe_Life_Testimonials_Page_Brief.docx
+ * (2026-09-10). The brief's own headline finding: the live page was "one
+ * long, unorganized list" despite holding dozens of real, first-party,
+ * directly-submitted testimonials (separate from the 22 Google reviews
+ * SiteReviews.astro already carries). This rewrite organizes them into the
+ * brief's four categories (tabs, same interaction pattern as the Our Team
+ * page's department tabs) and keeps <SiteReviews /> for the Google-review
+ * carousel per this session's explicit request to include it.
+ *
+ * SOURCING: the brief itself only quotes one short excerpt per category —
+ * it explicitly defers to "the BLHC Content Client Profile (Jasmine's
+ * document)" as the authoritative full text, which isn't available in this
+ * repo. Per this project's standing rule, the official live site
+ * (breathelifehealingcenters.com/about/testimonials/) was checked instead —
+ * it carries the complete, verbatim testimonial for every person the brief
+ * names in these four categories, so nothing here is invented; all quotes
+ * are copied exactly from that page.
+ *
+ * ⚠️ ONE CORRECTION TO THE BRIEF: the brief attributes "Breathe's Family
+ * Program services and ongoing family support helped our family better
+ * communicate with each other and develop a family plan which made our
+ * daughter's return home seamless." to "Ken + Connie". On the official
+ * site that exact sentence is actually from a different, real testimonial
+ * — "Elissa T." (a distinct 90-day-stay family story; Ken + Connie's own
+ * real quote is about the Family Workshop and is used separately below).
+ * Flagging this rather than silently either mis-attributing a real
+ * person's words or dropping the sentence the brief clearly wanted
+ * featured — Elissa T.'s testimonial is included here under her own name
+ * with her own words, and Ken + Connie keep theirs.
+ *
+ * ⚠️ EATING DISORDER PROGRAM FLAG (brief, verbatim): "Recommend surfacing
+ * this to Jasmine directly before finalizing this page or the eating
+ * disorders page... Do not finalize until Jasmine confirms how the eating
+ * disorder program should be positioned." Handled conservatively: the
+ * three real, already-published testimonials that describe this program
+ * (Shaun C., Kelly, Mike) are shown as testimonials, same as every other
+ * category — but no NEW copy asserting a formal, named "Eating Disorder
+ * Program" structure has been added anywhere on this page. That
+ * positioning decision is still open and unresolved by this page.
+ *
+ * BRAD LAMM: James King's testimonial mentions him in passing ("thanks to
+ * Brad at smoking session group he hosted") — kept verbatim, same
+ * reasoning as the previous version of this page: the review is about the
+ * reviewer's own recovery, not centered on Brad, consistent with the
+ * brief's own instruction to avoid centering him. No other Brad-adjacent
+ * testimonial from the official site (e.g. "Cathy S.") was added — the
+ * brief doesn't name her, and the broader reviews-centering-Brad-Lamm
+ * question is still a separate open decision (docs/00-INVENTORY.md item
+ * 10), not resolved by this page.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+
+const title = "Testimonials | Real Stories From Real Recovery | Breathe Life Healing Centers";
+const description = "Real, first-person stories from Breathe Life Healing Centers clients, families, and professional referrals — organized by the kind of story closest to your own situation.";
+
+interface Entry { name: string; quote: string }
+interface Category {
+  id: string;
+  label: string;
+  blurb: string;
+  featured: Entry;
+  entries: Entry[];
+  cta?: { label: string; href: string };
+}
+
+// Every quote below is copied verbatim from the official live site
+// (breathelifehealingcenters.com/about/testimonials/, checked 2026-09-10) —
+// see the frontmatter comment above for sourcing and the one attribution
+// correction made to the brief.
+const categories: Category[] = [
+  {
+    id: "individual-recovery",
+    label: "Individual Recovery",
+    blurb: "General client stories, not centered on family or eating-disorder programming.",
+    featured: { name: "Ashley Mueller", quote: "This place saved my life. The clinical team really cares about their clients." },
+    entries: [
+      { name: "Ashley Mueller", quote: "This place saved my life. The clinical team really cares about their clients. Spent 2 separate 6 months stints at Breathe from Feb 2022-July 2023. Cannot recommend this place enough." },
+      { name: "Dariel Navarro", quote: "I had a beautiful eye awaken experience at Breathe. Valerio was a top notch therapist who can read you inside out and give such insightful advice. Blake was amazing as well and last but not least Gracie the CM was so compassionate and amazing. I personally didn't finish treatment unfortunately but am going to another facility and hopefully can use the amazing tools I was able to get in Breathe. I am eternally grateful for the sense of community I felt and was touched by the place deeply. I unfortunately lied to myself and didn't take advantage of them to the full extent that I should have but I am excited on the journey I am going to go on with the skills I learned there. Thank you Breathe for giving me a beautiful new outlook on life, and last but not least thank you to the amazing nurses Neenah and Lexus — you were top notch, personable and such beautiful souls. I have not one bad thing to say other than my lack of accountability on my part, but something I learned at Breathe from another amazing CM Hassan is: things happen for me, not to me. Please go here if you need help and take advantage of it to the full degree that I couldn't." },
+      { name: "James King", quote: "I went to Breathe on Jan 9th 2021. I almost have 3 years in recovery and I was angry at Breathe, depressed, lost — lost everything, broke my addiction to get out of a serious situation I was in. My family wanted nothing to do with me and today it's different — I made amends with my parents, aunt, uncle, cousins and friends. I managed to quit smoking at Breathe thanks to Brad at a smoking session group he hosted. I have rebuilt my life and I get to be there for my family. Breathe has prepared me for the future — it was not a vacation, give it time, one day at a time! Great staff and you will develop wonderful relationships. Thank you Breathe." },
+      { name: "Edil Visli Cordova", quote: "My experience with Breathe was amazing and truly life-changing. The therapists are highly educated and helped me explore my issues deeply. Kathleen, the clinical director, is remarkable, and her group sessions are among my favorite memories. The campus is beautiful and serene, and the food was excellent. The alumni program keeps me connected, and I've made some lifelong friends there. I would absolutely recommend Breathe to anyone who is struggling." },
+      { name: "Robby N.", quote: "Breathe Life Healing Center was an amazing experience for me. I attended Breathe's 90-day program and learned so much about my life and my recovery. The weekly Life Skills Workshops gave me great guidance on aspects of my life that were still in chaos from my problem. Each phase at Breathe gave me a bit more freedom and I now realize that is exactly what I needed to be successful in my recovery. I was able to see my family and friends while I was in Breathe. At the end of my program, though I felt ready to take on the next step in my life, I was sad that I would not be waking up to the amazing staff and clients at Breathe." },
+      { name: "Pauline", quote: "Hello from Milwaukee, where we're back home and together after our family member was at Breathe for two months. Thank you all of you at Breathe. We got so much help along the way with Family Class (we love Rawly and Lauren!) that we just keep thanking our friends who told us about this place. We first called Breathe almost 1.25 years ago, but we couldn't get our son to agree to go, so here we are all this time past and we finally were able to get him in to get help after his college decided he couldn't continue in school with his problems. The financial aspects of treatment were terrifying for our whole family but we got together for the deductible and made it all work out just fine. The best part is that he was so distant and isolated before, and now after treatment he has found a new sort of himself that is astonishing to me each day. He is now in recovery 5 months, the longest stretch since he was in high school. We wish we had gone to Family Week. We are thinking of going back for that next month at their invitation. Plus they don't charge extra for that week-long workshop." },
+      { name: "Keira D.", quote: "Breathe changed my family's life. The compassion and determination they have for their clients and their families is unsurpassed. This is where you go to do the hard work in an environment of complete support. The positive experience goes past the end of treatment with local alumni that act as the ultimate support system. Highly recommend." },
+    ],
+  },
+  {
+    id: "family-program",
+    label: "Family Program",
+    blurb: "The largest single group of stories in our archive — families on both sides of treatment.",
+    featured: { name: "Elissa T.", quote: "Breathe's Family Program services and ongoing family support helped our family better communicate with each other and develop a family plan which made our daughter's return home seamless." },
+    cta: { label: "Learn About Our Family Program", href: "/programs/family-program/" },
+    entries: [
+      { name: "Elissa T.", quote: "Breathe Life Healing Center gave my family hope and helped us sleep better at night knowing our daughter was safe. My husband and I had many fears about how things would change once our daughter was out of treatment. We had so many unanswered questions. Do we remove all of the alcohol from our home? Do we set a curfew? Do we help our daughter financially? What do we do if our daughter gets upset or angry? All of these questions were answered with Breathe. During her 90-day stay at Breathe, our daughter received exactly what she needed in terms of coping skills. My husband and I no longer felt responsible for teaching these things to her. Breathe's Family Program services and ongoing family support helped our family better communicate with each other and develop a family plan which made our daughter's return home seamless. Today, our daughter is a different person. My family and I do not walk on eggshells. We have a broad and realistic outlook on recovery and the anxiety has been removed. Two weeks ago, our daughter enrolled in fall classes and things are going well." },
+      { name: "Bethanne B.", quote: "Going to Breathe Life Healing Center was the biggest leap of faith I ever took, and what I received was the greatest reward beyond my wildest dreams — my life back, my passion for living reignited, the love and respect for myself and others, truly believing I am worthy of recovery. My husband got his wife back, my children got back their mother, my family got their sister back, my parents got their child back — but the best gift of all is when I am alone with myself I do not feel ashamed of who I am. Today I smile at who I see in the mirror looking back at me. That is priceless! I will be forever grateful to the kindness, love and care I received at Breathe. I was broken, desperately looking for help when I came to Breathe — today, 1 year 8 months later, I am filled with love, life and living my dreams! Thank you Breathe! Please consider giving yourself the gift of recovery at this amazing treatment center — it was the best decision I ever made." },
+      { name: "Mark R.", quote: "Breathe Life Healing Center is not a typical transitional home. After attending treatment in New England for 30 days, it was recommended that I receive transitional support to make sure I was ready for the \"real world.\" I went to Breathe just because I was taking direction. I am so glad that I made the decision. The Breathe staff was compassionate and professional. The house was beautiful and cozy. The food was delicious, and each day brought more clarity to my life and the goals I wanted to achieve. Breathe helped me organize my life outside of treatment so it is a safe place for me and the people around me. I would recommend Breathe to anyone who is needing a transitional program or a sober living." },
+      { name: "Ken + Connie", quote: "Returning home from the Family Workshop we are still on cloud nine and blown away by Kathleen Murphy's work with us. I must say, after having four adult kids go through rehab now, Breathe's program has been the best, bar none." },
+      { name: "Cory + Karen", quote: "Thank you so much. We are so much better and stronger as the result of your help and hard lines. We needed more than most families I bet, and thank goodness you didn't give up on Ryan. With eternal gratitude, Cory + Karen." },
+      { name: "Robby M.", quote: "My wife Caroline finished the program with Breathe West Hollywood just after they had opened I think, and we had a strong experience there so thank you so much to you all. Breathe Life worked with her insurance nicely and helped do all the paperwork to be on leave from work. Caroline and her mom and me participated in the five-day family program which was super meaningful to each of us in quite different ways. She would have liked more coffee I know, but other than that, we had a strong family experience. I say this seriously, I hope we never have to do it again! Though if she had a relapse we would call you back in a moment. She still participates with the alumni programs so thanks a lot for that too. We got our family back." },
+      { name: "Elizabeth", quote: "Thanks for helping our family so much. The weekly Family Class really helped us begin to communicate with one another differently, so that was very helpful. We didn't really think we were going to attend the week-long Family Workshop but finally did with our son's therapist Shane challenging us to do it. We had been to three other family programs over the years and quite frankly my husband was mad and I was just so tired by all of it from the addiction that we weren't sure we would attend. Finally, we decided to and it helped us so very much. Thank you Kathleen Murphy for helping us so much through our anger and pain to a new beginning with our son. By the way, he just celebrated his one-year sober anniversary, so that is saying something. After all the rehabs etc., he's finally stable and a good father to his girls like he wanted to be, and we are doing well as a family. Thank you Breathe team." },
+      { name: "Jack + Tess", quote: "Not only was this time in a program the best my daughter has had, it saved her marriage, that is for sure. Thank you Andrew, Mackenzie and Jeff Rock for making the trudge easier. I was so scared the day I first called and talked to Jeff, and then he said \"Breathe, you will get through this, I promise.\" We really appreciated the family class too, with Rawley." },
+    ],
+  },
+  {
+    id: "eating-disorder-co-occurring",
+    label: "Eating Disorder & Co-Occurring Care",
+    blurb: "Stories from clients whose treatment addressed food, body image, and substance use together.",
+    featured: { name: "Shaun C.", quote: "I did 90 days in the binge eating disorder program 18 months ago... Kathleen Murphy (clinical director) and David Wiss (dietitian nutritionist) were the two main reasons for my success." },
+    entries: [
+      { name: "Shaun C.", quote: "I did 90 days in the binge eating disorder program 18 months ago. I also have a history of drug and alcohol addiction. My experience was positive! Kathleen Murphy (clinical director) and David Wiss (dietitian nutritionist) were the two main reasons for my success. The program was at times challenging but ultimately very rewarding, as I have maintained my weight loss and feel much more grounded in my personal and professional life. Working my program and maintaining my food plan is second nature to me now. Profoundly grateful." },
+      { name: "Kelly", quote: "I'm going on 6 months of sobriety after leaving Breathe for treatment of anorexia and alcohol abuse. It may not sound like much to you, but for this alcoholic it's a miracle! After almost 10 years of trying to take my life back and failing to stay sober for even one month outside of treatment or pregnancy, the treatment, tools, people and support I received at Breathe stays with me. It has impacted me on every level. I have sought lasting sobriety in countless treatment centers, doctors, people, places and things, all to no avail. This time there has been a shift — a shift that I wholeheartedly feel is a result of the experiences I had while at Breathe. It's difficult to describe in words the opportunity for sobriety that Breathe provided. I was a hopeless alcoholic battling a stout eating disorder when I entered Breathe, and today I have a new found richness in life, my higher power, and in myself. I am in acceptance. Today I am enough!" },
+      { name: "Mike", quote: "My time at Breathe was transformational for me. I graduated about a year ago after three months in the food program and have continued to apply what I learned. People do not take food addiction seriously, and to go into a program was a hard decision to make. Addicts are control freaks, and to think that it is a vacation is far from true — but they have a nutritional program which is by far the best I have encountered in years of nutritional education, and a clinical program that really addresses addiction and trauma in a realistic way. The accommodations are wonderful and there is a true commitment to health (mental, physical and spiritual) and exercise. My main reason for continual lack of control around food was a chronic pain condition. I became aware that the pain and food were separate and continue to follow the nutritional guidelines I learned at Breathe. Thank you all for dedicating your lives to helping others reclaim theirs." },
+    ],
+  },
+  {
+    id: "professional-referral",
+    label: "Professional & Referral",
+    blurb: "From the clinicians and professionals who refer clients to us.",
+    featured: { name: "Randy Moraitis", quote: "As a professional in the field of behavioral health care, I highly recommend Breathe and would feel very comfortable sending my own family members there." },
+    entries: [
+      { name: "Randy Moraitis", quote: "As a professional in the field of behavioral health care, I highly recommend Breathe and would feel very comfortable sending my own family members there. This program is clinically excellent, truly caring, and beautifully designed." },
+      { name: "James Wagstaff", quote: "I have referred two people to Breathe and I have had the pleasure to hear their staff speak at conferences. I have been impressed with the holistic approach they take at helping people. I would recommend this fantastic facility to anyone who is looking for help. They care!" },
+      { name: "Jon Reinish", quote: "Breathe's compassion and focus was a great help to somebody very important to me during a hard time — and their personnel were caring and communicative to loved ones." },
+    ],
+  },
+];
+
+// Long-form quotes get a "read the full story" reveal instead of a wall of
+// text; short ones just render in full. Split at a word boundary so the
+// preview never cuts mid-word.
+const LONG = 260;
+function splitQuote(quote: string) {
+  if (quote.length <= LONG) return { preview: quote, rest: null as string | null };
+  const cut = quote.lastIndexOf(" ", LONG);
+  const idx = cut > 0 ? cut : LONG;
+  return { preview: quote.slice(0, idx), rest: quote.slice(idx).trim() };
+}
+
+const faqGroups = [
+  {
+    items: [
+      { q: "Are these real reviews?", a: "Yes. Every testimonial on this page was submitted directly by a client, family member, or professional referral source." },
+      { q: "Can I share my own story?", a: "Yes — reach out through our contact page. We'd welcome hearing from you." },
+      { q: "Do you have reviews on other platforms too?", a: "Yes, you can find additional reviews on our Google Business profile." },
+      { q: "Is my family's experience going to look like these?", a: "Every situation is different. These stories reflect real outcomes, but your treatment plan will be built around your specific needs." },
+    ],
+  },
+];
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+};
+
+const pageUrl = new URL("/about/testimonials/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Testimonials", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqGroups[0].items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/testimonials/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-19-outdoor-dining-deck.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:80px 37px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+          <a href="/about/" style="color:#7FB3BC;">About</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Testimonials
+        </nav>
+        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:22ch;text-wrap:balance;">Real Stories From Real Recovery.</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 26px;max-width:56ch;">Not every story looks the same. These are told in the words of the people and families who lived them.</p>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;">
+          <img src="/Asset/Image%20reviews/Google%20Logo.svg" alt="Google" style="height:26px;width:auto;display:block;" />
+          <span style="display:flex;gap:2px;" aria-label={`${site.google.rating} out of 5, ${site.google.count} reviews`}>
+            {Array.from({ length: 5 }).map(() => (
+              <svg viewBox="0 0 24 24" fill="#FFBE5C" width="18" height="18">
+                <path d="m12 2 3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2Z" />
+              </svg>
+            ))}
+          </span>
+          <span style="font-family:'Instrument Sans',sans-serif;font-size:16px;color:#DCE6EF;">{site.google.rating.toFixed(1)} · {site.google.count} Google reviews</span>
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    {/* ══════════════  CATEGORIZED TESTIMONIALS  ══════════════ */}
+    <section data-screen-label="Testimonials by category" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1300px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:12px;">
+          <div style={S.eyebrow}>In their own words</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Find the story closest to yours</h2>
+        </div>
+        <p style="text-align:center;font-family:'Instrument Sans',sans-serif;font-size:12px;color:#5B6570;margin:0 0 40px;">Every journey looks different — yours will be built around exactly what you need.</p>
+
+        <div id="testi-tabs" class="no-scrollbar" role="tablist" aria-label="Testimonial category" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:44px;">
+          {categories.map((c, i) => (
+            <button type="button" class={`testi-tab-btn${i === 0 ? " is-active" : ""}`} data-tab={c.id} role="tab" aria-selected={i === 0 ? "true" : "false"}>{c.label}</button>
+          ))}
+        </div>
+
+        {categories.map((c, i) => (
+          <div class="testi-panel" data-tab-panel={c.id} hidden={i !== 0}>
+            <div style="text-align:center;max-width:640px;margin:0 auto 36px;">
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#646D76;margin:0;">{c.blurb}</p>
+            </div>
+
+            <blockquote style="margin:0 auto 40px;padding:0;border:0;max-width:760px;text-align:center;">
+              <p style="font-family:'Instrument Sans',sans-serif;font-size:clamp(22px,2.6vw,32px);line-height:1.38;letter-spacing:-0.012em;font-weight:600;color:#16293D;margin:0 0 14px;">“{c.featured.quote}”</p>
+              <footer style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;">— {c.featured.name}</footer>
+            </blockquote>
+
+            {c.cta && (
+              <div style="text-align:center;margin-bottom:40px;">
+                <a href={c.cta.href} style="display:inline-flex;align-items:center;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;border-bottom:1px solid rgba(51,103,156,0.35);padding-bottom:2px;">{c.cta.label} →</a>
+              </div>
+            )}
+
+            <div style="columns:3 340px;column-gap:24px;">
+              {c.entries.map((entry) => {
+                const { preview, rest } = splitQuote(entry.quote);
+                return (
+                  <div class="testi-card" style="break-inside:avoid;margin-bottom:24px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:24px;">
+                    <div style="display:flex;gap:2px;margin-bottom:14px;" aria-label="Five out of five stars">
+                      {Array.from({ length: 5 }).map(() => (
+                        <svg viewBox="0 0 24 24" fill="#FFBE5C" width="15" height="15">
+                          <path d="m12 2 3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2Z" />
+                        </svg>
+                      ))}
+                    </div>
+                    {rest ? (
+                      <details>
+                        <summary style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3A444D;margin:0 0 8px;cursor:pointer;list-style:none;">
+                          “{preview}…” <span style="color:#33679C;font-weight:600;white-space:nowrap;">Read full story</span>
+                        </summary>
+                        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3A444D;margin:0 0 18px;">{rest}</p>
+                      </details>
+                    ) : (
+                      <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3A444D;margin:0 0 18px;">“{preview}”</p>
+                    )}
+                    <div style="font-size:15px;font-weight:600;letter-spacing:-0.01em;color:#14181C;">{entry.name}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <SiteFAQ
+      eyebrow="Questions"
+      heading="Common questions about these stories"
+      intro="A few things people ask before reaching out."
+      groups={faqGroups}
+    />
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-03-clinical-office.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<style>
+  .testi-tab-btn {
+    font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 500;
+    padding: 9px 16px; border-radius: 999px; border: 1px solid #C9D2DA;
+    background: #FFFFFF; color: #3A444D; cursor: pointer;
+    box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.05);
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  }
+  .testi-tab-btn:hover {
+    border-color: #33679C; color: #33679C; transform: translateY(-1px);
+    box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.05),
+      0 2px 5px rgba(20,24,28,0.08), 0 8px 18px rgba(20,24,28,0.10);
+  }
+  .testi-tab-btn.is-active {
+    background: #33679C; border-color: rgba(255,255,255,0.55); color: #FFFFFF;
+    box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.35), inset 1px -1px 0.5px rgba(0,0,0,0.18);
+  }
+  .testi-panel[hidden] { display: none; }
+
+  .testi-card summary::-webkit-details-marker { display: none; }
+  .testi-card summary::marker { content: ""; }
+
+  @media (max-width: 1024px) {
+    #testi-tabs {
+      flex-wrap: nowrap !important;
+      justify-content: flex-start !important;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      margin-left: -20px; margin-right: -20px;
+      padding: 2px 20px 10px !important;
+    }
+    #testi-tabs .testi-tab-btn { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testi-tab-btn, .testi-tab-btn:hover { transition: none; transform: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const btns = Array.from(document.querySelectorAll<HTMLButtonElement>('.testi-tab-btn'));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('.testi-panel'));
+    if (!btns.length || !panels.length) return;
+    btns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        btns.forEach((b) => { b.classList.toggle('is-active', b === btn); b.setAttribute('aria-selected', String(b === btn)); });
+        panels.forEach((p) => { p.hidden = p.dataset.tabPanel !== tab; });
+      });
+    });
+  })();
+
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

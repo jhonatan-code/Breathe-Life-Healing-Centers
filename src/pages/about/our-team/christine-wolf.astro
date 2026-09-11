@@ -1,0 +1,83 @@
+---
+/**
+ * /about/our-team/christine-wolf/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/christine-wolf-cadc-ii-icadc/,
+ * checked 2026-09-02). Not in src/data/home.ts's `team` array, so
+ * name/role/photo/badge are defined directly below rather than pulled from
+ * it — mirrors beck-gee.astro otherwise.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Christine Wolf, CADC-II, ICADC";
+const role = "IOP Program Manager";
+const badge = "CADC-II, ICADC";
+const photo = "/Asset/Our%20Team/christine-wolf.jpg";
+
+const fullBio = [
+  `I've always been drawn to helping others, and over the years, I've had the privilege of earning my credentials as a CADC II, ICADC, Certified Transpersonal Energy Healer, and Reiki Master. As Program Director, I've found a deep sense of purpose in my work. But it wasn't always clear to me how I would get here. My journey has been shaped by my belief that, in a small way, we can all help end suffering and offer the gift of healing to those who need it most.`,
+  `The most rewarding part of my work is watching the "lightbulb" go on for someone—seeing that moment when everything clicks, when a person finally experiences a breakthrough. There's a joy in that moment that is hard to describe. It's as if you can almost see their future unfolding in front of them. Being a part of that transformation is truly a gift.`,
+  `I've always believed in the power of healing through connection, and my approach to self-care is no different. Meditation, prayer, and exercise are key parts of my daily routine. They help me stay grounded and clear-headed, so I can show up for my clients in the best way possible.`,
+  `A couple of quotes guide my work and my life. Rumi's words, "The wound is where the light enters you," remind me that we can often find strength in our struggles. The other, "Remember that you are a spirit having a human experience," keeps me connected to the bigger picture, reminding me that we are all more than the challenges we face.`,
+  `To anyone considering coming to Breathe, I want you to know that this is a safe place to heal. Here, you can truly be yourself, without judgment or fear. It's a place where you can take the time to find your path, surrounded by a supportive community.`,
+  `When I'm not working, I enjoy movies, reading, exercising, and listening to music. I find peace in looking at art, playing with animals, and continuing my own journey of meditation and learning. Each of these activities helps me stay connected to my own well-being so I can show up fully for those who need my help.`,
+];
+
+const title = "Christine Wolf, CADC-II, ICADC | IOP Program Manager | Breathe Life Healing Centers";
+const description = "Christine Wolf is IOP Program Manager at Breathe Life Healing Centers, drawing on years of clinical experience to guide clients toward breakthrough moments in recovery.";
+
+const pageUrl = new URL("/about/our-team/christine-wolf/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/christine-wolf/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="christine-wolf" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-12-residence-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

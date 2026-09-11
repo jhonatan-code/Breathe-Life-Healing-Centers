@@ -1,0 +1,50 @@
+---
+/**
+ * Stand-in for a "feature image" that never uses stock photography — a
+ * gradient tied to the post's real category plus a soft wave line (a literal
+ * nod to "Breathe"), generated per-post from its slug so a grid of cards
+ * doesn't look identical within a category. Approved in the Artifact
+ * preview (blog-templates-preview.html) before this was built.
+ */
+interface Props {
+  category: 'understanding-addiction' | 'understanding-trauma' | 'for-the-family' | 'news';
+  seed?: string;
+  radius?: string;
+}
+const { category, seed = '', radius = '14px 14px 0 0' } = Astro.props;
+
+const PALETTES: Record<Props['category'], [string, string]> = {
+  'understanding-addiction': ['#2C5A64', '#7FB3BC'],
+  'understanding-trauma': ['#16293D', '#7FB3BC'],
+  'for-the-family': ['#16293D', '#33679C'],
+  news: ['#3A444D', '#7FB3BC'],
+};
+const [c0, c1] = PALETTES[category];
+
+// Deterministic small offset from the slug so tiles in the same category
+// still look distinct from one another, without any randomness that would
+// change on every render.
+let hash = 0;
+for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+const offset = (hash % 5) * 40;
+const gradId = `tile-${(seed || category).replace(/[^a-z0-9]/gi, '')}`;
+---
+
+<div class="category-tile" style={`border-radius:${radius};`}>
+  <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true">
+    <defs>
+      <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color={c0} />
+        <stop offset="100%" stop-color={c1} />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="225" fill={`url(#${gradId})`} />
+    <path d={`M-20,${120 + offset * 0.3} C 80,${60 + offset} 160,${190 - offset} 260,${120 + offset * 0.4} S 380,${60 + offset * 0.6} 440,130`} fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2" />
+    <path d={`M-20,${170 + offset * 0.2} C 90,${110 + offset * 0.6} 170,${220 - offset * 0.5} 270,${160 + offset * 0.3} S 390,110 440,175`} fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5" />
+  </svg>
+</div>
+
+<style>
+  .category-tile { position: relative; overflow: hidden; aspect-ratio: 16/9; }
+  .category-tile svg { width: 100%; height: 100%; display: block; }
+</style>

@@ -1,0 +1,86 @@
+---
+/**
+ * /about/our-team/blake-dinger/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/blake-dinger-cadc/, checked
+ * 2026-09-02). Photo/badge/role are defined locally since he isn't in
+ * data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Blake Dinger, CADC",
+  role: "Counselor",
+  photo: "/Asset/Our%20Team/blake-dinger.jpg",
+  badge: "CADC",
+};
+
+const fullBio = [
+  "I'm from Bossier City, Louisiana, and my journey to becoming a counselor has been shaped by my own struggles with addiction. I spent 10 years going in and out of rehab before I finally got sober. Now, as a CDAC and counselor, I feel incredibly fortunate to be able to share my experience and offer hope to others who are facing the same challenges. Being able to walk people through their own recovery process is both a privilege and an honor.",
+  "Currently, I'm undergoing Brainspotting training, which I'm excited to incorporate into my practice. This technique is a powerful way to help clients process trauma and emotional pain, and I'm eager to use it to enhance the work I do with those I serve.",
+  "The most rewarding part of my work is seeing the lights come on in clients—the moment they realize that living sober is not only possible, but it's also something that can bring joy and fulfillment. Being there to celebrate that transformation with them is something I cherish deeply.",
+  "In my own life, I practice self-care through physical exercise, prayer, meditation, and attending 12-step meetings. Writing in my journal also helps me process my thoughts and keep myself grounded.",
+  "A mantra that has always guided me is: \"If I can get sober and stay sober, anyone can.\" I truly believe this to be true, and it's one of the reasons I'm so passionate about helping others find their way to recovery.",
+  "Music is a huge part of my life. I started playing piano and singing when I was 13 years old. I incorporate music into some of my groups at Breathe. If I had to listen to only one song for 24 hours, it would be \"Heaven's Secret\"—it's a song that always lifts my spirits and reminds me of the beauty of life.",
+  "If you're thinking about coming to Breathe, I want you to know that it will be the best decision of your life. Giving yourself the chance to heal is the first step toward a brighter future, and we're here to support you every step of the way.",
+  "When I'm not working, you'll find me walking my dog, Noodle, going to the movies, singing and playing my piano, or making dinner with my partner. I am also very involved in the recovery community and still go to meetings and have sponsees. These simple moments of connection and peace are some of my favorite ways to unwind and recharge.",
+];
+
+const title = "Blake Dinger, CADC | Counselor | Breathe Life Healing Centers";
+const description = "Blake Dinger, CADC, is a Counselor at Breathe Life Healing Centers — in long-term recovery himself, he brings that lived experience into every group and session.";
+
+const pageUrl = new URL("/about/our-team/blake-dinger/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/blake-dinger/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="blake-dinger" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-08-poolside-grotto-overlook.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

@@ -1,0 +1,82 @@
+---
+/**
+ * /about/our-team/rachel-aiono/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/rachel-aiono-asw/, checked
+ * 2026-09-02). Not in src/data/home.ts's `team` array, so
+ * name/role/photo/badge are defined directly below rather than pulled from
+ * it — mirrors beck-gee.astro otherwise.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Rachel Aiono, ASW";
+const role = "Therapist";
+const badge = "ASW";
+const photo = "/Asset/Our%20Team/rachel-aiono.jpg";
+
+const fullBio = [
+  `I've always been fascinated by the human capacity for healing. It's what led me from my home state of Arizona to study social work at Arizona State University, where I earned both my bachelor's and master's degrees. But education was just the beginning—what truly fuels me is witnessing transformation in real time.`,
+  `As a therapist, I get to be a small part of someone's journey toward reclaiming their life. There is something profoundly moving about watching a person begin to trust themselves again, to break free from patterns that once felt unshakable, and to find inner peace after so much struggle. Healing isn't about erasing the past—it's about no longer letting it define you. That belief guides everything I do.`,
+  `Of course, this work requires balance. I take care of my own well-being by practicing yoga, meditating, and getting lost in a good book. There's something about movement and mindfulness that keeps me grounded, and nothing clears my mind quite like a long walk by the beach. And if I had to pick one song to have on repeat right now? It's a Chappell Roan track that lifts the spirit.`,
+  `For anyone considering Breathe, I want you to know this: "You are more than your addiction, your disorder, or your past." Here, we look beyond symptoms—we work to understand what's underneath, to heal at the root. This is a place where you will be seen, heard, and supported in every aspect of your recovery.`,
+  `When I'm not working, you'll probably find me hiking, reading, or spending time with my family. Whether it's in my personal life or in my work, I believe in the power of growth, change, and the idea that no matter how deep the damage, it does not have to control your future. Healing is always possible.`,
+];
+
+const title = "Rachel Aiono, ASW | Therapist | Breathe Life Healing Centers";
+const description = "Rachel Aiono is a Therapist at Breathe Life Healing Centers, helping clients look beyond symptoms to heal at the root and reclaim their lives.";
+
+const pageUrl = new URL("/about/our-team/rachel-aiono/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/rachel-aiono/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="rachel-aiono" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-12-residence-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

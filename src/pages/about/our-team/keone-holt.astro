@@ -1,0 +1,86 @@
+---
+/**
+ * /about/our-team/keone-holt/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/keone-holt/, checked 2026-09-02) —
+ * the client's own real content, per this session's standing instruction to
+ * check the official site rather than placeholder gaps. Not in src/data/home.ts
+ * (that array only carries leadership), so name/role/photo/badge are defined
+ * directly here.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Keone Holt",
+  role: "Head Chef",
+  photo: "/Asset/Our%20Team/keone-holt.jpg",
+  badge: "",
+};
+
+const fullBio = [
+  "Born in Honolulu, raised in Petaluma, and shaped by the vibrant energy of Los Angeles, my journey has always centered around food, community, and connection. I trained at Los Angeles Trade-Tech Community College, but my passion for cooking started long before that—rooted in the idea that a shared meal is one of the simplest yet most powerful ways to care for others.",
+  "Working in the mental health and recovery field allows me to be part of the solution, to contribute to raising collective consciousness in a meaningful way. Food is more than sustenance; it’s a source of security, structure, and comfort. Knowing that I can help provide that for clients—ensuring they always have a nourishing meal to look forward to—is deeply rewarding.",
+  "For my own well-being, I focus on balance. I surround myself with people who restore my mana, take intentional alone time to recharge, and, most importantly, turn off my notifications when I’m off the clock! My guiding philosophy is rooted in the Hawaiian saying: “‘Ike aku, ‘ike mai, kokua aku, kokua mai; pela iho la ka nohana ‘ohana.” (Recognize others, be recognized, help others, be helped; such is a family relationship.)",
+  "If I had to listen to one song on repeat for 24 hours? Either Fly Like a Bird by Mariah Carey or Fastlove Pt. 1 by George Michael—both give me life in different ways.",
+  "For anyone thinking about coming to Breathe, I’d say this: You are worth the investment to heal and recover. It’s not just about treatment—it’s about reclaiming the life you deserve.",
+  "When I’m not in the kitchen, you’ll probably find me outdoors, deep in a queer fantasy or sci-fi novel, or dancing in the dark with my besties. And if you ever need a movie recommendation, I’m an AMC A-List regular—let’s talk cinema!",
+];
+
+const title = "Keone Holt | Head Chef | Breathe Life Healing Centers";
+const description = "Keone Holt is Head Chef at Breathe Life Healing Centers, bringing food, community, and connection to the recovery experience.";
+
+const pageUrl = new URL("/about/our-team/keone-holt/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/keone-holt/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="keone-holt" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-06-guest-house-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

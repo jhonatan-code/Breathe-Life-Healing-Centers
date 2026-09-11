@@ -1,0 +1,84 @@
+---
+/**
+ * /about/our-team/kayla-radin/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/kayla-radin/, checked 2026-09-02).
+ * No clean short credential appears in her name/title, so no badge is
+ * rendered. Photo/role are defined locally since she isn't in
+ * data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Kayla Radin",
+  role: "Lead Case Manager",
+  photo: "/Asset/Our%20Team/kayla-radin.jpg",
+};
+
+const fullBio = [
+  "I was born and raised in Los Angeles—specifically the San Fernando Valley, where I learned early on that life is anything but linear. My path to working in mental health and recovery was shaped by my own journey with an eating disorder, something I struggled with for decades. After multiple rounds of treatment, I found myself drawn to the idea of helping others heal. Now, as a Case Manager, I get to do exactly that—support people as they find their way back to themselves. The fact that I get to be part of anyone's recovery journey is both humbling and exhilarating.",
+  "There isn't just one thing that makes this work rewarding—it's all of it. Watching people transform, piece their lives back together, and step into growth in ways they never thought possible is the most incredible thing to witness. Seeing someone rebuild—then grow, and grow, and grow—fills me with gratitude. And being there to celebrate every milestone, big or small, is something I never take for granted.",
+  "In my own life, I hold tight to the things that keep me grounded. I go to meetings, work with a sponsor, and always carve out time to write, read, and, most importantly, see live music. Nothing fills my soul quite like a concert—so much so that I'm pretty sure I've already spent 24 straight hours listening to I'll Still Destroy You by The National.",
+  "If you're thinking about coming to Breathe, here's what I want you to know: This is a place of safety, a place where you'll be met exactly where you are, and a place where healing happens—if you're willing to show up for yourself. You'll get as much as you're willing to give, and we'll be here to help guide you toward the life you want.",
+  "When I'm not working, you can usually find me writing, curled up with a good book, spending time with my friends, family, and cat, or diving deep into new music. And, of course, catching as many concerts as humanly possible.",
+  "Everything in its own time—that's the mantra I live by. Healing isn't linear, but every step forward matters. And if you're ready to take that step, I'd love to help you along the way.",
+];
+
+const title = "Kayla Radin | Lead Case Manager | Breathe Life Healing Centers";
+const description = "Kayla Radin is Lead Case Manager at Breathe Life Healing Centers, drawing on her own recovery journey to support clients as they rebuild their lives.";
+
+const pageUrl = new URL("/about/our-team/kayla-radin/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/kayla-radin/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="kayla-radin" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-04-community-dining-lounge.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

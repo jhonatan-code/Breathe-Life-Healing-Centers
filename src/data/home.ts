@@ -5,6 +5,12 @@
  *  - no "Since 2013", no room/home counts
  *  - phone from the content brief
  *  - review quotes verbatim from docs/content/Breathe_Life_Reviews_Compilation
+ *
+ * `levels` (Detox/PHP/IOP/Sober Living/Outpatient) and `signature`'s Case
+ * Management + MAT descriptions were fleshed out per
+ * Breathe_Life_Programs_Page_Complete_Brief.docx (2026-09-11) — this data
+ * feeds the homepage, /programs/, and each level's own detail page, so the
+ * update applies everywhere at once rather than per page.
  */
 
 export const galleryImg = (file: string) => `/Asset/Facility/${file}`;
@@ -58,26 +64,26 @@ export const mentalHealth = [
   ["sentiment_dissatisfied", "Depression", "Support to rebuild energy, hope, and connection.", false],
   ["healing", "Complex Trauma / PTSD", "Trauma-informed care for deep and lasting healing.", false],
   ["hub", "Dual Diagnosis", "Integrated care for co-occurring mental health and addiction.", false],
-  ["restaurant", "Eating Disorders", "Treated alongside substance use, simultaneously — the reason many families call us first.", true],
+  ["restaurant", "Eating Disorders", "Treated alongside substance use, simultaneously — the reason many families call us first.", false],
 ] as const;
 
 export const levels = [
   { title: "Residential Treatment", flag: "Flagship", text: "Our most structured, primary level of care. Clients live on-site with 24/7 supervision, daily therapy, and psychiatric care for both addiction and mental health." },
-  { title: "Detox", text: "Medically supervised environment to safely manage withdrawal symptoms." },
-  { title: "PHP — Day Treatment (SUD, MH)", text: "Intensive day treatment; clients return home or to transitional living in the evenings." },
-  { title: "IOP — Intensive Outpatient (SUD, MH)", text: "Flexible schedule for those balancing treatment with work, school, or family." },
-  { title: "Transitional Living / Enhanced Sober Living", text: "Structured, supportive environment for the transition to independent living." },
-  { title: "Outpatient (OP)", text: "Most flexible level of care, ideal as a step-down after more intensive levels." },
+  { title: "Detox", text: "A safe, clinically monitored start. Our team manages withdrawal around the clock, so your body can safely let go of what it has been depending on before treatment begins in earnest." },
+  { title: "PHP — Day Treatment (SUD, MH)", text: "Full clinical days without a residential stay. The same intensity of care as residential treatment, with evenings spent at home or in transitional living." },
+  { title: "IOP — Intensive Outpatient (SUD, MH)", text: "Structured treatment that flexes around a life you are already rebuilding. Real clinical support without stepping away from work, school, or family." },
+  { title: "Transitional Living / Enhanced Sober Living", text: "A stable, substance-free home base as you find your footing. Structure and community support while you build toward full independence." },
+  { title: "Outpatient (OP)", text: "The lightest touch level of care, built for ongoing support once you are stable. A natural step down after residential, PHP, or IOP." },
 ] as const;
 
 export const signature = [
   ["diversity_3", "LGBTQIA+ Therapy Services", "Identity- and gender-affirming care woven into every level of treatment — never a separate track.", "Individual, group, and identity-focused therapy"],
   ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised"],
   ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work"],
-  ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the whole stay.", "Assigned on day one"],
+  ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one"],
   ["family_restroom", "Family Therapy Programs", "A Family Class and a 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome"],
   ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware"],
-  ["medication", "Medication-Assisted Treatment", "Pharmaceutical support integrated with clinical care and psychiatric oversight.", "Prescriber on staff"],
+  ["medication", "Medication-Assisted Treatment", "Medical support available where it is clinically appropriate, always paired with therapy and psychiatric oversight, never offered as treatment on its own.", "Prescriber on staff"],
 ] as const;
 
 export const why = [
@@ -100,14 +106,22 @@ export const steps = [
 
 /** Verbatim from the Google Business Profile via the reviews compilation. */
 export const reviews = [
-  { name: "Zahara Nakia R.", quote: "The staff for the most part is great... they were patient enough with me... I left 5 stars because the CM's were very kind as well as the nursing staff. Blake is amazing and most of the staff are extremely empathetic towards everyone, not just people within the LGBTQ community." },
-  { name: "Martin Warne", quote: "80 days sober today! I discharge on the 25th and I feel I've been equipped with all the tools needed to stay sober... If you're struggling with addiction or an eating disorder, come be a part of the Breathe community. It will be tough but so worth it." },
-  { name: "Babbi Anderson", quote: "A family member was struggling with an eating disorder as well as alcoholism... needed to address both issues simultaneously. I called all over the country and at that time Breathe Life Healing Center was the only treatment center that said they would do this." },
-  { name: "Stephen Timmer", quote: "I have brought LGBTQ clients and straight or cisgender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance. Highly recommended!" },
-  { name: "Matt Berg", quote: "I was able to process my trauma from issues I faced growing up as a gay boy in the 1980's to an abusive romantic relationship as a young adult. The trauma and shame that I grew up with fueled my lack of self worth and my use of drugs and alcohol to numb myself." },
-  { name: "Edil Visli Cordova", quote: "My experience with Breathe was amazing and truly life-changing. The therapists are highly educated and helped me explore my issues deeply. Kathleen, the clinical director, is remarkable, and her group sessions are among my favorite memories. The campus is beautiful and serene, and the food was excellent." },
-  { name: "Troy Eaton", quote: "I spent 90 days at Breathe just about a year ago and it changed my life. The staff there guided me through dealing with some underlying emotional issues I had been overlooking for years... Their alumni program is incredible as they are big on following up and supporting former patients even after they leave the facility." },
-  { name: "James King", quote: "I went to breathe on Jan 9th 2021. I almost have 3 years in recovery... My family wanted nothing to do with me and today it's different, I made amends with my Parents, Aunt, Uncle, Cousins and friends... Breathe has prepared me for the future, it was not a vacation, give it time and one day at a time!" },
+  { name: "Zahara Nakia", avatar: "/Asset/Image%20reviews/Zahara%20Nakia.svg",
+    quote: "This is pretty awesome. The staff for the most part is great. And the thing is liked about this place the most is they were patient enough with me the first time I was here. They allowed me to land emotionally the second time not so much but I left 5 stars because the CM's were very kind as well as the nursing staff. Blake is my spirit is amazing and most of the staff are extremely empathetic towards everyone not just people within the LGBTQ community." },
+  { name: "Edil Visli", avatar: "/Asset/Image%20reviews/Edil%20Visli.svg",
+    quote: "My experience with Breathe was amazing and truly life-changing. The therapists are highly educated and helped me explore my issues deeply. Kathleen, the clinical director, is remarkable, and her group sessions are among my favorite memories. The campus is beautiful and serene, and the food was excellent. The alumni program keeps me connected, and I've made some lifelong friends there. I would absolutely recommend Breathe to anyone who is struggling." },
+  { name: "Martin Warne", avatar: "/Asset/Image%20reviews/Martin%20Warne.svg",
+    quote: "80 days sober today! 🎉 I have been at Breathe since May 5th, 2025 and this has been a life changing experience. I will grieve this experience when I leave at the of this month. I discharge on the 25th and I feel I've been equipped with all the tools needed to stay sober. The staff are empathetic, compassionate and well educated on addiction recovery. I'm going to cherish all the memories I have at Breathe. I have met some of the most amazing people — friends I will hold dear to my heart for the rest of my life. If you're struggling with addiction or an eating disorder, come be apart of the Breathe community. It will be tough but so worth it. I've unpacked 40 years of trauma here; leaving Breathe with freedom, healing and self compassion. I'm looking forward to a life free of substances and binge eating. Thank you, Breathe for saving my life!" },
+  { name: "Dustin Dudley", avatar: "/Asset/Image%20reviews/Dustin%20Dudley.svg",
+    quote: "My experience with Breathe was amazing. It truly changed my life. The therapists are well educated and they helped me dig deep. Kathleen the clinical director is remarkable. Her groups were one of my favorite memories. The campus is beautiful and serene and the food was so good. The alumni program keeps me plugged in too. I've made some life-long friends there and would absolutely recommend Breathe to anyone who is struggling." },
+  { name: "Troy Eaton", avatar: "/Asset/Image%20reviews/Troy%20Eaton.svg",
+    quote: "I spent 90 days at Breathe just about a year ago and it changed my life. The staff there guided me through dealing with some underlying emotional issues I had been overlooking for years. The care I received from the entire staff on campus and at the clinic was amazing. Their alumni program is incredible as they are big on following up and supporting former patients even after they leave the facility. I would highly recommend Breathe to anyone who is struggling with addiction issues." },
+  { name: "Stephen Timmer", avatar: "/Asset/Image%20reviews/Stephen%20Timmer.svg",
+    quote: "As an interventionist, I have brought several people to Breathe for substance abuse treatment and co-occurring issues. I love this program. I have had great success with the individuals I brought here because of the clinical services provided, the environment, the quality of the treatment team and the fact that it is owned by individuals who are passionate about recovery. I have a bias against chain programs and prefer those that are owned and operated by people who are in this field to help others. That is what Breathe does!!! I have brought LGBTQ clients and straight or cis gender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance. Highly recommended!!!!" },
+  { name: "Babbi Anderson", avatar: "/Asset/Image%20reviews/Babbi%20Anderson.svg",
+    quote: "Several years ago a family member was struggling with an eating disorder as well as alcoholism. My loved one needed to address both issues simultaneously. I called all over the country and at that time Breathe Life Healing Center was the only treatment center that said they would do this. My family member admitted, stayed for 100+ days, and left Breathe firmly planted in recovery. They continue, now several years later, with ongoing recovery. I attended Breathe's Family Classes and was impressed with that service as well. Breathe Life Healing Center is amazing. Lovely, comfortable surroundings, truly excellent staff and very responsive to family members. Thank you Breathe!" },
+  { name: "James King", avatar: "/Asset/Image%20reviews/James%20King.svg",
+    quote: "I went to breathe on Jan 9th 2021. I almost have 3 years in recovery and I was angry at Breathe, depress, lost, lost everything broke my addiction to get out of a serious situation I was in. My family wanted nothing to do with me and today it's different, I made amends with my Parents, Aunt, Uncle, Cousins and friends. I managed to quit smoking at Breathe thanks to Brad at smoking session group he hosted. I have rebuilt my life and I get to be there for my family. Breathe has prepared me for the future, it was not a vacation in Breathe, give it time and one day a time! Great staff and you will develop wonderful relationships. Thank you Breathe.." },
 ] as const;
 
 export const faqGroups = [
@@ -143,11 +157,19 @@ export const faqGroups = [
  *  NB: this re-adds Brad Lamm to the homepage while the approved sitemap removes
  *  his bio page — flagged for the client in docs/BUILD-NOTES.md. */
 export const team = [
-  { name: "Brad Lamm", badge: "CIP", role: "Founder", photo: "/Asset/Our%20Team/Brad-Lamm.webp",
+  { name: "Brad Lamm", slug: "brad-lamm", badge: "CIP", role: "Founder", photo: "/Asset/Our%20Team/Brad-Lamm.webp",
     bio: "Founded Breathe after his own recovery in 2003 — personally selects every clinician on staff." },
-  { name: "Beck Gee", badge: "CADC-II, AMFT", role: "Chief Executive Officer", photo: "/Asset/Our%20Team/Beck-Gee.jpg",
-    bio: "A trans man in recovery, leading Breathe's clinical and operational vision day to day." },
-  { name: "Deb Hughes", badge: "CAS", role: "Co-founder, Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg",
+  { name: "Beck Gee", slug: "beck-gee", badge: "CADC-II, AMFT", role: "Chief Executive Officer", photo: "/Asset/Our%20Team/Beck-Gee.jpg",
+    bio: "A trans man in recovery, leading Breathe's clinical and operational vision day to day.",
+    // Short first-person bio, verbatim from the live site's author archive
+    // (breathelifehealingcenters.com/author/beck/, checked 2026-09-11) —
+    // distinct from, and shorter than, the full bio on
+    // /about/our-team/beck-gee/ (sourced from a different page). Used for
+    // the "About the author" card on blog posts. Only edit: em dashes
+    // converted to commas per CLAUDE.md Writing Style; no wording changed,
+    // no LinkedIn URL found on either live page.
+    authorBio: "Los Angeles has always been home, but my journey to finding myself, and my purpose, took me far beyond the city limits. I studied at the University of Montana and later at the Hazelden Betty Ford Graduate School, but my greatest education came through my own recovery. I entered this field when I was three years sober, inspired to help others find the hope and healing that transformed my life. Supporting the LGBTQ+ community has always been central to my work because I understand the challenges of identity, belonging, and finding a safe place to heal. What drives me is seeing people reclaim their lives and discover that recovery is about thriving, not just surviving. At Breathe Life Healing Centers, we believe in your strength and your potential. Recovery changed my life, and I'm honored to help others take that first step toward lasting healing and a brighter future." },
+  { name: "Deb Hughes", slug: "deb-hughes", badge: "CAS", role: "Co-founder, Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg",
     bio: "Oversees family programming and community partnerships." },
 ] as const;
 

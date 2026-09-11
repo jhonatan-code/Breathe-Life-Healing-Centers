@@ -1,0 +1,218 @@
+---
+/**
+ * /admissions/for-families/ — process/logistics content for family members
+ * supporting someone entering treatment (CLAUDE.md: no heteronormative
+ * assumptions — "family" isn't assumed to mean blood relatives; partners and
+ * chosen family are valid participants). General admissions-process framing
+ * only; no specific clinical program content invented (Family Program itself
+ * lives at /programs/family-program/, linked out to rather than duplicated).
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "For Families | Breathe Admissions";
+const description =
+  "What to expect if someone you love is starting treatment at Breathe Life Healing Centers — how to help, what involvement looks like, and how to reach us. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const ways = [
+  { icon: "call", title: "Call before they arrive", text: "You can call our admissions line yourself to ask questions about the process, what happens on arrival day, and how to reach the facility once treatment begins." },
+  { icon: "diversity_3", title: "Family isn't limited to blood relatives", text: "Partners, chosen family, and close friends are all welcome to be involved. We don't assume who belongs in someone's support system — they do." },
+  { icon: "forum", title: "Family therapy, when it's part of the plan", text: "Our Family Program brings loved ones into treatment where appropriate. It's a distinct program with its own details." },
+  { icon: "privacy_tip", title: "Confidentiality still applies", text: "Federal confidentiality protections mean we can't share details about a client's treatment without their consent — even with family. We'll explain what we can and can't discuss." },
+] as const;
+
+const help = [
+  "Help them make the first call, or make it with them if they'd rather not do it alone.",
+  "Help gather what they'll need for arrival — see our What to Bring page for a full list.",
+  "Ask us directly what family involvement could look like once they're in treatment.",
+  "Take care of yourself, too. Supporting someone through treatment is real work.",
+];
+
+const faqs = [
+  { q: "Can I call on behalf of someone else?", a: "Yes. Family members, partners, and chosen family can call our admissions line to ask questions or start the process, though the person entering treatment will need to be involved directly at some point." },
+  { q: "Will I be able to talk to my loved one during treatment?", a: "Contact policies vary by level of care and are explained during admissions. Our team can walk you through what to expect for the specific program your loved one is entering." },
+  { q: "Can I be involved in treatment as a partner or chosen family, not a blood relative?", a: "Yes. We don't assume 'family' means blood relatives — partners and chosen family are valid participants in someone's support system and treatment, on their terms." },
+  { q: "What if my loved one doesn't want me involved right now?", a: "That's their choice, and we respect it. Confidentiality protections mean we can't share treatment details without their consent. You're still welcome to call us with general questions." },
+  { q: "Does insurance cover a loved one's treatment?", a: "In most cases, yes. We're in-network with most major providers and verify specific benefits before any commitment. We do not currently accept Medi-Cal or Medicare." },
+  { q: "Is Breathe only for LGBTQ+ clients? My loved one isn't LGBTQ+.", a: "No. We're built for the LGBTQ+ community first, and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
+];
+
+const pageUrl = new URL("/admissions/for-families/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Admissions", item: new URL("/admissions/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "For Families", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/admissions/for-families/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Admissions" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-17-living-room-lounge.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/admissions/" style="color:#7FB3BC;">Admissions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> For Families
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Supporting Someone You Love Through Treatment</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Whether you're a partner, a parent, or chosen family, you don't have to sit on the sidelines. Here's how the admissions process works, and how you can help.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
+            <a class="cta" href="/programs/family-program/" style={S.ctaGhost}>See the Family Program</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  WAYS TO BE INVOLVED  ══════════════ */}
+    <section data-screen-label="Ways to be involved" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Being involved</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>What family involvement looks like</h2>
+          <p style={`${S.intro}max-width:74ch;`}>"Family" here means whoever actually shows up for someone — not just blood relatives.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {ways.map((w, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{w.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{w.title}</h3>
+                <p style={S.card}>{w.text}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  HOW YOU CAN HELP RIGHT NOW  ══════════════ */}
+    <section data-screen-label="How to help now" style="position:relative;padding:70px 37px;background:#F7F5F1;overflow:hidden;">
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>Right now</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>If you're not sure what to do today</h2>
+          <p style={`${S.intro}margin:0;max-width:58ch;`}>You don't need a perfect plan to start. A phone call is often the whole first step — for them, or for you, on their behalf.</p>
+        </div>
+        <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">A few ways to help</div>
+          <div style="display:grid;gap:14px;">
+            {help.map((h) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <span class="msym" style="font-size:15px;">check</span>
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{h}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies benefits and explains what's covered — before your loved one commits to anything."
+    />
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Questions families ask us"
+      intro="Straight answers to what partners, parents, and chosen family ask before they get involved."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    <SiteFinalCTA
+      heading="You Don't Have to Figure This Out Alone"
+      subhead="Whether you're calling for yourself or for someone you love, our admissions team is available 24/7 to answer questions and talk through what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-05-spa-bathroom-suite.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

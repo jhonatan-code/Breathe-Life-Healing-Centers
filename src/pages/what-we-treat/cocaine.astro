@@ -1,0 +1,317 @@
+---
+/**
+ * /what-we-treat/cocaine/ — built from
+ * docs/content/Breathe_Life_Cocaine_Page_Brief.docx (full section-by-section
+ * copy). Visual language and section structure mirror /what-we-treat/alcohol/
+ * and /what-we-treat/methamphetamine/ — same shared components, same
+ * card/pill/pillar patterns — with copy substituted per the brief.
+ *
+ * The brief flags a COMPLIANCE issue on the live site: Contingency
+ * Management was listed as a core therapy but isn't offered per the client
+ * profile (already excluded project-wide, see CLAUDE.md). Confirmed
+ * modalities for cocaine are CBT and Motivational Interviewing only — unlike
+ * Alcohol/Meth, this page has no broader "Clinical Approach" grid of
+ * additional modalities (DBT, ACT, trauma-focused, somatic, holistic), since
+ * the brief doesn't confirm those apply here. Those two therapies are
+ * presented as cards in "How We Treat" instead.
+ *
+ * "Therapeutic communities" (mentioned on the old live page) is left out —
+ * it doesn't match any confirmed level of care, so it's unverified rather
+ * than stated as fact.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Cocaine Addiction Treatment in Los Angeles | Breathe";
+const description =
+  "Cocaine addiction treatment in Los Angeles — medical detox, residential care, CBT and motivational interviewing. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const signs = [
+  "Using more to chase the same high",
+  "Withdrawal symptoms like fatigue, depression, and anxiety when not using",
+  "Continuing to use despite wanting to stop",
+  "Financial strain from sustaining the habit",
+  "Risk-taking or paranoia while using",
+];
+
+const care = [
+  {
+    icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", cta: "Learn About Medical Detox",
+    text: "A supported start, with medical staff managing withdrawal symptoms like fatigue, depression, and anxiety.",
+  },
+  {
+    icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", cta: "Learn About Residential Treatment",
+    text: "Full-time structure and clinical support once detox is complete.",
+  },
+  {
+    icon: "psychology", title: "Cognitive Behavioral Therapy", href: "/therapies/cbt/", cta: "Learn About CBT",
+    text: "A core part of cocaine treatment. CBT helps you recognize the thought patterns that drive use, and build different ones.",
+  },
+  {
+    icon: "forum", title: "Motivational Interviewing", href: "/therapies/motivational-interviewing/", cta: "Learn About Motivational Interviewing",
+    text: "Works with your own reasons for change, rather than working against your resistance to it.",
+  },
+];
+
+const conditions: [string, string][] = [
+  ["Anxiety", "/conditions/anxiety/"],
+  ["Depression", "/conditions/depression/"],
+  ["Trauma", "/conditions/trauma/"],
+];
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+  },
+  {
+    icon: "family_restroom", title: "Family involved, on your terms",
+    text: "Family therapy that doesn't assume blood relationships. Partners and chosen family are welcome participants.",
+  },
+];
+
+const faqs = [
+  { q: "Is cocaine withdrawal dangerous?", a: "It's rarely life-threatening the way alcohol or opioid withdrawal can be, but symptoms like depression, fatigue, and intense cravings are real and hard to manage alone. Medical support makes a difference." },
+  { q: "Is there medication to treat cocaine addiction?", a: "No medication is FDA-approved specifically for cocaine addiction. Disulfiram is sometimes used off-label to help with cravings. Our medical team can discuss what's right for your situation." },
+  { q: "I've tried to quit before and it didn't stick. Will this be different?", a: "A past attempt that didn't hold isn't a sign you can't recover. It usually means the support around you wasn't matched to what you actually needed." },
+  { q: "Will you address my anxiety or depression, not just the cocaine use?", a: "Yes. Anxiety, depression, and trauma are treated as part of the same plan through our dual diagnosis approach, not as a separate concern." },
+  { q: "Does insurance cover cocaine addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+  { q: "Is this treatment only for LGBTQ+ clients?", a: "No. We're built for the LGBTQ+ community first, and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
+];
+
+const pageUrl = new URL("/what-we-treat/cocaine/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Cocaine", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+    {
+      "@type": "MedicalWebPage",
+      name: title,
+      url: pageUrl,
+      about: { "@type": "MedicalCondition", name: "Cocaine use disorder" },
+      provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/what-we-treat/cocaine/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="What We Treat" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-16-facility-entrance-drive.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Cocaine
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Cocaine Addiction Treatment in Los Angeles. A Real Way Out.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Cocaine addiction is treatable, but stopping on your own is hard for a reason. Real treatment addresses the withdrawal, the cravings, and what the drug was standing in for.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  UNDERSTANDING COCAINE ADDICTION  ══════════════ */}
+    <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>Understanding</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding cocaine addiction</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Cocaine addiction, sometimes called stimulant use disorder, often builds quietly around work, performance, and nights out before it becomes something harder to control. Once the body depends on it, stopping brings real withdrawal, not just a craving to push through.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">There's no FDA-approved medication built specifically for cocaine addiction. Some providers use disulfiram, more commonly known for alcohol treatment, off-label to help manage cravings and withdrawal. Our medical team can talk through what's appropriate for you.</p>
+        </div>
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common signs of cocaine addiction</div>
+          <div style="display:grid;gap:14px;">
+            {signs.map((s) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <Icon name="check" size={14} />
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE TREAT COCAINE ADDICTION  ══════════════ */}
+    <section data-screen-label="How we treat it" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>How we help</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>How we treat cocaine addiction</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {care.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{c.cta} <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  CO-OCCURRING CONDITIONS  ══════════════ */}
+    <section data-screen-label="Co-occurring conditions" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:860px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Dual diagnosis</div>
+        <h2 style={`${S.h2}max-width:24ch;`}>Cocaine use rarely travels alone</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Cocaine use often overlaps with anxiety, depression, and trauma, either driving the use or left behind by it. We treat what's actually happening, not only the cocaine.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
+          {conditions.map(([name, href]) => (
+            <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
+          ))}
+        </div>
+        <a class="cta" href="/conditions/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Dual Diagnosis</a>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for cocaine detox and treatment — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for cocaine treatment</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px so
+       mobile users meet it here, right before the FAQs. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Questions people ask about cocaine treatment"
+      intro="Straight answers to what people and families ask us before they decide anything."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-09-twin-bedroom-suite.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

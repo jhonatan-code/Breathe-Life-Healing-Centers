@@ -1,0 +1,373 @@
+---
+/**
+ * /programs/ — Programs & Levels of Care overview (sitemap: "Levels of Care
+ * (overview)"). Every fact on this page is reused verbatim (or lightly
+ * trimmed) from already-approved copy already live elsewhere on the site —
+ * home.ts `levels`, `signature`, `steps`, `why`, and one sourced review
+ * quote — rather than invented. See docs/BUILD-NOTES-programs.md for exactly
+ * what came from where.
+ *
+ * FAQ section (below) added per Breathe_Life_Programs_Page_Complete_Brief.docx
+ * (2026-09-11) — confirmed missing from the original build; questions are
+ * verbatim from that brief.
+ *
+ * Levels-of-care and programs-&-support cards carry a real photo (2026-09-11,
+ * CLAUDE.md ## Images) instead of icon-only tiles. Two are freshly pulled from
+ * breathelifehealingcenters.com's own 2025 photoshoot (facility-24, -25 —
+ * their pages reuse the same handful of campus/garden shots across services
+ * rather than one photo per topic, so there's no 1:1 "official photo for
+ * Detox" etc. to match); the rest reuse this repo's existing `Asset/Facility`
+ * library (itself sourced from the live site earlier), assigned by which
+ * room/setting fits each card's copy.
+ *
+ * The 11 individual program pages this hub links to don't exist yet — they
+ * 404 until built, same situation as Alcohol's outbound links.
+ */
+import Layout from "../../layouts/Layout.astro";
+import ScrollActivateSteps from "../../components/ScrollActivateSteps.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site, primaryNav } from "../../config/site";
+import { levels, signature, steps, why, galleryImg, reviews } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Programs & Levels of Care | Breathe Life Healing Centers";
+const description =
+  "Every level of care and program at Breathe — medical detox, residential treatment, PHP, IOP, sober living, case management, family and alumni programs. LGBTQ+-affirming care in Los Angeles. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+// Sourced from home.ts `levels` (already-approved Levels of Care copy, verbatim)
+// — icon + destination URL added locally, text/title untouched.
+const levelIcons: Record<string, string> = {
+  "Residential Treatment": "cottage",
+  "Detox": "monitor_heart",
+  "PHP — Day Treatment (SUD, MH)": "wb_sunny",
+  "IOP — Intensive Outpatient (SUD, MH)": "calendar_month",
+  "Transitional Living / Enhanced Sober Living": "home_work",
+  "Outpatient (OP)": "directions_walk",
+};
+const levelHrefs: Record<string, string> = {
+  "Residential Treatment": "/programs/residential-treatment/",
+  "Detox": "/programs/medical-detox/",
+  "PHP — Day Treatment (SUD, MH)": "/programs/php/",
+  "IOP — Intensive Outpatient (SUD, MH)": "/programs/intensive-outpatient/",
+  "Transitional Living / Enhanced Sober Living": "/programs/sober-living/",
+  "Outpatient (OP)": "/programs/outpatient-rehab/",
+};
+// facility-24/-25 are new pulls from the official site's own 2025 photoshoot;
+// the rest are already in this repo's Asset/Facility library.
+const levelImages: Record<string, string> = {
+  "Residential Treatment": galleryImg("facility-24-residence-lounge-deck.jpg"),
+  "Detox": galleryImg("facility-16-facility-entrance-drive.jpg"),
+  "PHP — Day Treatment (SUD, MH)": galleryImg("facility-04-community-dining-lounge.jpg"),
+  "IOP — Intensive Outpatient (SUD, MH)": galleryImg("facility-10-fitness-center.jpg"),
+  "Transitional Living / Enhanced Sober Living": galleryImg("facility-17-living-room-lounge.jpg"),
+  "Outpatient (OP)": galleryImg("facility-25-residence-garden-stairs.png"),
+};
+
+// Case Management + MAT text are verbatim from home.ts `signature`. Family
+// Program's line is the approved page brief's own subhead (trimmed). Alumni
+// Program has no brief yet — its line is a real, sourced Google review quote
+// rather than an invented description.
+const alumniQuote = reviews.find((r) => r.name === "Troy Eaton")!;
+const support: { icon: string; title: string; href: string; img: string; text?: string; quote?: string; attribution?: string }[] = [
+  {
+    icon: "support_agent", title: "Case Management", href: "/programs/case-management/",
+    img: galleryImg("facility-01-private-suite-entry.jpg"),
+    text: signature.find(([, h]) => h === "Individual Case Management")![2],
+  },
+  {
+    icon: "medication", title: "Medication-Assisted Treatment", href: "/programs/medication-assisted-treatment/",
+    img: galleryImg("facility-03-clinical-office.jpg"),
+    text: signature.find(([, h]) => h === "Medication-Assisted Treatment")![2],
+  },
+  {
+    icon: "family_restroom", title: "Family Program", href: "/programs/family-program/",
+    img: galleryImg("facility-19-outdoor-dining-deck.jpg"),
+    text: "Whether that's the family you were born into, the one you chose, or both — our Family Program doesn't assume blood relationships. It makes room for who actually shows up.",
+  },
+  {
+    icon: "groups", title: "Alumni Program", href: "/programs/alumni-program/",
+    img: galleryImg("facility-07-pool-waterfall-grotto.jpg"),
+    quote: "Their alumni program is incredible as they are big on following up and supporting former patients even after they leave the facility.",
+    attribution: `${alumniQuote.name}, Google review`,
+  },
+];
+
+// 3 of the homepage's 8 "Why Breathe" cards, most relevant to choosing a
+// program — verbatim.
+const whyPicks = why.filter(([, , h]) =>
+  ["LGBTQIA+-Affirming Care at Every Level", "Addiction and Mental Health, Treated Together", "Residential, Whole-Person Care"].includes(h)
+);
+
+// Verbatim from Breathe_Life_Programs_Page_Complete_Brief.docx (2026-09-11).
+const faqs = [
+  { q: "How do I know which level of care is right for me?", a: "You do not have to figure that out alone. A clinical assessment during intake determines the right starting point, and your team adjusts it as you progress." },
+  { q: "Can I move between levels of care as I improve?", a: "Yes. Most clients move through a sequence, often starting at Detox or Residential and stepping down to PHP, IOP, or Outpatient as they stabilize." },
+  { q: "What if I'm not sure I need Residential care?", a: "That is common, and it is exactly what the assessment call is for. Many people start with a lower level of care and step up only if it is clinically needed." },
+  { q: "Is Case Management included automatically, or is it a separate program?", a: "Case Management runs alongside your primary level of care. It is one dedicated person who knows your file, your history, and your name for the entire stay." },
+  { q: "Does insurance cover every level of care the same way?", a: "Coverage can vary by level of care and by plan. Our admissions team verifies your specific benefits before you commit to anything." },
+  { q: "Is this only for LGBTQ+ clients?", a: "No. We are built for the LGBTQ+ community first, and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
+  { q: "What happens after I complete treatment?", a: "Our Alumni Program provides ongoing support. Recovery does not end at discharge, and neither does our involvement." },
+];
+
+const programsGroup = primaryNav.find((n) => n.label === "Programs")!.groups![0];
+const pageUrl = new URL("/programs/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Programs", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      name: "Programs & Levels of Care",
+      itemListElement: programsGroup.links.map((l, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: l.label,
+        url: new URL(l.href, site.domain).href,
+      })),
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/programs/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Programs" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src={galleryImg("facility-11-clinical-building-exterior.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">Your path to recovery</div>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Programs &amp; Levels of Care</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Recovery isn't one-size-fits-all. We move with you through as many levels of care as you need — built for the LGBTQ+ community first, open to anyone ready to change.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta" href="/admissions/insurance/" style={S.ctaWhite}>Verify Your Insurance</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  LEVELS OF CARE  ══════════════ */}
+    <section data-screen-label="Levels of care" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Levels of care</div>
+          <h2 style={`${S.h2}max-width:40ch;`}>As structured — or as flexible — as you need</h2>
+          <p style={`${S.intro}max-width:80ch;`}>Every stay starts with an assessment, then moves through whichever of these levels fit — in either direction, as your needs change.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {levels.map((l, i) => (
+            i === 0 ? (
+              <div class="treat-card" style="grid-column:1/-1;display:flex;align-items:center;gap:32px;flex-wrap:wrap;background:linear-gradient(120deg,#F7F5F1 0%,#EDF3F6 100%);border-top:3px solid #33679C;border-radius:16px;padding:24px 36px 24px 24px;overflow:hidden;">
+                <div style="position:relative;flex:0 0 auto;">
+                  <img src={levelImages[l.title]} alt="" width="240" height="200" style="display:block;width:240px;height:200px;object-fit:cover;border-radius:12px;" />
+                  <span style="position:absolute;bottom:-14px;right:-14px;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#33679C;border:3px solid #F7F5F1;">
+                    <span class="msym" style="font-size:26px;color:#FFFFFF;">{levelIcons[l.title]}</span>
+                  </span>
+                </div>
+                <div style="flex:1 1 380px;">
+                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+                    <h3 style="font-size:24px;font-weight:600;letter-spacing:-0.016em;margin:0;text-wrap:balance;">{l.title}</h3>
+                    {"flag" in l && l.flag && <span style="font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF;background:#2C5A64;padding:5px 9px;border-radius:4px;">{l.flag}</span>}
+                  </div>
+                  <p style={`${S.card}font-size:16px;max-width:64ch;margin-bottom:14px;`}>{l.text}</p>
+                  <a href={levelHrefs[l.title]} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            ) : (
+              <div class="treat-card" style="display:flex;flex-direction:column;background:#F7F5F1;border-top:2px solid #33679C;border-radius:12px;overflow:hidden;">
+                <div style="position:relative;">
+                  <img src={levelImages[l.title]} alt="" width="400" height="150" style="display:block;width:100%;height:150px;object-fit:cover;" />
+                  <span style="position:absolute;bottom:-18px;left:20px;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:#33679C;border:3px solid #F7F5F1;">
+                    <span class="msym" style="font-size:22px;color:#FFFFFF;">{levelIcons[l.title]}</span>
+                  </span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:14px;padding:26px 26px 28px;flex:1;">
+                  <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0;text-wrap:balance;">{l.title}</h3>
+                  <p style={`${S.card}flex:1;`}>{l.text}</p>
+                  <a href={levelHrefs[l.title]} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            )
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  PROGRAMS & SUPPORT  ══════════════ */}
+    <section data-screen-label="Programs and support" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Programs &amp; support</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Care that goes beyond a level of care</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {support.map((c, i) => {
+            const teal = i % 2 === 1;
+            const accent = teal ? "#478694" : "#33679C";
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${accent};border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <div style="position:relative;">
+                  <img src={c.img} alt="" width="400" height="150" style="display:block;width:100%;height:150px;object-fit:cover;" />
+                  <span style={`position:absolute;bottom:-18px;left:20px;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${accent};border:3px solid #FFFFFF;`}>
+                    <span class="msym" style="font-size:22px;color:#FFFFFF;">{c.icon}</span>
+                  </span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:14px;padding:26px 26px 28px;flex:1;">
+                  <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                  {c.text ? (
+                    <p style={`${S.card}flex:1;`}>{c.text}</p>
+                  ) : (
+                    <p style={`${S.card}flex:1;font-style:italic;`}>"{c.quote}"<br /><span style="font-style:normal;font-size:13px;color:#646D76;">— {c.attribution}</span></p>
+                  )}
+                  <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  FOUR SIMPLE STEPS  ══════════════ */}
+    <section id="getting-started" data-screen-label="Four steps" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7FB3BC;margin-bottom:14px;">Getting started</div>
+          <h2 style={`${S.h2}max-width:20ch;color:#FFFFFF;`}>Four simple steps</h2>
+        </div>
+        <ScrollActivateSteps id="programs-steps-row" steps={steps.map(([, h, p]) => ({ title: h, text: p }))} circleNumbers />
+      </div>
+    </section>
+
+    {/* ══════════════  WHY BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>The same standard, at every level of care</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;">
+          {whyPicks.map(([icon, color, h, p]) => (
+            <div style="padding:32px 30px;">
+              <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+              </span>
+              <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
+              <p style={S.card}>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for whichever level of care fits — before you commit to anything."
+      background="#F7F5F1"
+    />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px —
+       placed here, between Location and FAQ, same as admissions/insurance/. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Questions people ask about our programs"
+      intro="Straight answers about choosing and moving between levels of care."
+      groups={[{ items: faqs }]}
+      background="#F7F5F1"
+    />
+
+    <SiteFinalCTA
+      heading="Not sure which level of care is right for you?"
+      subhead="Our admissions team talks through your situation first, then matches you to the right starting point. No pressure, no obligation."
+      secondary={{ label: "Verify My Insurance", href: "#verify" }}
+      background="/Asset/Facility/facility-03-clinical-office.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    // #getting-started is excluded — it uses ScrollActivateSteps.astro
+    // (shared with the homepage's "Four simple steps" and Careers' "How
+    // to Apply"), which has its own scroll-driven effect and doesn't
+    // need the generic fade-in on top of it.
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top):not(#getting-started), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel now live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

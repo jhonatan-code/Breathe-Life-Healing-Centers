@@ -1,0 +1,85 @@
+---
+/**
+ * Desktop-only rail (hidden under 980px — see BlogMobileTools.astro for the
+ * mobile equivalent: a sticky call bar + bottom sheet holding this same
+ * content). TOC is built client-side from the real H2 headings already in
+ * the DOM, per the approved preview — see the <script> at the bottom.
+ */
+import { insurers, reviews } from '../../data/home';
+import { site } from '../../config/site';
+import { CATEGORY_LABELS, postHref, type BlogEntry } from '../../lib/blog';
+
+interface Props {
+  related: BlogEntry[];
+}
+const { related } = Astro.props;
+const review = reviews[1] ?? reviews[0];
+const insurerNames = insurers.slice(0, 6).map((i) => i.name);
+---
+
+<aside class="side-rail" aria-label="Article tools">
+  <div class="side-card">
+    <h4>On this page</h4>
+    <ul class="toc-list" id="toc-list"></ul>
+  </div>
+
+  <div class="side-card call-card">
+    <h4>Talk to someone now</h4>
+    <div class="num">{site.phoneDisplay}</div>
+    <a class="btn" href={site.phoneHref}>Call 24/7</a>
+  </div>
+
+  <div class="side-card">
+    <h4>Coverage</h4>
+    <div class="ins-chips">
+      {insurerNames.map((n) => <span class="ins-chip">{n}</span>)}
+    </div>
+    <a class="ins-link" href="/insurance-verification/">Verify your insurance &rarr;</a>
+  </div>
+
+  {review && (
+    <div class="side-card">
+      <h4>What families say</h4>
+      <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">&ldquo;{review.quote.slice(0, 180)}{review.quote.length > 180 ? '…' : ''}&rdquo;</p>
+      <div class="review-name">{review.name}, Google review</div>
+    </div>
+  )}
+
+  {related.length > 0 && (
+    <div class="side-card">
+      <h4>Related articles</h4>
+      {related.map((p) => (
+        <a class="related-mini" href={postHref(p)}>
+          <span class="related-cat">{CATEGORY_LABELS[p.data.category]}</span>
+          <span class="related-title">{p.data.title.replace(/\s*\|\s*Breathe$/, '')}</span>
+        </a>
+      ))}
+    </div>
+  )}
+</aside>
+
+<style>
+  .side-rail { position: sticky; top: 88px; display: flex; flex-direction: column; gap: 20px; }
+  .side-card { background: #fff; border: 1px solid #E5E1D8; border-radius: 14px; padding: 20px; }
+  .side-card h4 { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #2C5A64; margin: 0 0 14px; }
+  .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; }
+  .toc-list a { text-decoration: none; color: #3A444D; display: block; padding: 3px 0 3px 12px; border-left: 2px solid #E5E1D8; }
+  .toc-list a.active { color: #16293D; font-weight: 600; border-left-color: #33679C; }
+  .call-card { background: #16293D; color: #fff; text-align: center; }
+  .call-card h4 { color: #9DB2C2; }
+  .call-card .num { font-size: 22px; font-weight: 700; font-family: 'Instrument Sans', sans-serif; letter-spacing: -0.01em; margin: 8px 0 12px; }
+  .call-card a.btn { display: block; background: #7FB3BC; color: #16293D; font-weight: 700; font-family: 'Instrument Sans', sans-serif; padding: 11px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+  .ins-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ins-chip { font-family: 'Montserrat', sans-serif; font-size: 11.5px; color: #3A444D; background: #F0F5FA; padding: 5px 9px; border-radius: 6px; }
+  .ins-link { display: block; margin-top: 12px; font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; color: #33679C; text-decoration: none; }
+  .review-quote { font-family: 'Montserrat', sans-serif; font-size: 13.5px; line-height: 1.6; color: #3A444D; font-style: italic; margin: 0 0 10px; }
+  .review-name { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; color: #14181C; }
+  .stars { color: #E0A93A; font-size: 12px; margin-bottom: 8px; }
+  .related-mini { display: block; text-decoration: none; color: inherit; padding: 10px 0; border-top: 1px solid #E5E1D8; }
+  .related-mini:first-of-type { border-top: 0; padding-top: 0; }
+  .related-cat { display: block; font-family: 'Instrument Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #2C5A64; margin-bottom: 4px; }
+  .related-title { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; line-height: 1.35; color: #14181C; }
+
+  @media (max-width: 980px) { .side-rail { display: none; } }
+</style>

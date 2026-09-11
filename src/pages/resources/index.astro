@@ -1,0 +1,198 @@
+---
+/**
+ * /resources/ — section hub. Resources moved from its own top-level nav
+ * item into the About dropdown (site.ts, 2026-09-11), so SiteHeader here
+ * highlights "About" — but this page still needs a real overview since
+ * it's a section root (navigation.md: every top-level item lands somewhere
+ * real, not a stub). Framed broadly as "help finding what you need" and
+ * cross-links into Media/Press plus the other genuinely useful jumping-off
+ * points elsewhere on the site (insurance verification, admissions,
+ * contact) rather than inventing sub-pages that don't exist in the
+ * approved sitemap.
+ *
+ * Structure per BUILD NOTES: hero (with VerifyInsuranceForm, for sitewide
+ * consistency) → content section(s) → SiteReviews → SiteLocation →
+ * SiteFinalCTA. No SiteInsurance/FAQ — lighter than a clinical funnel page.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+import { galleryImg } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Resources | Breathe Life Healing Centers";
+const description =
+  "Helpful starting points for anyone researching treatment at Breathe Life Healing Centers — media and press information, insurance verification, admissions guidance, and how to reach our team.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const links = [
+  {
+    icon: "newspaper", title: "Media / Press", href: "/resources/media/",
+    text: "Press inquiries, guidance on choosing a treatment center, and downloadable materials as we publish them.",
+  },
+  {
+    icon: "fact_check", title: "Verify Your Insurance", href: "/admissions/insurance/",
+    text: "Check what your plan covers before you commit to anything. Our team verifies benefits directly with your carrier.",
+  },
+  {
+    icon: "checklist", title: "Admissions Guide", href: "/admissions/",
+    text: "What happens from your first call to your first day — step by step, with nothing skipped.",
+  },
+  {
+    icon: "forum", title: "Contact Us", href: "/contact-us/",
+    text: "Reach our admissions team directly, 24/7, by phone or message.",
+  },
+];
+
+const pageUrl = new URL("/resources/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Resources", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      name: "Resources",
+      itemListElement: links.map((l, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: l.title,
+        url: new URL(l.href, site.domain).href,
+      })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/resources/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src={galleryImg("facility-14-community-kitchen.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">Resources</div>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Helpful Places to Start</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Whether you're researching on someone else's behalf, checking your coverage, or just not ready to call yet — here's where to find what you need.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT'S HERE  ══════════════ */}
+    <section data-screen-label="What's here" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;right:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>What's here</div>
+        <h2 style={`${S.h2}max-width:30ch;`}>Not everyone is ready to call first</h2>
+        <p style={`${S.intro}max-width:78ch;`}>Some people land here already knowing they need to make a call. Others are still gathering information, checking whether it's a fit, or figuring out what a family member actually needs. This page collects the things people ask for most before that first conversation.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  LINKS GRID  ══════════════ */}
+    <section data-screen-label="Resources grid" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Explore</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Find what you need</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {links.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Have a Question We Haven't Answered?"
+      subhead="Our admissions team is available 24/7 — call, or send a message and we'll get back to you."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-11-clinical-building-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

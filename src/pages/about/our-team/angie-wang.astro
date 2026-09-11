@@ -1,0 +1,85 @@
+---
+/**
+ * /about/our-team/angie-wang/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/angie-s-wang/, checked 2026-09-02) —
+ * the client's own real content, per this session's standing instruction to
+ * check the official site rather than placeholder gaps. Not in src/data/home.ts
+ * (that array only carries leadership), so name/role/photo/badge are defined
+ * directly here.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Angie S. Wang",
+  role: "Group Facilitator",
+  photo: "/Asset/Our%20Team/angie-wang.jpg",
+  badge: "",
+};
+
+const fullBio = [
+  "I’m a born-and-raised New Yorker with a Master’s in Family Therapy from Rutgers, and I have the absolute privilege of working as a Group Leader at Breathe. What keeps me inspired in this field? That incredible moment when the lights go on in someone’s eyes—when I get to witness people move from despair to hope. It’s the juice that fuels me every day.",
+  "The most rewarding part of my work? I get a front-row seat to profound transformation. There’s nothing like seeing people step into their power and begin to heal.",
+  "When I’m not working, I take care of myself by exercising, spending time with loved ones, soaking up nature, and diving into spiritual practices and AA. I also love working on creative projects—it keeps my soul happy. And if I had to listen to just one song for 24 hours? Sara by Fleetwood Mac, hands down.",
+  "If you’re thinking about coming to Breathe, here’s what I want you to know: it’s as imperfect as anything, but it runs on the engine of our collective heart and passion. Love and magic happen here.",
+  "Outside of work, I’m usually making art, working out, doing devotional work, or hanging with my little rat daughter and crazy pup. Life’s a wild ride, and I’m here for every moment of it.",
+];
+
+const title = "Angie S. Wang | Group Facilitator | Breathe Life Healing Centers";
+const description = "Angie S. Wang is a Group Facilitator at Breathe Life Healing Centers, bringing warmth and lived spiritual practice to group work.";
+
+const pageUrl = new URL("/about/our-team/angie-wang/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/angie-wang/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="angie-wang" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-04-community-dining-lounge.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

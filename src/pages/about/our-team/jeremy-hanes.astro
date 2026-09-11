@@ -1,0 +1,84 @@
+---
+/**
+ * /about/our-team/jeremy-hanes/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/jeremy-hanes/, checked 2026-09-02).
+ * Not in src/data/home.ts's `team` array, so name/role/photo are defined
+ * directly below rather than pulled from it — mirrors emily-wessel.astro
+ * otherwise. No badge: the source page shows no credentials/certifications
+ * after his name, so the badge span is omitted entirely per this batch's
+ * instructions. The source page italicizes an album title and a mantra
+ * sentence — rendered here as plain text (no markdown markup) since that's
+ * an artifact of the fetch, not literal characters on the page.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Jeremy Hanes";
+const role = "Utilization Review Director";
+const photo = "/Asset/Our%20Team/jeremy-hanes.jpg";
+
+const fullBio = [
+  "Some people find magic in the pages of a great book. Others find it in a perfectly made cup of coffee or a quiet moment at the movies. For me, the real magic is watching people learn to love themselves—maybe for the first time in their lives.",
+  "I've always been fascinated by our emotional selves—how we carry our pasts, how we heal, and how we learn to step into who we were always meant to be. It's what drew me to the mental health and recovery field, and it's what keeps me passionate about my work every day. At Breathe, I get to be part of a team that truly believes in transformation, and I can say with my whole heart and soul—this is the place for you.",
+  "When I need to recharge, you'll probably find me lost in the shelves of a bookstore, wrapped up in a great story, or enjoying a quiet night in with my two dogs and my wife (who's an excellent conversation partner). Music is a constant in my life, and if Motion Sickness by Phoebe Bridgers was playing on loop for 24 hours, I wouldn't complain.",
+  "My guiding mantra? You'll always win when you move with love and genuine intentions. Always. I try to live by that, both in my work and in my everyday life. Because at the end of the day, healing is about more than just overcoming the past—it's about learning to embrace the beautiful, messy, one-of-a-kind individual you are.",
+];
+
+const title = "Jeremy Hanes | Utilization Review Director | Breathe Life Healing Centers";
+const description = "Jeremy Hanes is Utilization Review Director at Breathe Life Healing Centers, drawn to the mental health and recovery field by a passion for watching people learn to love themselves.";
+
+const pageUrl = new URL("/about/our-team/jeremy-hanes/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/jeremy-hanes/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} photo={photo} slug="jeremy-hanes" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-02-shared-bedroom-blue.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

@@ -1,0 +1,250 @@
+---
+/**
+ * /therapies/trauma-focused-therapy/ — modality page. No approved clinical brief exists yet
+ * for therapy-modality copy (CLAUDE.md: never invent YMYL/clinical content
+ * without a brief), so the "what is it" explanation and FAQ answers are
+ * placeholdered with <ClinicalPlaceholder /> rather than written from general
+ * knowledge. Structure/marketing copy around those blocks (hero, how-it-fits-
+ * your-plan, why Breathe, cross-links) is original, non-clinical copy.
+ * Structural template: src/pages/what-we-treat/cocaine.astro. Section order
+ * and mobile-verify-slot placement follow the /therapies/ batch convention
+ * (slot after the FAQ placeholder, right before SiteFinalCTA).
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Trauma-Focused Therapy | Breathe Life Healing Centers";
+const description = "Trauma-focused therapy at Breathe Life Healing Centers, an LGBTQ+-affirming treatment provider in Los Angeles. Individualized, in-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const fits = [
+  "Woven into individual sessions with your primary therapist",
+  "Included in group programming where appropriate for your plan",
+  "Adjusted to your level of care — residential, PHP, IOP, or outpatient",
+  "Coordinated with the rest of your care team, not run in isolation",
+];
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+  },
+  {
+    icon: "family_restroom", title: "Family involved, on your terms",
+    text: "Family therapy that doesn't assume blood relationships. Partners and chosen family are welcome participants.",
+  },
+];
+
+const related: { label: string; href: string }[] = [{"label":"Somatic Therapy","href":"/therapies/somatic-therapy/"},{"label":"Dialectical Behavior Therapy (DBT)","href":"/therapies/dbt/"},{"label":"Gender-Affirming Care","href":"/therapies/gender-affirming-care/"}];
+
+const pageUrl = new URL("/therapies/trauma-focused-therapy/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Therapies", item: new URL("/therapies/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Trauma-Focused Therapy", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/therapies/trauma-focused-therapy/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Therapies" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-11-clinical-building-exterior.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/therapies/" style="color:#7FB3BC;">Therapies</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Trauma-Focused Therapy
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Trauma-Focused Therapy in Los Angeles</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Trauma-focused therapy is one of the therapies your care team may draw on as part of your plan at Breathe — built for the LGBTQ+ community first, open to anyone whose values align.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT IS IT  ══════════════ */}
+    <section data-screen-label="What is it" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:900px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>What is it</div>
+        <h2 style={`${S.h2}max-width:26ch;`}>What Is Trauma-Focused Therapy?</h2>
+        <p style={`${S.intro}max-width:74ch;margin-bottom:26px;`}>Trauma-focused therapy is one of the therapeutic approaches available at Breathe. Like every therapy we offer, it's introduced and adjusted by your clinical team as part of a plan built around you, not applied as a one-size-fits-all track.</p>
+      </div>
+      <div style="max-width:900px;margin:0 auto;">
+        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Modality description — needs approved brief" />
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE USE IT AT BREATHE  ══════════════ */}
+    <section data-screen-label="How we use it" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1fr) minmax(300px,0.9fr);gap:48px;align-items:center;">
+        <div>
+          <div style={S.eyebrow}>How we use it at Breathe</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:28ch;`}>Trauma-Focused Therapy as part of your plan</h2>
+          <p style={`${S.intro}max-width:58ch;`}>Trauma-focused therapy isn't a stand-alone track at Breathe — it's folded into the individualized plan your clinical team builds around you, paced to what you're ready for.</p>
+        </div>
+        <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="display:grid;gap:14px;">
+            {fits.map((s) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <Icon name="check" size={14} />
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  RELATED THERAPIES  ══════════════ */}
+    <section data-screen-label="Related therapies" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:860px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Explore more</div>
+        <h2 style={`${S.h2}max-width:26ch;`}>Related therapies at Breathe</h2>
+        <p style={`${S.intro}max-width:72ch;margin-bottom:22px;`}>Every plan at Breathe draws on more than one approach. Here's where to look next.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
+          {related.map((r) => (
+            <a class="link-card" href={r.href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{r.label}</a>
+          ))}
+        </div>
+        <a class="cta" href="/therapies/" style={`display:inline-block;${S.ctaBlue}`}>See All Therapies</a>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  FAQ  ══════════════ */}
+    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1080px;margin:0 auto;">
+        <div style={S.eyebrow}>Questions</div>
+        <h2 style={`${S.h2}max-width:30ch;margin-bottom:22px;`}>Questions people ask about Trauma-Focused Therapy</h2>
+        <ClinicalPlaceholder kind="FAQ CONTENT" note="Needs approved FAQ copy — no clinical claims about this modality until a brief exists." />
+      </div>
+    </section>
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px.
+       Per the /therapies/ batch convention, this slot sits after the FAQ
+       section, right before the Final CTA. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-05-spa-bathroom-suite.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

@@ -59,14 +59,96 @@ a, button, summary, input, select {
 .skip-link:focus { transform: translateY(0); }
 
 /* CTA hover states (design used style-hover="…") */
-.cta { }
-.cta:hover { background: #16293d !important; color: #fff !important; }
-.cta--light:hover { background: #c8dae9 !important; color: #16293d !important; }
+/* Site-wide button treatment: a consistent 12px corner radius (overriding
+   each page's own inline radius, pill or square) plus a subtle metallic
+   bevel — a bright inset edge at bottom-left, a faint dark one at top-right,
+   as if lit from below-left — and, on hover, a 1px lift with the elevation
+   shadow easing in. Buttons that sit on a light background (.cta--light,
+   .icon-btn, .social-btn's dark fill aside) won't show the white sliver as
+   strongly as the ones on color/dark fills — that's expected, not a bug. */
+.cta, .icon-btn, .rev-arrow, .social-btn {
+  border-radius: 12px !important;
+  box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.35), inset 1px -1px 0.5px rgba(20,24,28,0.10);
+}
+.cta:hover {
+  background: #16293d !important; color: #fff !important; transform: translateY(-1px);
+  box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.4), inset 1px -1px 0.5px rgba(0,0,0,0.18),
+    0 3px 6px rgba(20,24,28,0.10), 0 10px 20px rgba(20,24,28,0.14);
+}
+.cta--light:hover {
+  background: #c8dae9 !important; color: #16293d !important; transform: translateY(-1px);
+  box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.08),
+    0 3px 6px rgba(20,24,28,0.10), 0 10px 20px rgba(20,24,28,0.14);
+}
 .nav-link:hover { color: #33679c !important; }
-.icon-btn:hover { background: #f1f5f9 !important; }
-.rev-arrow:hover { background: #1e2a4a !important; color: #fff !important; }
-.social-btn:hover { background: #33679c !important; color: #fff !important; }
+.icon-btn:hover {
+  background: #f1f5f9 !important; transform: translateY(-1px);
+  box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.06),
+    0 3px 6px rgba(20,24,28,0.08), 0 10px 20px rgba(20,24,28,0.10);
+}
+.rev-arrow:hover {
+  background: #16293d !important; color: #fff !important; transform: translateY(-50%) translateY(-1px);
+  box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.4), inset 1px -1px 0.5px rgba(0,0,0,0.2),
+    0 3px 6px rgba(20,24,28,0.12), 0 10px 20px rgba(20,24,28,0.16);
+}
+.social-btn:hover {
+  background: #33679c !important; color: #fff !important; transform: translateY(-1px);
+  box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.4), inset 1px -1px 0.5px rgba(0,0,0,0.18),
+    0 3px 6px rgba(20,24,28,0.14), 0 10px 20px rgba(20,24,28,0.18);
+}
 .footer-link:hover { color: #fff !important; }
+
+/* The DHCS mark is a multi-color seal (navy/teal/orange) — illegible against
+   the footer's near-black gradient at any width, so it's forced to a plain
+   white silhouette everywhere, not just on mobile. Recovery.com's mark gets
+   the same treatment for the same reason. */
+#footer img[src*="DHCS"],
+#footer img[src*="Recovery.com"] { filter: brightness(0) invert(1); }
+
+/* Interior-page link cards (therapy/condition cross-links) */
+.link-card { transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1); }
+.link-card:hover { border-color: #33679c !important; box-shadow: 0 6px 18px rgba(51, 103, 156, 0.14); }
+
+/* "What we treat" category switcher (homepage) */
+.treat-tab {
+  font-family: "Instrument Sans", sans-serif; font-size: 14px; font-weight: 500;
+  padding: 10px 20px; border: 0; border-radius: 999px; background: transparent;
+  color: #4A555F; cursor: pointer;
+  transition: background-color 220ms cubic-bezier(0.4, 0, 0.2, 1), color 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.treat-tab.is-active { background: #33679c; color: #fff; }
+.treat-tab:not(.is-active):hover { background: #f1f5f9; }
+.treat-card {
+  transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.treat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(51, 103, 156, 0.10), 0 14px 28px rgba(51, 103, 156, 0.14);
+}
+
+/* Leadership photo cards (homepage) */
+.team-card { transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); }
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(20, 24, 28, 0.12), 0 20px 36px rgba(20, 24, 28, 0.16);
+}
+
+/* "Three pillars" row — a small (3–4 item) feature set presented as
+   dividers rather than boxed cards. Collapses to horizontal dividers when
+   the grid stacks to one column (both on mobile and whenever the row itself
+   only fits one column at its own width). */
+.pillars-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border-top: 1px solid #e2ded7; border-bottom: 1px solid #e2ded7; }
+.pillars-row > div { border-left: 1px solid #e2ded7; }
+.pillars-row > div:first-child { border-left: 0; }
+/* Force a single column at the site's mobile breakpoint (matching every
+   other explicit grid-collapse override below) rather than leaving it to
+   auto-fit's own natural wrap point — vertical dividers stop meaning
+   anything once stacked, so swap to horizontal ones exactly here too. */
+@media (max-width: 1024px) {
+  .pillars-row { grid-template-columns: 1fr; }
+  .pillars-row > div { border-left: 0; border-top: 1px solid #e2ded7; }
+  .pillars-row > div:first-child { border-top: 0; }
+}
 
 /* Section reveal on scroll */
 .blhc-reveal {
@@ -94,7 +176,7 @@ a, button, summary, input, select {
   flex: 0 0 calc((100% - (var(--visible-cards) - 1) * var(--gap)) / var(--visible-cards));
   box-sizing: border-box;
 }
-.reviews-carousel:focus-visible { outline: 3px solid #1e2a4a; outline-offset: 6px; border-radius: 18px; }
+.reviews-carousel:focus-visible { outline: 3px solid #33679c; outline-offset: 6px; border-radius: 18px; }
 .reviews-quote::-webkit-scrollbar { width: 4px; }
 .reviews-quote::-webkit-scrollbar-thumb { background: #c9d2e4; border-radius: 999px; }
 
@@ -139,7 +221,70 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
 }
-.msym--fill { font-variation-settings: "FILL" 1, "wght" 500; }
+/* Header dropdown / mega-menus (SiteHeader.astro). Desktop: hover- or
+   click-revealed panel anchored under the trigger. Mobile treatment lives in
+   the mobile layer below (becomes an in-flow accordion). */
+.hdr-item { position: relative; }
+/* .hdr-trigger is a split control: .hdr-trigger-link is a real <a> (click
+   navigates to the section's page) and .hdr-caret-btn is a separate button
+   that only toggles .hdr-panel — both inherit color/weight from this
+   wrapper so the active/hover treatment applies to the whole trigger. */
+.hdr-trigger { display: inline-flex; align-items: center; gap: 4px; padding: 4px 0; }
+.hdr-trigger-link { color: inherit; font: inherit; text-decoration: none; }
+.hdr-caret-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: none; border: 0; padding: 2px; margin: 0; cursor: pointer;
+  color: inherit; font: inherit; line-height: 1;
+}
+.hdr-item:hover .hdr-trigger-link,
+.hdr-item:hover .hdr-caret-btn { color: #33679c !important; }
+.hdr-caret { font-size: 11px; line-height: 1; transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1); }
+.hdr-item:hover .hdr-caret,
+.hdr-item.is-open .hdr-caret { transform: rotate(180deg); }
+
+.hdr-panel {
+  /* margin-top: 0, flush against the trigger row — a visible gap here would
+     be a dead zone outside both the trigger's and the panel's hoverable
+     box, breaking hover as the cursor crosses it (confirmed: the panel was
+     closing before the cursor ever reached it). */
+  position: absolute; top: 100%; left: 50%; margin-top: 0;
+  transform: translateX(-50%) translateY(4px);
+  width: max-content; max-width: min(640px, calc(100vw - 40px));
+  background: #fff; border: 1px solid #e2ded7; border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(20, 24, 28, 0.14);
+  padding: 20px;
+  /* grid-template-columns is set inline per-panel (repeat(N, minmax(190px,1fr)))
+     where N = item.groups.length — an explicit column count so .hdr-panel-all's
+     `grid-column: 1 / -1` spans exactly N columns. Auto-flow with an implicit
+     grid here previously fabricated a phantom extra column, stealing width
+     from the real columns and causing long link labels to overflow. */
+  display: grid; gap: 8px 28px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 200ms;
+  z-index: 60;
+}
+.hdr-item:hover .hdr-panel,
+.hdr-item:focus-within .hdr-panel,
+.hdr-item.is-open .hdr-panel {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
+}
+.hdr-panel-all {
+  grid-column: 1 / -1;
+  font-family: "Instrument Sans", sans-serif; font-size: 13px; font-weight: 600; color: #33679c;
+  padding-bottom: 10px; margin-bottom: 4px; border-bottom: 1px solid #e2ded7;
+}
+.hdr-panel-group { display: grid; gap: 2px; align-content: start; }
+.hdr-panel-heading {
+  font-family: "Instrument Sans", sans-serif; font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #2c5a64; margin-bottom: 8px;
+}
+.hdr-panel-link {
+  display: block; padding: 7px 0; font-family: "Montserrat", sans-serif; font-size: 14px; color: #14181c;
+}
+.hdr-panel-link:hover { color: #33679c !important; }
+/* Active sub-link — the page currently open, matched by URL in SiteHeader.astro. */
+.hdr-panel-link[aria-current="page"] { color: #33679c; font-weight: 600; }
+.hdr-panel-all[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ═══════════════════════════  MOBILE LAYER  ═══════════════════════════
    The design comp is a 1440px desktop artboard with inline styles. This
@@ -147,21 +292,30 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
    call bar, tighter gutters, shorter hero, shorter tall images, no sticky
    FAQ rail, and an overflow guard. */
 
-.m-only, .m-callbar { display: none; }
+.m-only, .m-only-block, .m-callbar { display: none; }
 
-html, body { overflow-x: hidden; }
+/* `clip` (not `hidden`) guards against horizontal overflow without turning
+   <body> into a scroll container — which would break the sticky header. */
+html, body { overflow-x: clip; }
 img { height: auto; }
+
+/* Verify-insurance form: shown in the hero on desktop; on mobile the form
+   node is moved into this section (see index.astro script). */
+#verify-mobile-host { display: none; }
 
 @media (max-width: 1024px) {
   .d-only { display: none !important; }
   .hdr-burger.m-only { display: inline-flex; }
   .m-only-block { display: block !important; }
   .m-callbar { display: flex; }
+  #verify-mobile-host { display: block; }
 
-  /* header */
-  .hdr-row { padding: 12px 18px !important; gap: 14px !important; }
+  /* header — horizontal gutter lives on .site-hdr (matches footer's
+     outer-padding/inner-max-width split), so only vertical padding is
+     overridden here */
+  .hdr-row { padding: 12px 0 !important; gap: 14px !important; }
   .hdr-logo img { width: 140px !important; }
-  .site-hdr { position: sticky; }
+  .site-hdr { position: sticky; top: 0; padding: 0 20px !important; }
 
   .hdr-burger {
     flex-direction: column; justify-content: center; gap: 5px;
@@ -177,11 +331,11 @@ img { height: auto; }
 
   .hdr-nav {
     position: absolute; left: 0; right: 0; top: 100%;
-    flex-direction: column !important; align-items: stretch !important;
+    flex-direction: column !important; flex-wrap: nowrap !important; align-items: stretch !important;
     gap: 0 !important;
     background: #fff; border-bottom: 1px solid #e2ded7;
     box-shadow: 0 12px 24px rgba(20, 24, 28, 0.12);
-    padding: 4px 18px 14px;
+    padding: 4px 20px 14px;
     max-height: 0; overflow: hidden; visibility: hidden;
     transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s;
   }
@@ -190,6 +344,34 @@ img { height: auto; }
     padding: 13px 4px !important; font-size: 16px;
     border-bottom: 1px solid #f1eee8;
   }
+
+  /* dropdown items become an in-flow accordion on mobile */
+  .hdr-item { width: 100%; }
+  .hdr-trigger {
+    width: 100%; justify-content: space-between; align-items: stretch; padding: 0;
+    border-bottom: 1px solid #f1eee8;
+  }
+  /* row padding/font live on the link and caret themselves (not .hdr-trigger)
+     so both stay full tap targets — matches .hdr-nav .nav-link below. */
+  .hdr-trigger-link { flex: 1; display: flex; align-items: center; padding: 13px 4px; font-size: 16px; }
+  .hdr-caret-btn { padding: 13px 8px; }
+  .hdr-panel {
+    /* !important: beats .hdr-item.is-open/:hover .hdr-panel's higher-specificity
+       desktop transform (same selector this rule needs to stay static under). */
+    position: static !important; margin-top: 0; transform: none !important;
+    width: auto; max-width: none;
+    opacity: 1; visibility: visible; pointer-events: auto;
+    /* !important: beats the inline grid-template-columns set per-panel for desktop. */
+    display: grid; grid-template-columns: 1fr !important; gap: 0;
+    background: #faf8f5; border: 0; border-radius: 0; box-shadow: none;
+    padding: 0 0 0 14px;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hdr-item.is-open .hdr-panel { max-height: 900px; padding: 4px 0 10px 14px; }
+  .hdr-panel-all { font-size: 14px; padding-bottom: 8px; }
+  .hdr-panel-group + .hdr-panel-group { margin-top: 10px; }
+  .hdr-panel-link { padding: 9px 0; border-bottom: 0 !important; }
 
   /* persistent contact — reachable without opening the menu (navigation.md §2) */
   .m-callbar {
@@ -201,21 +383,31 @@ img { height: auto; }
   }
   body { padding-bottom: 52px; }
 
-  /* gutters + vertical rhythm */
-  section, footer { padding-left: 18px !important; padding-right: 18px !important; }
-  section[style*="padding:70px 37px"],
-  section[style*="padding:90px 37px"] { padding-top: 44px !important; padding-bottom: 44px !important; }
+  /* gutters + vertical rhythm — one consistent 20px side gutter on mobile */
+  section, footer { padding-left: 20px !important; padding-right: 20px !important; }
+  section[style*="padding:70px 37px"] { padding-top: 44px !important; padding-bottom: 44px !important; }
+
+  /* Hero and Final CTA carry their gutter on an inner wrapper, not the
+     <section> — zero the section's own side padding so 20px isn't doubled. */
+  #top,
+  section[data-screen-label="Final CTA"] { padding-left: 0 !important; padding-right: 0 !important; }
+  section[data-screen-label="Final CTA"] > div { padding-left: 20px !important; padding-right: 20px !important; }
 
   /* hero */
-  #top > div { padding: 44px 18px !important; gap: 26px !important; }
+  #top > div { padding: 44px 20px !important; gap: 26px !important; }
   #top h1 { font-size: clamp(27px, 8vw, 40px) !important; }
 
   /* tall images shorter */
-  #gal-main { min-height: 240px !important; }
+  .fg-main { min-height: 240px !important; }
   #levels img { min-height: 200px !important; }
   #location [style*="height:440px"] { height: 300px !important; }
+  /* ...but the "Getting here" panel must grow to fit its content, not clip it */
+  #location [data-reveal],
+  #location [data-reveal] [data-reveal-body] { height: auto !important; }
+  #location [data-reveal] [data-reveal-body] { padding: 24px 20px !important; }
 
-  #community > div { gap: 26px !important; }
+  #community > div { gap: 26px !important; grid-template-columns: 1fr !important; }
+  section[data-screen-label="Understanding"] > div { grid-template-columns: 1fr !important; }
 
   /* FAQ: drop the sticky rail on mobile */
   #faq [style*="position:sticky"] { position: static !important; }

@@ -1,0 +1,79 @@
+---
+/**
+ * /blog/category/{slug}/, /blog/category/{slug}/2/... — one real, crawlable,
+ * paginated archive per category, rather than client-side-only filtering.
+ */
+import type { GetStaticPathsOptions, Page } from 'astro';
+import Layout from '../../../../layouts/Layout.astro';
+import SiteHeader from '../../../../components/SiteHeader.astro';
+import SiteFooter from '../../../../components/SiteFooter.astro';
+import BlogCard from '../../../../components/blog/BlogCard.astro';
+import { getVisiblePosts, CATEGORY_LABELS, CATEGORY_SLUGS, type BlogEntry } from '../../../../lib/blog';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getVisiblePosts();
+  return CATEGORY_SLUGS.flatMap((category) => {
+    const filtered = posts.filter((p) => p.data.category === category);
+    return paginate(filtered, { pageSize: 9, params: { category } });
+  });
+}
+
+const { category } = Astro.params;
+const { page } = Astro.props as { page: Page<BlogEntry> };
+const label = CATEGORY_LABELS[category as keyof typeof CATEGORY_LABELS];
+const title = `${label} | Breathe Blog`;
+const description = `Articles from Breathe Life Healing Centers on ${label.toLowerCase()}.`;
+---
+
+<Layout title={title} description={description} path={`/blog/category/${category}/`}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader />
+    <main id="main">
+      <section class="listing-head">
+        <div class="listing-head-inner">
+          <div class="eyebrow">Blog</div>
+          <h1>{label}</h1>
+          <nav class="filters" aria-label="Filter by category">
+            <a class="filter-pill" href="/blog/">All</a>
+            {CATEGORY_SLUGS.map((c) => <a class={`filter-pill ${c === category ? 'is-active' : ''}`} href={`/blog/category/${c}/`}>{CATEGORY_LABELS[c]}</a>)}
+          </nav>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <div class="grid">
+          {page.data.map((p) => <BlogCard post={p} />)}
+        </div>
+      </div>
+
+      {page.lastPage > 1 && (
+        <nav class="pagination" aria-label="Category pagination">
+          {page.currentPage > 1 && <a href={page.currentPage - 1 === 1 ? `/blog/category/${category}/` : `/blog/category/${category}/${page.currentPage - 1}/`} aria-label="Previous page">&lsaquo;</a>}
+          {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
+            <a href={n === 1 ? `/blog/category/${category}/` : `/blog/category/${category}/${n}/`} aria-current={n === page.currentPage ? 'page' : undefined}>{n}</a>
+          ))}
+          {page.currentPage < page.lastPage && <a href={`/blog/category/${category}/${page.currentPage + 1}/`} aria-label="Next page">&rsaquo;</a>}
+        </nav>
+      )}
+    </main>
+    <SiteFooter />
+  </div>
+</Layout>
+
+<style>
+  .listing-head { padding: 56px 37px 30px; }
+  .listing-head-inner { max-width: 1440px; margin: 0 auto; }
+  .listing-head h1 { font-size: clamp(30px,4vw,44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 600; margin: 14px 0 16px; }
+  .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; }
+  .filters { display: flex; gap: 10px; justify-content: flex-start; flex-wrap: wrap; margin-top: 28px; }
+  .filter-pill { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1px solid #E5E1D8; background: #fff; color: #3A444D; text-decoration: none; }
+  .filter-pill.is-active { background: #16293D; color: #fff; border-color: #16293D; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding-inline: 37px; }
+  .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1180px; margin: 0 auto; }
+  .pagination { display: flex; justify-content: center; gap: 8px; padding: 52px 37px 70px; }
+  .pagination a { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-family: 'Instrument Sans', sans-serif; font-size: 14px; font-weight: 600; color: #3A444D; text-decoration: none; border: 1px solid #E5E1D8; }
+  .pagination a[aria-current="page"] { background: #16293D; color: #fff; border-color: #16293D; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+</style>

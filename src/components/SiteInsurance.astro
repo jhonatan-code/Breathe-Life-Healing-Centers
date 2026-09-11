@@ -1,0 +1,76 @@
+---
+/**
+ * "In-network with most major insurers" — identical presentation on every
+ * page (the marquee + copy), only the intro line and background tint change
+ * per page. `ctaHref` defaults to `#verify`, which now works everywhere since
+ * every page carries its own VerifyInsuranceForm in the hero.
+ */
+import { insurers } from "../data/home";
+
+interface Props {
+  heading?: string;
+  intro: string;
+  ctaHref?: string;
+  background?: string;
+}
+const {
+  heading = "We're in-network with most major insurers",
+  intro,
+  ctaHref = "#verify",
+  background = "#FFFFFF",
+} = Astro.props;
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+};
+---
+
+<section id="insurance" data-screen-label="Insurance" style={`padding:70px 37px;background:${background};`}>
+  <div style="max-width:1440px;margin:0 auto;text-align:center;">
+    <div style={S.eyebrow}>Cost &amp; coverage</div>
+    <h2 style={`${S.h2}max-width:52ch;`}>{heading}</h2>
+    <p style={`${S.intro}max-width:84ch;margin-bottom:30px;`}>{intro}</p>
+    <div id="ins-wrap" style="margin-bottom:26px;">
+      <div id="ins-track" class="no-scrollbar" style="display:flex;align-items:center;overflow-x:auto;">
+        {[...insurers, ...insurers, ...insurers, ...insurers].map((i, k) => (
+          <div aria-hidden={k >= insurers.length ? "true" : undefined} style="flex:0 0 210px;display:flex;align-items:center;justify-content:center;padding:0 8px;box-sizing:border-box;">
+            <img src={i.src} alt={i.name} loading="lazy" style={`height:${i.h}px;width:auto;max-width:170px;object-fit:contain;`} />
+          </div>
+        ))}
+      </div>
+    </div>
+    <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#3A444D;margin:0 0 32px;">We do not accept Medi-Cal or Medicare.</p>
+    <a class="cta" href={ctaHref} style={`display:inline-block;${S.ctaBlue}`}>Verify my insurance</a>
+  </div>
+</section>
+
+<script>
+  // ── Insurance logo marquee (auto-scroll, pause on hover/focus) ───────────
+  (() => {
+    const track = document.getElementById("ins-track");
+    const wrap = document.getElementById("ins-wrap");
+    if (!track || !wrap) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const SPEED = 0.03;
+    let last = 0, pos: number | null = null, paused = false;
+    wrap.addEventListener("mouseenter", () => (paused = true));
+    wrap.addEventListener("mouseleave", () => (paused = false));
+    wrap.addEventListener("focusin", () => (paused = true));
+    wrap.addEventListener("focusout", () => (paused = false));
+    const step = (t: number) => {
+      const half = track.scrollWidth / 2;
+      if (last && !paused && half > 0) {
+        if (pos == null) pos = track.scrollLeft;
+        pos += (t - last) * SPEED;
+        if (pos >= half) pos -= half;
+        track.scrollLeft = pos;
+      }
+      last = t;
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  })();
+</script>

@@ -1,0 +1,354 @@
+---
+/**
+ * /programs/intensive-outpatient/ — structural/marketing copy only; the core
+ * definition line reuses the already-approved `levels` entry ("IOP —
+ * Intensive Outpatient (SUD, MH)") from data/home.ts verbatim, rather than
+ * inventing new clinical framing.
+ *
+ * FAQ (below) added per Breathe_Life_IOP_FAQ.docx (2026-09-11) — sourced by
+ * the brief from the live /intensive-outpatient-program/ page, confirmed
+ * against that page directly (the weekly-hours answer and BreakFree Journey
+ * mention are both real, behind "Expand" accordions on the live page). Two
+ * things flagged by the brief, not resolved by this change:
+ *  - The live page names internal family systems (IFS) as a clinical
+ *    approach. The client profile confirms IFS is not offered, so it's
+ *    excluded here — the brief notes this is the fifth page found with this
+ *    exact issue and recommends a sitewide IFS/EMDR/contingency-management
+ *    audit rather than catching it one page at a time.
+ *  - "BreakFree Journey" (a moving-meditation offering) appears on the live
+ *    page but isn't referenced anywhere else in this project. Not added
+ *    here; worth confirming with whoever owns the program content whether
+ *    it should get its own page.
+ *
+ * Page-specific redesign (2026-09-11, approved via Artifact review — see
+ * CLAUDE.md "## Page structure — fixed shared sections" and "## Design
+ * Process"): "Understanding" + "What's Included" are replaced by "Room For
+ * Both", an orbit diagram showing treatment coexisting with work, school,
+ * and family rather than displacing it, and "Related Programs" is replaced
+ * by a PHP → IOP → Outpatient position strip with IOP marked "you are here".
+ * Both use only already-approved copy, now including the real weekly
+ * schedule from the FAQ brief. Hero, Insurance, Reviews, Location, FAQ,
+ * Final CTA and the Footer are the fixed shared components and are
+ * untouched.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+import { levels, why } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Intensive Outpatient Program (IOP) in Los Angeles | Breathe";
+const description =
+  "Intensive Outpatient Program (IOP) in Los Angeles. Structured treatment that fits around work, school, or family. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const level = levels.find((l) => l.title === "IOP — Intensive Outpatient (SUD, MH)")!;
+
+const forYou = [
+  "Balancing treatment with work, school, or family responsibilities",
+  "Completed a higher level of care and need continued support",
+  "Want structured therapy several times a week without living on-site",
+  "Need more support than standard outpatient care but don't need PHP",
+];
+
+// Orbit facts ("Room For Both") — the same four facts the old "What's
+// Included" cards used. The schedule fact now states the real weekly hours
+// from Breathe_Life_IOP_FAQ.docx (2026-09-11, sourced from the live page's
+// "Duration of IOP Treatment" accordion) instead of staying generic.
+const orbitFacts = [
+  { title: "A flexible weekly schedule", text: "IOP typically starts around three hours a day, five days a week. Your schedule is adjusted over time based on your progress, not fixed in advance." },
+  { title: "Group and individual therapy", text: "A mix of group work and one on one sessions each week." },
+  { title: "Continued psychiatric care", text: "Ongoing clinical oversight for both addiction and mental health as you step down." },
+  { title: "Coordination with your daily life", text: "We work around work, school, or family responsibilities instead of asking you to pause them." },
+];
+
+// Levels-of-care position strip — PHP (before) -> IOP (current) -> Outpatient
+// (after). Every blurb is already-approved copy, unchanged from the old
+// "Related Programs" cards.
+const ladder = [
+  { n: "Before IOP", title: "PHP", href: "/programs/php/", text: "A more intensive daily schedule for people who need more structure than IOP." },
+  { n: "You are here", title: "Intensive Outpatient", href: null, text: level.text, active: true },
+  { n: "After IOP", title: "Outpatient Rehab", href: "/programs/outpatient-rehab/", text: "The usual next step down after IOP, for continued long-term support." },
+];
+
+const whyPicks = why.filter(([, , h]) =>
+  ["LGBTQIA+-Affirming Care at Every Level", "Addiction and Mental Health, Treated Together", "Staff Who've Lived It"].includes(h)
+);
+
+// Verbatim from Breathe_Life_IOP_FAQ.docx (2026-09-11), sourced by that
+// brief from the live /intensive-outpatient-program/ page.
+const faqs = [
+  { q: "How many hours per week does IOP require?", a: "IOP typically starts around three hours a day, five days a week. Your schedule is adjusted over time based on your individual progress, not fixed in advance." },
+  { q: "How long does IOP usually last?", a: "There is no set duration. Length is shaped around your progress and reassessed along the way, rather than following a fixed calendar." },
+  { q: "What types of therapy are included in IOP?", a: "A mix of group therapy, individual sessions, and evidence-based approaches like CBT, alongside experiential and wellness practices." },
+  { q: "Do I still get individual attention in a group-based program?", a: "Yes. One on one therapy sessions are a core part of IOP, alongside group sessions and workshops." },
+  { q: "Can I keep working or going to school while in IOP?", a: "Yes. IOP is built around your daily responsibilities rather than asking you to pause them, with sessions structured to work around work, school, or family." },
+  { q: "What happens after I complete IOP?", a: "Support continues through our BreatheOUT alumni group, relapse prevention resources, and a gradual step down to standard outpatient care. Family Therapy Programs remain available as well." },
+  { q: "Is IOP covered by insurance?", a: "In most cases, yes. We are in-network with most major providers, and our team works with your insurer directly to explain costs and coverage before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
+const pageUrl = new URL("/programs/intensive-outpatient/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Programs", item: new URL("/programs/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Intensive Outpatient (IOP)", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      name: title,
+      url: pageUrl,
+      provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/programs/intensive-outpatient/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Programs" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-19-outdoor-dining-deck.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/programs/" style="color:#7FB3BC;">Programs</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Intensive Outpatient (IOP)
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">IOP. Real Treatment That Fits Around Your Life.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">{level.text}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  ROOM FOR BOTH (orbit)  ══════════════ */}
+    <section data-screen-label="Room for both" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1140px;margin:0 auto;">
+        <div style="max-width:640px;margin-bottom:8px;">
+          <div style={S.eyebrow}>How IOP fits together</div>
+          <h2 style={`${S.h2}max-width:20ch;`}>Room for both</h2>
+          <p style={S.intro}>IOP is a flexible schedule for those balancing treatment with work, school, or family. You attend structured sessions several times a week while continuing to live your daily life. It is a real step down in intensity, not a drop in the quality of care.</p>
+        </div>
+
+        <div class="iop-orbit-grid">
+          <div class="iop-orbit">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <line x1="50" y1="50" x2="50" y2="15" stroke="#E2DED7" stroke-width="1.5"></line>
+              <line x1="50" y1="50" x2="80" y2="71" stroke="#E2DED7" stroke-width="1.5"></line>
+              <line x1="50" y1="50" x2="20" y2="71" stroke="#E2DED7" stroke-width="1.5"></line>
+            </svg>
+            <div class="iop-orbit-node iop-orbit-hub">
+              <div class="oi">Your life continues</div>
+              <div class="os">Work · School · Family</div>
+            </div>
+            <div class="iop-orbit-node iop-orbit-sat s1"><div class="oi">Flexible weekly schedule</div></div>
+            <div class="iop-orbit-node iop-orbit-sat s2"><div class="oi">Group &amp; individual therapy</div></div>
+            <div class="iop-orbit-node iop-orbit-sat s3"><div class="oi">Continued psychiatric care</div></div>
+          </div>
+
+          <div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;">
+              {forYou.map((s) => (
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:600;color:#2C5A64;background:rgba(44,90,100,0.10);border-radius:999px;padding:8px 14px;">{s}</span>
+              ))}
+            </div>
+            <div style="display:grid;gap:16px;">
+              {orbitFacts.map((f) => (
+                <div style="display:flex;gap:14px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#33679C;margin-top:8px;"></span>
+                  <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#3A444D;margin:0;"><b style="color:#14181C;font-weight:600;">{f.title}.</b> {f.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  LEVELS-OF-CARE POSITION STRIP  ══════════════ */}
+    <section data-screen-label="Levels of care position" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1100px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:44px;">
+          <div style={S.eyebrow}>Where you go from here</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>IOP sits between two levels of care</h2>
+        </div>
+        <div class="iop-strip">
+          {ladder.map((step, i) => (
+            <div class={`iop-strip-stop${step.active ? " is-current" : ""}`}>
+              <div class="iop-strip-dot">{i + 1}</div>
+              <p class="iop-strip-when">{step.n}</p>
+              <p class="iop-strip-title">{step.title}</p>
+              <p class="iop-strip-text">{step.text}</p>
+              {step.href && <a class="iop-strip-link" href={step.href}>Learn more <span aria-hidden="true">→</span></a>}
+            </div>
+          ))}
+        </div>
+        <div style="text-align:center;margin-top:36px;">
+          <a href="/programs/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">See all Programs &amp; Levels of Care <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for IOP — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:22ch;`}>Why choose Breathe for IOP</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {whyPicks.map(([icon, color, h, p]) => (
+            <div style="padding:32px 30px;">
+              <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
+              <p style={S.card}>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    <SiteFAQ
+      heading="Questions people ask about IOP"
+      intro="Straight answers about weekly hours, therapy types, and what comes next."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-04-community-dining-lounge.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<style>
+  /* ── Room For Both — orbit diagram ──────────────────────────────────── */
+  .iop-orbit-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: 36px; }
+  @media (max-width: 900px) { .iop-orbit-grid { grid-template-columns: 1fr; } }
+  .iop-orbit { position: relative; aspect-ratio: 1 / 1; max-width: 420px; margin-inline: auto; width: 100%; }
+  .iop-orbit svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .iop-orbit-node {
+    position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; border-radius: 50%; background: #FFFFFF; border: 2px solid #33679C; padding: 10px;
+  }
+  .iop-orbit-node .oi { font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 12.5px; color: #33679C; line-height: 1.2; }
+  .iop-orbit-hub { width: 44%; height: 44%; left: 28%; top: 28%; border: 3px solid #16293D; background: #16293D; z-index: 2; }
+  .iop-orbit-hub .oi { color: #F3F1EC; font-size: 15px; font-weight: 700; }
+  .iop-orbit-hub .os { color: #7FB3BC; font-family: "Instrument Sans", sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+  .iop-orbit-sat { width: 30%; height: 30%; }
+  .iop-orbit-sat.s1 { left: 35%; top: 0%; }
+  .iop-orbit-sat.s2 { left: 65%; top: 56%; }
+  .iop-orbit-sat.s3 { left: 5%; top: 56%; }
+
+  /* ── Levels-of-care position strip ──────────────────────────────────── */
+  .iop-strip { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; align-items: start; }
+  .iop-strip::before {
+    content: ""; position: absolute; top: 15px; left: calc(100% / 6); right: calc(100% / 6); height: 2px;
+    background: linear-gradient(90deg, rgba(51,103,156,0.09), #33679C, rgba(51,103,156,0.09));
+  }
+  .iop-strip-stop { position: relative; text-align: center; padding-inline: 10px; }
+  .iop-strip-dot {
+    width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 18px; position: relative; z-index: 1;
+    background: #F7F5F1; border: 2px solid #33679C; display: flex; align-items: center; justify-content: center;
+    font-family: "Instrument Sans", sans-serif; font-weight: 700; font-size: 12px; color: #33679C;
+  }
+  .iop-strip-stop.is-current .iop-strip-dot { background: #16293D; border-color: #16293D; color: #7FB3BC; width: 38px; height: 38px; margin-bottom: 14px; }
+  .iop-strip-when { font-family: "Instrument Sans", sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #646D76; margin: 0 0 6px; }
+  .iop-strip-stop.is-current .iop-strip-when { color: #33679C; font-weight: 600; }
+  .iop-strip-title { font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 17px; color: #14181C; margin: 0 0 8px; }
+  .iop-strip-text { font-family: "Montserrat", Helvetica, sans-serif; font-size: 13.5px; color: #646D76; line-height: 1.55; max-width: 26ch; margin-inline: auto; }
+  .iop-strip-link { display: inline-block; margin-top: 10px; font-family: "Instrument Sans", sans-serif; font-size: 12.5px; font-weight: 600; color: #33679C; }
+  @media (max-width: 700px) {
+    .iop-strip { grid-template-columns: 1fr; gap: 28px; }
+    .iop-strip::before { display: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

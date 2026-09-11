@@ -1,0 +1,76 @@
+---
+/**
+ * /confidentiality-form/ — legal page. Linked from SiteFooter.astro under
+ * "Legal".
+ *
+ * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): legally binding document — the page
+ * shell is real, the body is a ClinicalPlaceholder pending the client's
+ * actual confidentiality form / consent-to-release language from legal
+ * counsel. We do not draft 42 CFR Part 2 / HIPAA release language ourselves.
+ */
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import ClinicalPlaceholder from "../components/ClinicalPlaceholder.astro";
+import { site } from "../config/site";
+
+const title = "Confidentiality Form | Breathe Life Healing Centers";
+const description = "Breathe Life Healing Centers' confidentiality form and how your information is protected.";
+
+const pageUrl = new URL("/confidentiality-form/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Confidentiality Form", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/confidentiality-form/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="background:#16293D;">
+      <div style="max-width:900px;margin:0 auto;padding:60px 37px 50px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:20px;">
+          <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Confidentiality Form
+        </nav>
+        <h1 style="font-size:clamp(32px,3.6vw,48px);line-height:1.1;letter-spacing:-0.028em;font-weight:600;color:#FFFFFF;margin:0;text-wrap:balance;">Confidentiality Form</h1>
+      </div>
+    </section>
+
+    {/* ══════════════  BODY  ══════════════ */}
+    <section data-screen-label="Confidentiality Form body" style="padding:60px 37px 80px;background:#FFFFFF;">
+      <div style="max-width:760px;margin:0 auto;">
+        <ClinicalPlaceholder
+          kind="LEGAL CONTENT"
+          note="Requires actual Confidentiality Form text from legal counsel — do not publish placeholder copy as real policy. Confidentiality of substance use disorder treatment records is governed by 42 CFR Part 2 in addition to HIPAA; the client's counsel should confirm which release/consent language applies here."
+        />
+        <div style="margin-top:44px;padding-top:28px;border-top:1px solid #E2DED7;">
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 16px;">Questions about confidentiality? <a href={site.emailHref} style="color:#2C5A64;font-weight:500;">{site.email}</a> or call <a href={site.phoneHref} style="color:#2C5A64;font-weight:500;">{site.phoneDisplay}</a>.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Instrument Sans',sans-serif;font-size:14px;">
+            <a href="/terms-of-use/" style="color:#33679C;font-weight:500;">Terms of Use</a>
+            <a href="/notice-of-privacy-practices/" style="color:#33679C;font-weight:500;">Notice of Privacy Practices</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

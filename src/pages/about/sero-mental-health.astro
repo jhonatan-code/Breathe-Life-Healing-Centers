@@ -1,0 +1,181 @@
+---
+/**
+ * /about/sero-mental-health/ — built from Breathe_Life_Sero_Mental_Health_Page_Brief.docx
+ * (2026-09-10). Per that brief: Sero Mental Health is the parent network Breathe
+ * belongs to alongside 10 sister treatment centers — this page is a directory of
+ * that network, not a standalone wellness brand or an unrelated page. Sister-center
+ * names, one-line descriptions, demographics, locations and domains are all taken
+ * verbatim from the brief (sourced from the live official page per the brief's own
+ * standing rule deferring to the BLHC Content Client Profile).
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+
+const title = "Sero Mental Health | Breathe Life Healing Centers";
+const description = "Breathe Life Healing Centers is part of the Sero Mental Health family of brands — a nationwide network of treatment centers united by one belief: everyone has the right to real mental health care.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+};
+
+// Logos sourced from the official live page (breathelifehealingcenters.com/sero-mental-health/),
+// downloaded to /Asset/Sero/ rather than hotlinked — user request 2026-09-10.
+const sisterCenters = [
+  { name: "ADR Wellness", logo: "adr-wellness.png", desc: "Psychotherapy for individuals, couples, and families.", who: "Children, Adolescents, and Adults", where: "Carlsbad and La Mesa, California", domain: "adrwellness.com" },
+  { name: "Alta Mira Recovery Programs", logo: "alta-mira-recovery.png", desc: "A luxury setting for detox, stabilization, and diagnostic clarity.", who: "Adults", where: "Sausalito, California", domain: "altamirarecovery.com" },
+  { name: "Bridges to Recovery", logo: "bridges-to-recovery.png", desc: "Specialized, serene treatment with a minimum of five individual therapy sessions a week.", who: "Adults", where: "Beverly Hills, California", domain: "bridgestorecovery.com" },
+  { name: "Wings Recovery", logo: "wings-recovery.png", desc: "Gender-specific treatment for trauma and other mental health conditions.", who: "Adults", where: "Carlsbad, California", domain: "wingsrecovery.org" },
+  { name: "BrightQuest", logo: "brightquest.png", desc: "Community-based treatment for complex psychiatric disorders.", who: "Adults", where: "San Diego, California and Nashville, Tennessee", domain: "brightquest.com" },
+  { name: "THIRA Health", logo: "thira-health.png", desc: "Dialectical Behavioral Therapy as the cornerstone of treatment.", who: "Teen Girls and Adults of All Genders", where: "Bellevue, Washington", domain: "thirahealth.com" },
+  { name: "SunCloud Health", logo: "suncloud-health.png", desc: "A transdiagnostic, integrated model for co-occurring conditions.", who: "Adolescents and Adults", where: "Northbrook, Naperville, Chicago, and Matteson, Illinois", domain: "suncloudhealth.com" },
+  { name: "Simply Bee", logo: "simply-bee.png", desc: "Full continuum outpatient mental health care.", who: "Children 5+, Adolescents, and Adults", where: "Vernon Hills and Northbrook, Illinois", domain: "simplybeecounseling.net" },
+  { name: "The Center for Treatment of Anxiety and Mood Disorders", logo: "center-for-anxiety-mood-disorders.png", desc: "Combined psychology and psychiatry expertise for mood and anxiety care.", who: "Adolescents and Adults", where: "Delray Beach, Florida", domain: "centerforanxietydisorders.com" },
+  { name: "The Children's Center for Psychiatry, Psychology, and Related Services", logo: "childrens-center-psychiatry.png", desc: "Clinical, therapeutic, and educational services in a welcoming environment.", who: "Children, Adolescents, and Families", where: "Delray Beach, Florida", domain: "childrenstreatmentcenter.com" },
+] as const;
+
+const faqGroups = [
+  {
+    items: [
+      { q: "Is Breathe Life still independently run?", a: "Breathe Life's clinical team, programs, and approach are unchanged. Being part of the Sero network provides additional resources and reach." },
+      { q: "Can I get treatment at one of the sister centers instead?", a: "Yes, each center has its own focus and location. Reach out to us and we can help point you toward the right fit if Breathe isn't it." },
+      { q: "Does being part of a network affect my privacy or care?", a: "No. Your care, confidentiality, and treatment plan are handled entirely by Breathe Life's own clinical team." },
+    ],
+  },
+];
+
+const pageUrl = new URL("/about/sero-mental-health/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Sero Mental Health", item: pageUrl },
+      ],
+    },
+    { "@type": "AboutPage", name: title, url: pageUrl },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/sero-mental-health/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-21-quiet-reading-nook.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:80px 37px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+          <a href="/about/" style="color:#7FB3BC;">About</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Sero Mental Health
+        </nav>
+        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:20ch;text-wrap:balance;">Part of the Sero Mental Health Family of Brands</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0;max-width:62ch;">Breathe Life Healing Centers is proud to be part of a nationwide network of treatment centers united by one belief: everyone has the right to real mental health care.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  ABOUT SERO  ══════════════ */}
+    <section data-screen-label="About Sero" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>The Sero Network</div>
+        <h2 style={`${S.h2}max-width:20ch;`}>About Sero Mental Health</h2>
+        <p style={`${S.intro}max-width:72ch;`}>Sero Mental Health is driven by the belief that all people have the right to mental health care. Its purpose is to empower, restore, and transform lives, creating healthier communities through a nationwide network of treatment centers offering compassionate, high-quality, and personalized care.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  SISTER CENTERS  ══════════════ */}
+    <section id="sister-centers" data-screen-label="Sister centers" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:26px;">
+          <div style={S.eyebrow}>Our Family of Brands</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Our Sister Centers</h2>
+          <p style={`${S.intro}max-width:74ch;`}>Ten centers, each with its own focus, united under the same commitment to real mental health care.</p>
+        </div>
+        <div style="text-align:center;margin-bottom:36px;">
+          <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(51,103,156,0.08);border:1px solid rgba(51,103,156,0.2);border-radius:999px;padding:9px 18px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;color:#33679C;">
+            <span class="msym" style="font-size:17px;">location_on</span>
+            You are here: Breathe Life Healing Centers, Los Angeles, California
+          </span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+          {sisterCenters.map((c) => (
+            <div class="treat-card" style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;border:1px solid #E2DED7;border-radius:14px;padding:26px 24px;">
+              <img src={`/Asset/Sero/${c.logo}`} alt={c.name} loading="lazy" style="height:52px;width:auto;max-width:100%;object-fit:contain;object-position:left center;display:block;margin-bottom:4px;" />
+              <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.012em;margin:0;color:#646D76;text-wrap:balance;">{c.name}</h3>
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;flex:1;">{c.desc}</p>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.02em;color:#646D76;line-height:1.5;">{c.who} <br /> {c.where}</div>
+              <a href={`https://${c.domain}/`} target="_blank" rel="noopener noreferrer" style="margin-top:6px;display:inline-flex;align-items:center;gap:6px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;">
+                Visit {c.domain}
+                <span class="msym" style="font-size:16px;">open_in_new</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHY THIS MATTERS  ══════════════ */}
+    <section data-screen-label="Why this matters" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Why This Matters for You</div>
+        <h2 style={`${S.h2}max-width:24ch;`}>Nothing about Breathe changes</h2>
+        <p style={`${S.intro}max-width:70ch;`}>Being part of a larger network does not change what makes Breathe Life what it is. Our team, our approach, and our specialty tracks like Chemsex Treatment and LGBTQ+ care are ours. Sero gives us reach and resources. It does not change who answers the phone.</p>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Frequently Asked Questions"
+      intro="Straight answers about what being part of the Sero network does — and doesn't — change."
+      groups={faqGroups}
+    />
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Call anytime — someone real will pick up and point you in the right direction."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-02-shared-bedroom-blue.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

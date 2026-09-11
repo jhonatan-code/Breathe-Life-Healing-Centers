@@ -1,0 +1,228 @@
+---
+/**
+ * Shell for a real /blog/{slug}/ post. Banner intentionally carries no
+ * feature image or stock photo (client instruction) — the wave motif below
+ * is the "distinctive" substitute approved in the Artifact preview. TOC is
+ * built client-side from the real H2 headings passed in via `headings`
+ * (H2 only, per client instruction — H3s are real content structure but
+ * don't clutter the table of contents).
+ */
+import Layout from './Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteFinalCTA from '../components/SiteFinalCTA.astro';
+import BlogCard from '../components/blog/BlogCard.astro';
+import BlogSidebar from '../components/blog/BlogSidebar.astro';
+import BlogMobileTools from '../components/blog/BlogMobileTools.astro';
+import ShareButtons from '../components/blog/ShareButtons.astro';
+import { CATEGORY_LABELS, CATEGORY_PHOTOS, getAuthor, type BlogEntry } from '../lib/blog';
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  post: BlogEntry;
+  headings: MarkdownHeading[];
+  related: BlogEntry[];
+  minutes: number;
+  canonicalUrl: string;
+}
+const { post, headings, related, minutes, canonicalUrl } = Astro.props;
+const { data } = post;
+const h2s = headings.filter((h) => h.depth === 2);
+const author = getAuthor(data.author);
+const categoryLabel = CATEGORY_LABELS[data.category];
+const bannerPhoto = CATEGORY_PHOTOS[data.category];
+
+// timeZone: 'UTC' matters here — z.coerce.date() parses a plain "YYYY-MM-DD"
+// frontmatter value as UTC midnight, so formatting in the viewer's local
+// zone can silently roll it back a day west of UTC.
+const dateFmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+
+<Layout title={data.title} description={data.description} path={`/blog/${post.id}/`}>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader />
+
+    <main id="main">
+      <section class="post-banner" data-screen-label="Post banner">
+        <img class="banner-photo" src={bannerPhoto} alt="" />
+        <div class="banner-overlay"></div>
+        <div class="inner">
+          <div class="banner-col">
+            <nav class="crumbs" aria-label="Breadcrumb">
+              <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; <a href={`/blog/category/${data.category}/`}>{categoryLabel}</a>
+            </nav>
+            <span class="post-cat">{categoryLabel}</span>
+            <h1>{data.title.replace(/\s*\|\s*Breathe$/, '')}</h1>
+            <div class="post-meta-row">
+              {author ? (
+                <span class="author-chip">
+                  <img src={author.photo} alt={author.name} loading="lazy" />
+                  <span><span class="name">{author.name}</span>{author.badge && <><br /><span class="cred">{author.badge}</span></>}</span>
+                </span>
+              ) : (
+                <span class="author-chip"><span class="name">Breathe Team</span></span>
+              )}
+              {data.publishDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Published {dateFmt(data.publishDate)}</span></>}
+              {data.updatedDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Updated {dateFmt(data.updatedDate)}</span></>}
+              <span class="dot" aria-hidden="true">&middot;</span>
+              <span>{minutes} min read</span>
+            </div>
+            <div class="share-wrap">
+              <ShareButtons url={canonicalUrl} title={data.title.replace(/\s*\|\s*Breathe$/, '')} variant="dark" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="post-layout">
+        <article class="post-content" id="post-body">
+          <slot />
+          <div class="post-foot-share">
+            <ShareButtons url={canonicalUrl} title={data.title.replace(/\s*\|\s*Breathe$/, '')} variant="light" />
+          </div>
+          {author && author.authorBio && (
+            <div class="author-card">
+              <img src={author.photo} alt={author.name} loading="lazy" />
+              <div>
+                <div class="author-card-label">Written by</div>
+                <div class="author-card-name">{author.name}{author.badge && <span class="author-card-badge">{author.badge}</span>}</div>
+                <p class="author-card-bio">{author.authorBio}</p>
+                <a class="author-card-link" href={`/about/our-team/${author.slug}/`}>Full profile &rarr;</a>
+              </div>
+            </div>
+          )}
+        </article>
+
+        <BlogSidebar related={related} />
+      </div>
+
+      <BlogMobileTools />
+
+      {related.length > 0 && (
+        <section class="related-section">
+          <div class="eyebrow">Related reading</div>
+          <div class="grid">
+            {related.map((p) => <BlogCard post={p} />)}
+          </div>
+        </section>
+      )}
+
+      <SiteFinalCTA
+        heading="Ready to talk it through?"
+        subhead="Call 24/7 and talk to a real person about what you're dealing with. No pressure, no obligation."
+        secondary={{ label: 'Send Us a Message', href: '/contact-us/' }}
+      />
+    </main>
+
+    <SiteFooter />
+  </div>
+</Layout>
+
+<script define:vars={{ headingIds: h2s.map((h) => h.slug) }}>
+  function buildTOC(targetId) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    target.innerHTML = headingIds
+      .map((slug) => {
+        const el = document.getElementById(slug);
+        const text = el ? el.textContent : slug;
+        return `<li><a href="#${slug}" data-target="${slug}">${text}</a></li>`;
+      })
+      .join('');
+  }
+  buildTOC('toc-list');
+  buildTOC('toc-list-mobile');
+
+  document.querySelectorAll('.toc-list a').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = a.getAttribute('data-target');
+      const el = target ? document.getElementById(target) : null;
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('tools-sheet')?.classList.remove('open');
+    });
+  });
+
+  function onScroll() {
+    let current = null;
+    headingIds.forEach((slug) => {
+      const el = document.getElementById(slug);
+      if (el && el.getBoundingClientRect().top < 140) current = slug;
+    });
+    document.querySelectorAll('.toc-list a').forEach((a) => {
+      a.classList.toggle('active', a.getAttribute('data-target') === current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style>
+  .post-banner { background: #16293D; color: #fff; position: relative; overflow: hidden; padding: 34px 37px 40px; }
+  .post-banner .banner-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+  .post-banner .banner-overlay { position: absolute; inset: 0; background: linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.55) 100%); }
+  .post-banner .inner { position: relative; max-width: 1440px; margin: 0 auto; }
+  .post-banner .banner-col { max-width: 900px; }
+  .crumbs { font-family: 'Instrument Sans', sans-serif; font-size: 12px; color: #9DB2C2; margin-bottom: 18px; }
+  .crumbs a { color: #9DB2C2; text-decoration: none; }
+  .crumbs a:hover { color: #fff; }
+  .post-cat { display: inline-block; font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #16293D; background: #7FB3BC; padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; }
+  .post-banner h1 { font-size: clamp(30px,4vw,46px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 22px; max-width: 22ch; text-wrap: balance; }
+  .post-meta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 13.5px; color: #C7D4DE; }
+  .author-chip { display: flex; align-items: center; gap: 10px; }
+  .author-chip img { width: 36px; height: 36px; border-radius: 999px; object-fit: cover; }
+  .author-chip .name { color: #fff; font-weight: 600; }
+  .author-chip .cred { color: #9DB2C2; font-size: 12px; }
+  .dot { opacity: .5; }
+  .share-wrap { margin-top: 24px; }
+
+  .post-layout { max-width: 1180px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: start; }
+  .post-content { font-family: 'Montserrat', sans-serif; font-size: 17px; line-height: 1.75; color: #3A444D; max-width: 720px; }
+  .post-content :global(h2) { font-family: 'Instrument Sans', sans-serif; font-size: clamp(22px,2.6vw,28px); font-weight: 600; letter-spacing: -0.02em; color: #14181C; margin: 36px 0 14px; scroll-margin-top: 100px; }
+  .post-content :global(h2:first-child) { margin-top: 0; }
+  .post-content :global(h3) { font-family: 'Instrument Sans', sans-serif; font-size: 19px; font-weight: 600; color: #14181C; margin: 28px 0 12px; scroll-margin-top: 100px; }
+  .post-content :global(p) { margin: 0 0 16px; }
+  .post-content :global(ul), .post-content :global(ol) { margin: 0 0 16px; padding-left: 20px; }
+  .post-content :global(li) { margin-bottom: 6px; }
+  .post-content :global(a) { color: #33679C; font-weight: 600; }
+  .post-content :global(strong) { color: #14181C; font-weight: 600; }
+  .post-content :global(blockquote) {
+    margin: 24px 0; padding: 4px 0 4px 22px; border-left: 3px solid #7FB3BC;
+    font-style: italic; color: #14181C;
+  }
+  .post-content :global(blockquote p) { margin: 0 0 6px; }
+  .post-content :global(blockquote p:last-child) { margin-bottom: 0; font-style: normal; font-family: 'Instrument Sans', sans-serif; font-size: 14px; color: #646D76; }
+  .post-content :global(table) {
+    width: 100%; border-collapse: collapse; margin: 8px 0 24px; font-size: 15px;
+  }
+  .post-content :global(th), .post-content :global(td) {
+    text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid #E5E1D8;
+  }
+  .post-content :global(th) { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #2C5A64; border-bottom: 2px solid #E5E1D8; }
+  .post-content :global(table) { display: block; overflow-x: auto; }
+  .post-foot-share { margin: 40px 0 0; }
+
+  .author-card { display: flex; gap: 20px; margin: 32px 0 0; padding: 24px; background: #F0F5FA; border-radius: 14px; }
+  .author-card img { width: 64px; height: 64px; border-radius: 999px; object-fit: cover; flex: 0 0 auto; }
+  .author-card-label { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #2C5A64; margin-bottom: 4px; }
+  .author-card-name { font-family: 'Instrument Sans', sans-serif; font-size: 17px; font-weight: 600; color: #14181C; margin-bottom: 10px; }
+  .author-card-badge { font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .06em; color: #2C5A64; background: #fff; padding: 3px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+  .author-card-bio { font-family: 'Montserrat', sans-serif; font-size: 14.5px; line-height: 1.65; color: #3A444D; margin: 0 0 10px; }
+  .author-card-link { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 700; color: #33679C; text-decoration: none; }
+  @media (max-width: 480px) { .author-card { flex-direction: column; } }
+
+  .related-section { max-width: 1180px; margin: 60px auto 0; padding: 0 37px 20px; }
+  .related-section .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; margin-bottom: 18px; }
+  .related-section .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+
+  @media (max-width: 980px) {
+    .post-layout { grid-template-columns: 1fr; padding-bottom: 30px; }
+  }
+  @media (max-width: 640px) {
+    .post-layout { padding-inline: 20px; }
+    .related-section { padding-inline: 20px; }
+    .related-section .grid { grid-template-columns: 1fr; }
+  }
+</style>

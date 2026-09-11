@@ -1,0 +1,89 @@
+---
+/**
+ * /about/our-team/brad-lamm/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/brad-lamm-cip/, checked
+ * 2026-09-15) — note the official site's URL slug differs from this page's
+ * (brad-lamm-cip vs brad-lamm); this page's own path is kept as-is since the
+ * homepage and Our Team roster already link to it.
+ *
+ * CLAUDE.md previously flagged Brad Lamm's founder positioning as an open
+ * client decision and this page as a placeholder-only stub pending
+ * sign-off (see docs/00-INVENTORY.md item 8). That block was explicitly
+ * lifted by the user 2026-09-15, after being shown the conflict and the
+ * official site's current live content, with instruction to populate this
+ * page the same as every other real bio. Photo/badge/role come from
+ * src/data/home.ts, same as beck-gee.astro / deb-hughes.astro.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+import { team } from "../../../data/home";
+
+const person = team.find((p) => p.slug === "brad-lamm")!;
+
+const fullBio = [
+  "Some moments in life define us. For me, it was the realization that a single yes—a willingness to receive help—can be the turning point in someone's journey. That yes is where transformation begins, and supporting people in reaching that moment is the greatest use of my time, talent, and life that I can imagine.",
+  "Breathe Life Healing Centers was born from the belief that healing should be accessible, profound, and lasting. I've had the privilege of building a team that is more than the sum of its parts—an extraordinary group of people dedicated to guiding those who have been marginalized, overlooked, or deeply wounded by addiction, trauma, and mental health struggles. Being part of this mission, watching lives rebuild and hope rekindle, is the most rewarding work I have ever known.",
+  "For me, self-care is about movement and stillness, connection and solitude. It's found in exercise, in the loving chaos of my dogs Henry Jones Johnson and Billie Goat the Dog, in the pursuit of higher consciousness, and in giving back through 12-step fellowship. It's in books, in deep sleep, and in the company of those who love me as I am.",
+  "I've always believed that NO is a conversation starter—that challenge and resistance can open doors to understanding and growth. And if you're considering coming to Breathe, I'd say this: Lean in. Say yes to yourself. Reclaim the parts of you that have been lost or forgotten. Breathe is more than a place; it's a family, a sanctuary, and a chance to heal in ways you never thought possible.",
+  "And if you ever find me lost in thought with a song playing on repeat, it's probably a Suzanne Vega composition—a reminder that every journey, struggle, and transformation has its own rhythm.",
+  "When I'm not working, you'll find me reading, laughing from my toes, and soaking in the joy of life with family and friends. Because at the end of the day, healing isn't just about recovery—it's about truly living.",
+];
+
+const title = "Brad Lamm, CIP | Founder | Breathe Life Healing Centers";
+const description = "Brad Lamm is the Founder of Breathe Life Healing Centers, a Certified Intervention Professional who built Breathe on the belief that healing should be accessible, profound, and lasting.";
+
+const pageUrl = new URL("/about/our-team/brad-lamm/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/brad-lamm/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="brad-lamm" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-09-twin-bedroom-suite.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

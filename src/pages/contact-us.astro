@@ -1,0 +1,184 @@
+---
+/**
+ * /contact-us/ — no approved content brief exists for this page, but it's
+ * mostly factual (phone/email/address + a contact form), so it's written
+ * for real from site.ts facts rather than placeholdered. Reuses
+ * VerifyInsuranceForm as-is for the hero contact form (simplest, keeps
+ * global-component consistency — same form every other page already uses).
+ *
+ * primaryNav's last item is `{ label: "Contact", href: "/contact-us/" }`
+ * (no dropdown) — SiteHeader current="Contact" matches it correctly.
+ *
+ * privacy-consent.md §5: "Privacy policy and terms linked adjacent to the
+ * button, not only in the footer." VerifyInsuranceForm (shared, used on
+ * every page) doesn't currently do this and this batch doesn't edit shared
+ * components beyond the one footer href fix — so a compliance note linking
+ * Terms of Use / Notice of Privacy Practices is added here, in the hero,
+ * next to the form, without touching the component itself.
+ *
+ * Structure per BUILD NOTES: hero with form → address/phone/email →
+ * SiteLocation → SiteReviews. SiteFinalCTA skipped — this page IS the final
+ * CTA, a second one immediately after would be redundant.
+ */
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../components/SiteReviews.astro";
+import SiteLocation from "../components/SiteLocation.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../config/site";
+import { galleryImg } from "../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Contact Us | Breathe Life Healing Centers";
+const description =
+  "Contact Breathe Life Healing Centers — call 24/7, email admissions, or send a message. Los Angeles, CA. LGBTQIA+-affirming addiction and mental health treatment.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const ways = [
+  { icon: "phone", title: "Call 24/7", detail: PH, href: HREF, note: "A real person answers, day or night. No pressure, no obligation." },
+  { icon: "mail", title: "Email Admissions", detail: site.email, href: site.emailHref, note: "We reply as quickly as we can, usually the same day." },
+  { icon: "location_on", title: "Visit Us", detail: `${site.address.line1}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`, href: "https://www.google.com/maps?q=8060+Melrose+Avenue,+Los+Angeles,+CA+90046", note: "Our outpatient admissions office. Residential campus details are shared privately at admissions." },
+];
+
+const pageUrl = new URL("/contact-us/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Contact Us", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "ContactPage",
+      name: title,
+      url: pageUrl,
+      about: {
+        "@type": "MedicalOrganization",
+        name: site.name,
+        telephone: site.phoneDisplay,
+        email: site.email,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.address.line1,
+          addressLocality: site.address.city,
+          addressRegion: site.address.region,
+          postalCode: site.address.postalCode,
+          addressCountry: site.address.country,
+        },
+      },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/contact-us/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Contact" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src={galleryImg("facility-12-residence-exterior.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Contact Us
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Let's Talk. No Pressure, No Obligation.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Call, email, or send a message below. Whoever answers has time for your questions — this is a conversation, not an intake script.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
+            <a class="cta" href={site.emailHref} style={S.ctaGhost}>Email Admissions</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;max-width:52ch;">Everything you share is confidential. See our <a href="/terms-of-use/" style="color:#7FB3BC;">Terms of Use</a> and <a href="/notice-of-privacy-practices/" style="color:#7FB3BC;">Notice of Privacy Practices</a>.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  WAYS TO REACH US  ══════════════ */}
+    <section data-screen-label="Ways to reach us" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Get in touch</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Ways to reach us</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+          {ways.map((w, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{w.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{w.title}</h3>
+                <a href={w.href} target={w.icon === "location_on" ? "_blank" : undefined} rel={w.icon === "location_on" ? "noopener noreferrer" : undefined} style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;color:#33679C;">{w.detail}</a>
+                <p style={`${S.card}flex:1;`}>{w.note}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <SiteLocation />
+
+    <SiteReviews />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

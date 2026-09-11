@@ -1,0 +1,93 @@
+---
+/**
+ * /about/our-team/beck-gee/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/beck-gee-cadc-ii-amft-145681/,
+ * checked 2026-09-02) — the client's own real content, per this session's
+ * standing instruction to check the official site rather than placeholder
+ * gaps. Per CLAUDE.md, Beck Gee is Breathe's confirmed CEO / author voice (a
+ * trans man with lived recovery experience; spelling "Beck Gee" confirmed by
+ * the client 2026-08-31 — ignore "Beck Guy" elsewhere). Photo/badge/role
+ * still come from src/data/home.ts.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+import { team } from "../../../data/home";
+
+const person = team.find((p) => p.slug === "beck-gee")!;
+
+const fullBio = [
+  "Los Angeles has always been home, but my journey to finding myself—and my purpose—took me far beyond the city limits. I studied at the University of Montana and later at the Hazelden Betty Ford Graduate School, but my most profound education came through my own recovery.",
+  "I entered this field when I was three years sober, driven by a deep desire to help others find the hope and healing that had changed my life. Working with the LGBTQ+ community has always been my path. I know what it's like to navigate the unique challenges that come with identity, belonging, and finding a safe place to heal. I've seen how substance use and mental health struggles impact my community, and I've dedicated my life to making sure no one has to go through it alone.",
+  "What keeps me going is witnessing transformation—watching people reclaim their lives, rediscover their joy, and become more than they ever thought possible. Recovery isn't just about surviving. It's about thriving. It's about rewriting the story you thought was already written.",
+  "To stay grounded in this work, I make sure to take care of myself, too. I spend time with my partner, my dog, and my chosen family. I go to therapy, stay engaged in my own recovery, and remind myself that I can't pour from an empty cup. My mantra these days is simple: I am okay. It will be okay. It's a reminder that no matter what, I can face it—and so can the people I help every day.",
+  "If someone is thinking about coming to Breathe, I want them to know this: This is just the beginning. We see you, even if you can't see yourself clearly yet. We believe in your potential, your strength, and your ability to build a life beyond what you thought was possible. Let us be the foundation you stand on as you take that first step toward something better.",
+  "Outside of work, I find joy in the simple things—watching movies and reality TV, laughing with the people I love, and appreciating the life I get to live today. It's a life I never imagined for myself, one I only have because I was given the gift of recovery. And now, I get to help others find that gift for themselves.",
+  "And if I had to listen to one song on repeat for 24 hours? No question—it's “It's All Coming Back to Me Now” by Celine Dion. Because I love a Diva.",
+];
+
+const title = "Beck Gee, CADC-II, AMFT | Chief Executive Officer | Breathe Life Healing Centers";
+const description = "Beck Gee is Chief Executive Officer of Breathe Life Healing Centers — a trans man in recovery, leading Breathe's clinical and operational vision day to day.";
+
+const pageUrl = new URL("/about/our-team/beck-gee/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/beck-gee/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile
+      name={person.name}
+      role={person.role}
+      badge={person.badge}
+      photo={person.photo}
+      slug={person.slug}
+      fullBio={fullBio}
+      pullQuote="Recovery isn't just about surviving. It's about thriving. It's about rewriting the story you thought was already written."
+    />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-06-guest-house-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

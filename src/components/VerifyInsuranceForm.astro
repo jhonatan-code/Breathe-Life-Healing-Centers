@@ -1,0 +1,147 @@
+---
+/**
+ * The "Verify your insurance" card — shared across every page (navigation.md:
+ * a lead-gen entry point belongs on every page, not just the homepage).
+ * Render it once, inside the hero's flex row: it IS the desktop slot, since
+ * the relocation script below just moves it back to its own parent when the
+ * viewport is wide. On mobile (≤1024px) the script moves this same form node
+ * into #verify-mobile-slot — each page places that slot right before its FAQ
+ * section (or, if it has none, right before the Final CTA).
+ */
+import { site } from "../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+const { formReactorUrl, formReactorKey } = site.ctm;
+---
+
+<form id="verify" data-ctm-pending data-form-reactor-url={formReactorUrl} data-form-reactor-key={formReactorKey} data-phone-display={PH} style="flex:0 1 452px;background:#FFFFFF;border-radius:12px;padding:20px;width:100%;box-sizing:border-box;box-shadow:0 2px 6px rgba(0,0,0,0.18),0 20px 44px rgba(0,0,0,0.18);">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <img src="/Asset/Logo/HIPAA.svg" alt="HIPAA Compliant" style="height:40px;width:auto;flex:0 0 auto;display:block;" />
+    <span style="font-size:18px;font-weight:600;letter-spacing:-0.015em;white-space:nowrap;">Talk to an Admissions Specialist</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+    <label style="display:block;">
+      <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">What's Your Name? <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+      <input type="text" name="name" required placeholder="What we'll call you" style="width:100%;box-sizing:border-box;height:40px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+    </label>
+    <label style="display:block;">
+      <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">What's Your Number? <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+      <div style="display:flex;gap:8px;">
+        <span aria-hidden="true" style="flex:0 0 auto;display:flex;align-items:center;gap:5px;height:40px;padding:0 10px;border:1px solid #C9D2DA;border-radius:8px;background:#F7F5F1;font-family:'Instrument Sans',sans-serif;font-size:14px;color:#3A444D;">🇺🇸 US +1</span>
+        <input type="tel" name="phone" required placeholder="(000) 000-0000" style="flex:1 1 auto;min-width:0;box-sizing:border-box;height:40px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+      </div>
+    </label>
+    <label style="display:block;">
+      <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;white-space:nowrap;">Membership Policy ID <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+      <input type="text" name="member_id" required data-member-id-input placeholder="If you have it to hand" style="width:100%;box-sizing:border-box;height:40px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+    </label>
+    <label style="display:block;">
+      <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Insurance Carrier <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+      <input type="text" name="carrier" required placeholder="e.g. Aetna, Cigna, Anthem" style="width:100%;box-sizing:border-box;height:40px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+    </label>
+    <label data-sms-consent hidden style="grid-column:1 / -1;display:flex;gap:10px;align-items:flex-start;font-family:'Montserrat',sans-serif;font-size:13px;color:#646D76;">
+      <input type="checkbox" name="sms_opt_in" value="yes" style="margin-top:2px;" />
+      <span>Text me about my verification. Message and data rates may apply; reply STOP to opt out. Consent isn't a condition of treatment.</span>
+    </label>
+    <button type="submit" style="grid-column:1 / -1;font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;border:0;height:48px;box-sizing:border-box;padding:0 30px;font-size:15px;font-weight:600;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);cursor:pointer;margin-top:6px;" class="cta">Check Your Coverage</button>
+  </div>
+  <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#646D76;margin:14px 0 0;text-align:center;">Or call us 24/7 at <a href={HREF} style="color:#2C5A64;font-weight:500;">{PH}</a>. Everything you share is confidential.</p>
+  <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:10px;line-height:1.5;color:#8A94A0;margin:8px 0 0;text-align:center;">By submitting, you agree to our <a href="/terms-of-use/" style="color:#8A94A0;text-decoration:underline;">Terms of Use</a> and <a href="/notice-of-privacy-practices/" style="color:#8A94A0;text-decoration:underline;">Notice of Privacy Practices</a>.</p>
+  <p class="ivf-status" role="status" hidden style="font-family:'Montserrat',sans-serif;font-size:14px;color:#2C5A64;background:#EFF5FA;border-radius:8px;padding:10px 12px;margin:12px 0 0;"></p>
+</form>
+
+<script>
+  // ── Verify form: hero banner on desktop, its own section (pre-FAQ) on mobile ──
+  (() => {
+    const form = document.getElementById("verify");
+    const heroWrap = document.getElementById("hero-inner");
+    const mobileWrap = document.getElementById("verify-mobile-slot");
+    if (!form || !heroWrap || !mobileWrap) return;
+    const mq = window.matchMedia("(max-width: 1024px)");
+    const place = () => {
+      const target = mq.matches ? mobileWrap : heroWrap;
+      if (form.parentElement !== target) target.appendChild(form);
+    };
+    place();
+    mq.addEventListener("change", place);
+  })();
+
+  // ── SMS consent only makes sense once there's a policy ID to text about ──
+  document.querySelectorAll<HTMLFormElement>("form#verify").forEach((form) => {
+    const memberIdInput = form.querySelector<HTMLInputElement>("[data-member-id-input]");
+    const consent = form.querySelector<HTMLElement>("[data-sms-consent]");
+    const consentCheckbox = consent?.querySelector<HTMLInputElement>('input[name="sms_opt_in"]');
+    if (!memberIdInput || !consent || !consentCheckbox) return;
+    const sync = () => {
+      const hasValue = memberIdInput.value.trim().length > 0;
+      consent.hidden = !hasValue;
+      if (!hasValue) consentCheckbox.checked = false;
+    };
+    memberIdInput.addEventListener("input", sync);
+    sync();
+  });
+
+  // ── Submit to CallTrackingMetrics FormReactor ─────────────────────────────
+  // Provided directly by the client 2026-09-11 — see src/config/site.ts
+  // `ctm` for the field-mapping rationale (field_346808262 / field_564101241
+  // are CTM's auto-generated IDs for First Name / Last Name, confirmed by
+  // the client since the form only collects one combined "name" field).
+  document.querySelectorAll<HTMLFormElement>("form[data-ctm-pending]").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const status = form.querySelector<HTMLElement>(".ivf-status");
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const setStatus = (text: string) => {
+        if (!status) return;
+        status.hidden = false;
+        status.textContent = text;
+      };
+
+      const fullName = (form.querySelector<HTMLInputElement>('input[name="name"]')?.value ?? "").trim();
+      const firstSpace = fullName.indexOf(" ");
+      const firstName = firstSpace === -1 ? fullName : fullName.slice(0, firstSpace);
+      const lastName = firstSpace === -1 ? "" : fullName.slice(firstSpace + 1).trim();
+
+      const digits = (form.querySelector<HTMLInputElement>('input[name="phone"]')?.value ?? "").replace(/\D/g, "");
+      const phoneNumber = digits.length === 10 ? `+1${digits}` : `+${digits}`;
+
+      const carrier = form.querySelector<HTMLInputElement>('input[name="carrier"]')?.value ?? "";
+      const memberId = form.querySelector<HTMLInputElement>('input[name="member_id"]')?.value ?? "";
+
+      const payload = new URLSearchParams();
+      payload.set("phone_number", phoneNumber);
+      payload.set("custom_fields[insurance_carrier]", carrier);
+      payload.set("custom_fields[membership_policy_id]", memberId);
+      payload.set("custom_fields[field_346808262]", firstName);
+      payload.set("custom_fields[field_564101241]", lastName);
+
+      const formReactorUrl = form.dataset.formReactorUrl;
+      const formReactorKey = form.dataset.formReactorKey;
+      const phoneDisplay = form.dataset.phoneDisplay;
+
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus("Sending your information…");
+
+      try {
+        const res = await fetch(`${formReactorUrl}?key=${formReactorKey}`, {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: payload.toString(),
+        });
+        if (!res.ok) throw new Error(`FormReactor responded ${res.status}`);
+        setStatus("Thanks — we've got your information. Expect a call shortly, or call us anytime.");
+        form.reset();
+        form.querySelector<HTMLElement>("[data-sms-consent]")?.setAttribute("hidden", "");
+      } catch (err) {
+        console.error("CTM FormReactor submission failed:", err);
+        setStatus(`Something went wrong sending that. Please call us 24/7 at ${phoneDisplay} and we'll verify your benefits right away.`);
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  });
+</script>

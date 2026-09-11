@@ -1,0 +1,86 @@
+---
+/**
+ * /about/our-team/valerio-iovino/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/valerio-iovino-laadc-c-asat/,
+ * checked 2026-09-02). Not in src/data/home.ts's `team` array, so
+ * name/role/photo/badge are defined directly below rather than pulled from
+ * it — mirrors beck-gee.astro otherwise. Per the batch brief, "no-photo.jpg"
+ * is the correct assigned photo — the official site also has no real
+ * headshot for him.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Valerio Iovino, PsyD, LAADC, ASAT";
+const role = "Primary Therapist";
+const badge = "PsyD, LAADC, ASAT";
+const photo = "/Asset/Our%20Team/no-photo.jpg";
+
+const fullBio = [
+  `I'm originally from Italy, where I studied psychology at the University of Turin. My journey into the mental health and recovery field has always been driven by a deep desire to help others face their struggles and feel supported as they work through their challenges. Working as a therapist, I've had the privilege of guiding people through some of the most difficult times in their lives and witnessing their growth toward healing.`,
+  `At Breathe, we take a special focus on helping individuals who are struggling with the intersection of addiction and sexual health, specifically those affected by Chemsex. For many, the combination of substances and sexual behavior can lead to a complex set of emotional and physical struggles. Our approach is to create a safe and nonjudgmental space where these individuals can receive the care they need to understand the cycle of Chemsex, break free from it, and rebuild a healthier relationship with both their bodies and their sexuality.`,
+  `The most rewarding part of my work is being part of a client's healing process. Seeing someone transform, reclaim their sense of self, and break free from destructive patterns is incredibly powerful. At Breathe, we support individuals on their journey, helping them set realistic goals for recovery and self-love, no matter where they are starting from.`,
+  `In my personal life, I practice self-care through yoga, meditation, cooking, and spending quality time with friends. These activities help me maintain balance and well-being so that I can give my best to my clients.`,
+  `I live by the mantra, "Treat others like you want to be treated." This simple yet profound guiding principle helps me approach my work with empathy, understanding, and respect for each individual's unique experience.`,
+  `At Breathe, we welcome every story and help clients create new narratives—ones that are built on their needs, their goals, and the future they envision for themselves. If you're considering coming to Breathe, know that we're here to support you with compassion, understanding, and a path toward lasting change.`,
+  `When I'm not working, I enjoy focusing on self-care and spending time with loved ones. These moments are vital to maintaining my own health and well-being, so I can continue helping others heal.`,
+];
+
+const title = "Valerio Iovino, PsyD, LAADC, ASAT | Primary Therapist | Breathe Life Healing Centers";
+const description = "Valerio Iovino is a Primary Therapist at Breathe Life Healing Centers, focused on helping clients navigate the intersection of addiction and sexual health, including Chemsex.";
+
+const pageUrl = new URL("/about/our-team/valerio-iovino/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/valerio-iovino/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="valerio-iovino" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-19-outdoor-dining-deck.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

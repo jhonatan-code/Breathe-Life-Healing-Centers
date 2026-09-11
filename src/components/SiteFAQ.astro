@@ -1,0 +1,78 @@
+---
+/**
+ * FAQ section shell — shared presentation (full-width header above a sticky
+ * "still not sure?" card + accordion list), but every page passes its own
+ * question set. A group with no `label` renders as a flat list with no
+ * header row (used by service pages that don't group their FAQs).
+ */
+import { site } from "../config/site";
+
+interface FaqItem { q: string; a: string }
+interface FaqGroup { icon?: string; label?: string; items: FaqItem[] }
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  intro: string;
+  groups: FaqGroup[];
+  background?: string;
+}
+const { eyebrow = "Questions", heading, intro, groups, background = "#F7F5F1" } = Astro.props;
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+};
+---
+
+<section id="faq" data-screen-label="FAQ" style={`padding:70px 37px;background:${background};`}>
+  <div style="max-width:1080px;margin:0 auto;">
+    <div style="margin-bottom:32px;max-width:920px;">
+      <div style={S.eyebrow}>{eyebrow}</div>
+      <h2 style="font-size:clamp(28px,3vw,42px);line-height:1.1;letter-spacing:-0.026em;font-weight:600;margin:0 0 14px;text-wrap:balance;">{heading}</h2>
+      <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0;max-width:52ch;">{intro}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:start;">
+      <div style="position:sticky;top:110px;">
+        <div style="background:#FFFFFF;border:1px solid #E2DED7;border-radius:12px;padding:22px 24px;display:grid;gap:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(51,103,156,0.10);">
+              <span class="msym" style="font-size:22px;color:#33679C;">support_agent</span>
+            </span>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:#14181C;line-height:1.35;">Still not sure?</div>
+              <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;color:#3A444D;">Nobody will pressure you on that call.</div>
+            </div>
+          </div>
+          <a class="cta" href={HREF} style={`display:inline-flex;${S.ctaBlue}`}>Call 24/7: {PH}</a>
+        </div>
+      </div>
+      <div style="grid-column:span 2;display:grid;gap:26px;">
+        {groups.map((g) => (
+          <div style="display:grid;gap:12px;">
+            {g.label && (
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(51,103,156,0.10);">
+                  <span class="msym" style="font-size:20px;color:#33679C;">{g.icon}</span>
+                </span>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;">{g.label}</span>
+                <span style="flex:1;height:1px;background:#E2DED7;"></span>
+              </div>
+            )}
+            {g.items.map((it) => (
+              <details style="border:1px solid #E2DED7;border-radius:12px;background:#FDFCFA;padding:0 22px;">
+                <summary style="display:flex;gap:18px;align-items:center;justify-content:space-between;padding:20px 0;font-size:17px;font-weight:600;letter-spacing:-0.012em;color:#14181C;">
+                  {it.q}
+                  <span data-plus="1" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(51,103,156,0.10);font-family:'Instrument Sans',sans-serif;font-size:18px;color:#33679C;transition:transform 400ms cubic-bezier(.4,0,.2,1);">+</span>
+                </summary>
+                <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 0 22px;max-width:78ch;">{it.a}</p>
+              </details>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

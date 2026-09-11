@@ -1,0 +1,370 @@
+---
+/**
+ * "Care Dial" — an instrument-style rotating ring of pillars synced to a
+ * glass detail card. Built for the homepage's "Why Breathe" section;
+ * approved from a standalone concept preview before being wired in here.
+ *
+ * Mechanics: clicking a node sets one CSS custom property (--rot) on the
+ * ring. That single variable both rotates the ring AND drives every node's
+ * counter-rotation via `calc(-1 * var(--rot))`, so icons/labels stay
+ * upright without per-node JS. Rotation always takes the shortest path and
+ * accumulates across clicks (never jumps backward to a "reset" position).
+ * Node positions themselves are computed once here in the frontmatter
+ * (server-side trig, not client JS) so the ring renders correctly before
+ * any script runs.
+ *
+ * Below ~980px the ring is replaced by a plain stacked card grid — dial
+ * physics don't translate to a narrow viewport, so it isn't forced there.
+ */
+interface Pillar {
+  icon: string;
+  label: [string, string];
+  title: string;
+  desc: string;
+  highlights: string[];
+}
+interface Props {
+  id?: string;
+  pillars: Pillar[];
+  ctaHref: string;
+  ctaLabel?: string;
+}
+const { id = "care-dial", pillars, ctaHref, ctaLabel = "Talk to our team →" } = Astro.props;
+
+const N = pillars.length;
+const RADIUS = 190;
+const nodeTransform = (i: number) => {
+  const angle = (360 / N) * i;
+  return `rotate(${angle}deg) translateY(-${RADIUS}px) rotate(-${angle}deg)`;
+};
+---
+
+<div id={id} class="care-dial">
+  <div class="dial-layout">
+    <div class="dial-wrap">
+      <div class="dial-track">
+        <svg viewBox="0 0 460 460" aria-hidden="true">
+          <circle cx="230" cy="230" r="226" fill="none" stroke="rgba(227,178,124,0.14)" stroke-width="1"></circle>
+          <circle cx="230" cy="230" r="150" fill="none" stroke="rgba(227,178,124,0.1)" stroke-width="1"></circle>
+        </svg>
+      </div>
+      <div class="dial-hub"><span class="msym">spa</span></div>
+      <div class="dial-ring" id={`${id}-ring`}>
+        {pillars.map((p, i) => (
+          <div class="node-slot" data-index={i} style={`transform:${nodeTransform(i)};`}>
+            <div class="node-inner">
+              <button class="node-btn" type="button" aria-label={p.title} data-index={i}>
+                <span class="msym">{p.icon}</span>
+              </button>
+              <div class="node-label">{p.label[0]}<br />{p.label[1]}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="connector">
+      <svg viewBox="0 0 72 460" preserveAspectRatio="none" aria-hidden="true">
+        <path class="connector-path" d="M2,58 C 40,58 30,150 70,150" />
+        <path class="connector-flow" d="M2,58 C 40,58 30,150 70,150" />
+        <circle class="connector-dot" cx="2" cy="58" r="3.5" />
+      </svg>
+    </div>
+
+    <div class="card-wrap">
+      <div class="glass-card" id={`${id}-card`}>
+        <div class="card-top">
+          <div class="card-icon"><span class="msym" id={`${id}-icon`}>{pillars[0].icon}</span></div>
+          <div class="card-count"><b id={`${id}-index`}>01</b> / {String(N).padStart(2, "0")}</div>
+        </div>
+        <h3 id={`${id}-title`}>{pillars[0].title}</h3>
+        <p class="desc" id={`${id}-desc`}>{pillars[0].desc}</p>
+        <ul class="highlights" id={`${id}-highlights`}>
+          {pillars[0].highlights.map((h) => (
+            <li><span class="msym">check_circle</span><span>{h}</span></li>
+          ))}
+        </ul>
+        <a class="cta" href={ctaHref} style="background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);">{ctaLabel}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack">
+    {pillars.map((p) => (
+      <div class="stack-card">
+        <div class="card-icon"><span class="msym">{p.icon}</span></div>
+        <h4>{p.title}</h4>
+        <p>{p.desc}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .care-dial {
+    --ink: #16293d;
+    --ink-deep: #0e1a27;
+    --copper: #a6672f;
+    --copper-light: #e3b27c;
+  }
+
+  .dial-layout {
+    display: grid;
+    grid-template-columns: 540px 72px minmax(0, 1fr);
+    align-items: start;
+  }
+  @media (max-width: 980px) {
+    .dial-layout { display: none; }
+  }
+
+  /* 540px (not the original 460px) — sized so a node's two-line label
+     always clears the bezel edge: label bottom sits at roughly
+     RADIUS(190) + icon radius(30) + gap(8) + label height(~28) = 256px
+     from center, so the bezel radius (270px) needs that much headroom. */
+  .dial-wrap { position: relative; width: 540px; height: 540px; }
+
+  /* fixed compass bezel — ticks do NOT rotate, reads as an instrument */
+  .dial-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #1c3247 0%, var(--ink) 52%, var(--ink-deep) 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(230, 190, 140, 0.18),
+      inset 0 18px 40px rgba(0, 0, 0, 0.35),
+      0 28px 60px -20px rgba(15, 26, 39, 0.55);
+  }
+  .dial-track svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .dial-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 132px;
+    height: 132px;
+    margin: -66px 0 0 -66px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #24405a 0%, var(--ink-deep) 78%);
+    box-shadow: inset 0 0 0 1px rgba(230, 190, 140, 0.22), inset 0 2px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dial-hub .msym { font-size: 38px; color: var(--copper-light); opacity: 0.85; }
+
+  .dial-ring {
+    position: absolute;
+    inset: 0;
+    transform: rotate(var(--rot, 0deg));
+    transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .node-slot { position: absolute; top: 50%; left: 50%; width: 0; height: 0; }
+  .node-inner {
+    transform: rotate(calc(-1 * var(--rot, 0deg)));
+    transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 108px;
+    margin-left: -54px;
+    margin-top: -34px;
+  }
+
+  .node-btn {
+    all: unset;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    /* lighter than the track (which bottoms out at var(--ink)) so an
+       inactive node still visibly lifts off the bezel, not just its border */
+    background: linear-gradient(160deg, #2f5274 0%, var(--ink) 78%);
+    box-shadow: inset 0 0 0 1.5px rgba(227, 178, 124, 0.62), 0 6px 14px rgba(14, 26, 39, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 260ms ease, transform 260ms ease;
+  }
+  .node-btn .msym { font-size: 25px; color: #f6efdf; transition: color 260ms ease, font-variation-settings 260ms ease; }
+  .node-btn:hover { transform: translateY(-2px) scale(1.04); box-shadow: inset 0 0 0 1.5px var(--copper-light), 0 10px 18px rgba(14, 26, 39, 0.45); }
+  .node-btn:focus-visible { outline: 2px solid var(--copper-light); outline-offset: 3px; }
+
+  .node-label {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: #b9cbdc;
+    line-height: 1.25;
+    transition: color 260ms ease;
+  }
+
+  .node-slot.is-active .node-btn {
+    background: linear-gradient(160deg, #3c6690 0%, var(--ink) 74%);
+    box-shadow: 0 0 0 2px var(--copper), 0 0 0 6px rgba(166, 103, 47, 0.18);
+    animation: dial-pulse 2.4s ease-in-out infinite;
+  }
+  .node-slot.is-active .node-btn .msym {
+    color: var(--copper-light);
+    font-variation-settings: "FILL" 1, "opsz" 24, "wght" 400, "GRAD" 0;
+  }
+  .node-slot.is-active .node-label { color: #f6efdf; font-weight: 600; }
+
+  @keyframes dial-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px var(--copper), 0 0 0 6px rgba(166, 103, 47, 0.18); }
+    50% { box-shadow: 0 0 0 2px var(--copper-light), 0 0 0 10px rgba(166, 103, 47, 0.3); }
+  }
+
+  .connector { position: relative; height: 540px; }
+  .connector svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .connector-path { stroke: var(--copper); stroke-width: 1.5; fill: none; opacity: 0.5; }
+  .connector-flow { stroke: var(--copper-light); stroke-width: 2; fill: none; stroke-dasharray: 6 10; animation: dial-flow 2.6s linear infinite; }
+  @keyframes dial-flow { to { stroke-dashoffset: -32; } }
+  .connector-dot { fill: var(--copper-light); }
+
+  .card-wrap { padding-top: 10px; }
+  .glass-card {
+    position: relative;
+    border-radius: 22px;
+    padding: 40px 44px 36px;
+    /* light blue, not cream — #C8DAE9 is the site's own established light
+       blue (global.css .cta--light:hover), not a new color introduced here */
+    background: rgba(200, 218, 233, 0.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: inset 0 0 0 1px rgba(51, 103, 156, 0.22), 0 30px 60px -28px rgba(22, 41, 61, 0.28);
+    min-height: 380px;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 380ms ease, transform 380ms ease;
+  }
+  .glass-card.is-swapping { opacity: 0; transform: translateX(10px); }
+
+  .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .card-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: linear-gradient(150deg, rgba(51, 103, 156, 0.22), rgba(127, 179, 188, 0.16));
+    box-shadow: inset 0 0 0 1px rgba(51, 103, 156, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-icon .msym { font-size: 30px; color: #33679c; }
+  .card-count { font-family: "Instrument Sans", sans-serif; font-size: 12px; letter-spacing: 0.1em; color: #646d76; font-variant-numeric: tabular-nums; }
+  .card-count b { color: var(--ink); font-weight: 600; }
+
+  .glass-card h3 {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  .glass-card p.desc { font-family: "Montserrat", Helvetica, sans-serif; font-size: 16px; line-height: 1.7; color: #3a444d; margin: 0 0 22px; max-width: 54ch; }
+
+  .highlights { list-style: none; margin: 0 0 30px; padding: 0; display: grid; gap: 10px; }
+  .highlights li { display: flex; align-items: flex-start; gap: 10px; font-family: "Montserrat", Helvetica, sans-serif; font-size: 14.5px; line-height: 1.5; color: #3a444d; }
+  /* navy, not copper/seaglass — needs to read clearly against the card's
+     own light-blue background, and the card no longer carries any copper */
+  .highlights .msym { font-size: 17px; color: var(--ink); margin-top: 2px; flex: 0 0 auto; }
+
+  /* Mobile fallback: stacked cards, no dial physics */
+  .stack { display: none; }
+  @media (max-width: 980px) {
+    .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .stack-card { border-top: 2px solid #33679c; background: #f7f5f1; border-radius: 12px; padding: 24px 22px; }
+    .stack-card .card-icon { width: 46px; height: 46px; border-radius: 11px; margin-bottom: 14px; }
+    .stack-card .card-icon .msym { font-size: 24px; }
+    .stack-card h4 { font-family: "Instrument Sans", sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.012em; margin: 0 0 8px; color: var(--ink); }
+    .stack-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; line-height: 1.6; margin: 0; color: #646d76; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dial-ring, .node-inner { transition-duration: 1ms; }
+    .node-slot.is-active .node-btn { animation: none; }
+    .connector-flow { animation: none; stroke-dasharray: none; }
+    .glass-card { transition: none; }
+  }
+</style>
+
+<script define:vars={{ id, pillars, N }}>
+  (() => {
+    const root = document.getElementById(id);
+    const ring = document.getElementById(`${id}-ring`);
+    if (!root || !ring) return;
+
+    const slots = Array.from(ring.querySelectorAll(".node-slot"));
+    const card = document.getElementById(`${id}-card`);
+    const iconEl = document.getElementById(`${id}-icon`);
+    const indexEl = document.getElementById(`${id}-index`);
+    const titleEl = document.getElementById(`${id}-title`);
+    const descEl = document.getElementById(`${id}-desc`);
+    const highlightsEl = document.getElementById(`${id}-highlights`);
+
+    let rot = 0;
+    let active = 0;
+
+    const normalize180 = (deg) => (((deg + 180) % 360) + 360) % 360 - 180;
+
+    // Astro scopes component CSS via a per-build data-astro-cid-* attribute
+    // stamped on every element in the template at build time. Elements
+    // created later by this script never get that attribute, so without
+    // copying it over, scoped rules like `.highlights li` silently stop
+    // matching the highlight rows this function creates on every card swap.
+    const scopeAttr = Array.from(highlightsEl.attributes).find((a) => a.name.startsWith("data-astro-cid-"));
+
+    const renderCard = (i) => {
+      const p = pillars[i];
+      iconEl.textContent = p.icon;
+      indexEl.textContent = String(i + 1).padStart(2, "0");
+      titleEl.textContent = p.title;
+      descEl.textContent = p.desc;
+      highlightsEl.innerHTML = "";
+      p.highlights.forEach((h) => {
+        const li = document.createElement("li");
+        const icon = document.createElement("span");
+        icon.className = "msym";
+        icon.textContent = "check_circle";
+        const text = document.createElement("span");
+        text.textContent = h;
+        if (scopeAttr) {
+          li.setAttribute(scopeAttr.name, scopeAttr.value);
+          icon.setAttribute(scopeAttr.name, scopeAttr.value);
+          text.setAttribute(scopeAttr.name, scopeAttr.value);
+        }
+        li.appendChild(icon);
+        li.appendChild(text);
+        highlightsEl.appendChild(li);
+      });
+    };
+
+    const goTo = (i) => {
+      if (i === active) return;
+      const targetNorm = normalize180(-(i * (360 / N)));
+      const curNorm = normalize180(rot);
+      rot += normalize180(targetNorm - curNorm);
+      ring.style.setProperty("--rot", `${rot}deg`);
+      active = i;
+
+      slots.forEach((s) => s.classList.toggle("is-active", Number(s.dataset.index) === i));
+
+      card.classList.add("is-swapping");
+      window.setTimeout(() => {
+        renderCard(i);
+        card.classList.remove("is-swapping");
+      }, 360);
+    };
+
+    slots[0]?.classList.add("is-active");
+    ring.querySelectorAll(".node-btn").forEach((btn) => {
+      btn.addEventListener("click", () => goTo(Number(btn.dataset.index)));
+    });
+  })();
+</script>

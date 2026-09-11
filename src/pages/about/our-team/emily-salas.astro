@@ -1,0 +1,85 @@
+---
+/**
+ * /about/our-team/emily-salas/ — real profile. Bio sourced verbatim from the
+ * official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/emily-salas/, checked 2026-09-02).
+ * Unlike most of the other bios in this batch, this one is written in third
+ * person on the source page rather than first person — reproduced verbatim
+ * as-is, per the hard rule to use only real fetched content and not rewrite
+ * it. No headshot exists for her on the official site either (per this
+ * batch's brief), so no-photo.jpg is used, and no clean short credential
+ * appears in her name/title, so no badge is rendered. Photo/role are defined
+ * locally since she isn't in data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Emily Salas",
+  role: "Admissions Counselor",
+  photo: "/Asset/Our%20Team/no-photo.jpg",
+};
+
+const fullBio = [
+  "Emily Salas is a dedicated and compassionate professional with extensive experience in healthcare and community support. Emily collaborates with medical professionals, including nurses, doctors, and therapists, to ensure smooth intake processes for patients. Her role involves reviewing admissions charts, verifying insurance eligibility, and inputting patient information, showcasing her attention to detail and commitment to patient care.",
+  "Prior to her current position, Emily was a Unit Secretary at a hospital, where she managed various administrative tasks such as checking medical eligibility, handling intake paperwork, and coordinating with the billing department. Her organizational skills and ability to multitask have been instrumental in maintaining efficient operations within the department.",
+  "Currently pursuing further education at Citrus College, Emily is bilingual and holds certifications in CPR, First Aid, and Fire Safety. With a passion for helping others and a strong foundation in both clinical and administrative settings, Emily is eager to continue her career in healthcare and make a positive impact in the lives of those she serves.",
+];
+
+const title = "Emily Salas | Admissions Counselor | Breathe Life Healing Centers";
+const description = "Emily Salas is an Admissions Counselor at Breathe Life Healing Centers, bringing a background in healthcare intake and patient care to every family who calls.";
+
+const pageUrl = new URL("/about/our-team/emily-salas/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/emily-salas/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="emily-salas" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-16-facility-entrance-drive.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

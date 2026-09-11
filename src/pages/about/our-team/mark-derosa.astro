@@ -1,0 +1,82 @@
+---
+/**
+ * /about/our-team/mark-derosa/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/mark-s-derosa-cadc-iii-icadc-asat-c-lgbtqia2/,
+ * checked 2026-09-02). Not in src/data/home.ts's `team` array, so
+ * name/role/photo/badge are defined directly below rather than pulled from
+ * it — mirrors beck-gee.astro otherwise.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Mark S. DeRosa, CADC-III, ICADC, ASAT";
+const role = "Residential Program Director";
+const badge = "CADC-III, ICADC, ASAT";
+const photo = "/Asset/Our%20Team/mark-derosa.jpg";
+
+const fullBio = [
+  `I grew up on Long Island, but my journey has taken me far beyond the place I once called home. I studied at Arizona State University, but the lessons that shaped me the most came from my own experience with sobriety. Recovery didn't just change my life—it gave me a new purpose.`,
+  `Working in the mental health and recovery field, I've had the privilege of witnessing miracles. The kind that happen when someone takes that first, uncertain step toward change and discovers just how much they're capable of. Seeing those transformations, those moments of clarity and hope, is what makes this work so rewarding.`,
+  `To stay grounded, I turn to the things that keep me whole—music, writing, meditation, my marriage, and the community I've built in recovery. Meetings remind me that I'm never alone, and the quiet moments of reflection help me show up fully for the people I support. I try to live by the words of Don Miguel Ruiz: "Always do your best." Some days, my best is stronger than others, but as long as I keep showing up, I know I'm on the right path.`,
+  `For anyone thinking about coming to Breathe, I'd say this: "Congratulations." Taking this step is no small thing, and it's never the wrong time to change your life. Whatever brought you here, know that you're not alone, and you don't have to do this by yourself.`,
+  `Outside of work, you'll find me in the same places I find my peace—wrapped up in music, lost in writing, deep in meditation, or simply present in my marriage. And, of course, catching up on sleep when I can.`,
+];
+
+const title = "Mark S. DeRosa, CADC-III, ICADC, ASAT | Residential Program Director | Breathe Life Healing Centers";
+const description = "Mark S. DeRosa is Residential Program Director at Breathe Life Healing Centers, guiding clients through the residential program from his own experience in recovery.";
+
+const pageUrl = new URL("/about/our-team/mark-derosa/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/mark-derosa/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="mark-derosa" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-07-pool-waterfall-grotto.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

@@ -1,0 +1,78 @@
+---
+/**
+ * /about/our-team/vivian-rubio/ — checked the official live site's own
+ * dedicated page (breathelifehealingcenters.com/our-team/vivian-rubio-cadc-ii/,
+ * checked 2026-09-02) for a real first-person bio. The page carries only her
+ * name, pronouns, and title — no biography paragraphs of any kind. Per
+ * CLAUDE.md / this batch's hard rule, no bio content is invented here; the
+ * bio section uses ClinicalPlaceholder instead, same pattern as brad-lamm.astro.
+ * Photo/badge/role are defined locally since she isn't in data/home.ts's
+ * `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Vivian Rubio, CADC-II",
+  role: "Counselor",
+  photo: "/Asset/Our%20Team/vivian-rubio.jpg",
+  badge: "CADC-II",
+};
+
+const title = "Vivian Rubio, CADC-II | Counselor | Breathe Life Healing Centers";
+const description = "Vivian Rubio, CADC-II, is a Counselor at Breathe Life Healing Centers.";
+
+const pageUrl = new URL("/about/our-team/vivian-rubio/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/vivian-rubio/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="vivian-rubio" />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-21-quiet-reading-nook.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

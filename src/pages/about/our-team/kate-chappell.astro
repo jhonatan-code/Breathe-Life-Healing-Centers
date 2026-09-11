@@ -1,0 +1,84 @@
+---
+/**
+ * /about/our-team/kate-chappell/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page. Note:
+ * the official site's URL for this person uses the slug "nate-chappell"
+ * (breathelifehealingcenters.com/our-team/nate-chappell/, checked
+ * 2026-09-02) — a likely legacy typo on their end — but the page itself and
+ * the rest of their site display "Kate Chappell," which is what we use here.
+ * No clean short credential appears in her name/title, so no badge is
+ * rendered (per this batch's brief). Photo/role are defined locally since
+ * she isn't in data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Kate Chappell",
+  role: "Admissions Manager",
+  photo: "/Asset/Our%20Team/kate-chappell.jpg",
+};
+
+const fullBio = [
+  "I'm from Los Angeles, CA, and my work in treatment has been deeply shaped by my own journey through addiction and mental health recovery. At four years sober, I'm grateful every day for the people who helped me get into treatment and supported me through it. I'll never forget how they met me where I was without judgment and helped me feel hopeful for the first time in a long time. It's a privilege to now work in an environment where clients and staff show up each day to support one another.",
+  "I live by the mantra: Nothing changes if nothing changes. Choosing to get better is hard, but it's always worth it. Asking for help is often the scariest and most important step in growth, and it's deeply moving to walk alongside people as they take that brave first step. Being trusted in those vulnerable moments is something I never take for granted.",
+  "When I'm not working, I'm usually reading or hiking with my dog, Apple. We're close to finishing our goal of hiking every trail in Griffith park. Spending time outdoors has become an important part of how I recharge, and being with Apple makes it that much more fun and motivates me to get out there a few times a week.",
+];
+
+const title = "Kate Chappell | Admissions Manager | Breathe Life Healing Centers";
+const description = "Kate Chappell is Admissions Manager at Breathe Life Healing Centers — four years sober herself, she brings that lived experience to every family who calls.";
+
+const pageUrl = new URL("/about/our-team/kate-chappell/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/kate-chappell/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="kate-chappell" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-03-clinical-office.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

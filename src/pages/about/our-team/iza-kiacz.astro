@@ -1,0 +1,85 @@
+---
+/**
+ * /about/our-team/iza-kiacz/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/iza-kiacz-ma-amft/, checked
+ * 2026-09-02). Not in src/data/home.ts's `team` array, so
+ * name/role/photo/badge are defined directly below rather than pulled from
+ * it — mirrors beck-gee.astro otherwise.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Iza Kiacz, MA, AMFT";
+const role = "Therapist";
+const badge = "MA, AMFT";
+const photo = "/Asset/Our%20Team/iza-kiacz.jpg";
+
+const fullBio = [
+  `I am an AMFT at Breathe Life Healing Centers. I am certified in trauma-informed therapy and sex therapy, and I have a passion for supporting individuals as they navigate recovery, healing, identity, relationships, and personal growth.`,
+  `I was raised in rural Ohio, and my journey eventually brought me to California, where I earned my Master's degree in Clinical Psychology. My clinical work is rooted in trauma-informed, relational, and compassionate approaches that honor each person's unique story and experiences.`,
+  `What inspires me to work in the mental health and recovery field is witnessing the incredible resilience people carry, even after experiencing profound challenges. I believe that healing happens through connection, compassion, and being able to show up authentically. It is an honor to walk alongside clients as they begin to understand themselves more deeply, build new skills, reconnect with their values, and create lives that feel meaningful.`,
+  `The most rewarding part of my work is witnessing those moments when clients begin to see their own strength and possibilities for change. Watching someone move from surviving to building a life where they feel more connected, empowered, and hopeful is one of the greatest privileges of this work.`,
+  `In my own life, I practice self-care by creating space for connection, creativity, reflection, and time with the people and animals I love. I enjoy spending time with my dog, writing, exploring new places, engaging in personal rituals that keep me grounded, and continuing my own journey of growth and self-discovery.`,
+  `If I could only listen to one song for 24 hours, I would choose "Fade Into You" by Mazzy Star. There is something timeless and grounding about the song's feeling of vulnerability, connection, and longing.`,
+  `For anyone considering coming to Breathe, I would want them to know that reaching out for support is an act of courage. Recovery is not about becoming someone different—it is about reconnecting with yourself, healing the parts of your story that have been painful, and discovering new ways to move forward. At Breathe, you will be met with compassion, respect, and a team dedicated to supporting you through your healing process.`,
+  `When I'm not working, I love spending time with my dog, writing, connecting with friends and community, exploring new places, practicing mindfulness, and finding creative ways to stay connected with myself and the world around me.`,
+];
+
+const title = "Iza Kiacz, MA, AMFT | Therapist | Breathe Life Healing Centers";
+const description = "Iza Kiacz is a Therapist at Breathe Life Healing Centers, offering trauma-informed, relational care rooted in compassion and each client's unique story.";
+
+const pageUrl = new URL("/about/our-team/iza-kiacz/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/iza-kiacz/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="iza-kiacz" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-01-private-suite-entry.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

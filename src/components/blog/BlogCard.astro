@@ -1,0 +1,54 @@
+---
+import CategoryTile from './CategoryTile.astro';
+import { CATEGORY_LABELS, postHref, readingTimeMinutes, type BlogEntry } from '../../lib/blog';
+
+interface Props {
+  post: BlogEntry;
+  featured?: boolean;
+}
+const { post, featured = false } = Astro.props;
+const href = postHref(post);
+const label = CATEGORY_LABELS[post.data.category];
+const minutes = readingTimeMinutes(post);
+---
+
+<a class={`blog-card ${featured ? 'is-featured' : ''}`} href={href}>
+  <CategoryTile category={post.data.category} seed={post.id} radius="14px 14px 0 0" />
+  <span class="cat-chip">{label}</span>
+  <div class="card-body">
+    <div class="card-meta"><span class="cat-text">{label}</span><span aria-hidden="true">&middot;</span><span>{minutes} min read</span></div>
+    <h3>{post.data.title.replace(/\s*\|\s*Breathe$/, '')}</h3>
+    <p class="excerpt">{post.data.description}</p>
+    <span class="read-link">Read post <span aria-hidden="true">&rarr;</span></span>
+  </div>
+</a>
+
+<style>
+  .blog-card {
+    background: #FFFFFF; border: 1px solid #E5E1D8; border-radius: 14px; overflow: hidden;
+    display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit;
+    position: relative; transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .blog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(20,24,28,.08); }
+  .cat-chip {
+    position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,.92); color: #2C5A64;
+    font-family: 'Instrument Sans', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: 6px 10px; border-radius: 999px;
+  }
+  .card-body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .card-meta { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: #646D76; display: flex; gap: 8px; align-items: center; }
+  .cat-text { color: #2C5A64; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+  h3 { font-family: 'Instrument Sans', sans-serif; font-size: 19px; line-height: 1.28; letter-spacing: -0.01em; font-weight: 600; margin: 0; color: #14181C; }
+  .blog-card:hover h3 { color: #33679C; }
+  .excerpt { font-family: 'Montserrat', sans-serif; font-size: 14.5px; color: #3A444D; line-height: 1.6; flex: 1; margin: 0; }
+  .read-link { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 700; color: #33679C; display: inline-flex; align-items: center; gap: 5px; margin-top: 4px; }
+
+  .is-featured { flex-direction: row; }
+  .is-featured :global(.category-tile) { flex: 1 1 55%; border-radius: 14px 0 0 14px !important; aspect-ratio: auto !important; }
+  .is-featured .card-body { flex: 1 1 45%; justify-content: center; padding: 36px; }
+  .is-featured h3 { font-size: 28px; line-height: 1.16; }
+  @media (max-width: 900px) {
+    .is-featured { flex-direction: column; }
+    .is-featured :global(.category-tile) { border-radius: 14px 14px 0 0 !important; aspect-ratio: 16/9 !important; }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+/**
+ * /about/our-team/forever-peru/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/forever-peru/, checked
+ * 2026-09-02). No headshot exists for them on the official site either (per
+ * this batch's brief), so no-photo.jpg is used, and no clean short
+ * credential appears in their name/title, so no badge is rendered.
+ * Photo/role are defined locally since they aren't in data/home.ts's
+ * `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Forever Peru",
+  role: "Case Manager",
+  photo: "/Asset/Our%20Team/no-photo.jpg",
+};
+
+const fullBio = [
+  "I'm from Los Angeles, CA, and my journey through treatment and recovery has deeply shaped who I am today. I'm here to show others that living a clean and fulfilling life is not only possible, but achievable for everyone. I believe that the challenges we face can become our greatest strengths when we choose to face them head-on.",
+  "What inspires me to work in the mental health and recovery field is the power of transformation. The most rewarding part of my work is seeing clients evolve and grow as they find their path to recovery. It's a beautiful and amazing process to witness.",
+  "In my own life, I practice self-care by grounding myself through community and finding excitement through travel. Martial arts also helps me stay focused and present, and it's a way for me to build both strength and community.",
+  "My mantra is: \"Often the hands will solve a mystery that the intellect has struggled with in vain.\" This guides my approach to healing—sometimes, it's through action that we find clarity.",
+  "If you're thinking about coming to Breathe, I want you to know: \"You're not alone, and you'll find belonging here.\" It's a place of support, understanding, and growth.",
+  "When I'm not working, you'll find me diving into history or practicing martial arts. These passions help me stay connected to myself, to others, and to the present moment.",
+];
+
+const title = "Forever Peru | Case Manager | Breathe Life Healing Centers";
+const description = "Forever Peru is a Case Manager at Breathe Life Healing Centers, drawing on personal recovery experience to help clients find their path forward.";
+
+const pageUrl = new URL("/about/our-team/forever-peru/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/forever-peru/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="forever-peru" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-20-estate-entrance-gate.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

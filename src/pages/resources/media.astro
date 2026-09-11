@@ -1,0 +1,179 @@
+---
+/**
+ * /resources/media/ — "Media / Press", the one item in the Resources
+ * dropdown (site.ts). Per the approved sitemap this absorbs the old
+ * standalone "How to Choose Treatment" and "Brochures" pages, so it carries
+ * general structural framing for both: a press/media-inquiries block, a
+ * generic (non-clinical) "what to look for" section for anyone comparing
+ * treatment centers, and an honest placeholder for downloadable materials
+ * that don't exist yet — no invented brochure files.
+ *
+ * ⚠️ Deliberately does NOT reference any specific past press coverage
+ * (NYT / Vanity Fair / BuzzFeed per docs/00-INVENTORY.md) — those backlinks
+ * were about Brad Lamm specifically, and founder positioning is a blocked
+ * open decision (CLAUDE.md). Nothing here claims "as seen in" any outlet.
+ *
+ * Structure per BUILD NOTES: lighter than a clinical funnel — hero → content
+ * sections → SiteReviews → SiteLocation → SiteFinalCTA. No forced insurance
+ * form section, no FAQ.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+import { galleryImg } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Media & Press | Breathe Life Healing Centers";
+const description =
+  "Press and media inquiries for Breathe Life Healing Centers, plus general guidance on what to look for when comparing an LGBTQIA+-affirming treatment center.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const lookFor = [
+  { icon: "verified", title: "Licensing & accreditation", text: "Is the facility licensed in the state it operates in, and by whom? Ask to see it, not just a badge on a website." },
+  { icon: "layers", title: "Levels of care offered", text: "Detox, residential, PHP, IOP — find out which ones actually exist on-site versus which are referred out." },
+  { icon: "diversity_3", title: "Whether identity is actually centered", text: "Affirming language on a homepage is easy. Ask who's on staff, what training they've had, and how that shows up day to day." },
+  { icon: "badge", title: "Staff credentials", text: "Who provides therapy, who provides medical care, and what their licenses are — this should be answerable directly, not vaguely." },
+  { icon: "fact_check", title: "How insurance verification works", text: "A center that verifies your specific benefits before you commit is different from one that only says \"we accept most insurance.\"" },
+  { icon: "family_restroom", title: "How family is involved", text: "Ask whether family programming assumes blood relationships, or makes room for partners and chosen family." },
+];
+
+const pageUrl = new URL("/resources/media/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Resources", item: new URL("/resources/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Media & Press", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/resources/media/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src={galleryImg("facility-04-community-dining-lounge.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+          <a href="/resources/" style="color:#7FB3BC;">Resources</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Media & Press
+        </nav>
+        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;max-width:22ch;">Media & Press</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0;max-width:64ch;">Press inquiries, and general guidance for anyone comparing treatment centers before they call.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  PRESS INQUIRIES  ══════════════ */}
+    <section data-screen-label="Press inquiries" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:900px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Press inquiries</div>
+        <h2 style={`${S.h2}max-width:26ch;`}>Reporting on Breathe or LGBTQIA+ behavioral health?</h2>
+        <p style={`${S.intro}max-width:70ch;margin-bottom:26px;`}>For interview requests, fact-checking, or background on Breathe Life Healing Centers, reach our team directly. We're glad to help with accurate, responsibly sourced coverage.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+          <a class="cta" href={site.emailHref} style={`display:inline-flex;${S.ctaBlue}`}>{site.email}</a>
+          <a class="cta" href={HREF} style="display:inline-flex;background:transparent;color:#33679C;border:1px solid #33679C;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;align-items:center;justify-content:center;">Call {PH}</a>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT TO LOOK FOR  ══════════════ */}
+    <section data-screen-label="What to look for" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Comparing options</div>
+          <h2 style={`${S.h2}max-width:32ch;`}>What to look for in a treatment center</h2>
+          <p style={`${S.intro}max-width:74ch;margin:0 auto;`}>General questions worth asking of any facility you're considering — not just Breathe.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+          {lookFor.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:12px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:26px 24px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:22px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={S.card}>{c.text}</p>
+              </div>
+            );
+          })}
+        </div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;text-align:center;margin:28px auto 0;max-width:70ch;">Have questions about how Breathe answers any of these? <a href={HREF} style="color:#2C5A64;font-weight:500;">Call us 24/7</a> — we'd rather you ask than guess.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  BROCHURES & MATERIALS  ══════════════ */}
+    <section data-screen-label="Brochures & materials" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:800px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Downloadable materials</div>
+        <h2 style={`${S.h2}max-width:26ch;`}>Brochures & printable overviews</h2>
+        <p style={`${S.intro}max-width:66ch;margin-bottom:0;`}>We're preparing downloadable brochures covering our programs, insurance process, and family resources. In the meantime, our admissions team can walk you through any of it directly, or email you what you need.</p>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    <SiteFinalCTA
+      heading="Ready to Talk to Someone?"
+      subhead="Call 24/7 for a real conversation, no pressure, no obligation — or explore the rest of our resources first."
+      secondary={{ label: "Back to Resources", href: "/resources/" }}
+      background="/Asset/Facility/facility-12-residence-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

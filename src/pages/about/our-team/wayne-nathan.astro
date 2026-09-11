@@ -1,0 +1,83 @@
+---
+/**
+ * /about/our-team/wayne-nathan/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/wayne-nathan/, checked
+ * 2026-09-02). No clean short credential appears in his name/title, so no
+ * badge is rendered. Photo/role are defined locally since he isn't in
+ * data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Wayne Nathan",
+  role: "Admissions Counselor",
+  photo: "/Asset/Our%20Team/wayne-nathan.jpg",
+};
+
+const fullBio = [
+  "Admissions is often the first step on a journey that changes lives. Every day, I have the privilege of speaking with people who are at a crossroads—individuals seeking help, searching for hope, and ready to take that first courageous step toward healing. The moment they walk through the doors at Breathe is the most rewarding part of what I do. It's in that moment that I see their bravery firsthand, and I know they're in the right place.",
+  "I believe that everyone's story deserves to be heard, which is why I always ask myself: What does this person want me to know about them? Where should we begin? Those questions guide my work and allow me to truly connect with each person who reaches out.",
+  "In my own life, self-care means commitment—finding a practice that brings balance and sticking to it. Whether it's taking time to reflect, move, or just breathe, I know that consistency is key.",
+  "For anyone considering Breathe, know this: You're not alone. Here, you'll find an incredibly supportive community, top-tier care, and a breathtaking setting in Laurel Canyon that fosters healing like nowhere else. Breathe isn't just a place—it's a family, and the experience you'll have here will stay with you long after you leave.",
+  "And if I had to pick just one song to play for 24 hours straight? A track by Coldplay featuring Little Simz, Burna Boy, Elyanna & TINI—because hope, resilience, and connection are what this journey is all about.",
+];
+
+const title = "Wayne Nathan | Admissions Counselor | Breathe Life Healing Centers";
+const description = "Wayne Nathan is an Admissions Counselor at Breathe Life Healing Centers, guiding people at a crossroads through the first courageous step toward healing.";
+
+const pageUrl = new URL("/about/our-team/wayne-nathan/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/wayne-nathan/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="wayne-nathan" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-22-garden-entrance-path.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

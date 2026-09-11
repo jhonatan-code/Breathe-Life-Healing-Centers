@@ -1,0 +1,82 @@
+---
+/**
+ * /about/our-team/cristina-meadows/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/cristina-meadows/, checked
+ * 2026-09-02). Photo/badge/role are defined locally since she isn't in
+ * data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Cristina Meadows, CADC-II",
+  role: "Director of Admissions",
+  photo: "/Asset/Our%20Team/cristina-meadows.jpg",
+  badge: "CADC-II",
+};
+
+const fullBio = [
+  "Recovery is about transformation, and I believe in sparing suffering with kindness and care. As a CADACC II and Sound Healer, my passion is creating a space where people feel safe to take their first steps toward healing. Everyone deserves a chance at recovery, and being able to offer that opportunity is the most rewarding part of what I do.",
+  "I live by the mantra: Give more, want less, and be of maximum service to others. It keeps me grounded in my purpose—helping people find their way back to themselves. At Breathe, we are here to hold space for you, to guide you, and to remind you that you're not alone. We got you.",
+  "When I need to recharge, I turn to meditation, music, and dance—because movement is medicine. If I had to listen to one song on repeat? \"Risk\" by Deftones—it just speaks to the soul.",
+  "Outside of work, you'll find me designing clothes, moving to the rhythm of a good beat, and always looking for ways to create and inspire. Because healing isn't just about recovery—it's about rediscovering the beauty of life.",
+];
+
+const title = "Cristina Meadows, CADC-II | Director of Admissions | Breathe Life Healing Centers";
+const description = "Cristina Meadows, CADC-II, is Director of Admissions at Breathe Life Healing Centers, creating a space where people feel safe to take their first steps toward healing.";
+
+const pageUrl = new URL("/about/our-team/cristina-meadows/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/cristina-meadows/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="cristina-meadows" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-13-ensuite-bath-balcony.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

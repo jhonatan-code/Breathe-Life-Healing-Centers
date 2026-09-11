@@ -1,0 +1,261 @@
+---
+/**
+ * /areas-we-service/santa-barbara/ — NEW page per the approved sitemap,
+ * justified by CTM call-volume data. See beverly-hills.astro and
+ * west-hollywood.astro header comments for the shared governance note on
+ * location-seo.md (🔴 BLOCKED) and the no-fabricated-numbers rule.
+ *
+ * Santa Barbara is farther from the campus than the other three cities, so
+ * the "Serving" section frames it as a regional/coastal draw rather than
+ * claiming close proximity — no drive time or mileage is asserted.
+ *
+ * Hero photo: Santa Barbara coastline at sunset (public/Asset/Areas/
+ * santa-barbara-coastline.jpg), sourced free via Pexels (photo id 27784991).
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const CITY = "Santa Barbara";
+
+const title = "Addiction & Mental Health Treatment Near Santa Barbara | Breathe";
+const description =
+  "LGBTQ+-affirming addiction and mental health treatment serving Santa Barbara and the Central Coast. Medical detox, residential care, PHP, IOP in Los Angeles. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const care = [
+  { icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", text: "A medically supported start, before moving into ongoing care." },
+  { icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", text: "Full-time structure and clinical support at our Laurel Canyon campus." },
+  { icon: "wb_sunny", title: "PHP & IOP", href: "/programs/php/", text: "Structured day treatment and intensive outpatient options as you step down." },
+  { icon: "diversity_3", title: "What We Treat", href: "/what-we-treat/", text: "Substance use, co-occurring conditions, and more — see everything we treat." },
+];
+
+const faqs = [
+  {
+    q: "How far is Breathe from Santa Barbara?",
+    a: "We're based in Los Angeles — a comfortable drive down the coast from Santa Barbara. Exact travel time depends on traffic and time of day; our admissions team can help you plan a visit or an arrival.",
+  },
+  {
+    q: "Do you offer transportation from Santa Barbara?",
+    a: "Every situation is different. Call our admissions team and they'll talk through transportation and travel logistics with you directly.",
+  },
+  {
+    q: "Is it worth traveling from Santa Barbara for treatment?",
+    a: "Many of our clients travel well outside their immediate area for care, and some distance from home can actually help treatment work — it separates you from day-to-day triggers while you build something new. Our admissions team can talk through whether that's the right fit for you.",
+  },
+  {
+    q: "Is Breathe only for LGBTQ+ clients?",
+    a: "No. We're built for the LGBTQ+ community first, and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate.",
+  },
+  {
+    q: "Does insurance cover treatment if I live in Santa Barbara?",
+    a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything, regardless of where you live. We do not currently accept Medi-Cal or Medicare.",
+  },
+];
+
+const pageUrl = new URL("/areas-we-service/santa-barbara/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Areas We Service", item: new URL("/areas-we-service/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: CITY, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+    {
+      "@type": "WebPage",
+      name: title,
+      url: pageUrl,
+      mainEntity: {
+        "@type": "MedicalClinic",
+        name: site.name,
+        url: site.domain + "/",
+        telephone: site.phoneHref,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.address.line1,
+          addressLocality: site.address.city,
+          addressRegion: site.address.region,
+          postalCode: site.address.postalCode,
+          addressCountry: site.address.country,
+        },
+      },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/areas-we-service/santa-barbara/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Areas We Service" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Areas/santa-barbara-coastline.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/areas-we-service/" style="color:#7FB3BC;">Areas We Service</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Santa Barbara
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Addiction &amp; Mental Health Treatment Near Santa Barbara</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">LGBTQ+-affirming care, a comfortable drive down the coast from Santa Barbara. Real treatment from people who've lived it — not a script.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  SERVING SANTA BARBARA  ══════════════ */}
+    <section data-screen-label="Serving Santa Barbara" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>Serving Santa Barbara</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Clients and families travel to us from Santa Barbara</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Santa Barbara is one of our most-requested service areas, and clients regularly make the trip down the coast for treatment. Some distance from home can be part of what makes treatment work — it separates you from day-to-day triggers while you build something new, with your family able to stay involved throughout.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Our team includes clinicians with real recovery experience, and our admissions team can help plan travel and logistics for clients coming from Santa Barbara and the surrounding Central Coast.</p>
+        </div>
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Why clients from Santa Barbara choose Breathe</div>
+          <div style="display:grid;gap:14px;">
+            {[
+              "Staff with lived recovery experience, not just clinical training",
+              "Distance from home that supports a real reset, not just relocation",
+              "Family therapy that keeps loved ones involved from a distance",
+              "A private, residential setting on a secluded canyon campus",
+            ].map((s) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <Icon name="check" size={14} />
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  LEVELS OF CARE TEASER  ══════════════ */}
+    <section data-screen-label="Levels of care teaser" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>How we can help</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Every level of care, in one place</h2>
+          <p style={`${S.intro}max-width:78ch;`}>From medically supported detox through outpatient care, we meet you where you are and move with you as your needs change.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {care.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <a class="treat-card link-card" href={c.href} style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);text-decoration:none;color:inherit;`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+    />
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Questions people from Santa Barbara ask us"
+      intro="Straight answers to what people and families ask before they decide anything."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-13-ensuite-bath-balcony.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

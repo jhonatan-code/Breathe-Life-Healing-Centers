@@ -1,0 +1,234 @@
+---
+/**
+ * /what-we-treat/ — What We Treat section hub (sitemap: "What We Treat
+ * (overview)"). No dedicated content brief exists for this hub yet, so all
+ * copy here is original structural/marketing framing (headings, card
+ * blurbs, CTA labels) rather than invented clinical content — mirrors the
+ * pattern used for /programs/ (also brief-less). Card grid mirrors
+ * /programs/'s hub pattern: icon, title, one-line blurb, link.
+ *
+ * Links to all 11 substance pages: the 3 that already existed (Alcohol,
+ * Methamphetamine, Cocaine) plus the 8 built in this batch (Opioids, Xanax,
+ * Benzodiazepines, Kratom, Marijuana, Designer/Synthetic Drugs, Inhalants,
+ * Co-Occurring Eating Disorders).
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import NetworkDiagram from "../../components/NetworkDiagram.astro";
+import { site, primaryNav } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "What We Treat | Substance Use & Addiction Treatment | Breathe";
+const description =
+  "Every substance we treat at Breathe Life Healing Centers — alcohol, opioids, benzodiazepines, stimulants, and more — plus co-occurring mental health and eating disorder support. LGBTQ+-affirming, Los Angeles. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const substances = [
+  { icon: "local_bar", title: "Alcohol", href: "/what-we-treat/alcohol/", text: "Medical detox and residential care for alcohol use disorder." },
+  { icon: "bolt", title: "Methamphetamine", href: "/what-we-treat/methamphetamine/", text: "Treatment for meth and amphetamine use, including Crystal Clear." },
+  { icon: "science", title: "Cocaine", href: "/what-we-treat/cocaine/", text: "CBT and motivational interviewing for cocaine and stimulant use." },
+  { icon: "medication", title: "Opioids", href: "/what-we-treat/opioids/", text: "Care for heroin, fentanyl, and prescription opioid use, together." },
+  { icon: "bedtime", title: "Xanax", href: "/what-we-treat/xanax/", text: "Medically supervised support for Xanax (alprazolam) dependence." },
+  { icon: "healing", title: "Benzodiazepines", href: "/what-we-treat/benzodiazepines/", text: "Support for Klonopin, Ativan, Valium, and related medications." },
+  { icon: "eco", title: "Kratom", href: "/what-we-treat/kratom/", text: "Real treatment for kratom dependence, taken seriously." },
+  { icon: "spa", title: "Marijuana", href: "/what-we-treat/marijuana/", text: "Support for marijuana use disorder, without judgment." },
+  { icon: "biotech", title: "Designer / Synthetic Drugs", href: "/what-we-treat/designer-drugs/", text: "Care for synthetic cannabinoids, bath salts, and other designer drugs." },
+  { icon: "air", title: "Inhalants", href: "/what-we-treat/inhalants/", text: "Treatment for inhalant use disorder, with the same seriousness as any other." },
+  { icon: "restaurant", title: "Co-Occurring Eating Disorders", href: "/what-we-treat/eating-disorders/", text: "Body-image and emotional-eating support, integrated into your care." },
+] as const;
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+  },
+  {
+    icon: "layers", title: "Treating what's underneath",
+    text: "We don't treat any one substance as a one-dimensional problem. Because in real life, it rarely is.",
+  },
+];
+
+const substancesGroup = primaryNav.find((n) => n.label === "What We Treat")!.groups![0];
+const pageUrl = new URL("/what-we-treat/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      name: "What We Treat",
+      itemListElement: substancesGroup.links.map((l, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: l.label,
+        url: new URL(l.href, site.domain).href,
+      })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/what-we-treat/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="What We Treat" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-19-outdoor-dining-deck.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">What we treat</div>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Whatever Brought You Here, We Treat It.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Alcohol, opioids, stimulants, benzodiazepines, and more — plus the anxiety, depression, and trauma that often travel with them. Built for the LGBTQ+ community first, open to anyone ready to change.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  SUBSTANCES GRID  ══════════════ */}
+    <section data-screen-label="Substances" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Substances</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Find the page that matches your situation</h2>
+          <p style={`${S.intro}max-width:80ch;`}>Every page below covers assessment, levels of care, and how we treat what's underneath the substance use, not just the substance itself.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {substances.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <a class="treat-card" href={c.href} style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);color:inherit;`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <NetworkDiagram />
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      background="#FFFFFF"
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>The same standard, whatever brought you here</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px —
+       this hub has no FAQ section, so it lands right before the Final CTA. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Not sure which page fits your situation?"
+      subhead="Our admissions team talks through what's going on first, then points you to the right level of care. No pressure, no obligation."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-12-residence-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

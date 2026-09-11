@@ -1,0 +1,283 @@
+---
+/**
+ * Substance ↔ condition relationship diagram — a real node-link diagram, not
+ * decoration. Center = Dual Diagnosis (Breathe's integrated-treatment model).
+ * Inner ring = the 4 conditions already named as co-occurring on every
+ * substance page. Outer ring = the 10 substances that link to them.
+ *
+ * Every edge here mirrors a `conditions` array already shipped on that
+ * substance's own page (src/pages/what-we-treat/*.astro) — nothing invented.
+ * Eating Disorders is excluded: its page defines no co-occurring-conditions
+ * relationship, so it isn't asserted here either.
+ *
+ * Card copy (title/text) is reused verbatim from the What We Treat and
+ * Conditions hub pages — same rule, no new clinical copy written for this
+ * component.
+ */
+const conditions = [
+  { id: "depression", label: "Depression", lines: ["Depression"], href: "/conditions/depression/", text: "Support to rebuild energy, hope, and connection — treated as its own focus, not an afterthought to substance use." },
+  { id: "anxiety", label: "Anxiety", lines: ["Anxiety"], href: "/conditions/anxiety/", text: "Structured, ongoing care for anxiety that's driving — or being driven by — substance use." },
+  { id: "trauma", label: "Trauma", lines: ["Trauma"], href: "/conditions/trauma/", text: "A trauma-informed approach woven into every level of care, not a separate track." },
+  { id: "complex-trauma", label: "Complex Trauma / C-PTSD", lines: ["Complex", "Trauma"], href: "/conditions/complex-trauma/", text: "Trauma-informed care for what built up over time, not a single event." },
+] as const;
+
+const substances = [
+  { id: "alcohol", label: "Alcohol", lines: ["Alcohol"], href: "/what-we-treat/alcohol/", text: "Medical detox and residential care for alcohol use disorder.", links: ["depression", "anxiety", "trauma", "complex-trauma"] },
+  { id: "methamphetamine", label: "Methamphetamine", lines: ["Methamphetamine"], href: "/what-we-treat/methamphetamine/", text: "Treatment for meth and amphetamine use, including Crystal Clear.", links: ["depression", "anxiety", "trauma", "complex-trauma"] },
+  { id: "cocaine", label: "Cocaine", lines: ["Cocaine"], href: "/what-we-treat/cocaine/", text: "CBT and motivational interviewing for cocaine and stimulant use.", links: ["anxiety", "depression", "trauma"] },
+  { id: "opioids", label: "Opioids", lines: ["Opioids"], href: "/what-we-treat/opioids/", text: "Care for heroin, fentanyl, and prescription opioid use, together.", links: ["anxiety", "depression", "trauma"] },
+  { id: "xanax", label: "Xanax", lines: ["Xanax"], href: "/what-we-treat/xanax/", text: "Medically supervised support for Xanax (alprazolam) dependence.", links: ["anxiety", "depression", "trauma"] },
+  { id: "benzodiazepines", label: "Benzodiazepines", lines: ["Benzodiazepines"], href: "/what-we-treat/benzodiazepines/", text: "Support for Klonopin, Ativan, Valium, and related medications.", links: ["anxiety", "depression", "trauma"] },
+  { id: "kratom", label: "Kratom", lines: ["Kratom"], href: "/what-we-treat/kratom/", text: "Real treatment for kratom dependence, taken seriously.", links: ["anxiety", "depression", "trauma"] },
+  { id: "marijuana", label: "Marijuana", lines: ["Marijuana"], href: "/what-we-treat/marijuana/", text: "Support for marijuana use disorder, without judgment.", links: ["anxiety", "depression", "trauma"] },
+  { id: "designer-drugs", label: "Designer / Synthetic Drugs", lines: ["Designer /", "Synthetic Drugs"], href: "/what-we-treat/designer-drugs/", text: "Care for synthetic cannabinoids, bath salts, and other designer drugs.", links: ["anxiety", "depression", "trauma"] },
+  { id: "inhalants", label: "Inhalants", lines: ["Inhalants"], href: "/what-we-treat/inhalants/", text: "Treatment for inhalant use disorder, with the same seriousness as any other.", links: ["anxiety", "depression", "trauma"] },
+] as const;
+
+const hub = { id: "dual-diagnosis", label: "Dual Diagnosis", lines: ["Dual", "Diagnosis"], href: "/conditions/dual-diagnosis/", text: "Our integrated model for treating substance use and mental health together, in the same plan." };
+
+// ── Geometry (static — no client-side layout math needed) ─────────────────
+const CX = 450, CY = 450;
+const R_INNER = 165, R_OUTER = 385;
+const toXY = (angleDeg: number, r: number) => {
+  const rad = (angleDeg - 90) * (Math.PI / 180);
+  return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
+};
+const conditionPos = conditions.map((c, i) => ({ ...c, ...toXY((360 / conditions.length) * i, R_INNER) }));
+const substancePos = substances.map((s, i) => ({ ...s, ...toXY((360 / substances.length) * i, R_OUTER) }));
+const hubPos = { ...hub, x: CX, y: CY };
+const posById = new Map([hubPos, ...conditionPos, ...substancePos].map((n) => [n.id, n]));
+
+// substance → condition edges, plus hub → every condition (the integrated model)
+const edges = [
+  ...substancePos.flatMap((s) => s.links.map((cid) => ({ from: s.id, to: cid }))),
+  ...conditions.map((c) => ({ from: hub.id, to: c.id })),
+];
+
+// data-connects: every node's direct neighbors, for the hover/focus highlight
+const connectsFor = (id: string) => {
+  const set = new Set<string>();
+  edges.forEach((e) => {
+    if (e.from === id) set.add(e.to);
+    if (e.to === id) set.add(e.from);
+  });
+  return [...set].join(" ");
+};
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+};
+---
+
+<section class="nd-section" data-screen-label="Network Diagram" style="padding:76px 37px;background:#FAF8F5;border-top:1px solid #E2DED7;border-bottom:1px solid #E2DED7;overflow:hidden;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style={S.eyebrow}>How it connects</div>
+      <h2 style={`${S.h2}max-width:34ch;`}>Substance use rarely travels alone</h2>
+      <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;max-width:70ch;margin:0 auto;">Every substance we treat is shown here connected to the conditions that most often show up alongside it. Dual Diagnosis, at the center, is our model for treating both in one plan. Select anything to see how it connects.</p>
+    </div>
+
+    {/* ══ Desktop/tablet: interactive radial diagram (≥1024px) ══ */}
+    <div class="nd-diagram-wrap" style="display:flex;gap:32px;align-items:center;margin-top:28px;">
+      <div style="flex:1 1 560px;position:relative;">
+        <svg id="nd-svg" viewBox="0 0 900 900" role="img" aria-label="Diagram of substances and the mental-health conditions that commonly co-occur with them, centered on Breathe's integrated Dual Diagnosis model" style="width:100%;height:auto;display:block;">
+          <g id="nd-edges" fill="none" stroke="#C9D2DA" stroke-width="1.5">
+            {edges.map((e) => {
+              const a = posById.get(e.from)!;
+              const b = posById.get(e.to)!;
+              const len = Math.hypot(b.x - a.x, b.y - a.y);
+              return (
+                <line
+                  data-edge
+                  data-from={e.from}
+                  data-to={e.to}
+                  x1={a.x} y1={a.y} x2={b.x} y2={b.y}
+                  class="nd-edge"
+                  style={`stroke-dasharray:${len};stroke-dashoffset:${len};`}
+                />
+              );
+            })}
+          </g>
+
+          {/* center hub */}
+          <a href={hub.href} data-node={hub.id} data-connects={connectsFor(hub.id)} class="nd-node nd-node--hub" aria-label={`${hub.label}: ${hub.text}`}>
+            <circle cx={CX} cy={CY} r="50" fill="#16293D" stroke="#7FB3BC" stroke-width="2" />
+            <text x={CX} y={CY} text-anchor="middle" dominant-baseline="middle" fill="#FFFFFF" font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600">
+              {hub.lines.map((line, i) => (
+                <tspan x={CX} dy={i === 0 ? -((hub.lines.length - 1) * 9) : 18}>{line}</tspan>
+              ))}
+            </text>
+          </a>
+
+          {/* condition ring */}
+          {conditionPos.map((c) => (
+            <a href={c.href} data-node={c.id} data-connects={connectsFor(c.id)} class="nd-node nd-node--condition" aria-label={`${c.label}: ${c.text}`}>
+              <circle cx={c.x} cy={c.y} r="34" fill="#2C5A64" />
+              <text x={c.x} y={c.y} text-anchor="middle" dominant-baseline="middle" fill="#FFFFFF" font-family="Instrument Sans, sans-serif" font-size="12" font-weight="600">
+                {c.lines.map((line, i) => (
+                  <tspan x={c.x} dy={i === 0 ? -((c.lines.length - 1) * 7) : 14}>{line}</tspan>
+                ))}
+              </text>
+            </a>
+          ))}
+
+          {/* substance ring */}
+          {substancePos.map((s) => (
+            <a href={s.href} data-node={s.id} data-connects={connectsFor(s.id)} class="nd-node nd-node--substance" aria-label={`${s.label}: ${s.text}`}>
+              <circle cx={s.x} cy={s.y} r="26" fill="#FFFFFF" stroke="#33679C" stroke-width="2.5" />
+              <text x={s.x} y={s.y + 44} text-anchor="middle" fill="#14181C" font-family="Instrument Sans, sans-serif" font-size="12" font-weight="600">
+                {s.lines.map((line, i) => (
+                  <tspan x={s.x} dy={i === 0 ? 0 : 14}>{line}</tspan>
+                ))}
+              </text>
+            </a>
+          ))}
+        </svg>
+      </div>
+
+      {/* contextual info panel — updates on hover/focus, real content always visible as a fallback list too */}
+      <div id="nd-panel" style="flex:0 0 300px;background:#FFFFFF;border:1px solid #E2DED7;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 10px 24px rgba(20,24,28,0.06);">
+        <div id="nd-panel-default">
+          <div style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:14px;">
+            <span class="msym" style="font-size:24px;color:#33679C;">hub</span>
+          </div>
+          <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#8A94A0;margin-bottom:6px;">Hover or tap a node</div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;">See how each substance connects to the conditions we treat alongside it — and how Dual Diagnosis ties them together.</p>
+        </div>
+        <div id="nd-panel-active" hidden>
+          <div id="nd-panel-badge" style="display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px;"></div>
+          <h3 id="nd-panel-title" style="font-size:20px;font-weight:600;letter-spacing:-0.014em;margin:0 0 8px;"></h3>
+          <p id="nd-panel-text" style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0 0 16px;"></p>
+          <a id="nd-panel-link" href="#" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    {/* ══ Mobile: grouped list (<1024px) — different interaction, not a shrunk diagram ══ */}
+    <div class="nd-mobile" style="display:none;margin-top:28px;">
+      <a href={hub.href} style="display:block;background:#16293D;border-radius:14px;padding:22px 20px;margin-bottom:16px;text-decoration:none;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7FB3BC;margin-bottom:6px;">The integrated model</div>
+        <div style="font-size:19px;font-weight:600;color:#FFFFFF;margin-bottom:6px;">Dual Diagnosis →</div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.55;color:#C8DAE9;margin:0;">{hub.text}</p>
+      </a>
+      {conditionPos.map((c) => (
+        <div style="border:1px solid #E2DED7;border-radius:14px;padding:20px;margin-bottom:14px;background:#FFFFFF;">
+          <a href={c.href} style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span style="flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:#2C5A64;"></span>
+            <span style="font-size:17px;font-weight:600;color:#14181C;">{c.label}</span>
+            <span aria-hidden="true" style="color:#33679C;margin-left:auto;">→</span>
+          </a>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            {substancePos.filter((s) => s.links.includes(c.id)).map((s) => (
+              <a href={s.href} style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:500;color:#33679C;background:rgba(51,103,156,0.08);border-radius:999px;padding:7px 13px;">{s.label}</a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .nd-node { cursor: pointer; }
+  .nd-node circle, .nd-node text, .nd-node foreignObject { transition: opacity 220ms ease, transform 220ms ease; transform-origin: center; transform-box: fill-box; }
+  .nd-node--substance circle { transition: opacity 220ms ease, transform 220ms ease, stroke 220ms ease; }
+  .nd-node:hover circle, .nd-node:focus-visible circle { transform: scale(1.12); }
+  .nd-node:focus-visible { outline: none; }
+  .nd-node:focus-visible circle { stroke: #16293D; }
+  .nd-edge { transition: stroke 220ms ease, opacity 220ms ease; }
+
+  #nd-svg.is-focused .nd-node { opacity: 0.28; }
+  #nd-svg.is-focused .nd-node.is-active { opacity: 1; }
+  #nd-svg.is-focused .nd-edge { opacity: 0.12; }
+  #nd-svg.is-focused .nd-edge.is-active { opacity: 1; stroke: #33679C; stroke-width: 2.25; }
+
+  @media (max-width: 1023px) {
+    .nd-diagram-wrap { display: none !important; }
+    .nd-mobile { display: block !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nd-node circle, .nd-node text, .nd-node foreignObject, .nd-edge { transition: none !important; }
+    .nd-edge { stroke-dashoffset: 0 !important; }
+  }
+</style>
+
+<script>
+  (() => {
+    const svg = document.getElementById("nd-svg");
+    if (!svg) return;
+    const nodes = Array.from(svg.querySelectorAll<SVGAElement>("[data-node]"));
+    const edges = Array.from(svg.querySelectorAll<SVGLineElement>("[data-edge]"));
+    const panelDefault = document.getElementById("nd-panel-default");
+    const panelActive = document.getElementById("nd-panel-active");
+    const panelBadge = document.getElementById("nd-panel-badge");
+    const panelTitle = document.getElementById("nd-panel-title");
+    const panelText = document.getElementById("nd-panel-text");
+    const panelLink = document.getElementById("nd-panel-link") as HTMLAnchorElement | null;
+
+    const info: Record<string, { label: string; text: string; href: string; kind: "hub" | "condition" | "substance" }> = {};
+    nodes.forEach((n) => {
+      const id = n.dataset.node!;
+      const aria = n.getAttribute("aria-label") || "";
+      const [label, text] = aria.split(/:(.+)/).map((s) => s.trim());
+      const kind = n.classList.contains("nd-node--hub") ? "hub" : n.classList.contains("nd-node--condition") ? "condition" : "substance";
+      info[id] = { label, text, href: n.getAttribute("href") || "#", kind };
+    });
+
+    const activate = (id: string) => {
+      const connects = new Set((nodes.find((n) => n.dataset.node === id)?.dataset.connects || "").split(" ").filter(Boolean));
+      connects.add(id);
+      svg.classList.add("is-focused");
+      nodes.forEach((n) => n.classList.toggle("is-active", connects.has(n.dataset.node!)));
+      edges.forEach((e) => e.classList.toggle("is-active", connects.has(e.dataset.from!) && connects.has(e.dataset.to!) ? (e.dataset.from === id || e.dataset.to === id) : false));
+
+      const d = info[id];
+      if (d && panelDefault && panelActive && panelBadge && panelTitle && panelText && panelLink) {
+        panelDefault.hidden = true;
+        panelActive.hidden = false;
+        const badgeColor = d.kind === "hub" ? "background:#16293D;color:#FFFFFF;" : d.kind === "condition" ? "background:rgba(44,90,100,0.12);color:#2C5A64;" : "background:rgba(51,103,156,0.10);color:#33679C;";
+        panelBadge.setAttribute("style", `display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px;${badgeColor}`);
+        panelBadge.textContent = d.kind === "hub" ? "Integrated model" : d.kind === "condition" ? "Condition" : "Substance";
+        panelTitle.textContent = d.label;
+        panelText.textContent = d.text;
+        panelLink.href = d.href;
+      }
+    };
+
+    const reset = () => {
+      svg.classList.remove("is-focused");
+      nodes.forEach((n) => n.classList.remove("is-active"));
+      edges.forEach((e) => e.classList.remove("is-active"));
+      if (panelDefault && panelActive) { panelDefault.hidden = false; panelActive.hidden = true; }
+    };
+
+    nodes.forEach((n) => {
+      n.addEventListener("mouseenter", () => activate(n.dataset.node!));
+      n.addEventListener("focus", () => activate(n.dataset.node!));
+    });
+    svg.addEventListener("mouseleave", reset);
+    svg.addEventListener("focusout", (e) => {
+      if (!svg.contains((e as FocusEvent).relatedTarget as Node)) reset();
+    });
+
+    // Draw-in animation for edges, once, when the diagram scrolls into view.
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          edges.forEach((e, i) => {
+            e.style.transition = `stroke-dashoffset 900ms cubic-bezier(0.4,0,0.2,1) ${Math.min(i * 12, 500)}ms`;
+            e.style.strokeDashoffset = "0";
+          });
+          io.disconnect();
+        }
+      }, { threshold: 0.2 });
+      io.observe(svg);
+    } else {
+      edges.forEach((e) => (e.style.strokeDashoffset = "0"));
+    }
+  })();
+</script>

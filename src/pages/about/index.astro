@@ -1,0 +1,224 @@
+---
+/**
+ * /about/ — the About hub. Per the approved sitemap (context/Breathe_Life_Sitemap_v12.xlsx),
+ * this page absorbs the old Locations hub plus the former standalone Mission & Vision and
+ * Accreditations & Memberships URLs (structure confirmed; kills the /joint-commission/
+ * duplicate). The MERGE is approved — the actual Mission/Vision and Accreditations prose
+ * was never supplied to this project, so those two blocks are placeholdered
+ * (CLAUDE.md / docs/00-INVENTORY.md item 5). The accreditation LOGOS/NAMES themselves are
+ * real, already-approved facts (same list as SiteFooter.astro) and are shown as-is.
+ *
+ * Team preview uses the same `team` array as the homepage (src/data/home.ts) — Brad Lamm
+ * is included in the card grid like every other leader. His own bio page
+ * (/about/our-team/brad-lamm/) was a placeholder pending client sign-off on
+ * founder positioning (CLAUDE.md); the user explicitly lifted that block
+ * 2026-09-15 and the page now carries his real bio from the official site.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import { site } from "../../config/site";
+import { team } from "../../data/home";
+
+const title = "About Breathe Life Healing Centers | Los Angeles";
+const description =
+  "About Breathe Life Healing Centers — our team, our accreditations, and what it's like to be part of our LGBTQ+-affirming community in Los Angeles.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+// Same accreditation set as SiteFooter.astro — real, already-approved facts.
+// Recovery.com badge removed 2026-09-10 — user call: unconfirmed by any
+// source in the project docs, shouldn't publish as fact until verified.
+const accreditations: [string, string, string?][] = [
+  ["/Asset/Accreditations/The%20Joint%20Commission.svg", "The Joint Commission National Quality Approval Gold Seal", "https://breathelifehealingcenters.com/joint-commission/"],
+  ["/Asset/Accreditations/Legit.svg", "LegitScript Certified", "https://www.legitscript.com/websites/?checker_keywords=breathelifehealingcenters.com"],
+  ["/Asset/Accreditations/Fair%20Care.svg", "Fair Care Promise"],
+  ["/Asset/Accreditations/DHCS.svg", "Licensed by the California Department of Health Care Services", "https://www.dhcs.ca.gov/provgovpart/Pages/Licensing_and_Certification_Division.aspx"],
+];
+
+const explore = [
+  { icon: "rate_review", title: "Testimonials", text: "Real reviews from clients and families, in their own words.", href: "/about/testimonials/" },
+  { icon: "work", title: "Careers", text: "Join a team built around lived experience.", href: "/about/careers/" },
+  { icon: "photo_camera", title: "Campus Photos", text: "A look inside our Laurel Canyon residential campus.", href: "/about/campus-photos/" },
+  { icon: "apartment", title: "Outpatient Photos", text: "Our outpatient spaces in West Hollywood.", href: "/about/outpatient-photos/" },
+  { icon: "play_circle", title: "Video Tour", text: "See Breathe before you ever set foot on campus.", href: "/about/video-tour/" },
+  { icon: "diversity_3", title: "Sero Mental Health", text: "The nationwide network of treatment centers Breathe is part of.", href: "/about/sero-mental-health/" },
+];
+
+const pageUrl = new URL("/about/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: pageUrl },
+      ],
+    },
+    { "@type": "AboutPage", name: title, url: pageUrl },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-18-great-room.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:90px 37px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+          <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> About
+        </nav>
+        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:20ch;text-wrap:balance;">About Breathe Life Healing Centers</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;max-width:62ch;">Breathe was built around one idea: treat every person like family. Here's who we are, who's behind it, and what it's actually like to be part of this community.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;">
+          <a class="cta cta--light" href="/about/our-team/" style={`background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);`}>Meet Our Team</a>
+          <a class="cta" href={site.phoneHref} style="background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;">Call Us 24/7: {site.phoneDisplay}</a>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  MISSION & VISION  ══════════════ */}
+    <section data-screen-label="Mission & Vision" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:900px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Our why</div>
+        <h2 style={`${S.h2}max-width:24ch;`}>Mission &amp; Vision</h2>
+        <p style={`${S.intro}max-width:70ch;margin-bottom:24px;`}>Breathe was founded on the idea that recovery works better when it doesn't ask anyone to leave part of themselves at the door — an idea that's shaped every level of care we offer since.</p>
+        <ClinicalPlaceholder kind="CONTENT" note="Mission & Vision copy needed" />
+      </div>
+    </section>
+
+    {/* ══════════════  TEAM PREVIEW  ══════════════ */}
+    <section id="team" data-screen-label="Team preview" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Leadership</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>The people behind Breathe</h2>
+          <p style={`${S.intro}max-width:80ch;`}>Meet the people who built Breathe and who guide it every day.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto;">
+          {team.map((p) => (
+            <a href={`/about/our-team/${p.slug}/`} class="team-card" style="position:relative;display:block;border-radius:14px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 1px 2px rgba(20,24,28,0.08),0 10px 24px rgba(20,24,28,0.10);">
+              <img src={p.photo} alt={p.name} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 14%;display:block;" />
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0) 38%,rgba(22,41,61,0.55) 68%,rgba(22,41,61,0.94) 100%);"></div>
+              <span style="position:absolute;top:16px;right:16px;font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;background:#FFFFFF;color:#2C5A64;padding:6px 10px;border-radius:4px;">{p.badge}</span>
+              <div style="position:absolute;left:0;right:0;bottom:0;padding:24px 26px;">
+                <div style="font-size:22px;font-weight:600;letter-spacing:-0.018em;color:#FFFFFF;">{p.name}</div>
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.08em;color:#7FB3BC;margin:6px 0 0;">{p.role}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p style="text-align:center;margin:24px 0 0;font-family:'Montserrat',sans-serif;font-size:15px;">
+          <a href="/about/our-team/" style="color:#33679C;font-weight:600;">Meet the full team →</a>
+        </p>
+      </div>
+    </section>
+
+    {/* ══════════════  ACCREDITATIONS  ══════════════ */}
+    <section data-screen-label="Accreditations" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1000px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Trust &amp; credentials</div>
+        <h2 style={`${S.h2}max-width:30ch;`}>Accreditations &amp; memberships</h2>
+        <p style={`${S.intro}max-width:70ch;margin-bottom:24px;`}>Breathe is licensed and independently verified by the organizations that hold treatment providers accountable.</p>
+        <div style="margin-bottom:28px;">
+          <ClinicalPlaceholder kind="CONTENT" note="Accreditations & Memberships copy needed" />
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px 40px;padding:28px 0;border-top:1px solid #E2DED7;border-bottom:1px solid #E2DED7;">
+          {accreditations.map(([src, alt, href]) => (
+            href ? (
+              <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">
+                <img src={src} alt={alt} loading="lazy" style="height:48px;width:auto;display:block;" />
+              </a>
+            ) : (
+              <img src={src} alt={alt} loading="lazy" style="height:48px;width:auto;display:block;" />
+            )
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  EXPLORE  ══════════════ */}
+    <section data-screen-label="Explore About" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Learn more</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>More about Breathe</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {explore.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <a href={c.href} class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);color:#14181C;`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Explore <span aria-hidden="true">→</span></span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    <SiteFinalCTA
+      heading="Ready to see if Breathe is the right fit?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-03-clinical-office.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

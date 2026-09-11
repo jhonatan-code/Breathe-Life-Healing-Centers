@@ -1,0 +1,277 @@
+---
+/**
+ * /what-we-treat/eating-disorders/ ("Co-Occurring Eating Disorders" per the
+ * approved sitemap) — no approved content brief exists for this page yet.
+ *
+ * FRAMING (per CLAUDE.md, already-approved client guidance, not invented):
+ * Breathe is explicitly NOT a standalone severe-eating-disorder program.
+ * This page is framed as co-occurring body-image / emotional-eating issues
+ * addressed within the context of substance-use and mental-health treatment
+ * — never as a dedicated eating-disorder treatment page. Concretely, that
+ * means:
+ *   - No "levels of ED care" section (no ED-specific detox/residential/PHP
+ *     ladder — those levels exist generally at Breathe, not as an ED track).
+ *   - The "How we help" cards below describe integration into existing
+ *     programs, not ED-specific specialty tracks.
+ *   - An explicit "not a standalone program" section sets expectations and
+ *     points elsewhere for primary, severe ED needs, rather than implying
+ *     Breathe treats eating disorders as a first diagnosis.
+ *   - No FDA/medical claims, no diagnostic criteria, no signs checklist —
+ *     placeholdered via <ClinicalPlaceholder /> same as every other page.
+ *
+ * Skips the FAQPage AND MedicalWebPage schema entirely (see ld below) —
+ * asserting a MedicalCondition "about" here would overstate this as a
+ * dedicated eating-disorder treatment page, which contradicts the framing
+ * above.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Co-Occurring Eating Disorder Support in Los Angeles | Breathe";
+const description =
+  "Support for body-image and emotional-eating struggles that show up alongside substance use and mental health treatment at Breathe. LGBTQ+-affirming, Los Angeles. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const care = [
+  {
+    icon: "psychology", title: "Individual & Group Therapy", href: "/therapies/cbt/", cta: "Learn About Our Therapies",
+    text: "Body image and eating patterns come up in session when they're relevant to your recovery, worked into your existing care rather than run as a separate track.",
+  },
+  {
+    icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", cta: "Learn About Residential Treatment",
+    text: "Structured, full-time care where these patterns can be noticed and addressed alongside everything else that brought you here.",
+  },
+  {
+    icon: "wb_sunny", title: "PHP & IOP", href: "/programs/php/", cta: "Explore PHP & IOP",
+    text: "Step-down support that keeps these patterns part of the ongoing conversation as you build a life outside treatment.",
+  },
+  {
+    icon: "family_restroom", title: "Family Program", href: "/programs/family-program/", cta: "Learn About the Family Program",
+    text: "Family therapy that makes room for how body image and eating patterns show up at home too.",
+  },
+];
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+  },
+  {
+    icon: "layers", title: "Treating the whole picture",
+    text: "Body image, food, substance use, and mental health rarely exist in isolation. We treat them as connected, because they usually are.",
+  },
+];
+
+const pageUrl = new URL("/what-we-treat/eating-disorders/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Co-Occurring Eating Disorders", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/what-we-treat/eating-disorders/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="What We Treat" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-04-community-dining-lounge.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Co-Occurring Eating Disorders
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Support for Co-Occurring Eating Disorders. Part of Your Whole Treatment.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Body image and emotional eating struggles often show up alongside substance use and mental health concerns. We address them as part of your care here, not as a separate program.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE ADDRESS THIS  ══════════════ */}
+    <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>How we help</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>How we address eating disorders here</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Body-image struggles and emotional eating patterns are common alongside substance use and mental health treatment, and they deserve attention rather than being left unaddressed.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">What we offer is a team that notices these patterns, asks about them, and folds them into your broader individual and group therapy alongside whatever brought you here in the first place.</p>
+        </div>
+        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Any signs/symptoms content here — needs approved clinical brief. Framing reminder: co-occurring body-image / emotional-eating support, addressed within substance-use and mental-health treatment — not a standalone eating-disorder diagnosis or program (see CLAUDE.md)." />
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE HELP  ══════════════ */}
+    <section data-screen-label="How we treat it" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Part of your care</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Where this fits into your treatment</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {care.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{c.cta} <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  NOT A STANDALONE PROGRAM  ══════════════ */}
+    <section data-screen-label="Scope and fit" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:860px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Is this the right fit?</div>
+        <h2 style={`${S.h2}max-width:26ch;`}>Not a standalone eating disorder program</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Breathe isn't a dedicated eating disorder treatment center. If specialized, intensive eating disorder care is your primary need, we're not the right fit on our own, and we'll help you find a program that is. What we offer is support for body image and emotional eating patterns in the context of treating substance use and mental health together, including depression, anxiety, and trauma when they're part of the picture.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+          <a class="cta" href="/contact-us/" style={`display:inline-block;${S.ctaBlue}`}>Talk to Admissions About Fit</a>
+        </div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;margin:22px 0 0;">See <a href="/what-we-treat/" style="color:#2C5A64;font-weight:500;">everything we treat</a>, or learn more about how we treat <a href="/conditions/depression/" style="color:#2C5A64;font-weight:500;">Depression</a> and <a href="/conditions/trauma/" style="color:#2C5A64;font-weight:500;">Trauma</a>.</p>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Why choose Breathe for the whole picture</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  FAQ  ══════════════ */}
+    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:900px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style={S.eyebrow}>Questions</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Questions people ask about this support</h2>
+        </div>
+        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content on how body-image/emotional-eating patterns are addressed within primary treatment — needs approved brief. Framing must stay co-occurring/integrated, never a standalone ED program (see CLAUDE.md)." />
+      </div>
+    </section>
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px so
+       mobile users meet it here, right before the Final CTA. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Ready to talk about what's really going on?"
+      subhead="Whether substance use, mental health, or how you relate to food and your body brought you here, someone who's been where you are will pick up. No script, no pressure."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-11-clinical-building-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

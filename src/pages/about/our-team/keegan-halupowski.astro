@@ -1,0 +1,80 @@
+---
+/**
+ * /about/our-team/keegan-halupowski/ — profile with placeholder bio. Checked the
+ * official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/keegan-halupowski/, checked 2026-09-02) per
+ * this session's standing instruction to source real content from there —
+ * that page has no biography text, only name/title (and, on some, pronouns),
+ * so per this batch's hard rule no bio prose is invented here. Not in
+ * src/data/home.ts's `team` array, so name/role/photo are defined directly
+ * below rather than pulled from it — mirrors emily-wessel.astro otherwise.
+ * No badge: no credentials given for this role. Uses ClinicalPlaceholder for
+ * the bio section, same pattern as brad-lamm.astro, but unlike brad-lamm this
+ * is not a blocked/contested profile — name, role and photo are confirmed,
+ * only bio prose is missing, so the hero and schema.org Person node render
+ * normally.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Keegan Halupowski";
+const role = "Operations Manager";
+const photo = "/Asset/Our%20Team/keegan-halupowski.jpg";
+
+const title = "Keegan Halupowski | Operations Manager | Breathe Life Healing Centers";
+const description = "Keegan Halupowski is Operations Manager at Breathe Life Healing Centers.";
+
+const pageUrl = new URL("/about/our-team/keegan-halupowski/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/keegan-halupowski/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} photo={photo} slug="keegan-halupowski" />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-05-spa-bathroom-suite.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

@@ -1,0 +1,83 @@
+---
+/**
+ * /about/our-team/miguel-palacios/ — real profile. Bio sourced verbatim from
+ * the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/miguel-palacios/, checked
+ * 2026-09-02). Not in src/data/home.ts's `team` array, so name/role/photo are
+ * defined directly below rather than pulled from it — mirrors
+ * emily-wessel.astro otherwise. No badge: the source page shows no
+ * credentials/certifications after his name, so the badge span is omitted
+ * entirely per this batch's instructions. Note: the source bio is written in
+ * third person and uses "their" as Miguel's pronoun ("brings ... to their
+ * role") — preserved verbatim, not converted to first person or "his".
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Miguel Palacios";
+const role = "Director of Operations";
+const photo = "/Asset/Our%20Team/miguel-palacios.jpg";
+
+const fullBio = [
+  "Miguel Palacios brings more than 15 years of experience and expertise to their role.",
+  "Prior to Breathe Life Healing Centers, Miguel worked in management with experience in public relations, community relations, media relations and event planning.",
+  "Miguel believes that success is not in the results but in the effort. Being the best is not what really matters but doing the best is all that matters.",
+];
+
+const title = "Miguel Palacios | Director of Operations | Breathe Life Healing Centers";
+const description = "Miguel Palacios is Director of Operations at Breathe Life Healing Centers, bringing more than 15 years of management experience to the role.";
+
+const pageUrl = new URL("/about/our-team/miguel-palacios/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/miguel-palacios/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} photo={photo} slug="miguel-palacios" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-10-fitness-center.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

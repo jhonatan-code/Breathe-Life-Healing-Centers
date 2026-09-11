@@ -1,0 +1,84 @@
+---
+/**
+ * /about/our-team/deb-hughes/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/deb-hughes-cas/, checked
+ * 2026-09-02) — the client's own real content, per this session's standing
+ * instruction to check the official site rather than placeholder gaps.
+ * Photo/badge/role still come from src/data/home.ts.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+import { team } from "../../../data/home";
+
+const person = team.find((p) => p.slug === "deb-hughes")!;
+
+const fullBio = [
+  "I was born and raised in Oxnard, California, and my journey into the mental health and recovery field is deeply personal. Having experienced the transformative power of support and healing myself, I know firsthand how life-changing it can be to have someone believe in you when you feel lost. That's why I do what I do—because I want to be that person for others. I want to help people reclaim their freedom, rediscover hope, and step into the life they were meant to live. There's nothing more fulfilling than witnessing that moment when someone begins to see their own light again, realizing they are worthy of healing and happiness.",
+  "The most rewarding part of my work is watching transformation unfold—not just in individuals, but in families as well. When clients first arrive, they often carry the weight of shame, fear, and uncertainty. But as they begin the process of healing, I see them reconnect with themselves, find strength they didn't know they had, and embrace their true potential. I see families come back together, relationships heal, and hope restored. There's nothing more powerful than watching someone step into their worth and begin building a future they never thought possible.",
+  "I also know how important it is to take care of myself so I can continue showing up for others. For me, self-care means spending time with my family and friends, reflecting on life's blessings, and enjoying the little things that bring me joy. Whether it's treating myself to a manicure, going for a swim, or simply being present with loved ones, I make sure to recharge so I can give my best to those who need me.",
+  "My personal mantra, All is well, reminds me that no matter how tough things may seem, there is always hope. If I had to pick one song to listen to for 24 hours, it would be Maggie May by Rod Stewart—something about that song just speaks to nostalgia, reflection, and finding your way.",
+  "If you're thinking about coming to Breathe, I want you to know this: You are safe here. You are not alone. This is your chance to step into a future that is full of possibility. Our team is here to walk beside you, to help you uncover what's been holding you back, and to support you in creating the life you deserve. Healing is possible—let's take this journey together.",
+  "At Breathe, we don't just treat symptoms—we see the whole person. Your story is unique, and your healing journey should be too. Here, you'll find a compassionate, highly trained team who will help you understand what's kept you feeling stuck and give you the tools to move forward with strength and confidence. This is a place where you can lay down the weight of the past and step into a new version of yourself—one that is empowered, worthy, and free.",
+  "You don't have to have it all figured out to take the first step. Just know that you deserve this chance. You deserve healing, joy, and a life that feels meaningful. And we will be here, every step of the way, to remind you that you are capable of more than you ever imagined.",
+  "When I'm not working, you'll probably find me on the water—waterskiing, jet skiing, or just soaking in the peace of being outside. I also love catching a great play or movie, spending time with my family, and surrounding myself with my beloved dogs.",
+  "Every day, I am grateful to be part of this work. Helping others find their way back to themselves is the greatest privilege of my life.",
+];
+
+const title = "Deb Hughes, CAS | Co-founder, Strategic Relations | Breathe Life Healing Centers";
+const description = "Deb Hughes is Co-founder and Strategic Relations lead at Breathe Life Healing Centers, overseeing family programming and community partnerships.";
+
+const pageUrl = new URL("/about/our-team/deb-hughes/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/deb-hughes/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="deb-hughes" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-14-community-kitchen.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

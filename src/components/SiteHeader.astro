@@ -1,0 +1,150 @@
+---
+/**
+ * Interior-page site header — real multi-page navigation with dropdown/
+ * mega-menus for every section that has sub-pages (Programs, What We Treat,
+ * Signature Services, About, Admissions), styled to match the homepage's
+ * inline header (same .site-hdr / .hdr-* classes, so the mobile layer in
+ * global.css applies unchanged). The homepage keeps its own bespoke
+ * single-page scroll-nav header; this is for every other page.
+ *
+ * All hrefs are real approved-sitemap URLs (`primaryNav` in `../config/site`)
+ * — no #anchors. Most of them 404 until built; that's expected while the
+ * site is under construction, and each link resolves as its page ships.
+ *
+ * `current` highlights the active top-level item (pass its primaryNav label).
+ * Within an open dropdown, the specific sub-link matching the current URL
+ * (via Astro.url.pathname, so no extra prop is needed per page) gets the
+ * same active treatment — e.g. on /programs/medical-detox/, both "Programs"
+ * and "Medical Detox" inside its panel are highlighted.
+ *
+ * Dropdown items are a split trigger: the label itself is a real link to
+ * `item.href` (clicking it navigates, doesn't just open the menu), and a
+ * separate small caret button toggles the panel open/closed — needed since
+ * the panel also opens on :hover/:focus-within on pointer devices, but touch
+ * devices have no hover and need an explicit way to reveal it without
+ * leaving the page.
+ */
+import Icon from "./Icon.astro";
+import { site, primaryNav } from "../config/site";
+
+interface Props {
+  current?: string;
+}
+const { current } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+const ctaBlue =
+  "background:#33679C;color:#FFFFFF;height:40px;box-sizing:border-box;padding:0 18px;font-size:14px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);";
+
+const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+<div class="site-hdr" style="position:sticky;top:0;z-index:50;background:#FFFFFF;border-bottom:1px solid #E2DED7;box-shadow:0 1px 3px rgba(20,24,28,0.06);padding:0 37px;">
+  <div class="hdr-row" style="max-width:1440px;margin:0 auto;padding:14px 0;display:flex;align-items:center;gap:20px;justify-content:space-between;">
+    <a href="/" class="hdr-logo" style="flex:0 0 auto;display:flex;align-items:center;">
+      <img src="/Asset/Logo/Logo%20Breathe.svg" alt="Breathe Life Healing Centers" width="144" height="28" style="width:144px;height:auto;display:block;" />
+    </a>
+    <nav id="m-nav" class="hdr-nav" aria-label="Primary" style="display:flex;flex-wrap:wrap;gap:6px 15px;align-items:center;font-size:13.5px;">
+      {primaryNav.map((item) => {
+        const active = current === item.label;
+        const panelId = `hdr-panel-${slug(item.label)}`;
+        return item.groups ? (
+          <div class="hdr-item" data-hdr-item>
+            <span class="hdr-trigger" style={`color:${active ? "#33679C" : "#14181C"};font-weight:${active ? "600" : "400"};`}>
+              <a class="hdr-trigger-link" href={item.href} aria-current={active ? "page" : undefined}>{item.label}</a>
+              <button
+                type="button"
+                class="hdr-caret-btn"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls={panelId}
+                aria-label={`${item.label} menu`}
+              >
+                <span aria-hidden="true" class="hdr-caret">⌄</span>
+              </button>
+            </span>
+            <div id={panelId} class="hdr-panel" role="menu" style={`grid-template-columns:repeat(${item.groups.length},minmax(190px,1fr));`}>
+              <a class="hdr-panel-all" href={item.href} aria-current={currentPath === item.href ? "page" : undefined} role="menuitem">All {item.label} <span aria-hidden="true">→</span></a>
+              {item.groups.map((g) => (
+                <div class="hdr-panel-group">
+                  <div class="hdr-panel-heading">{g.heading}</div>
+                  {g.links.map((l) => (
+                    <a class="hdr-panel-link" href={l.href} aria-current={currentPath === l.href ? "page" : undefined} role="menuitem">{l.label}</a>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            class="nav-link"
+            href={item.href}
+            aria-current={active ? "page" : undefined}
+            style={`color:${active ? "#33679C" : "#14181C"};font-weight:${active ? "600" : "400"};padding:4px 0;`}
+          >{item.label}</a>
+        );
+      })}
+      <a class="nav-link m-only-block" href={HREF} style="color:#33679C;font-weight:600;padding:4px 0;">Call 24/7: {PH}</a>
+    </nav>
+    <a class="cta hdr-call d-only" href={HREF} style={`flex:0 0 auto;${ctaBlue}`}>Call Now: {PH}</a>
+    <button type="button" id="m-burger" class="hdr-burger m-only" aria-label="Menu" aria-expanded="false" aria-controls="m-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+
+<a class="m-callbar m-only" href={HREF} aria-label={`Call Breathe 24/7 at ${PH}`}>
+  <Icon name="phone" size={18} /> Call 24/7 · {PH}
+</a>
+
+<script>
+  // ── Mobile nav toggle ──────────────────────────────────────────────────
+  (() => {
+    const burger = document.getElementById("m-burger");
+    const nav = document.getElementById("m-nav");
+    if (!burger || !nav) return;
+    const close = () => { burger.setAttribute("aria-expanded", "false"); nav.classList.remove("is-open"); };
+    burger.addEventListener("click", () => {
+      const open = burger.getAttribute("aria-expanded") === "true";
+      burger.setAttribute("aria-expanded", String(!open));
+      nav.classList.toggle("is-open", !open);
+    });
+    nav.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      // A real page link (not a dropdown trigger button) closes the whole menu.
+      if (t.tagName === "A") close();
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  })();
+
+  // ── Dropdown / mega-menus ────────────────────────────────────────────────
+  (() => {
+    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-hdr-item]"));
+    if (!items.length) return;
+    const closeAll = (except?: HTMLElement) => {
+      items.forEach((el) => {
+        if (el === except) return;
+        el.classList.remove("is-open");
+        el.querySelector<HTMLElement>(".hdr-caret-btn")?.setAttribute("aria-expanded", "false");
+      });
+    };
+    items.forEach((item) => {
+      const trigger = item.querySelector<HTMLElement>(".hdr-caret-btn");
+      if (!trigger) return;
+      trigger.addEventListener("click", () => {
+        const open = item.classList.contains("is-open");
+        closeAll(item);
+        item.classList.toggle("is-open", !open);
+        trigger.setAttribute("aria-expanded", String(!open));
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!(e.target instanceof Node)) return;
+      const inside = items.some((el) => el.contains(e.target as Node));
+      if (!inside) closeAll();
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
+  })();
+</script>

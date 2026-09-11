@@ -1,0 +1,66 @@
+---
+/**
+ * Map + "getting here" panel — the address is a fixed sitewide fact, so this
+ * needs no props. Hover-reveal on the property photo is CSS-only
+ * ([data-reveal] rules in global.css), nothing to wire up here.
+ */
+import { galleryImg } from "../data/home";
+import { site } from "../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+};
+---
+
+<section id="location" data-screen-label="Location" style="padding:70px 37px;background:#FDFBF8;">
+  <div style="max-width:1440px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style={S.eyebrow}>Find us</div>
+      <h2 style={`${S.h2}max-width:22ch;`}>Our location</h2>
+      <p style={`${S.intro}max-width:84ch;`}>A secluded campus in the heart of Laurel Canyon — close enough to reach, private enough to heal.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-bottom:30px;">
+      <div style="position:relative;height:440px;border:1px solid #E2DED7;border-radius:12px;overflow:hidden;background:#EDF2F7;">
+        <iframe src="https://www.google.com/maps?q=8060+Melrose+Avenue,+Los+Angeles,+CA+90046&hl=en&z=14&output=embed" title="Map of Breathe Life Healing Centers, 8060 Melrose Avenue, Los Angeles" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen style="width:100%;height:100%;border:0;display:block;"></iframe>
+        <div style="position:absolute;left:16px;bottom:16px;background:#FFFFFF;border-radius:8px;padding:12px 16px;box-shadow:0 2px 6px rgba(20,24,28,0.16);pointer-events:none;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#2C5A64;margin-bottom:4px;">Admissions office</div>
+          <div style="font-size:15px;font-weight:600;color:#14181C;line-height:1.4;">8060 Melrose Avenue, 3rd Floor</div>
+        </div>
+      </div>
+      <div data-reveal="1" tabindex="0" style="position:relative;height:440px;border-radius:12px;overflow:hidden;">
+        <img src={galleryImg("facility-16-facility-entrance-drive.jpg")} alt="Arrival at the Breathe Life Healing Centers entrance" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+        <div data-reveal-veil="1" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0.78),rgba(22,41,61,0.9));"></div>
+        <div data-reveal-body="1" style="position:relative;height:100%;box-sizing:border-box;padding:36px 34px;display:flex;flex-direction:column;gap:20px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;">Getting here</div>
+          <div style="display:grid;gap:16px;flex:1;">
+            {[
+              ["cottage", "Residential campus", "Laurel Canyon — exact address shared privately at admissions."],
+              ["apartment", "Admissions office", "8060 Melrose Avenue, 3rd Floor · near our residential campus."],
+              ["flight_land", "Arriving from out of state", "Contact our admissions team for help planning your travel."],
+            ].map(([icon, h, p]) => (
+              <div style="display:flex;gap:14px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.12);">
+                  <span class="msym" style="font-size:20px;color:#FFFFFF;">{icon}</span>
+                </span>
+                <div>
+                  <div style="font-size:16px;font-weight:600;color:#FFFFFF;">{h}</div>
+                  <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#DCE6EF;margin:2px 0 0;">{p}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7FB3BC;border-top:1px solid rgba(255,255,255,0.18);padding-top:14px;">Hover to see the property</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <a class="cta" href={HREF} style={`display:inline-flex;${S.ctaBlue}`}>Call Now: {PH}</a>
+    </div>
+  </div>
+</section>

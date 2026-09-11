@@ -1,0 +1,211 @@
+---
+/**
+ * Shared "numbered steps that light up as you scroll" row — originally
+ * built for the homepage's "Four simple steps" section, then requested
+ * verbatim (same design + same effects) for the Careers page's "How to
+ * Apply". Pulled into one component so the two can never visually drift:
+ * edit the behavior once, both pages get it.
+ *
+ * Design intent (do not simplify away): numbers and their divider lines
+ * start white and turn Sea Glass (#7FB3BC) one at a time, cumulatively, as
+ * the row scrolls through a comfortable on-screen zone — once lit, a step
+ * stays lit (this is NOT a crossfade; nothing fades back out while
+ * scrolling forward). Each activation also gets a one-shot scale+glow pop
+ * and a small white sparkle burst so the change reads as an event.
+ * Reversible live: scrolling back up un-lights steps in reverse, no pop/
+ * sparkle on the way back down.
+ *
+ * Caller responsibilities:
+ * - `id` must be unique on the page (used for the DOM row + JS lookup).
+ * - This component only renders the row itself — the caller still owns
+ *   the eyebrow/heading above it, the section's dark background/white
+ *   text color, and (important) excluding the section from the sitewide
+ *   scroll-reveal-on-enter script, e.g.
+ *   `section:not(#top):not(#your-section-id)`, the same way the homepage
+ *   excludes `#admissions` — this row already animates itself; a second,
+ *   generic opacity fade-in on top of it looks like two effects fighting.
+ */
+interface Props {
+  id: string;
+  steps: { title: string; text?: string }[];
+  /** Both nudge the 80%/20%-of-viewport activation zone — tuned once on
+   *  the homepage (start while the row is still comfortably low on
+   *  screen, finish with real clearance from the sticky header) and kept
+   *  as the default so a second page gets the identical feel for free. */
+  zoneStartOffset?: number;
+  zoneEndOffset?: number;
+  /** Opt-in presentation only — the scroll/activation logic is identical
+   *  either way. Renders the number inside a bordered circle "button"
+   *  badge (the Programs page's original, pre-ScrollActivateSteps look)
+   *  instead of the plain large number. Added for /programs/, then
+   *  extended to every caller (homepage, Careers) once the user saw it
+   *  and preferred it sitewide (2026-09-10) — kept as an explicit prop
+   *  per call site rather than flipping the default, so a future caller
+   *  that wants the plain number just omits it. */
+  circleNumbers?: boolean;
+}
+const { id, steps, zoneStartOffset = 300, zoneEndOffset = 500, circleNumbers = false } = Astro.props;
+
+const numClass = circleNumbers ? "scroll-step-num scroll-step-num--circle" : "scroll-step-num";
+const numStyle = circleNumbers
+  ? "display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:2px solid currentColor;background:rgba(255,255,255,0.08);font-family:'Instrument Sans',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;color:#FFFFFF;transition:color 300ms ease,border-color 300ms ease;"
+  : "font-family:'Instrument Sans',sans-serif;font-size:52px;line-height:0.9;font-weight:600;letter-spacing:-0.04em;color:#FFFFFF;transition:color 300ms ease;";
+---
+
+<div id={id} style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;">
+  {steps.map((step, i) => (
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span class={numClass} data-step={i} style={numStyle}>{String(i + 1).padStart(2, "0")}</span>
+        <span class="scroll-step-line" data-step={i} style="flex:1;height:2px;background:#FFFFFF;transition:background-color 300ms ease;"></span>
+      </div>
+      <h3 style="font-size:22px;font-weight:600;letter-spacing:-0.018em;margin:0;color:#FFFFFF;text-wrap:balance;">{step.title}</h3>
+      {step.text && <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#DCE6EF;margin:0;">{step.text}</p>}
+    </div>
+  ))}
+</div>
+
+<style>
+  /* The moment a number activates (white → green), it also gets a
+     one-shot pop + glow so the change reads as an event, not just a slow
+     color fade. `.is-popping` is added/removed by the script below only
+     on the white→green transition, never while already green or while
+     deactivating — so scrolling back up just fades the color, no repeat
+     fireworks. */
+  .scroll-step-num {
+    position: relative;
+    display: inline-block;
+    transform-origin: center;
+    overflow: visible;
+  }
+  .scroll-step-num.is-popping:not(.scroll-step-num--circle) {
+    animation: scroll-step-pop 550ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes scroll-step-pop {
+    0% { transform: scale(1); text-shadow: 0 0 0 rgba(127, 179, 188, 0); }
+    40% { transform: scale(1.18); text-shadow: 0 0 22px rgba(127, 179, 188, 0.85); }
+    100% { transform: scale(1); text-shadow: 0 0 0 rgba(127, 179, 188, 0); }
+  }
+  /* Circle badges glow around the ring (box-shadow) instead of through
+     the glyph (text-shadow) — a text-shadow on a 19px numeral inside a
+     52px badge barely reads. */
+  .scroll-step-num--circle.is-popping {
+    animation: scroll-step-pop-circle 550ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes scroll-step-pop-circle {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(127, 179, 188, 0); }
+    40% { transform: scale(1.14); box-shadow: 0 0 0 8px rgba(127, 179, 188, 0.35), 0 0 20px 4px rgba(127, 179, 188, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(127, 179, 188, 0); }
+  }
+
+  /* White sparkle burst — small 4-point stars spawned as DOM nodes (see
+     spawnSparkles in the script below). Each spark travels from the
+     number's center out to its own fixed offset (--sx/--sy) while
+     scaling up then down and fading, so it reads as a quick twinkle
+     rather than a static decoration. */
+  .scroll-step-spark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    background: #FFFFFF;
+    clip-path: polygon(50% 0%, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0% 50%, 37% 37%);
+    opacity: 0;
+    pointer-events: none;
+    animation: scroll-step-spark 650ms ease-out forwards;
+  }
+  @keyframes scroll-step-spark {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.2); }
+    30% { opacity: 1; transform: translate(calc(var(--sx) * 0.5), calc(var(--sy) * 0.5)) scale(1); }
+    100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0.4); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-step-num.is-popping { animation: none; }
+    .scroll-step-spark { display: none; }
+  }
+</style>
+
+<script define:vars={{ id, zoneStartOffset, zoneEndOffset }}>
+  // ── Numbers AND their divider lines turn from white to Sea Glass
+  //    (#7FB3BC) one at a time as the row scrolls through view, staying
+  //    lit as the next one turns on — cumulative, not a crossfade.
+  //    Progress 0→1 while the row is comfortably on screen; zoneStart/
+  //    zoneEnd are nudged by the offsets above (not rescaled — a pure
+  //    shift, so spacing between steps never changes when tuning where
+  //    the sequence starts/ends). Each element's activation threshold is
+  //    (i+1)/N — not i/(N-1), which would give the first step a
+  //    threshold of exactly 0 and make it pre-activated, never visibly
+  //    turning. Color swap is CSS transition, not JS-stepped. Numbers
+  //    additionally get a one-shot `.is-popping` class + a white sparkle
+  //    burst exactly on the white→green transition — wasActive tracks
+  //    each number's last state so these only fire once per activation,
+  //    never on every scroll frame while already green, and never on
+  //    deactivation (scrolling back up just fades the color). ──
+  (() => {
+    const row = document.getElementById(id);
+    const nums = row ? Array.from(row.querySelectorAll('.scroll-step-num')) : [];
+    const lines = row ? Array.from(row.querySelectorAll('.scroll-step-line')) : [];
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (!row || !nums.length) return;
+    if (reduce) {
+      nums.forEach((el) => { el.style.color = '#7FB3BC'; });
+      lines.forEach((el) => { el.style.background = '#7FB3BC'; });
+      return;
+    }
+
+    const N = nums.length;
+    let ticking = false;
+    const wasActive = nums.map(() => false);
+    const thresholdFor = (i) => (i + 1) / N;
+
+    const SPARK_OFFSETS = [
+      { x: -20, y: -16 }, { x: 18, y: -20 }, { x: 22, y: 8 }, { x: -18, y: 14 }, { x: 2, y: -24 },
+    ];
+    const spawnSparkles = (el) => {
+      SPARK_OFFSETS.forEach((o, idx) => {
+        const s = document.createElement('span');
+        s.className = 'scroll-step-spark';
+        s.style.setProperty('--sx', `${o.x}px`);
+        s.style.setProperty('--sy', `${o.y}px`);
+        s.style.animationDelay = `${idx * 40}ms`;
+        el.appendChild(s);
+        s.addEventListener('animationend', () => s.remove());
+      });
+    };
+
+    const update = () => {
+      const rect = row.getBoundingClientRect();
+      const rowCenter = rect.top + rect.height / 2;
+      const zoneStart = window.innerHeight * 0.8 + zoneStartOffset;
+      const zoneEnd = window.innerHeight * 0.2 + zoneEndOffset;
+      let progress = (zoneStart - rowCenter) / (zoneStart - zoneEnd);
+      progress = Math.max(0, Math.min(1, progress));
+      nums.forEach((el, i) => {
+        const threshold = thresholdFor(i);
+        const isActive = progress >= threshold;
+        el.style.color = isActive ? '#7FB3BC' : '#FFFFFF';
+        if (isActive && !wasActive[i]) {
+          el.classList.remove('is-popping');
+          void el.offsetWidth; // restart the keyframe if it fires again later
+          el.classList.add('is-popping');
+          spawnSparkles(el);
+        }
+        wasActive[i] = isActive;
+      });
+      lines.forEach((el, i) => {
+        const threshold = thresholdFor(i);
+        el.style.background = progress >= threshold ? '#7FB3BC' : '#FFFFFF';
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
+    update();
+  })();
+</script>

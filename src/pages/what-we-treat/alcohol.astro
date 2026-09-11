@@ -1,0 +1,359 @@
+---
+/**
+ * /what-we-treat/alcohol/ — built from docs/content/Breathe_Life_Alcohol_Page_Brief.docx
+ * (full section-by-section copy) and the approved sitemap. Visual language is
+ * carried over from the homepage (src/pages/index.astro): same fonts, colors,
+ * section rhythm, card styles, reveal-on-scroll and reduced-motion handling.
+ * Header/footer are the new SiteHeader/SiteFooter (real nav, not scroll-anchors).
+ *
+ * REAL DATA: this page ranks #1 for "los angeles day alcohol detox" (53 mo.
+ * visits / 43 tracked keywords) — that phrase is kept in the PHP & IOP copy
+ * and section intro below; don't lose it in a future rewrite.
+ *
+ * 🔴 Open before publish: the SAMHSA LGBTQ+ alcohol-use disparity figure in
+ * the "Alcohol use in the LGBTQ+ community" section is qualitative on
+ * purpose — insert the verified stat + citation, don't approximate one.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Alcohol Detox & Addiction Treatment in Los Angeles | Breathe";
+const description =
+  "Medically supervised alcohol detox and day treatment in Los Angeles — including Los Angeles day alcohol detox — from an LGBTQ+-affirming team who've been where you are. In-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const signs = [
+  "Needing more to feel the same effect",
+  "Drinking to manage anxiety, shame, or a body that doesn't feel safe",
+  "Withdrawal symptoms — shaking, sweating, nausea, anxiety — when you try to stop",
+  "Missing work, relationships, or commitments because of drinking or recovering from it",
+  "Repeated attempts to cut back that haven't stuck",
+];
+
+const care = [
+  {
+    icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", cta: "Learn about Medical Detox",
+    text: "Alcohol withdrawal can include serious, even life-threatening symptoms. Our medical team supervises detox around the clock, so your body can safely let go of what it's been depending on.",
+  },
+  {
+    icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", cta: "Learn about Residential Treatment",
+    text: "Full-time, live-in care once detox is complete — structure, community, and clinical support while you rebuild.",
+  },
+  {
+    icon: "wb_sunny", title: "PHP & IOP", href: "/programs/php/", cta: "Explore PHP & IOP",
+    text: "Day treatment and intensive outpatient options for a lighter footprint once you're stable — including our Los Angeles day alcohol detox for those who don't need a residential stay.",
+  },
+  {
+    icon: "medication", title: "Medication-Assisted Treatment", href: "/programs/medication-assisted-treatment/", cta: "Learn about MAT",
+    text: "MAT is available to support alcohol recovery where it's clinically appropriate, as part of a full treatment plan — not a replacement for it.",
+  },
+];
+
+const therapies: [string, string, string][] = [
+  ["psychology", "Cognitive Behavioral Therapy (CBT)", "/therapies/cbt/"],
+  ["balance", "Dialectical Behavior Therapy (DBT)", "/therapies/dbt/"],
+  ["target", "Acceptance & Commitment Therapy (ACT)", "/therapies/act/"],
+  ["forum", "Motivational Interviewing", "/therapies/motivational-interviewing/"],
+  ["healing", "Trauma-Focused Therapy", "/therapies/trauma-focused-therapy/"],
+  ["spa", "Somatic Therapy", "/therapies/somatic-therapy/"],
+  ["self_improvement", "Holistic Therapy, Yoga & Mindfulness", "/therapies/holistic-therapy/"],
+];
+
+const conditions: [string, string][] = [
+  ["Depression", "/conditions/depression/"],
+  ["Anxiety", "/conditions/anxiety/"],
+  ["Trauma", "/conditions/trauma/"],
+  ["Complex Trauma / C-PTSD", "/conditions/complex-trauma/"],
+];
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician and counselor here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Correct names, correct pronouns, and a team trained in minority stress — open to anyone whose values align, without losing that center.",
+  },
+  {
+    icon: "family_restroom", title: "Chosen family, welcomed",
+    text: "Family therapy that doesn't assume blood relationships. Partners and chosen family are valid participants in your recovery.",
+  },
+];
+
+const faqs = [
+  { q: "Is alcohol withdrawal actually dangerous?", a: "For some people, yes — it can include seizures and other serious symptoms. That's why medical detox, supervised around the clock, is the safe starting point rather than trying to stop on your own." },
+  { q: "Do you offer day treatment, or only residential?", a: "Both. We offer medically supervised day detox and PHP/IOP options for people who don't need or want a residential stay, alongside full residential care for those who do." },
+  { q: "Is this program only for LGBTQ+ clients?", a: "No. We're built for the LGBTQ+ community first — that shapes how we treat everyone — but our doors are open to anyone whose values align with how we operate." },
+  { q: "Does insurance cover alcohol detox and treatment?", a: "In most cases, yes. We're in-network with most major providers, and our team verifies your specific benefits before you commit to anything." },
+  { q: "What if I've relapsed before?", a: "That doesn't disqualify you. Many of the people we treat have tried before — that's part of the story, not a reason to turn you away." },
+  { q: "Will you address my mental health, not just the drinking?", a: "Yes. Depression, anxiety, and trauma are treated as part of the same plan through our dual diagnosis approach — not as a separate, secondary concern." },
+];
+
+const pageUrl = new URL("/what-we-treat/alcohol/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Alcohol", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+    {
+      "@type": "MedicalWebPage",
+      name: title,
+      url: pageUrl,
+      about: { "@type": "MedicalCondition", name: "Alcohol use disorder" },
+      provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/what-we-treat/alcohol/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="What We Treat" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-16-facility-entrance-drive.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Alcohol
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Alcohol Addiction Treatment in Los Angeles — Room to Breathe, Starting With Detox.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Medically supervised alcohol detox, residential care, and day treatment from a team that's been where you are — built for the LGBTQ+ community first, open to anyone ready to change.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  UNDERSTANDING ALCOHOL ADDICTION  ══════════════ */}
+    <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>Understanding</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding alcohol addiction</h2>
+          <p style={`${S.intro}margin:0;max-width:58ch;`}>Alcohol is legal, everywhere, and often the substance people take most seriously last — which is part of what makes it dangerous. It's also one of the few substances where withdrawal itself can be medically dangerous, not just uncomfortable. If you've tried to stop before and your body fought back, that's not a personal failure. That's withdrawal, and it's exactly why medical detox exists.</p>
+        </div>
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common signs of alcohol addiction</div>
+          <div style="display:grid;gap:14px;">
+            {signs.map((s) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <Icon name="check" size={14} />
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  ALCOHOL USE IN THE LGBTQ+ COMMUNITY  ══════════════ */}
+    <section data-screen-label="LGBTQ+ context" style="padding:70px 37px;background:#F0F5FA;">
+      <div style="max-width:960px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Why this matters</div>
+        <h2 style={`${S.h2}max-width:30ch;`}>Alcohol use in the LGBTQ+ community</h2>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:24px;`}>This isn't a coincidence, and it isn't a character flaw. National survey data (SAMHSA) has consistently found LGBTQ+ adults report meaningfully higher rates of alcohol and substance use than heterosexual adults — a pattern researchers connect to minority stress, discrimination, and a lack of care that actually understands the difference.</p>
+        <div style="position:relative;max-width:640px;margin:0 auto;padding:8px 24px 0;">
+          <span aria-hidden="true" style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-family:Georgia,serif;font-size:96px;line-height:1;color:rgba(51,103,156,0.12);pointer-events:none;">&ldquo;</span>
+          <p style="position:relative;font-family:'Instrument Sans',sans-serif;font-size:clamp(19px,2vw,24px);line-height:1.4;font-weight:500;letter-spacing:-0.02em;color:#14181C;margin:0;text-wrap:balance;">We built this program around that reality — not around pretending it doesn't exist.</p>
+        </div>
+        {/* 🔴 Insert the verified SAMHSA disparity figure + citation before publish (brief COPY NOTE). Copy above is intentionally qualitative and publish-safe until then. */}
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE TREAT ALCOHOL ADDICTION  ══════════════ */}
+    <section data-screen-label="How we treat it" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>How we help</div>
+          <h2 style={`${S.h2}max-width:24ch;`}>How we treat alcohol addiction</h2>
+          <p style={`${S.intro}max-width:80ch;`}>Every plan starts with what your body needs first — from around-the-clock medical detox to day treatment, including Los Angeles day alcohol detox for people who don't need a residential stay.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {care.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{c.cta} <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  OUR CLINICAL APPROACH  ══════════════ */}
+    <section data-screen-label="Clinical approach" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1100px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Our clinical approach</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Evidence-based care, matched to you</h2>
+          <p style={`${S.intro}max-width:78ch;`}>Treatment here draws on evidence-based modalities matched to what you actually need, not a one-size program.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+          {therapies.map(([icon, name, href]) => (
+            <a class="link-card" href={href} style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #C9D2DA;border-radius:10px;padding:14px 18px;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:500;color:#14181C;">
+              <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:rgba(51,103,156,0.10);">
+                <span class="msym" style="font-size:19px;color:#33679C;">{icon}</span>
+              </span>
+              <span style="flex:1;">{name}</span>
+              <span aria-hidden="true" style="color:#33679C;">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  ALCOHOL & CO-OCCURRING CONDITIONS  ══════════════ */}
+    <section data-screen-label="Co-occurring conditions" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:860px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Dual diagnosis</div>
+        <h2 style={`${S.h2}max-width:22ch;`}>Alcohol rarely shows up alone</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Depression, anxiety, trauma, and complex trauma often travel with it — sometimes as the cause, sometimes as the consequence. Our dual diagnosis approach treats what's actually happening, not just the drinking.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
+          {conditions.map(([name, href]) => (
+            <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
+          ))}
+        </div>
+        <a class="cta" href="/conditions/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn about Dual Diagnosis</a>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for detox and treatment — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for alcohol treatment</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px so
+       mobile users meet it here, right before the FAQs. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Questions people ask about alcohol treatment"
+      intro="Straight answers to what people and families ask us before they decide anything."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    <SiteFinalCTA
+      heading="Are you ready to take the first step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-07-pool-waterfall-grotto.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel now live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

@@ -1,0 +1,368 @@
+---
+/**
+ * /programs/php/ — structural/marketing copy only; the core definition line
+ * reuses the already-approved `levels` entry ("PHP — Day Treatment (SUD, MH)")
+ * from data/home.ts verbatim, rather than inventing new clinical framing.
+ *
+ * FAQ (below) added per Breathe_Life_PHP_FAQ.docx (2026-09-11) — sourced by
+ * the brief from the live /day-treatment/ page, confirmed against that page
+ * directly. The live page doesn't state exact weekly hours/days, insurance
+ * criteria beyond what's already used sitewide, or a specific step-down
+ * decision process — the brief deliberately leaves a schedule question out
+ * rather than inventing numbers, and this FAQ does the same.
+ *
+ * Page-specific redesign (2026-09-11, approved — see CLAUDE.md
+ * "## Page structure — fixed shared sections"): the generic "Understanding"
+ * + "What's Included" icon-card sections are replaced by a "Day Arc" —
+ * Morning/Midday/Afternoon/Evening framed as narrative structure, not a
+ * claimed schedule — and "Related Programs" is replaced by a Residential →
+ * PHP → IOP → Outpatient levels-of-care ladder with PHP highlighted as
+ * "you are here". Every phase/step still uses only already-approved copy
+ * (the same `included`/`levels` facts, just re-presented). Hero, Insurance,
+ * Reviews, Location, FAQ, Final CTA and the Footer are the fixed shared
+ * components and are untouched — this redesign is scoped to this page only,
+ * not copied onto other program pages by default.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+import { levels, why } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "PHP — Day Treatment in Los Angeles | Breathe";
+const description =
+  "Partial Hospitalization Program (PHP) in Los Angeles — full days of structured treatment, sleeping off-site. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const level = levels.find((l) => l.title === "PHP — Day Treatment (SUD, MH)")!;
+
+const forYou = [
+  "You've completed detox or residential and need continued daily structure",
+  "You want intensive treatment during the day, while sleeping elsewhere at night",
+  "You're stepping down from residential without stepping down too fast",
+  "You need a higher level of support than IOP offers",
+];
+
+// Day Arc phases — the same four "What's Included" facts, re-presented as
+// the shape of a day (Morning/Midday/Afternoon/Evening) rather than a
+// generic icon grid. Labels are narrative structure, not a claimed
+// schedule — Breathe doesn't publish exact hours (see FAQ brief above).
+const included = [
+  { label: "Morning", icon: "calendar_month", title: "Full days of structured programming", text: "Group therapy, individual sessions, and clinical care fill the day, most days of the week." },
+  { label: "Midday", icon: "psychology", title: "Continued psychiatric and clinical care", text: "The same level of clinical attention as residential care, without living on-site.", pills: ["Group therapy", "Individual therapy", "Psychiatric care"] },
+  { label: "Afternoon", icon: "trending_down", title: "A planned step-down from residential", text: "PHP is usually the next level down after residential — a bridge, not a drop-off.", pills: ["Holistic wellness", "Skill-building", "Relapse prevention"] },
+  { label: "Evening", icon: "home_work", title: "Housing support if you need it", text: "If you don't have somewhere stable to sleep at night, we help connect you with sober living." },
+];
+
+// Levels-of-care ladder — Residential → PHP (current) → IOP → Outpatient.
+// Every blurb is already-approved copy: the two side levels reuse the exact
+// lines the old "Related Programs" cards used; PHP's own is `level.text`
+// (already the hero subhead on this page); Outpatient reuses its `levels`
+// entry from data/home.ts verbatim rather than inventing new phrasing.
+const ladder = [
+  { n: "Before PHP", title: "Residential Treatment", href: "/programs/residential-treatment/", text: "The full-time level of care most people move into before stepping down to PHP." },
+  { n: "You are here", title: "PHP — Day Treatment", href: null, text: level.text, active: true },
+  { n: "After PHP", title: "Intensive Outpatient", href: "/programs/intensive-outpatient/", text: "The usual next step down after PHP, with a lighter weekly schedule." },
+  { n: "Ongoing support", title: "Outpatient Rehab", href: "/programs/outpatient-rehab/", text: levels.find((l) => l.title === "Outpatient (OP)")!.text },
+];
+
+const whyPicks = why.filter(([, , h]) =>
+  ["Addiction and Mental Health, Treated Together", "Residential, Whole-Person Care", "Staff Who've Lived It"].includes(h)
+);
+
+// Verbatim from Breathe_Life_PHP_FAQ.docx (2026-09-11) — sourced by that
+// brief from the live /day-treatment/ page.
+const faqs = [
+  { q: "What makes PHP different from outpatient or residential care?", a: "PHP is more intensive and structured than traditional outpatient care, without requiring 24-hour inpatient stay. It sits between residential treatment and lighter outpatient support." },
+  { q: "What happens during a typical day in PHP?", a: "Clients take part in daily evidence-based group and individual therapy, holistic wellness activities, and skill-building focused on emotional regulation, trauma healing, and relapse prevention." },
+  { q: "Do I stay overnight during PHP?", a: "No. PHP provides intensive daytime treatment while you return home or to another living situation in the evenings." },
+  { q: "Will I still be connected to my home and community during PHP?", a: "Yes. Maintaining that connection while receiving robust clinical support is part of how PHP is designed." },
+  { q: "Is PHP covered by insurance?", a: "In most cases, yes. We are in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+  { q: "Who is PHP a good fit for?", a: "People who need more support than outpatient care offers, but do not require round the clock residential supervision." },
+];
+
+const pageUrl = new URL("/programs/php/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Programs", item: new URL("/programs/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "PHP", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      name: title,
+      url: pageUrl,
+      provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/programs/php/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Programs" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-18-great-room.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/programs/" style="color:#7FB3BC;">Programs</a> <span aria-hidden="true" style="opacity:0.6;">›</span> PHP
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">PHP. Intensive Treatment, Without Living On-Site.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">{level.text}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  THE DAY ARC  ══════════════ */}
+    <section data-screen-label="Day arc" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1100px;margin:0 auto;">
+        <div style="max-width:640px;margin-bottom:32px;">
+          <div style={S.eyebrow}>How the day is built</div>
+          <h2 style={`${S.h2}max-width:22ch;`}>Structured like a day, not a stay</h2>
+          <p style={S.intro}>PHP — Partial Hospitalization, sometimes called day treatment — is intensive day treatment; you return home or to transitional living in the evenings instead of staying on-site overnight. It carries much of the structure of residential care during the day, without the full-time stay.</p>
+        </div>
+
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 28px;margin-bottom:48px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">PHP may be right for you if</div>
+          <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+            {forYou.map((s) => (
+              <div style="display:flex;gap:10px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <Icon name="check" size={13} />
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.55;color:#3A444D;">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="day-arc">
+          {included.map((c, i) => (
+            <div class="day-arc-phase">
+              <div class="day-arc-node">{i + 1}</div>
+              <div class="day-arc-top">
+                <span class="day-arc-label">{c.label}</span>
+                <h3 class="day-arc-title">{c.title}</h3>
+              </div>
+              <p class="day-arc-text">{c.text}</p>
+              {"pills" in c && c.pills && (
+                <div class="day-arc-pills">
+                  {c.pills.map((pill) => <span class="day-arc-pill">{pill}</span>)}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13px;font-style:italic;color:#646D76;margin:20px 0 0;">Order shown is illustrative — Breathe doesn't publish exact hours. Your own schedule is set at intake.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  LEVELS-OF-CARE LADDER  ══════════════ */}
+    <section data-screen-label="Levels of care ladder" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Where you go from here</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>PHP fits between two levels of care</h2>
+        </div>
+        <div class="ladder">
+          {ladder.map((step) => {
+            const inner = (
+              <>
+                <p class="ladder-n">{step.n}</p>
+                <h3 class="ladder-title">{step.title}</h3>
+                <p class="ladder-text">{step.text}</p>
+              </>
+            );
+            return step.href ? (
+              <a href={step.href} class="ladder-step">{inner}<span class="ladder-link">Learn more <span aria-hidden="true">→</span></span></a>
+            ) : (
+              <div class="ladder-step ladder-step--active">{inner}</div>
+            );
+          })}
+        </div>
+        <div style="text-align:center;margin-top:32px;">
+          <a href="/programs/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">See all Programs &amp; Levels of Care <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for PHP — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Why choose Breathe for PHP</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {whyPicks.map(([icon, color, h, p]) => (
+            <div style="padding:32px 30px;">
+              <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
+              <p style={S.card}>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    <SiteFAQ
+      heading="Questions people ask about PHP"
+      intro="Straight answers about what a day in PHP looks like and who it's for."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-08-poolside-grotto-overlook.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<style>
+  /* ── The Day Arc — vertical spine, Morning→Evening ──────────────────── */
+  .day-arc { position: relative; padding-left: 56px; }
+  .day-arc::before {
+    content: ""; position: absolute; left: 19px; top: 6px; bottom: 6px; width: 2px;
+    background: linear-gradient(#7FB3BC, #33679C 38%, #2C5A64 68%, #16293D);
+    border-radius: 2px;
+  }
+  .day-arc-phase { position: relative; padding-block: 26px; border-bottom: 1px solid #E2DED7; }
+  .day-arc-phase:last-child { border-bottom: none; padding-bottom: 0; }
+  .day-arc-phase:nth-child(1) { --node: #7FB3BC; --tint: rgba(127,179,188,0.16); }
+  .day-arc-phase:nth-child(2) { --node: #33679C; --tint: rgba(51,103,156,0.09); }
+  .day-arc-phase:nth-child(3) { --node: #2C5A64; --tint: rgba(44,90,100,0.10); }
+  .day-arc-phase:nth-child(4) { --node: #16293D; --tint: rgba(51,103,156,0.09); }
+  .day-arc-node {
+    position: absolute; left: -56px; top: 26px; width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; background: #FFFFFF;
+    border: 2px solid var(--node); color: var(--node);
+    font-family: "Instrument Sans", sans-serif; font-weight: 700; font-size: 13px;
+  }
+  .day-arc-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 8px; }
+  .day-arc-label {
+    font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 11.5px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--node);
+  }
+  .day-arc-title { font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 20px; letter-spacing: -0.012em; color: #14181C; margin: 0; }
+  .day-arc-text { font-family: "Montserrat", Helvetica, sans-serif; font-size: 15px; line-height: 1.65; color: #3A444D; max-width: 62ch; margin: 0; }
+  .day-arc-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .day-arc-pill {
+    font-family: "Instrument Sans", sans-serif; font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 999px; background: var(--tint); color: var(--node);
+  }
+
+  /* ── Levels-of-care ladder ───────────────────────────────────────────── */
+  .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: end; }
+  .ladder-step {
+    display: flex; flex-direction: column; gap: 8px; text-decoration: none;
+    background: #FFFFFF; border: 1px solid #E2DED7; border-top: 2px solid #33679C;
+    border-radius: 12px; padding: 22px 20px;
+  }
+  .ladder-n { font-family: "Instrument Sans", sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #646D76; margin: 0; }
+  .ladder-title { font-family: "Instrument Sans", sans-serif; font-size: 17px; font-weight: 600; color: #14181C; margin: 0; }
+  .ladder-text { font-family: "Montserrat", Helvetica, sans-serif; font-size: 13.5px; line-height: 1.55; color: #646D76; margin: 0; flex: 1; }
+  .ladder-link { font-family: "Instrument Sans", sans-serif; font-size: 13px; font-weight: 600; color: #33679C; }
+  .ladder-step--active {
+    background: #16293D; border-color: #16293D; transform: translateY(-10px);
+    box-shadow: 0 18px 40px rgba(22,41,61,0.28);
+  }
+  .ladder-step--active .ladder-n { color: #7FB3BC; }
+  .ladder-step--active .ladder-title { color: #FFFFFF; }
+  .ladder-step--active .ladder-text { color: #C3D2DE; }
+  @media (max-width: 760px) {
+    .ladder { grid-template-columns: repeat(2, 1fr); }
+    .ladder-step--active { transform: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

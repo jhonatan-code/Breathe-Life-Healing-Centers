@@ -1,0 +1,214 @@
+---
+/**
+ * /admissions/ — section hub. "How do I start treatment" overview page:
+ * hero, a four-step process (same framing as the homepage's "Four Simple
+ * Steps" section, src/pages/index.astro — search `data-screen-label="Four
+ * steps"` — reused here as the admissions-specific version of that pattern),
+ * then cards into the five admissions sub-pages this batch builds.
+ *
+ * This is process/logistics content (CLAUDE.md: admissions batch has more
+ * room for real operational copy than the clinical batches) — nothing here
+ * makes a clinical claim.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Admissions — How to Start Treatment | Breathe";
+const description =
+  "How admissions works at Breathe Life Healing Centers: call, verify insurance, get assessed, and begin treatment. LGBTQ+-affirming care in Los Angeles. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const steps = [
+  ["01", "Call us", "Speak confidentially with our admissions team, 24/7, about your situation. No pressure, no obligation — just a real conversation about what's going on and what could help."],
+  ["02", "Verify insurance", "We contact your insurer directly and explain exactly what's covered, before you commit to anything. No cost, no obligation."],
+  ["03", "Get assessed", "A brief conversation with our clinical team helps determine the right level of care for you — detox, residential, or an outpatient program."],
+  ["04", "Begin treatment", "We arrange your arrival, including transportation from LAX or Burbank if you're coming from out of state, and you begin your program at our Laurel Canyon campus."],
+] as const;
+
+const pages = [
+  {
+    icon: "shield", title: "Verify Your Insurance", href: "/admissions/insurance/",
+    text: "How insurance verification works, our in-network carriers, and what we don't currently accept.",
+  },
+  {
+    icon: "family_restroom", title: "For Families", href: "/admissions/for-families/",
+    text: "What to expect if someone you love is starting treatment, and how you can be involved.",
+  },
+  {
+    icon: "luggage", title: "What to Bring", href: "/admissions/what-to-bring/",
+    text: "A real packing list — clothing, toiletries, documents, and medications — for arrival day.",
+  },
+  {
+    icon: "assignment_ind", title: "Professional Referral", href: "/admissions/professional-referral/",
+    text: "Information for clinicians and therapists referring a client into our care.",
+  },
+  {
+    icon: "checklist", title: "Self-Assessment", href: "/admissions/self-assessment/",
+    text: "A private, no-obligation starting point if you're not sure whether treatment is the right next step.",
+  },
+];
+
+const pageUrl = new URL("/admissions/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Admissions", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/admissions/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Admissions" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-20-estate-entrance-gate.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            Admissions
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Starting Treatment Is a Phone Call Away</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Admissions is straightforward: call, verify insurance, get assessed, and begin. Our team walks you through every step, 24 hours a day.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
+            <a class="cta" href="/admissions/insurance/" style={S.ctaGhost}>Verify Your Insurance</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">A real person picks up. No script, no pressure.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  FOUR SIMPLE STEPS  ══════════════ */}
+    <section data-screen-label="Four steps" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7FB3BC;margin-bottom:14px;">Getting started</div>
+          <h2 style={`${S.h2}max-width:20ch;color:#FFFFFF;`}>How admissions works</h2>
+          <p style={`${S.intro}max-width:70ch;color:#DCE6EF;`}>Four steps, from your first call to your first day of treatment.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;">
+          {steps.map(([n, h, p], i) => (
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:52px;line-height:0.9;font-weight:600;letter-spacing:-0.04em;color:#7FB3BC;">{n}</span>
+                <span style={`flex:1;height:1px;background:${i === steps.length - 1 ? "#478694" : "#2E4A66"};`}></span>
+              </div>
+              <h3 style="font-size:22px;font-weight:600;letter-spacing:-0.018em;margin:0;color:#FFFFFF;text-wrap:balance;">{h}</h3>
+              <p style={`${S.card}color:#DCE6EF;`}>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  ADMISSIONS PAGES  ══════════════ */}
+    <section data-screen-label="Admissions pages" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>What you need</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Everything for admissions, in one place</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {pages.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <a href={c.href} class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);text-decoration:none;color:inherit;`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn More <span aria-hidden="true">→</span></span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+    />
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-06-guest-house-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

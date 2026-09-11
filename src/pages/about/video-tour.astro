@@ -1,0 +1,197 @@
+---
+/**
+ * /about/video-tour/ — built from Breathe_Life_Video_Tour_Page_Brief.docx
+ * (2026-09-10), with corrections after actually checking the embedded
+ * video (the brief itself flagged it as unverified and asked for this
+ * before publishing — YouTube had rate-limited the brief author's fetch
+ * attempts, so it was written from inference rather than the real video):
+ *
+ * - Real duration is 1:00 ("Breathe In A Minute West Hollywood"), not the
+ *   brief's "about three minutes".
+ * - The video's own title/description point to the West Hollywood
+ *   location, not the Laurel Canyon residential campus the brief's
+ *   "What You're Seeing" copy described — those are different locations
+ *   per this project's own established facts. Copy below is rewritten to
+ *   describe West Hollywood instead (user call 2026-09-10). No specific
+ *   room-by-room list is claimed, since the actual footage still
+ *   couldn't be visually confirmed (YouTube wouldn't render frames in
+ *   this browser-automation environment) — safer to stay general than to
+ *   assert specific rooms that may not appear.
+ * - The video description's own phone/address (a different number and a
+ *   West Hollywood street address) don't match this site's current
+ *   phoneDisplay/address in config/site.ts — likely just a stale
+ *   YouTube description on an older upload, not reproduced here.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import { site } from "../../config/site";
+
+const title = "Video Tour | Breathe Life Healing Centers";
+const description = "A short video tour of our West Hollywood location — see where recovery actually happens before you ever set foot on campus.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+};
+
+const whyChoose = [
+  { icon: "videocam", title: "A real setting, not a stock photo", text: "What you see in this video is our actual location, not a representative image." },
+  { icon: "diversity_3", title: "Built for the LGBTQ+ community first", text: "Every space here was designed with that in mind, open to anyone whose values align." },
+  { icon: "lock", title: "Privacy respected", text: "This tour shows the setting, not identifiable clients. Your own privacy is protected the same way." },
+];
+
+const faqGroups = [
+  {
+    items: [
+      { q: "Is this the actual facility, or a representative video?", a: "This is real footage of our West Hollywood location, not a stock or representative video." },
+      { q: "Can I schedule an in-person tour?", a: "Reach out to our admissions team to ask about options." },
+      { q: "How long is the video?", a: "About one minute." },
+      { q: "Will I have privacy during my stay, even though this video shows the space?", a: "Yes. This tour shows the setting itself, not identifiable clients or private sessions." },
+    ],
+  },
+];
+
+const pageUrl = new URL("/about/video-tour/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Video Tour", item: pageUrl },
+      ],
+    },
+    {
+      // Only fields actually confirmed on the real video are included —
+      // no invented uploadDate (schema.md: schema must describe what's
+      // real, not asserted). Real title verified 2026-09-10.
+      "@type": "VideoObject",
+      name: "Breathe In A Minute West Hollywood",
+      description: "A short video tour of Breathe Life Healing Centers' West Hollywood location.",
+      thumbnailUrl: "https://i.ytimg.com/vi/5e2yyxDbi2Q/hqdefault.jpg",
+      contentUrl: "https://www.youtube.com/watch?v=5e2yyxDbi2Q",
+      embedUrl: "https://www.youtube-nocookie.com/embed/5e2yyxDbi2Q",
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/video-tour/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-11-clinical-building-exterior.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:64px 37px 56px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+          <a href="/about/" style="color:#7FB3BC;">About</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Video Tour
+        </nav>
+        <h1 style="font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 16px;max-width:20ch;text-wrap:balance;">See Where Recovery Actually Happens</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(16px,1.5vw,19px);line-height:1.5;font-weight:300;color:#E6EDF4;margin:0;max-width:58ch;">A short video tour of our West Hollywood location — the space where care and support happen.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  VIDEO EMBED  ══════════════ */}
+    <section data-screen-label="Video" style="padding:48px 37px 0;background:#FFFFFF;">
+      <div style="max-width:1040px;margin:0 auto;">
+        <div style="position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;box-shadow:0 2px 4px rgba(20,24,28,0.08),0 18px 40px rgba(20,24,28,0.12);">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/5e2yyxDbi2Q?cc_load_policy=1&rel=0"
+            title="Breathe In A Minute West Hollywood"
+            loading="lazy"
+            style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT YOU'RE SEEING  ══════════════ */}
+    <section data-screen-label="What you're seeing" style="padding:56px 37px 70px;background:#FFFFFF;">
+      <div style="max-width:760px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>What You're Seeing</div>
+        <p style={`${S.intro}max-width:66ch;margin-bottom:22px;`}>This short video gives you a look at our West Hollywood location — where many people first connect with our admissions team and clinicians on the path into care.</p>
+        <div style="background:#F7F5F1;border-radius:14px;padding:26px 30px;text-align:left;max-width:600px;margin:0 auto;">
+          <h2 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin:0 0 10px;color:#14181C;">Why this setting matters</h2>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3A444D;margin:0;">A calm environment is not a luxury add-on here, it's part of the clinical approach. Space to breathe, literally, is part of what makes early recovery possible.</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why choose Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1100px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Why Choose Breathe</div>
+          <h2 style={`${S.h2}max-width:28ch;`}>A real look, before you ever call</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+          {whyChoose.map((w) => (
+            <div style="background:#FFFFFF;border:1px solid #E2DED7;border-radius:14px;padding:28px 26px;text-align:center;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:0 0 8px;text-wrap:balance;">{w.title}</h3>
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;">{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Frequently Asked Questions"
+      intro="A few common questions about the video and what it shows."
+      groups={faqGroups}
+    />
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Call anytime — someone real will pick up and point you in the right direction."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-04-community-dining-lounge.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

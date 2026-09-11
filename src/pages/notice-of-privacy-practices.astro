@@ -1,0 +1,83 @@
+---
+/**
+ * /notice-of-privacy-practices/ — legal page (HIPAA Notice of Privacy
+ * Practices). SiteFooter.astro previously linked "Privacy Policy" to
+ * /privacy-policy/; the approved sitemap (Breathe_Life_Sitemap_v12.xlsx)
+ * calls this "Notice of Privacy Practices" at this URL, and per
+ * privacy-consent.md §2 an NPP (the clinical-relationship/PHI document) is
+ * a distinct thing from a website privacy policy and must not be merged
+ * with one. Built at the sitemap's URL; the footer link was corrected to
+ * point here (see SiteFooter.astro) rather than building a second page.
+ *
+ * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): legally binding document — the page
+ * shell is real, the body is a ClinicalPlaceholder pending the client's
+ * actual HIPAA NPP, which per privacy-consent.md §2 must come from the
+ * client's own compliance function, not be authored here.
+ */
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import ClinicalPlaceholder from "../components/ClinicalPlaceholder.astro";
+import { site } from "../config/site";
+
+const title = "Notice of Privacy Practices | Breathe Life Healing Centers";
+const description = "How Breathe Life Healing Centers may use and disclose protected health information, and your rights regarding that information under HIPAA.";
+
+const pageUrl = new URL("/notice-of-privacy-practices/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Notice of Privacy Practices", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/notice-of-privacy-practices/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="background:#16293D;">
+      <div style="max-width:900px;margin:0 auto;padding:60px 37px 50px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:20px;">
+          <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Notice of Privacy Practices
+        </nav>
+        <h1 style="font-size:clamp(32px,3.6vw,48px);line-height:1.1;letter-spacing:-0.028em;font-weight:600;color:#FFFFFF;margin:0 0 14px;text-wrap:balance;">Notice of Privacy Practices</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#C8DAE9;margin:0;max-width:64ch;">This notice describes how protected health information about you may be used and disclosed, and how you can get access to that information.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  BODY  ══════════════ */}
+    <section data-screen-label="Notice of Privacy Practices body" style="padding:60px 37px 80px;background:#FFFFFF;">
+      <div style="max-width:760px;margin:0 auto;">
+        <ClinicalPlaceholder
+          kind="LEGAL CONTENT"
+          note="Requires actual Notice of Privacy Practices text from Breathe's compliance function / legal counsel — do not publish placeholder copy as real policy. Per privacy-consent.md §2, this is a HIPAA NPP covering the clinical relationship and PHI, distinct from the website privacy policy covering forms/analytics/cookies. Written by the client's compliance function, not this build."
+        />
+        <div style="margin-top:44px;padding-top:28px;border-top:1px solid #E2DED7;">
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 16px;">Questions about your privacy rights? <a href={site.emailHref} style="color:#2C5A64;font-weight:500;">{site.email}</a> or call <a href={site.phoneHref} style="color:#2C5A64;font-weight:500;">{site.phoneDisplay}</a>.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Instrument Sans',sans-serif;font-size:14px;">
+            <a href="/terms-of-use/" style="color:#33679C;font-weight:500;">Terms of Use</a>
+            <a href="/confidentiality-form/" style="color:#33679C;font-weight:500;">Confidentiality Form</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

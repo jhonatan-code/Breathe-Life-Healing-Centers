@@ -96,11 +96,79 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
 - **Eating disorders** are framed as co-occurring body-image / emotional-eating issues in
   the context of substance-use and mental-health treatment — **not** a standalone severe-ED
   program.
-- **Brad Lamm** — bio page removed; do not reintroduce. Founder positioning and the reviews
-  that centre him are an open client decision (see `docs/00-INVENTORY.md`).
+- **Brad Lamm** — his bio page was a placeholder pending client sign-off on founder
+  positioning; the user explicitly lifted that block 2026-09-15 and the page now carries his
+  real bio, verbatim from the official site. The **separate** question of reviews that centre
+  him remains an open client decision (see `docs/00-INVENTORY.md` item 10) — not resolved by
+  this change.
 - **"Sea Glass" (`#7fb3bc`)** — decorative only, keep to ~2% of any page's surface (client
   reduced it from the brand book's 4%). Token: `--color-seaglass`. Never carries meaning.
 - **No founding year** on pages until confirmed (design comps show "Since 2013" — unverified).
+
+## Writing Style
+
+- **NEVER use em dashes (—) in any copy.** They signal AI-generated content. Use commas,
+  periods, or rewrite the sentence instead.
+- This applies to **all** text across every page: headings, body copy, FAQs, CTAs, labels,
+  everything.
+
+## Images
+
+When working on any page or section:
+
+1. ALWAYS scrape https://breathelifehealingcenters.com/ and its subpages to find existing
+   images.
+2. Use those images directly (copy the URLs or download them to `/public`).
+3. Never leave image placeholders — always propose a layout that integrates real images
+   from the live site.
+4. When proposing page structure, include specific image suggestions pulled from the live
+   site.
+
+## Content
+
+When given content to implement:
+
+1. First visit the relevant page on https://breathelifehealingcenters.com/ to check
+   existing copy, structure and images.
+2. Propose a section structure that integrates both the provided content and images from
+   the live site.
+3. Flag any content gaps or inconsistencies between what was provided and what's on the
+   live site.
+
+## Design Process
+
+- For any new page or section, **ALWAYS create an Artifact preview first** before writing
+  to the codebase.
+- Present the Artifact and **wait for explicit approval** before applying it to real files.
+- When proposing a new page, **offer at least one structural concept that differs from the
+  existing template** — not just a copy-paste with different content.
+
+## Page structure — fixed shared sections
+
+These sections are shared components reused verbatim across every program/treatment
+page. Their **structure and visual design must never be redesigned** on a per-page basis —
+only their **content** (phone numbers, copy, the specific image/logo used) may be updated,
+and only when there's a real reason to:
+
+- Hero / banner (with the admissions form)
+- Footer
+- Final CTA section
+- FAQ section
+- Reviews section
+- Insurance section
+
+The Hero specifically must always use a **real photo** as its background — never an
+illustration, SVG graphic, or other abstract visual (see `## Images` above: sourced from
+the live site or this repo's existing `Asset/` library, never invented or generic stock).
+
+Everything else on a page — the sections between the Hero and the Insurance/Reviews/FAQ/CTA
+block — is fair game for a page-specific structural redesign when the content genuinely
+calls for it, rather than defaulting to another icon-card grid. Example: `/programs/php/`
+replaced its generic "Understanding" + "What's Included" icon cards with a "Day Arc"
+timeline (Morning/Midday/Afternoon/Evening) built around what actually makes PHP distinct
+— a full clinical day, home by evening — and its two generic "related program" cards with a
+Residential → PHP → IOP → Outpatient levels-of-care ladder. That redesign is scoped to that
+page; it does not get copy-pasted onto other program pages by default.
 
 ## Project docs (client-specific, this repo)
 

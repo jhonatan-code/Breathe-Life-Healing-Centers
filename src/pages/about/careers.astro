@@ -1,0 +1,300 @@
+---
+/**
+ * /about/careers/ — built from docs/content/Breathe_Life_Careers_Page_Brief.docx
+ * (2026-09-10). Per the brief: "REAL CONTENT IS LIMITED: the live page has
+ * one real job listing... No other openings exist in any source available.
+ * The brief below works honestly with that, rather than inventing
+ * additional roles." Confirmed against the official live site
+ * (breathelifehealingcenters.com/about/join-the-breathe-team/,
+ * checked 2026-09-10) — same single opening, same description in substance.
+ *
+ * MERGE NOTE (brief, verbatim): "this page absorbs the separate employment
+ * application page per the confirmed sitemap. Application fields aren't
+ * detailed in the live source, so that form should be handled as a
+ * standard job-application form unless real field requirements are
+ * provided." No real field list exists anywhere in this project, so the
+ * `#apply` form below is a standard name/email/phone/position/resume/
+ * message set — same `data-ctm-pending` "not connected yet" stub pattern
+ * already used by VerifyInsuranceForm.astro (forms-ctm.md is 🔴 BLOCKED in
+ * the elev8 system, so no page on this site has a real form backend yet).
+ *
+ * "Why Work at Breathe" copy is verbatim from the brief, which sources it
+ * from "the confirmed brand pillars already established for this site, not
+ * invented for this page" — not new marketing copy.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ScrollActivateSteps from "../../components/ScrollActivateSteps.astro";
+import { site } from "../../config/site";
+
+const title = "Careers | Work at Breathe Life Healing Centers";
+const description = "Join the team at Breathe Life Healing Centers — an LGBTQ+-affirming treatment community in Los Angeles built around lived experience. See our current opening and apply.";
+
+const why = [
+  { title: "Lived experience is valued here", text: "Many of our staff are in recovery themselves. That isn't incidental to how we hire, it's central to it." },
+  { title: "Built for the LGBTQ+ community first", text: "If that's part of your own story, you won't have to explain it here." },
+  { title: "Real clinical work, real support", text: "You'll be doing serious clinical work, backed by a team that takes both the work and the people doing it seriously." },
+  { title: "A place that takes its own advice", text: "The same systemic barriers and real human complexity we ask clients to bring into the room are ones we try to hold for our staff too." },
+];
+
+const openings = [
+  {
+    title: "RTC Drug and Alcohol Counselor",
+    location: "Los Angeles, CA",
+    text: "Provides support, guidance, and a safe environment for individuals in residential treatment. Plays a vital role in the recovery of clients facing substance use, mental health challenges, or other addictive behaviors.",
+  },
+];
+
+const faqGroups = [
+  {
+    items: [
+      { q: "Do I need personal recovery experience to work here?", a: "No, though many of our staff do have it. What matters most is that you can bring real care and skill to the work." },
+      { q: "What if there are no current openings that match my background?", a: "Reach out anyway. We'd rather hear from you than have you assume there's no fit." },
+      { q: "Is Breathe Life an LGBTQ+-affirming workplace?", a: "Yes. We're built for the LGBTQ+ community first, both in who we treat and in who we hire." },
+      { q: "What's the culture like day to day?", a: "Serious clinical work, done by a team that takes care of each other as much as the clients." },
+    ],
+  },
+];
+
+const pageUrl = new URL("/about/careers/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Careers", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqGroups[0].items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+    ...openings.map((o) => ({
+      "@type": "JobPosting",
+      title: o.title,
+      description: o.text,
+      hiringOrganization: { "@type": "Organization", name: site.name, url: site.domain },
+      jobLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: "Los Angeles", addressRegion: "CA", addressCountry: "US" } },
+      employmentType: "FULL_TIME",
+      directApply: true,
+    })),
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/careers/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO — same dark-photo hero as every other page  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-17-living-room-lounge.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:80px 37px;">
+        <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+          <a href="/about/" style="color:#7FB3BC;">About</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Careers
+        </nav>
+        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:22ch;text-wrap:balance;">Work Somewhere Your Own Story Matters.</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0;max-width:56ch;">Every person on our team, from the front desk to clinical leadership, brings something real to this work. If that's you, we want to hear from you.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  WHY WORK AT BREATHE — plain statements, no icons  ══════════════ */}
+    <section data-screen-label="Why work here" style="padding:0 37px 70px;background:#F7F5F1;">
+      <div style="max-width:1000px;margin:0 auto;">
+        <div class="pillars-row" style="background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:30px 28px;">
+              <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 10px;text-wrap:balance;">{w.title}</h2>
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3A444D;margin:0;">{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  CURRENT OPENINGS — accordion, scales to more later  ══════════════ */}
+    <section data-screen-label="Current openings" style="padding:0 37px 70px;background:#F7F5F1;">
+      <div style="max-width:760px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">Join us</div>
+          <h2 style="font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-0.026em;font-weight:600;margin:0;text-wrap:balance;">Current Openings</h2>
+        </div>
+        <div style="display:grid;gap:12px;">
+          {openings.map((o) => (
+            <details open style="border:1px solid #E2DED7;border-radius:12px;background:#FFFFFF;padding:0 24px;">
+              <summary style="display:flex;gap:18px;align-items:center;justify-content:space-between;padding:22px 0;font-size:18px;font-weight:600;letter-spacing:-0.012em;color:#14181C;list-style:none;">
+                <span>
+                  <span style="display:block;">{o.title}</span>
+                  <span style="display:block;font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;font-weight:400;color:#646D76;margin-top:3px;">{o.location}</span>
+                </span>
+                <span data-plus="1" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(51,103,156,0.10);font-family:'Instrument Sans',sans-serif;font-size:18px;color:#33679C;transition:transform 400ms cubic-bezier(.4,0,.2,1);">+</span>
+              </summary>
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 0 22px;">{o.text}</p>
+              <a href="#apply" data-position={o.title} class="job-apply-link" style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;height:44px;box-sizing:border-box;padding:0 22px;font-size:15px;font-weight:500;border-radius:8px;align-items:center;justify-content:center;margin-bottom:22px;">Apply Now</a>
+            </details>
+          ))}
+        </div>
+        <p style="text-align:center;font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;color:#3A444D;margin:24px 0 0;">Don't see the right fit? <a href="#apply" data-position="General Interest" class="job-apply-link" style="color:#33679C;font-weight:600;">Send us your resume anyway →</a></p>
+      </div>
+    </section>
+
+    {/* ══════════════  HOW TO APPLY — same component, same dark-section
+       treatment as the homepage's "Four simple steps": content is
+       Careers-specific, design + effects are the shared
+       ScrollActivateSteps component, not a lookalike copy. #how-to-apply
+       is excluded from the reveal script below the same way the homepage
+       excludes #admissions.  ══════════════ */}
+    <section id="how-to-apply" data-screen-label="How to apply" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7FB3BC;margin-bottom:14px;">Getting started</div>
+          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;max-width:20ch;text-wrap:balance;color:#FFFFFF;">How to Apply</h2>
+        </div>
+        <ScrollActivateSteps
+          id="apply-steps-row"
+          steps={[
+            { title: "Review the opening above" },
+            { title: "Fill out the online application" },
+            { title: "Our team will follow up if it's a fit" },
+          ]}
+          circleNumbers
+        />
+        <div style="text-align:center;margin-top:36px;">
+          <a href="#apply" data-position="" class="job-apply-link" style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#FFFFFF;color:#16293D;height:48px;box-sizing:border-box;padding:0 28px;font-size:15px;font-weight:600;border-radius:8px;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);">Fill Out the Employment Application</a>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  APPLICATION FORM — merged in per the brief's sitemap note  ══════════════ */}
+    <section id="apply" data-screen-label="Employment application" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:640px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">Employment application</div>
+          <h2 style="font-size:clamp(26px,2.8vw,36px);line-height:1.12;letter-spacing:-0.024em;font-weight:600;margin:0 0 12px;">Tell us about yourself</h2>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;">Takes a few minutes. Our team will follow up if it's a fit.</p>
+        </div>
+        <form id="job-apply-form" data-ctm-pending data-fallback-email={site.email} style="display:grid;gap:16px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:28px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
+            <label style="display:block;">
+              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Full Name <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+              <input type="text" name="name" required style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+            </label>
+            <label style="display:block;">
+              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Phone <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+              <input type="tel" name="phone" required placeholder="(000) 000-0000" style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+            </label>
+          </div>
+          <label style="display:block;">
+            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Email <span aria-hidden="true" style="color:#C0392B;">*</span></span>
+            <input type="email" name="email" required style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
+          </label>
+          <label style="display:block;">
+            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Position</span>
+            <select id="job-position-select" name="position" style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;">
+              {openings.map((o) => <option value={o.title}>{o.title} — {o.location}</option>)}
+              <option value="General Interest">General Interest / Other</option>
+            </select>
+          </label>
+          <label style="display:block;">
+            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Resume</span>
+            <input type="file" name="resume" accept=".pdf,.doc,.docx" style="width:100%;box-sizing:border-box;font-family:'Montserrat',sans-serif;font-size:14px;color:#3A444D;" />
+          </label>
+          <label style="display:block;">
+            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Tell us a bit about yourself</span>
+            <textarea name="message" rows="4" style="width:100%;box-sizing:border-box;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:10px 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;resize:vertical;"></textarea>
+          </label>
+          <button type="submit" style="font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;border:0;height:48px;box-sizing:border-box;padding:0 30px;font-size:15px;font-weight:600;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);cursor:pointer;" class="cta">Submit Application</button>
+          <p class="job-apply-status" role="status" hidden style="font-family:'Montserrat',sans-serif;font-size:14px;color:#2C5A64;background:#EFF5FA;border-radius:8px;padding:10px 12px;margin:0;"></p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:10px;line-height:1.5;color:#8A94A0;margin:0;text-align:center;">By submitting, you agree to our <a href="/terms-of-use/" style="color:#8A94A0;text-decoration:underline;">Terms of Use</a> and <a href="/notice-of-privacy-practices/" style="color:#8A94A0;text-decoration:underline;">Notice of Privacy Practices</a>.</p>
+        </form>
+      </div>
+    </section>
+
+    <SiteFAQ
+      eyebrow="Questions"
+      heading="Common questions about working here"
+      intro="A few things people ask before applying."
+      groups={faqGroups}
+    />
+
+    <SiteFinalCTA
+      heading="Ready to Bring Your Story to This Work?"
+      subhead="Every person on our team brings something real to this work. If that's you, we want to hear from you."
+      primaryLabel="Fill Out the Employment Application"
+      primaryHref="#apply"
+      secondary={{ label: "Contact Us", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-14-community-kitchen.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── "Apply Now" / "Send us your resume anyway" links pre-select the
+  //    position on the merged application form below, then scroll to it. ──
+  document.querySelectorAll<HTMLAnchorElement>('.job-apply-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const position = link.dataset.position;
+      const select = document.getElementById('job-position-select') as HTMLSelectElement | null;
+      if (select && position) select.value = position;
+    });
+  });
+
+  // ── No verified backend yet (forms-ctm.md BLOCKED, same as every other
+  //    form on this site) — stub the submit with an honest status message
+  //    instead of pretending it went anywhere. ──
+  document.querySelectorAll<HTMLFormElement>('form[data-ctm-pending]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const s = form.querySelector<HTMLElement>('.job-apply-status');
+      if (s) {
+        s.hidden = false;
+        const email = form.dataset.fallbackEmail || '';
+        s.textContent = "Thanks — online applications aren't connected yet. Please email your resume to " + email + " and our team will follow up.";
+      }
+    });
+  });
+
+  // ── Section reveal on scroll ──────────────────────────────────────────────
+  // #how-to-apply is excluded — it now uses the same ScrollActivateSteps
+  // component as the homepage's "Four simple steps", which has its own
+  // scroll-driven effect and doesn't need the generic fade-in on top of it
+  // (same reasoning as the homepage excluding #admissions).
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top):not(#how-to-apply), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

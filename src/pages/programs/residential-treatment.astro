@@ -1,0 +1,300 @@
+---
+/**
+ * /programs/residential-treatment/ — no dedicated content brief exists yet
+ * for this page (see CLAUDE.md: only Family Program has an approved brief
+ * in this batch). Built per the Programs-batch build spec: structural/
+ * marketing copy only — general framing of what residential treatment is,
+ * no specific clinical claims. The core definition line is reused verbatim
+ * from the already-approved `levels` entry in data/home.ts (same copy shown
+ * on the homepage and /programs/), rather than invented.
+ *
+ * FAQ has no approved brief, so it renders a ClinicalPlaceholder instead of
+ * SiteFAQ/invented Q&A, and the page skips FAQPage JSON-LD entirely.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+import { levels, why } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Residential Treatment in Los Angeles | Breathe";
+const description =
+  "Residential addiction and mental health treatment on our Laurel Canyon campus — 24/7 structure, daily therapy, and psychiatric care. LGBTQ+-affirming. In-network with most major insurers.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const level = levels.find((l) => l.title === "Residential Treatment")!;
+
+const forYou = [
+  "You need a structured, substance-free environment away from daily triggers",
+  "You want round-the-clock support during early recovery",
+  "Outpatient care on its own hasn't been enough",
+  "You're stepping down from medical detox and need continued structure",
+];
+
+const included = [
+  {
+    icon: "cottage", title: "Housing on our Laurel Canyon campus",
+    text: "You live on-site, in community with others who are doing the same work — not in a clinical ward.",
+  },
+  {
+    icon: "calendar_month", title: "A structured daily schedule",
+    text: "Therapy, groups, and quiet time balanced across the day, with psychiatric care built in for both addiction and mental health.",
+  },
+  {
+    icon: "family_restroom", title: "Family involved, on your terms",
+    text: "Family therapy that doesn't assume blood relationships. Partners and chosen family are welcome participants.",
+  },
+  {
+    icon: "trending_down", title: "A planned step-down",
+    text: "Before you leave, we build the next step with you — PHP, IOP, sober living, or outpatient care.",
+  },
+];
+
+const related = [
+  { icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", text: "Often the step before residential care, for people who need supervised withdrawal first." },
+  { icon: "wb_sunny", title: "PHP — Day Treatment", href: "/programs/php/", text: "The usual next step down after residential, with continued daily structure." },
+  { icon: "support_agent", title: "Case Management", href: "/programs/case-management/", text: "One dedicated person coordinating your care for the whole stay." },
+];
+
+const whyPicks = why.filter(([, , h]) =>
+  ["Residential, Whole-Person Care", "Staff Who've Lived It", "Chosen Family Welcome in Programming"].includes(h)
+);
+
+const pageUrl = new URL("/programs/residential-treatment/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Programs", item: new URL("/programs/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Residential Treatment", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      name: title,
+      url: pageUrl,
+      provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/programs/residential-treatment/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Programs" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-12-residence-exterior.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/programs/" style="color:#7FB3BC;">Programs</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Residential Treatment
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Residential Treatment. Full-Time Care, Built Around You.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">{level.text}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  UNDERSTANDING  ══════════════ */}
+    <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>Understanding</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>What residential treatment looks like</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Residential treatment is our most structured, primary level of care. You live on-site on our Laurel Canyon campus, with 24/7 supervision, daily therapy, and psychiatric care for both addiction and mental health, rather than fitting recovery around the rest of your life.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">It's usually the first full level of care people move into — either directly, or after a medically supervised detox — and it's the foundation the rest of a treatment plan is built on.</p>
+        </div>
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Residential treatment may be right for you if</div>
+          <div style="display:grid;gap:14px;">
+            {forYou.map((s) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <Icon name="check" size={14} />
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT'S INCLUDED  ══════════════ */}
+    <section data-screen-label="What's included" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>What's included</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>What residential treatment includes</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {included.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  RELATED LEVELS OF CARE  ══════════════ */}
+    <section data-screen-label="Related programs" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Where you go from here</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Residential treatment doesn't stand alone</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {related.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+        <div style="text-align:center;margin-top:32px;">
+          <a href="/programs/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">See all Programs &amp; Levels of Care <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for residential treatment — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for residential care</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {whyPicks.map(([icon, color, h, p]) => (
+            <div style="padding:32px 30px;">
+              <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
+              <p style={S.card}>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  FAQ  ══════════════ */}
+    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1080px;margin:0 auto;">
+        <div style="margin-bottom:24px;max-width:52ch;">
+          <div style={S.eyebrow}>Questions</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about residential treatment</h2>
+        </div>
+        <ClinicalPlaceholder kind="FAQ CONTENT" note="No approved content brief exists yet for /programs/residential-treatment/. Real FAQ copy (admission criteria, length of stay, what a day looks like) needs clinical sign-off before it can replace this placeholder." />
+      </div>
+    </section>
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* New-page placement: after the FAQ, right before the Final CTA. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are You Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-09-twin-bedroom-suite.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

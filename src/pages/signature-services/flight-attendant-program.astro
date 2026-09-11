@@ -1,0 +1,279 @@
+---
+/**
+ * /signature-services/flight-attendant-program/ — no approved content brief
+ * exists yet, so this page carries general structural/marketing framing
+ * only: what the program is for, who it's for, and how admissions works
+ * around airline scheduling. No specific clinical claims, treatment-
+ * modality efficacy claims, or FAQ content are invented here; see the
+ * ClinicalPlaceholder before the Final CTA.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import { site } from "../../config/site";
+import { galleryImg } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Flight Attendant Program | Breathe Life Healing Centers";
+const description =
+  "Addiction and mental health treatment shaped around flight crew scheduling, union benefits, and life on the road. LGBTQ+-affirming, in-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const pressures = [
+  "Rotating schedules that make routine, sleep, and follow-through hard to hold onto",
+  "Constant time-zone shifts and disrupted sleep",
+  "Long stretches away from home, family, and support systems",
+  "A public-facing, appearance-conscious job with little privacy",
+  "Layover culture, where drinking or using can feel like the default way to unwind",
+];
+
+const different = [
+  {
+    icon: "calendar_month", title: "Admissions that work around your roster",
+    text: "We talk through bid lines, reserve status, and union leave before you commit to anything, so treatment fits your schedule instead of fighting it.",
+  },
+  {
+    icon: "layers", title: "Every level of care, timed to you",
+    text: "Detox, residential, and step-down options like PHP and IOP, sequenced around your actual return-to-work timeline.",
+  },
+  {
+    icon: "groups", title: "Community with people who get the job",
+    text: "You're not the only person here who's flown red-eyes for a living. That shared context matters.",
+  },
+  {
+    icon: "lock", title: "Discretion built in",
+    text: "A public-facing job makes privacy matter more, not less. Confidentiality is built into every part of how we operate.",
+  },
+];
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Flight crews are one of the most LGBTQ+-represented workforces in the country, and this program is built with that in mind — while welcoming any crew member whose values align.",
+  },
+  {
+    icon: "calendar_month", title: "Schedule- and union-aware",
+    text: "We know how airline rosters, bid lines, and union benefits work, and we plan around them from the first call.",
+  },
+];
+
+const pageUrl = new URL("/signature-services/flight-attendant-program/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Signature Services", item: new URL("/signature-services/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Flight Attendant Program", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/signature-services/flight-attendant-program/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Signature Services" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src={galleryImg("facility-19-outdoor-dining-deck.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/signature-services/" style="color:#7FB3BC;">Signature Services</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Flight Attendant Program
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">The Flight Attendant Program</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Irregular schedules, time zones, layovers, and a job that never quite lets you land. Recovery has to work with that, not against it.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT THIS IS  ══════════════ */}
+    <section data-screen-label="What this is" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>What this is</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Built around the job, not despite it</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Flight crew work carries a specific set of pressures that most treatment programs simply aren't built to account for — a schedule that changes every month, a body clock that never settles, and a professional culture where a drink or two on a layover is just what people do. The Flight Attendant Program exists because that context matters to recovery, and pretending it doesn't makes treatment harder to stick to.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">This program is built for flight attendants and other flight crew, and it welcomes airline and hospitality workers navigating similar rhythms.</p>
+        </div>
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What the job adds to recovery</div>
+          <div style="display:grid;gap:14px;">
+            {pressures.map((p) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                  <span class="msym" style="font-size:15px;">check</span>
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{p}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT MAKES THIS DIFFERENT  ══════════════ */}
+    <section data-screen-label="What makes this different" style="padding:70px 37px;background:#F0F5FA;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>How it works</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>What makes this different</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {different.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  RELATED SIGNATURE SERVICE  ══════════════ */}
+    <section data-screen-label="Related" style="padding:56px 37px;background:#FFFFFF;">
+      <div style="max-width:1060px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Also built for our community</div>
+        <h2 style={`${S.h2}max-width:36ch;`}>Flight crew work and LGBTQ+ identity often overlap</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:24px;`}>Aviation has long been one of the most LGBTQ+-represented industries in the country. Our LGBTQ+ Treatment approach runs underneath this program for anyone who wants it.</p>
+        <a class="cta" href="/signature-services/lgbtq/" style={`display:inline-block;${S.ctaBlue}`}>Learn About LGBTQ+ Treatment</a>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits — including how union or airline-provided coverage applies — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for this</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  FAQ PLACEHOLDER  ══════════════ */}
+    <section data-screen-label="FAQ placeholder" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1080px;margin:0 auto;">
+        <div style="margin-bottom:24px;max-width:760px;">
+          <div style={S.eyebrow}>Questions</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about this program</h2>
+        </div>
+        <ClinicalPlaceholder
+          kind="FAQ CONTENT"
+          note="Flight Attendant Program FAQ needs an approved brief before publishing — questions about union leave coordination, return-to-work timing, and FAA/employer notification requirements need confirmation from admissions and clinical leadership, not an invented answer."
+        />
+      </div>
+    </section>
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* Placed after the FAQ placeholder / before the Final CTA per this
+       batch's placement rule (existing pages place it before the FAQ). */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are you ready to take the first step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-14-community-kitchen.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

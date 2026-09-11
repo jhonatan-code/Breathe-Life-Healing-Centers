@@ -1,0 +1,83 @@
+---
+/**
+ * /about/our-team/sarah-sitt/ — placeholder profile. The official live
+ * site's dedicated page uses a different slug for this person —
+ * breathelifehealingcenters.com/our-team/sara-stitt/ (checked 2026-09-02,
+ * their own naming inconsistency) — which carries only a name, title, and
+ * (no real headshot) photo; no bio prose exists there to recover. Display
+ * name here follows the batch brief: "Sarah Sitt, CADC-II" (how her name
+ * reads on the official team roster), even though the official site's own
+ * URL and on-page name spell it "Sara Stitt". Per CLAUDE.md / the standing
+ * rule never to invent YMYL content without a brief, the bio section below
+ * uses ClinicalPlaceholder rather than fabricated copy — see
+ * src/pages/about/our-team/brad-lamm.astro for the pattern this follows.
+ * Not in src/data/home.ts (that array only carries leadership), so
+ * name/role/photo/badge are defined directly here.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Sarah Sitt, CADC-II",
+  role: "Art Group Facilitator",
+  photo: "/Asset/Our%20Team/no-photo.jpg",
+  badge: "CADC-II",
+};
+
+const title = "Sarah Sitt, CADC-II | Art Group Facilitator | Breathe Life Healing Centers";
+const description = "Sarah Sitt, CADC-II, is an Art Group Facilitator at Breathe Life Healing Centers.";
+
+const pageUrl = new URL("/about/our-team/sarah-sitt/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/sarah-sitt/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="sarah-sitt" />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-15-pool-deck-canyon-view.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

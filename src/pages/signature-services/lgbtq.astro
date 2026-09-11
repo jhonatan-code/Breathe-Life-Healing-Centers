@@ -1,0 +1,326 @@
+---
+/**
+ * /signature-services/lgbtq/ — LGBTQ+ Treatment. Arguably the most
+ * important page on the site given Breathe's brand positioning, so this
+ * page gets extra design attention: a leadership/credibility strip (Beck
+ * Gee's bio, reused verbatim from the already-approved data/home.ts `team`
+ * entry — not invented here) and a pull-quote band built from a real,
+ * sourced Google review (Stephen Timmer, data/home.ts `reviews`) that
+ * happens to speak directly to "built for us first, not only for us."
+ *
+ * No approved content brief exists yet, so beyond those two reused,
+ * already-approved sources, this page carries general structural/marketing
+ * framing only. No specific clinical claims or FAQ content are invented;
+ * see the ClinicalPlaceholder before the Final CTA.
+ *
+ * Per CLAUDE.md: never call being LGBTQ+ a "lifestyle"; center the LGBTQ+
+ * community as the primary audience without positioning Breathe as
+ * exclusively for LGBTQ+ people; no heteronormative assumptions about what
+ * "family" means.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import { site } from "../../config/site";
+import { galleryImg, team, reviews } from "../../data/home";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "LGBTQ+ Addiction & Mental Health Treatment in Los Angeles | Breathe";
+const description =
+  "LGBTQ+-affirming addiction and mental health treatment in Los Angeles, built for our community first and open to anyone whose values align. Identity- and gender-affirming care at every level. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const different = [
+  {
+    icon: "badge", title: "Correct names, correct pronouns",
+    text: "From the first phone call, not after an adjustment period. It shouldn't be something you have to ask for twice.",
+  },
+  {
+    icon: "psychology", title: "Staff trained in minority stress",
+    text: "Clinicians who understand the specific weight of being LGBTQ+ in the world, not just addiction and mental health in general.",
+  },
+  {
+    icon: "family_restroom", title: "Chosen family welcomed",
+    text: "Family Class and our 3-Day Family Workshop make room for the people who actually show up for you — partners, chosen family, or family of origin.",
+  },
+  {
+    icon: "diversity_3", title: "Woven in, not bolted on",
+    text: "Identity- and gender-affirming care isn't a separate track here. It's part of every level of treatment, from detox through outpatient.",
+  },
+];
+
+// Leadership strip — Beck Gee's bio is reused verbatim from the already-
+// approved data/home.ts `team` entry, not written fresh for this page.
+const beck = team.find((t) => t.slug === "beck-gee")!;
+
+// Pull-quote — a verbatim excerpt from the client-provided reviews
+// compilation (data/home.ts `reviews`, Stephen Timmer's full quote), not
+// invented for this page. Hardcoded as an exact substring rather than
+// sliced at render time, so what's shown here is auditable against the
+// source quote in data/home.ts.
+const proofQuote = reviews.find((r) => r.name === "Stephen Timmer")!;
+const proofExcerpt =
+  "I have brought LGBTQ clients and straight or cis gender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance.";
+
+const related = [
+  {
+    icon: "favorite", title: "Chemsex & Sexualized Drug Use Treatment", href: "/signature-services/chemsex-treatment/",
+    text: "A dedicated track for substance use tied to sex, intimacy, or identity — treated as its own clinical issue.",
+  },
+  {
+    icon: "flight", title: "Flight Attendant Program", href: "/signature-services/flight-attendant-program/",
+    text: "Aviation is one of the most LGBTQ+-represented industries in the country — treatment built around that job.",
+  },
+];
+
+const why: [string, string, string, string][] = [
+  ["diversity_3", "#33679C", "LGBTQIA+-Affirming Care at Every Level", "Gender-affirming, identity-affirming clinical care — clinicians who understand minority stress and staff who use your pronouns without being asked twice."],
+  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Every person here, from the front desk to clinical leadership, has personal recovery experience — you're not being treated by someone who studied it from the outside."],
+  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Family therapy, Family Class, and a 3-Day Family Workshop, with room for chosen family, not only family of origin."],
+  ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate — care that respects who knows you're here, on your terms."],
+];
+
+const pageUrl = new URL("/signature-services/lgbtq/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Signature Services", item: new URL("/signature-services/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "LGBTQ+ Treatment", item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/signature-services/lgbtq/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Signature Services" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src={galleryImg("facility-18-great-room.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/signature-services/" style="color:#7FB3BC;">Signature Services</a> <span aria-hidden="true" style="opacity:0.6;">›</span> LGBTQ+ Treatment
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">LGBTQ+ Treatment. Built For Us First.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Breathe was built around the LGBTQ+ community from day one, not adapted for us after the fact. Every part of how we treat addiction and mental health starts there.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT THIS IS  ══════════════ */}
+    <section data-screen-label="What this is" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>What this is</div>
+        <h2 style={`${S.h2}max-width:32ch;`}>Care built around who you are, not in spite of it</h2>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>LGBTQ+ Treatment at Breathe means identity- and gender-affirming care woven into every level of treatment we offer — medical detox, residential, PHP, IOP, and beyond. It isn't a separate track bolted onto a default program built with someone else in mind. It's the foundation everything else is built on.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>That doesn't mean Breathe is only for LGBTQ+ people. Aligned cis-hetero clients are welcome and held to the same standard of care — but the center of gravity here is, and has always been, our community.</p>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:70ch;">And "family," in our programming, is never assumed to mean blood relatives. Partners and chosen family are valid participants in Family Class, our 3-Day Family Workshop, and every other part of how we involve the people who matter to you.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT MAKES THIS DIFFERENT  ══════════════ */}
+    <section data-screen-label="What makes this different" style="padding:70px 37px;background:#F0F5FA;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>How it shows up</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>What makes this different</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {different.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  LEADERSHIP STRIP  ══════════════ */}
+    <section data-screen-label="Leadership" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1000px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:minmax(200px,240px) 1fr;gap:36px;align-items:center;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:36px;">
+          <img src={beck.photo} alt={beck.name} style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;" />
+          <div>
+            <div style={S.eyebrow}>Led with lived experience</div>
+            <div style="font-size:22px;font-weight:600;letter-spacing:-0.016em;margin-bottom:4px;">{beck.name}</div>
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:14px;color:#646D76;margin-bottom:14px;">{beck.role} · {beck.badge}</div>
+            <p style={`${S.card}max-width:52ch;`}>{beck.bio}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  PULL QUOTE — SOURCED REVIEW  ══════════════ */}
+    <section data-screen-label="Proof quote" style="position:relative;overflow:hidden;background:#16293D;padding:70px 37px;">
+      <div style="position:relative;max-width:840px;margin:0 auto;text-align:center;">
+        <div style="width:1px;height:32px;background:#7FB3BC;margin:0 auto 22px;"></div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(19px,2.2vw,26px);line-height:1.5;font-weight:300;color:#F0F5FA;margin:0 auto 22px;max-width:38ch;">"{proofExcerpt}"</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+          <img src={proofQuote.avatar} alt={proofQuote.name} width="36" height="36" style="width:36px;height:36px;border-radius:999px;" />
+          <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;color:#B9CBDC;">{proofQuote.name}, Interventionist · Google review</span>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  RELATED SIGNATURE SERVICES  ══════════════ */}
+    <section data-screen-label="Related" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Also built for our community</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Related signature services</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:920px;margin:0 auto;">
+          {related.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;">
+          {why.map(([icon, color, h, p]) => (
+            <div style="padding:32px 30px;">
+              <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+              </span>
+              <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
+              <p style={S.card}>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  FAQ PLACEHOLDER  ══════════════ */}
+    <section data-screen-label="FAQ placeholder" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1080px;margin:0 auto;">
+        <div style="margin-bottom:24px;max-width:760px;">
+          <div style={S.eyebrow}>Questions</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about LGBTQ+ treatment</h2>
+        </div>
+        <ClinicalPlaceholder
+          kind="FAQ CONTENT"
+          note="LGBTQ+ Treatment FAQ needs an approved clinical brief before publishing — gender-affirming care coordination, minority-stress-informed assessment, and family/chosen-family definitions need clinical sign-off, not invented answers."
+        />
+      </div>
+    </section>
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* Placed after the FAQ placeholder / before the Final CTA per this
+       batch's placement rule (existing pages place it before the FAQ). */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are you ready to take the first step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-16-facility-entrance-drive.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>

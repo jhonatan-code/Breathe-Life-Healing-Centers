@@ -1,0 +1,266 @@
+---
+/**
+ * /admissions/what-to-bring/ — real, substantial packing-list content per
+ * the batch brief: standard, non-controversial admissions guidance used
+ * industry-wide, not a clinical claim. No specific medical claims made
+ * about which medications are/aren't allowed — medications guidance stays
+ * general ("original bottles," "tell your admissions counselor") rather
+ * than naming permitted/prohibited substances or classes.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "What to Bring | Breathe Admissions";
+const description =
+  "A packing checklist for arrival at Breathe Life Healing Centers — clothing, toiletries, documents, and what to leave at home. Call 24/7 with questions.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const bring = [
+  {
+    icon: "checkroom", title: "Clothing",
+    items: [
+      "About a week's worth of comfortable, weather-appropriate clothing",
+      "Sleepwear and underwear",
+      "A swimsuit, if you'd like to use the pool",
+      "Comfortable shoes for walking, plus sandals or shower shoes",
+      "A light jacket or layer — Los Angeles evenings can be cool",
+      "Workout clothes, if you plan to use the fitness space",
+    ],
+  },
+  {
+    icon: "soap", title: "Toiletries",
+    items: [
+      "Toothbrush, toothpaste, and floss",
+      "Shampoo, conditioner, and body wash",
+      "Deodorant (alcohol-free is often required — check with your admissions counselor)",
+      "Skincare or makeup you use daily",
+      "A hairbrush or comb",
+      "Feminine hygiene products, if needed",
+    ],
+  },
+  {
+    icon: "badge", title: "Documents & ID",
+    items: [
+      "A valid, government-issued photo ID",
+      "Insurance card",
+      "A form of payment for any personal expenses",
+      "A list of current medications, including dosages",
+      "Emergency contact information",
+    ],
+  },
+  {
+    icon: "medication", title: "Medications",
+    items: [
+      "Bring only what you need in original, labeled prescription bottles",
+      "Our medical team reviews all medications at intake",
+      "Call ahead if you have questions about a specific medication",
+      "Do not bring more than a reasonable supply — our team will manage refills",
+    ],
+  },
+] as const;
+
+const leave = [
+  "Weapons of any kind",
+  "Alcohol, drugs, or drug paraphernalia",
+  "Vapes, e-cigarettes, or related devices (facility policy varies — ask ahead)",
+  "Candles, incense, or anything with an open flame",
+  "Valuables you don't want to be responsible for tracking",
+  "Revealing or provocative clothing (per general facility guidelines)",
+];
+
+const faqs = [
+  { q: "Can I bring my phone or laptop?", a: "Electronics policies vary by level of care and program. Ask your admissions counselor what's allowed for the specific program you're entering." },
+  { q: "What if I forget something?", a: "It happens. Let staff know and we'll help you get what you need — most items are easy to arrange locally." },
+  { q: "Can family drop off items after I've arrived?", a: "In most cases, yes, though items are typically checked in by staff first. Your admissions counselor can walk you through the specifics." },
+  { q: "Do I need to bring bedding or towels?", a: "No — bedding and towels are provided. You're welcome to bring a personal item like a small pillow if it helps you feel more comfortable." },
+  { q: "What about medications I take regularly?", a: "Bring them in their original, labeled bottles. Our medical team reviews everything at intake as part of getting you settled safely." },
+  { q: "Who can I ask if I'm not sure what to pack?", a: "Call us. Your admissions counselor can answer specific packing questions for your exact program and arrival date." },
+];
+
+const pageUrl = new URL("/admissions/what-to-bring/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Admissions", item: new URL("/admissions/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "What to Bring", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/admissions/what-to-bring/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Admissions" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-01-private-suite-entry.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/admissions/" style="color:#7FB3BC;">Admissions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> What to Bring
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">What to Bring for Arrival Day</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">A simple checklist so you can focus on getting here, not on what's in your bag. Your admissions counselor will confirm anything specific to your program.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
+            <a class="cta" href="/admissions/insurance/" style={S.ctaGhost}>Verify Your Insurance</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Not sure about something? Call and ask — no question is too small.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  PACKING LIST  ══════════════ */}
+    <section data-screen-label="Packing list" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Packing checklist</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>What to pack</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+          {bring.map((b, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+                  <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};flex:0 0 auto;`}>
+                    <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{b.icon}</span>
+                  </span>
+                  <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{b.title}</h3>
+                </div>
+                <div style="display:grid;gap:12px;">
+                  {b.items.map((it) => (
+                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                      <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                        <Icon name="check" size={12} />
+                      </span>
+                      <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{it}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  WHAT TO LEAVE AT HOME  ══════════════ */}
+    <section data-screen-label="What to leave" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:860px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style={S.eyebrow}>Please leave at home</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>What not to bring</h2>
+          <p style={`${S.intro}max-width:64ch;`}>A short list of common items facilities ask you not to bring. Your admissions counselor will confirm anything specific to your program before you arrive.</p>
+        </div>
+        <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="display:grid;gap:14px;">
+            {leave.map((l) => (
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(192,57,43,0.10);color:#C0392B;margin-top:1px;">
+                  <span class="msym" style="font-size:15px;">close</span>
+                </span>
+                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{l}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Have insurance questions before you pack? Our admissions team verifies benefits at no cost, before you commit to anything."
+    />
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFAQ
+      heading="Questions people ask about packing"
+      intro="A few more details worth knowing before you arrive."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
+    <SiteFinalCTA
+      heading="Ready to Take the First Step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "For Families", href: "/admissions/for-families/" }}
+      background="/Asset/Facility/facility-10-fitness-center.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

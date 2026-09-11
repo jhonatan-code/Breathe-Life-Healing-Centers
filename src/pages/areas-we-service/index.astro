@@ -1,0 +1,193 @@
+---
+/**
+ * /areas-we-service/ — section hub (approved sitemap: "Areas We Service").
+ * Card grid linking to the four service-area pages. Pattern follows
+ * /programs/index.astro (hero + grid + shared trust sections), trimmed down
+ * since this hub's only job is routing — see page-types.md §7 "Hub pages."
+ *
+ * Breathe has one physical presence (Melrose Ave outpatient office +
+ * Laurel Canyon residential campus, both in Los Angeles) — these are not
+ * separate facility locations, they're geo-targeted service-area pages for
+ * nearby communities. West Hollywood is CONFIRMED in the approved sitemap;
+ * Beverly Hills, Santa Monica and Santa Barbara are NEW pages justified by
+ * CTM call-volume data (docs/00-INVENTORY.md). No per-city call counts are
+ * cited here or on the detail pages — the source data isn't broken out by
+ * city, so specific numbers aren't fabricated to fill that gap.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Areas We Service | Breathe Life Healing Centers";
+const description =
+  "Breathe Life Healing Centers serves clients from West Hollywood, Beverly Hills, Santa Monica, Santa Barbara and across the LA area. LGBTQ+-affirming addiction and mental health treatment. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+};
+
+const areas = [
+  {
+    city: "West Hollywood", slug: "west-hollywood",
+    text: "Close to home for the community we were built around first — a short drive from our Melrose Avenue office.",
+  },
+  {
+    city: "Beverly Hills", slug: "beverly-hills",
+    text: "Discreet, LGBTQ+-affirming care easily accessible from Beverly Hills.",
+  },
+  {
+    city: "Santa Monica", slug: "santa-monica",
+    text: "Serving clients across the Westside, from Santa Monica and the surrounding coast.",
+  },
+  {
+    city: "Santa Barbara", slug: "santa-barbara",
+    text: "A comfortable drive down the coast for clients and families in Santa Barbara.",
+  },
+];
+
+const pageUrl = new URL("/areas-we-service/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "Areas We Service", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      name: "Areas We Service",
+      itemListElement: areas.map((a, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: a.city,
+        url: new URL(`/areas-we-service/${a.slug}/`, site.domain).href,
+      })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/areas-we-service/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="Areas We Service" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-20-estate-entrance-gate.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Areas We Service
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Areas We Service</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Breathe is based in Los Angeles, with an outpatient office on Melrose Avenue and a residential campus in Laurel Canyon — and clients come to us from all across Southern California.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  AREA CARDS  ══════════════ */}
+    <section data-screen-label="Areas grid" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Where we serve</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Communities we serve across Southern California</h2>
+          <p style={`${S.intro}max-width:78ch;`}>Wherever you're calling from, our team is reachable 24/7 and our Los Angeles campus is within reach for a consultation, a tour, or admission.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {areas.map((a) => (
+            <a class="treat-card link-card" href={`/areas-we-service/${a.slug}/`} style="display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:28px 26px;text-decoration:none;color:inherit;">
+              <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:rgba(51,103,156,0.10);color:#33679C;">
+                <Icon name="mapPin" size={24} />
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{a.city}</h3>
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;flex:1;">{a.text}</p>
+              <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Wherever you're calling from, our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+    />
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* No FAQ section on this hub — the mobile slot lands right before the Final CTA. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Not sure how to get started?"
+      subhead="Wherever you're calling from, our admissions team will walk you through what happens next. No pressure, no obligation."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-12-residence-exterior.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>

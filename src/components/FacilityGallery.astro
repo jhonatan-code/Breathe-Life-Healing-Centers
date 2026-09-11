@@ -1,0 +1,555 @@
+---
+/**
+ * "Facility Gallery" — a large photo display on the left, and on the right
+ * a fixed-count rotating wheel of curated campus photos, passed in by the
+ * caller — not the whole facility set; the rest live elsewhere on the
+ * page. Every slot's photo is permanent (no windowing/content-swap).
+ *
+ * Tangential fan: each card is rotated to match its own angle around the
+ * ring — `rotate(angle) translateY(-radius)`, no counter-rotation — so
+ * cards point outward like petals, tucked in against the hub. Because
+ * there's no counter-rotation, the whole ring (including each card's own
+ * tilt) rotates together as one rigid body: one accumulating --rot custom
+ * property on `.fg-wheel` drives it, same mechanic as CareDial.astro, just
+ * without the counter-rotate step that component uses to stay upright —
+ * here staying upright is exactly what we don't want. No React/Framer
+ * Motion — this is a static Astro site, so it's plain CSS transitions +
+ * vanilla JS.
+ *
+ * `wheelSize` fixes the wheel's own visible footprint (not just its
+ * container — user call 2026-09-10: the container was already 520 but the
+ * ring itself, sized off the card count, was only filling ~400 of it).
+ * RADIUS is solved from that target diameter, card size staying fixed —
+ * which means the card COUNT is what has to flex to keep the same
+ * overlapping-fan look at a bigger size: more cards, same card size, same
+ * ring circumference math, just a bigger ring. The caller is responsible
+ * for passing enough photos (`photos.length`) to keep neighbors
+ * overlapping at whatever `wheelSize` is requested — see the comment on
+ * OVERLAP_HALF_ANGLE below for the ratio this was tuned against.
+ *
+ * Below 1024px this renders a plain horizontal scroll strip over the same
+ * fixed photo set instead of the wheel (`.d-only` / `.m-only-block`, the
+ * same dual-render pattern the site uses for its department carousels).
+ */
+interface Photo {
+  src: string;
+  cap: string;
+}
+interface Props {
+  id?: string;
+  photos: Photo[];
+  wheelSize?: number;
+}
+const { id = "facility-gallery", photos, wheelSize = 520 } = Astro.props;
+
+const N = photos.length;
+const stepAngle = 360 / N;
+const CARD_W = 110;
+const CARD_H = 145;
+const HUB_DIAMETER = 150;
+const RING_MARGIN = 10; // clearance so card borders/shadows don't clip the wheel's own box
+// A card's CENTER sits at RADIUS from the wheel's center; its outer tip
+// is CARD_H/2 further out than that — so solving for the outer tip to
+// land at wheelSize/2 (minus a little clearance) is what fixes the
+// ring's overall visible diameter to `wheelSize`.
+const RADIUS = Math.round(wheelSize / 2 - RING_MARGIN - CARD_H / 2);
+// Sanity-checked, not enforced: at this RADIUS, a card's angular
+// half-footprint is atan((CARD_W/2)/RADIUS) — for neighbors to overlap
+// (not just touch), that needs to clear half the step angle between
+// cards. This ring was tuned so that ratio lands around 0.6–0.7 (a
+// comfortable, consistent overlap) at whatever photo count the caller
+// passes for the requested wheelSize.
+
+const nodeTransform = (i: number) => {
+  const angle = stepAngle * i;
+  return `rotate(${angle}deg) translateY(-${RADIUS}px)`;
+};
+
+// Stacking order — user call 2026-09-10: card 0's bottom-left corner
+// should sit over the LAST card, and its bottom-right corner should sit
+// under card 1. Default DOM order already gives every card's left corner
+// sitting over its predecessor (each later card paints above the one
+// before it) — so cards 1..N-2 already looked right without touching
+// anything. The wrap pair (last, 0) is the one exception: card 0 is
+// first in the array, so by default it lost to everything, including
+// the last card, when the user wanted it to win there specifically.
+//
+// This can't be fixed by only moving card 0: overlap stacking is a
+// strict linear order (z-index is just a number — transitive, no
+// exceptions), and the full set of wanted relationships forms a genuine
+// cycle (last > N-2 > … > 1 > 0 > last). No assignment of numbers
+// satisfies a cycle. The fix that honors card 0's two specific corners
+// exactly as asked is to break the cycle at the *other* seam instead —
+// last now sits under the second-to-last card rather than over it. That
+// seam wasn't part of what was asked about, so it's the one absorbing
+// the inconsistency instead of the pool photo.
+const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
+---
+
+<div id={id} class="facility-gallery">
+  <div class="fg-grid">
+    <div class="fg-main" data-fg-main tabindex="0" role="button" aria-label={`Enlarge photo: ${photos[0].cap}`}>
+      <img class="fg-main-img" id={`${id}-main-img`} src={photos[0].src} alt={photos[0].cap} />
+      <span class="fg-expand"><span class="msym">fullscreen</span>Expand View</span>
+      <div class="fg-main-bar">
+        <span class="fg-main-title" id={`${id}-main-title`}>{photos[0].cap}</span>
+        <span class="fg-main-count" id={`${id}-main-count`}>1 of {photos.length}</span>
+      </div>
+    </div>
+
+    <div class="fg-wheel-wrap d-only">
+      <div class="fg-track">
+        <div class="fg-hub">
+          <span class="msym">photo_camera</span>
+          <span class="fg-hub-label">Explore the campus</span>
+          <span class="fg-hub-sub">Click a photo to bring it forward</span>
+        </div>
+        <div class="fg-wheel" id={`${id}-wheel`}>
+          {photos.map((p, i) => (
+            <div class="fg-node-slot" data-index={i} style={`transform:${nodeTransform(i)};z-index:${zIndexFor(i)};`}>
+              <button class="fg-node-btn" type="button" data-photo-index={i} aria-label={`Show ${p.cap}`}>
+                <img src={p.src} alt="" loading="lazy" />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="fg-mobile-strip m-only-block no-scrollbar">
+      {photos.map((p, i) => (
+        <button type="button" class="fg-strip-btn" data-photo-index={i} aria-label={`Show ${p.cap}`}>
+          <img src={p.src} alt="" loading="lazy" />
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<div class="fg-lightbox" id={`${id}-lightbox`} role="dialog" aria-modal="true" aria-label="Facility photo viewer" hidden>
+  <button class="fg-lb-btn fg-lb-close" type="button" data-fg-close aria-label="Close"><span class="msym">close</span></button>
+  <button class="fg-lb-btn fg-lb-prev" type="button" data-fg-prev aria-label="Previous photo"><span class="msym">chevron_left</span></button>
+  <button class="fg-lb-btn fg-lb-next" type="button" data-fg-next aria-label="Next photo"><span class="msym">chevron_right</span></button>
+  <figure class="fg-lb-figure">
+    <img class="fg-lb-img" id={`${id}-lb-img`} alt="" />
+    <figcaption class="fg-lb-bar">
+      <span id={`${id}-lb-title`}></span>
+      <span id={`${id}-lb-count`}></span>
+    </figcaption>
+  </figure>
+</div>
+
+<style>
+  .facility-gallery {
+    --ink: #16293d;
+    --copper: #a6672f;
+    --copper-light: #e3b27c;
+  }
+
+  .fg-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 32px;
+    align-items: stretch;
+  }
+  /* 1024px — the site's one mobile breakpoint (matches the header's
+     hamburger switch-over and every other stacked-grid collapse) */
+  @media (max-width: 1024px) {
+    .fg-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Left: main display ── */
+  .fg-main {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: zoom-in;
+    min-height: 460px;
+    box-shadow: 0 2px 4px rgba(20, 24, 28, 0.08), 0 18px 40px rgba(20, 24, 28, 0.1);
+  }
+  .fg-main:focus-visible { outline: 3px solid #33679c; outline-offset: 3px; }
+  .fg-main-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 380ms ease, transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fg-main.is-swapping .fg-main-img { opacity: 0; transform: scale(1.04); }
+  .fg-main:hover .fg-main-img { transform: scale(1.035); }
+
+  .fg-expand {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: rgba(22, 41, 61, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 8px 14px;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  .fg-expand .msym { font-size: 16px; }
+
+  .fg-main-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(22, 41, 61, 0.9), rgba(22, 41, 61, 0.4));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 16px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: baseline;
+    justify-content: space-between;
+    transition: opacity 380ms ease;
+  }
+  .fg-main.is-swapping .fg-main-bar { opacity: 0; }
+  .fg-main-title { font-size: 22px; font-weight: 600; letter-spacing: -0.016em; color: #fff; }
+  .fg-main-count {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7fb3bc;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Right: rotating wheel (desktop only — see .fg-mobile-strip) ── */
+  .fg-wheel-wrap { display: flex; align-items: center; justify-content: center; min-height: 520px; }
+  .fg-track { position: relative; width: 520px; height: 520px; max-width: 100%; }
+  /* transform: scale() shrinks the track visually but not its layout box,
+     so the wrapper's min-height needs its own matching reduction or the
+     scaled-down wheel just floats in leftover empty space beneath it. This
+     step only covers the narrow end of desktop (.d-only already removes
+     the wheel entirely at ≤1024px). */
+  @media (min-width: 1025px) and (max-width: 1180px) {
+    .fg-track { transform: scale(0.8); }
+    .fg-wheel-wrap { min-height: 420px; margin-top: -20px; }
+  }
+
+  .fg-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(20, 24, 28, 0.08), 0 8px 24px rgba(20, 24, 28, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    padding: 0 22px;
+    box-sizing: border-box;
+    z-index: 100;
+  }
+  .fg-hub .msym { font-size: 21px; color: var(--copper); }
+  .fg-hub-label { font-family: "Instrument Sans", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); line-height: 1.3; }
+  .fg-hub-sub { font-family: "Montserrat", Helvetica, sans-serif; font-size: 10px; line-height: 1.4; color: #7c8792; max-width: 21ch; }
+
+  .fg-wheel {
+    position: absolute;
+    inset: 0;
+    transform: rotate(var(--fg-rot, 0deg));
+    transition: transform 700ms cubic-bezier(0.34, 1.3, 0.64, 1);
+  }
+  /* Tangential fan: each slot is rotated to its own angle and pushed out
+     to RADIUS — transform-origin stays the default (center center), so
+     that rotate happens around the slot's own anchor point, then the
+     whole thing rides along with .fg-wheel's rotation as one rigid body.
+     No counter-rotation: the card is meant to point outward, not stay
+     upright — see the frontmatter comment. */
+  .fg-node-slot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform-origin: center center;
+  }
+  .fg-node-btn {
+    all: unset;
+    display: block;
+    position: relative;
+    width: 110px;
+    height: 145px;
+    margin-left: -55px;
+    margin-top: -72.5px;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(20, 24, 28, 0.18), 0 4px 6px -4px rgba(20, 24, 28, 0.14);
+    transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
+  }
+  .fg-node-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .fg-node-btn:hover { box-shadow: 0 14px 22px -4px rgba(20, 24, 28, 0.24), 0 6px 10px -4px rgba(20, 24, 28, 0.16); }
+  .fg-node-btn:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+
+  /* Active (top) card: scales up slightly and gets a warm copper glow —
+     content-identity stays with the slot (fixed forever, no recycling),
+     so tying this to the slot via a JS-toggled class is enough; it just
+     rides along as the wheel rotates. Each slot now carries its own
+     resting z-index inline (see zIndexFor in the frontmatter) so the
+     active boost has to win against that inline value — hence
+     !important here, on the slot itself rather than the button, so it's
+     compared against the other slots' z-index correctly. */
+  .fg-node-slot.is-active { z-index: 50 !important; }
+  .fg-node-slot.is-active .fg-node-btn {
+    transform: scale(1.05);
+    border-color: var(--copper);
+    box-shadow: 0 0 0 4px rgba(166, 103, 47, 0.28), 0 14px 26px -4px rgba(20, 24, 28, 0.28);
+  }
+
+  /* ── Mobile: plain horizontal scroll strip, same fixed photo set ──
+     `display` only set inside the media query: Astro's scoped-style
+     attribute gives `.fg-mobile-strip` higher specificity than the
+     sitewide `.m-only-block { display: none; }` base rule, so an
+     unconditional `display: flex` here would win at every width,
+     including desktop where it must stay hidden. */
+  @media (max-width: 1024px) {
+    .fg-mobile-strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 4px 2px 8px;
+    }
+  }
+  .fg-strip-btn {
+    all: unset;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 88px;
+    height: 116px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(20, 24, 28, 0.1);
+    transition: box-shadow 200ms ease;
+  }
+  .fg-strip-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .fg-strip-btn.is-active { box-shadow: 0 0 0 3px var(--copper); }
+  .fg-strip-btn:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fg-wheel { transition-duration: 1ms; }
+    .fg-main-img { transition: none; }
+  }
+
+  /* ── Lightbox ── */
+  .fg-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(8, 13, 18, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+  .fg-lightbox[hidden] { display: none; }
+  .fg-lightbox.is-open { opacity: 1; }
+
+  .fg-lb-figure { margin: 0; max-width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; }
+  .fg-lb-img {
+    max-width: min(88vw, 1200px);
+    max-height: 74vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+    transform: scale(0.97);
+    opacity: 0;
+    transition: opacity 280ms ease, transform 280ms ease;
+  }
+  .fg-lightbox.is-open .fg-lb-img { opacity: 1; transform: scale(1); }
+
+  .fg-lb-bar {
+    margin-top: 18px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-family: "Instrument Sans", sans-serif;
+    color: #fff;
+  }
+  .fg-lb-bar span:first-child { font-size: 18px; font-weight: 600; letter-spacing: -0.012em; }
+  .fg-lb-bar span:last-child { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #7fb3bc; font-variant-numeric: tabular-nums; }
+
+  .fg-lb-btn {
+    all: unset;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+  }
+  .fg-lb-btn:hover { background: rgba(255, 255, 255, 0.18); }
+  .fg-lb-btn:focus-visible { outline: 2px solid var(--copper-light); outline-offset: 2px; }
+  .fg-lb-btn .msym { font-size: 24px; }
+  .fg-lb-close { top: 24px; right: 24px; }
+  .fg-lb-prev { top: 50%; left: 24px; transform: translateY(-50%); }
+  .fg-lb-next { top: 50%; right: 24px; transform: translateY(-50%); }
+  @media (max-width: 640px) {
+    .fg-lb-prev { left: 8px; width: 40px; height: 40px; }
+    .fg-lb-next { right: 8px; width: 40px; height: 40px; }
+    .fg-lb-close { top: 12px; right: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fg-lightbox, .fg-lb-img { transition: none; }
+  }
+</style>
+
+<script define:vars={{ id, photos, N }}>
+  (() => {
+    const main = document.getElementById(id);
+    const wheel = document.getElementById(`${id}-wheel`);
+    if (!main || !wheel) return;
+
+    const mainFig = main.querySelector(".fg-main");
+    const mainImg = document.getElementById(`${id}-main-img`);
+    const mainTitle = document.getElementById(`${id}-main-title`);
+    const mainCount = document.getElementById(`${id}-main-count`);
+    const slots = Array.from(wheel.querySelectorAll(".fg-node-slot"));
+    const stripBtns = Array.from(main.querySelectorAll(".fg-strip-btn"));
+
+    let rot = 0;
+    let activeIndex = 0; // index within the fixed `photos` array (0..N-1)
+
+    const normalize180 = (deg) => (((deg + 180) % 360) + 360) % 360 - 180;
+
+    const showPhoto = (photoIndex) => {
+      const p = photos[photoIndex];
+      activeIndex = photoIndex;
+      mainImg.src = p.src;
+      mainImg.alt = p.cap;
+      mainTitle.textContent = p.cap;
+      mainCount.textContent = `${photoIndex + 1} of ${photos.length}`;
+      main.setAttribute("aria-label", `Enlarge photo: ${p.cap}`);
+      stripBtns.forEach((b) => b.classList.toggle("is-active", Number(b.dataset.photoIndex) === photoIndex));
+    };
+
+    const spinTo = (index) => {
+      if (index === activeIndex) return;
+      const targetNorm = normalize180(-(index * (360 / N)));
+      const curNorm = normalize180(rot);
+      rot += normalize180(targetNorm - curNorm);
+      wheel.style.setProperty("--fg-rot", `${rot}deg`);
+      slots.forEach((s) => s.classList.toggle("is-active", Number(s.dataset.index) === index));
+
+      mainFig.classList.add("is-swapping");
+      window.setTimeout(() => {
+        showPhoto(index);
+        mainFig.classList.remove("is-swapping");
+      }, 320);
+    };
+
+    slots[0]?.classList.add("is-active");
+    wheel.querySelectorAll(".fg-node-btn").forEach((btn) => {
+      btn.addEventListener("click", () => spinTo(Number(btn.dataset.photoIndex)));
+    });
+
+    stripBtns[0]?.classList.add("is-active");
+    stripBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const photoIndex = Number(btn.dataset.photoIndex);
+        mainFig.classList.add("is-swapping");
+        window.setTimeout(() => {
+          showPhoto(photoIndex);
+          mainFig.classList.remove("is-swapping");
+        }, 160);
+      });
+    });
+
+    // ── Lightbox ──
+    const lb = document.getElementById(`${id}-lightbox`);
+    const lbImg = document.getElementById(`${id}-lb-img`);
+    const lbTitle = document.getElementById(`${id}-lb-title`);
+    const lbCount = document.getElementById(`${id}-lb-count`);
+    const lbClose = lb.querySelector("[data-fg-close]");
+    const lbPrev = lb.querySelector("[data-fg-prev]");
+    const lbNext = lb.querySelector("[data-fg-next]");
+    let lbIndex = 0;
+    let lastFocused = null;
+
+    const renderLightbox = () => {
+      const p = photos[lbIndex];
+      lbImg.src = p.src;
+      lbImg.alt = p.cap;
+      lbTitle.textContent = p.cap;
+      lbCount.textContent = `${lbIndex + 1} of ${photos.length}`;
+    };
+
+    const openLightbox = (startIndex) => {
+      lbIndex = startIndex;
+      renderLightbox();
+      lastFocused = document.activeElement;
+      lb.hidden = false;
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => lb.classList.add("is-open"));
+      lbClose.focus();
+      document.addEventListener("keydown", onKeydown);
+    };
+
+    const closeLightbox = () => {
+      lb.classList.remove("is-open");
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeydown);
+      window.setTimeout(() => { lb.hidden = true; }, 240);
+      if (lastFocused instanceof HTMLElement) lastFocused.focus();
+    };
+
+    const step = (dir) => {
+      lbIndex = (lbIndex + dir + photos.length) % photos.length;
+      renderLightbox();
+    };
+
+    const onKeydown = (e) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "ArrowRight") step(1);
+    };
+
+    mainFig.addEventListener("click", () => openLightbox(activeIndex));
+    mainFig.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(activeIndex); }
+    });
+    lbClose.addEventListener("click", closeLightbox);
+    lbPrev.addEventListener("click", () => step(-1));
+    lbNext.addEventListener("click", () => step(1));
+    lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
+  })();
+</script>

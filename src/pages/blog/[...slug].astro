@@ -1,0 +1,29 @@
+---
+/**
+ * Real /blog/{slug}/ post pages — only for entries with actual body content
+ * (no `externalPath`). The 18 legacy Tier A posts are metadata-only and
+ * never get a page here; they keep their original root-level URL. Draft
+ * posts render in `astro dev` only (see src/lib/blog.ts `isVisible`) so a
+ * new post can be reviewed at its real URL before it's live.
+ */
+import { render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { getVisiblePosts, getRelatedPosts, readingTimeMinutes } from '../../lib/blog';
+import { site } from '../../config/site';
+
+export async function getStaticPaths() {
+  const posts = await getVisiblePosts();
+  const real = posts.filter((p) => !p.data.externalPath);
+  return real.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const related = await getRelatedPosts(post);
+const minutes = readingTimeMinutes(post, post.body);
+const canonicalUrl = new URL(`/blog/${post.id}/`, site.domain).href;
+---
+
+<BlogPostLayout post={post} headings={headings} related={related} minutes={minutes} canonicalUrl={canonicalUrl}>
+  <Content />
+</BlogPostLayout>

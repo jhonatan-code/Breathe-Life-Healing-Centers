@@ -1,0 +1,84 @@
+---
+/**
+ * /about/our-team/brian-whisenant/ — real profile. Full first-person bio
+ * sourced verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/brian-whisenant/, checked
+ * 2026-09-02). No clean short credential appears in his name/title, so no
+ * badge is rendered. Photo/role are defined locally since he isn't in
+ * data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Brian Whisenant",
+  role: "National Clinical Outreach Coordinator",
+  photo: "/Asset/Our%20Team/brian-whisenant.jpg",
+};
+
+const fullBio = [
+  "I'm originally from Corinth, Mississippi, a small town where life wasn't always easy—especially as a queer person. I'm incredibly proud of how far I've come, and I owe much of that growth to the teachers, healers, and allies who supported me along the way. I'm now living a dream come true, working as an LGBTQIA+ Outreach Rep, where I have the incredible opportunity to help people just like me. The journey to self-love and recovery can be difficult, but if I can be a small part in someone's healing process, it's truly an honor.",
+  "What inspires me every day is the chance to give back to a community that has given me so much. I love being queer, and it's taken me a long time to fully embrace that truth. If my story can inspire even one person to take the first step toward healing, I've done my job. The most rewarding part of my work is seeing the light bulb go on for someone I've helped place into treatment, watching them succeed and thrive. That moment when someone realizes their worth is everything.",
+  "Self-care is essential, and it's something I work on daily. I stay grounded by working out, relaxing in the sauna, and practicing meditation. Narcotics Anonymous and the 12 steps also help me stay connected and balanced. Living a balanced life is a practice, but it's one I take seriously.",
+  "A quote that keeps me centered comes from William Goldman: \"Nobody knows anything.\" It's a reminder to always stay open-minded, manage expectations, and embrace the unpredictability of life.",
+  "If you're thinking about coming to Breathe, I want you to know that it's not just a treatment center. We're called a healing center for a reason. This is a place where you can truly breathe, heal, and grow at your own pace.",
+  "Outside of work, I'm all about creative expression. I love acting, making movies, and cooking up something delicious. I also spend a lot of time reading queer literature—especially YA books I didn't have access to as a kid. And of course, I cherish spending time with my friends, who are my chosen family.",
+];
+
+const title = "Brian Whisenant | National Clinical Outreach Coordinator | Breathe Life Healing Centers";
+const description = "Brian Whisenant is National Clinical Outreach Coordinator at Breathe Life Healing Centers, bringing his own recovery journey to LGBTQIA+ outreach nationwide.";
+
+const pageUrl = new URL("/about/our-team/brian-whisenant/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/brian-whisenant/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="brian-whisenant" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-10-fitness-center.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

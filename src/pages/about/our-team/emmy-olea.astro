@@ -1,0 +1,81 @@
+---
+/**
+ * /about/our-team/emmy-olea/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/emmy-olea/, checked 2026-09-02).
+ * No clean short credential appears in her name/title, so no badge is
+ * rendered. Photo/role are defined locally since she isn't in
+ * data/home.ts's `team` array.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const person = {
+  name: "Emmy Olea",
+  role: "Director of Marketing & Business Development",
+  photo: "/Asset/Our%20Team/emmy-olea.jpg",
+};
+
+const fullBio = [
+  "I am originally from San Diego, but Los Angeles is my forever home. After graduating from Cal Poly Pomona, I moved to LA and got my start in fashion PR, social media, and advertising agencies before transitioning into the non-profit sector, where I discovered my passion for helping others on a deeper level. As a woman of trans experience, I'm deeply committed to advocating for LGBTQIA+-focused treatment in residential care. Creating spaces of true inclusivity, respect, and healing is at the heart of everything I do. With 18 years of sobriety, I draw on my own journey to connect with and support others on their paths to recovery.",
+  "My award-winning narrative podcast, Crumbs (Signal Award), explores identity, family dynamics, and recovery. Through raw and honest storytelling, I aim to highlight the ways our backgrounds, relationships, and sense of self shape our journeys, and how resilience and healing can emerge even in the most challenging circumstances. Sharing these stories allows me to inspire connection, understanding, and hope for listeners around the world.",
+  "Within behavioral health, I've worked to drive cultural progress, introducing trans sensitivity and cultural training to a large-scale facility, helping staff create environments of empathy and inclusion. Outside of my work at Breathe, I'm a creative at heart, an actor, writer, and director, and I'm excited about upcoming projects that continue to center authentic storytelling. At the core of all I do is a commitment to challenge norms, amplify underrepresented voices, and inspire others to be the change they wish to see.",
+];
+
+const title = "Emmy Olea | Director of Marketing & Business Development | Breathe Life Healing Centers";
+const description = "Emmy Olea is Director of Marketing & Business Development at Breathe Life Healing Centers — a woman of trans experience with 18 years of sobriety, advocating for LGBTQIA+-focused treatment.";
+
+const pageUrl = new URL("/about/our-team/emmy-olea/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: person.name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+      image: new URL(person.photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/emmy-olea/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={person.name} role={person.role} photo={person.photo} slug="emmy-olea" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-18-great-room.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

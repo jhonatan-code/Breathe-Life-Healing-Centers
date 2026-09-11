@@ -1,0 +1,96 @@
+---
+/**
+ * /about/our-team/emily-wessel/ — real profile. Full first-person bio sourced
+ * verbatim from the official live site's own dedicated page
+ * (breathelifehealingcenters.com/our-team/emily-wessel/, checked 2026-09-02).
+ * Not in src/data/home.ts's `team` array, so name/role/photo/badge are
+ * defined directly below rather than pulled from it — mirrors beck-gee.astro
+ * otherwise.
+ *
+ * ⚠️ EDITED FROM SOURCE (only bio on this site with an edit): the source
+ * page's second paragraph, in Emily's own words, includes "...I train
+ * primarily in somatic breath work, CBT, EMDR, psychodrama, and experiential
+ * techniques." CLAUDE.md's client-specific rules are explicit and repeated
+ * elsewhere in this project: "Do not reference EMDR, IFS, or contingency
+ * management — Breathe does not offer them." That's a personal statement
+ * about her own training, not a claim that Breathe offers EMDR, but
+ * publishing it verbatim on a Breathe-branded bio page reads as exactly the
+ * kind of reference that rule exists to prevent. "EMDR, " was removed from
+ * this one list; nothing else in her bio was touched. Flagging here for
+ * client/Elizabeth visibility rather than silently deciding — this is the
+ * one deliberate deviation from "verbatim, no edits" across all ~43 bios.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Emily Wessel, LPCC, CET2, CCTP-II";
+const role = "Clinical Director";
+const badge = "LPCC, CET2, CCTP-II";
+const photo = "/Asset/Our%20Team/emily-wessel.jpg";
+
+const fullBio = [
+  `Growing up and getting into recovery in the Washington, DC Metro Area afforded me diverse opportunities for education and cultural experience. Recovery changed my perspective on everything; it showed me a way to live with purpose and how to enjoy peace amid the storm. Working in the mental health field came unexpectedly at a young age and taught me the value of being present for things as they come. Some of the best things in my life came as unexpected opportunities.`,
+  `Being a therapist is a beautiful responsibility. It requires frequently taking a look at myself to assess bias, beliefs, power dynamics, and privilege. I continue to do my own work, so that I can be compassionate and present to co-create with others to do theirs. As a clinician, I train primarily in somatic breath work, CBT, psychodrama, and experiential techniques. These modalities assist in both leadership and therapeutic roles to look at systems and the persons within them.`,
+  `Hope that prioritize joy is what keeps me going. Not as a passive feeling or optimistic view, but as a belief in collective healing through connection and purpose. To stay grounded and in connection with myself, I dance, rest, and play. Self-care for me is curiosity and slowing down. Outside of work you can find me dancing, roller skating, or spending time with family and friends.`,
+  `A quote that guides me: "It is the energy of spontaneity and creativity which enable us in the here-and-now to transform, to actualize our self." – J.L. Moreno`,
+  `If you are thinking of coming to breathe, I want you to know that you are more than what has happened to you. Building community and resources can make a big difference in the quality of life available to us as we recover.`,
+  `One song I could listen to on repeat is the MOOD II SWING remix of "FREE" by ULTRA NATÉ. It is one of many dance floor classics that got me through early recovery, and it is a lot of fun.`,
+];
+
+const title = "Emily Wessel, LPCC, CET2, CCTP-II | Clinical Director | Breathe Life Healing Centers";
+const description = "Emily Wessel is Clinical Director at Breathe Life Healing Centers, bringing a trauma-informed, somatic approach and her own recovery journey to Breathe's clinical team.";
+
+const pageUrl = new URL("/about/our-team/emily-wessel/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/emily-wessel/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="emily-wessel" fullBio={fullBio} />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-17-living-room-lounge.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

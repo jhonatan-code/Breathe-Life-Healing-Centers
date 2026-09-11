@@ -1,0 +1,78 @@
+---
+/**
+ * /about/our-team/mayra-lopez/ — placeholder bio. The official live site's
+ * dedicated page for Mayra Lopez
+ * (breathelifehealingcenters.com/our-team/mayra-lopez-lvn/, checked
+ * 2026-09-02) carries her name, credential (LVN), and role (Lead Nurse) plus
+ * a photo — but no first-person biography text at all (verified with two
+ * separate fetch passes, including a full-page-text dump). Per this batch's
+ * hard rule, no bio content is invented — the bio section below uses
+ * ClinicalPlaceholder instead. Hero/photo/name/role are still real and
+ * populated normally. Not in src/data/home.ts's `team` array, so
+ * name/role/photo/badge are defined directly below.
+ */
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
+import TeamProfile from "../../../components/TeamProfile.astro";
+import { site } from "../../../config/site";
+
+const name = "Mayra Lopez, LVN";
+const role = "Lead Nurse";
+const badge = "LVN";
+const photo = "/Asset/Our%20Team/mayra-lopez.jpg";
+
+const title = "Mayra Lopez, LVN | Lead Nurse | Breathe Life Healing Centers";
+const description = "Mayra Lopez, LVN is Lead Nurse at Breathe Life Healing Centers.";
+
+const pageUrl = new URL("/about/our-team/mayra-lopez/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "About", item: new URL("/about/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Our Team", item: new URL("/about/our-team/", site.domain).href },
+        { "@type": "ListItem", position: 4, name: name, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: name,
+      jobTitle: role,
+      image: new URL(photo, site.domain).href,
+      url: pageUrl,
+      worksFor: { "@id": new URL("/#organization", site.domain).href },
+    },
+    { "@type": "Organization", "@id": new URL("/#organization", site.domain).href, name: site.name, url: site.domain },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/about/our-team/mayra-lopez/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="About" />
+
+    <main id="main">
+
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="mayra-lopez" />
+
+    <SiteFinalCTA
+      heading="Talk to someone who's been where you are"
+      subhead="Every clinician on staff has personal recovery experience — you won't have to explain yourself to someone who's only read about it."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-08-poolside-grotto-overlook.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>

@@ -1,0 +1,84 @@
+---
+/**
+ * /blog/, /blog/2/, /blog/3/... — numbered pagination via Astro's built-in
+ * paginate(), matching the approved Artifact preview. Category filtering
+ * lives at /blog/category/{slug}/ as its own crawlable, paginated archive
+ * (see src/pages/blog/category/[category]/[...page].astro) rather than
+ * client-side-only filtering, so each category gets a real indexable URL.
+ */
+import type { GetStaticPathsOptions, Page } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import { getVisiblePosts, CATEGORY_LABELS, CATEGORY_SLUGS, type BlogEntry } from '../../lib/blog';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getVisiblePosts();
+  return paginate(posts, { pageSize: 7 });
+}
+
+const { page } = Astro.props as { page: Page<BlogEntry> };
+const [featured, ...rest] = page.data;
+const title = page.currentPage === 1 ? 'Blog | Breathe Life Healing Centers' : `Blog, Page ${page.currentPage} | Breathe`;
+const description = 'Guidance for people in recovery and the families who love them, written by our own clinical team.';
+---
+
+<Layout title={title} description={description} path="/blog/">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader />
+    <main id="main">
+      <section class="listing-head">
+        <div class="listing-head-inner">
+          <div class="eyebrow">From Breathe</div>
+          <h1>Real stories, honest information</h1>
+          <p class="mono-body">Guidance for people in recovery and the families who love them, written by our own clinical team.</p>
+          <nav class="filters" aria-label="Filter by category">
+            <a class="filter-pill is-active" href="/blog/">All</a>
+            {CATEGORY_SLUGS.map((c) => <a class="filter-pill" href={`/blog/category/${c}/`}>{CATEGORY_LABELS[c]}</a>)}
+          </nav>
+        </div>
+      </section>
+
+      <div class="wrap">
+        {page.currentPage === 1 && featured && (
+          <div class="feature-row">
+            <BlogCard post={featured} featured />
+          </div>
+        )}
+        <div class="grid">
+          {(page.currentPage === 1 ? rest : page.data).map((p) => <BlogCard post={p} />)}
+        </div>
+      </div>
+
+      <nav class="pagination" aria-label="Blog pagination">
+        {page.currentPage > 1 && <a href={page.currentPage - 1 === 1 ? '/blog/' : `/blog/${page.currentPage - 1}/`} aria-label="Previous page">&lsaquo;</a>}
+        {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
+          <a href={n === 1 ? '/blog/' : `/blog/${n}/`} aria-current={n === page.currentPage ? 'page' : undefined}>{n}</a>
+        ))}
+        {page.currentPage < page.lastPage && <a href={`/blog/${page.currentPage + 1}/`} aria-label="Next page">&rsaquo;</a>}
+      </nav>
+    </main>
+    <SiteFooter />
+  </div>
+</Layout>
+
+<style>
+  .listing-head { padding: 56px 37px 30px; }
+  .listing-head-inner { max-width: 1440px; margin: 0 auto; }
+  .listing-head h1 { font-size: clamp(34px,4.4vw,54px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 600; max-width: 16ch; margin: 14px 0 16px; }
+  .listing-head p { font-family: 'Montserrat', sans-serif; color: #3A444D; max-width: 58ch; margin: 0; font-size: 17px; }
+  .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; }
+  .filters { display: flex; gap: 10px; justify-content: flex-start; flex-wrap: wrap; margin-top: 28px; }
+  .filter-pill { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1px solid #E5E1D8; background: #fff; color: #3A444D; text-decoration: none; }
+  .filter-pill.is-active { background: #16293D; color: #fff; border-color: #16293D; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding-inline: 37px; }
+  .feature-row { margin: 44px auto 0; max-width: 1180px; }
+  .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1180px; margin: 36px auto 0; }
+  .pagination { display: flex; justify-content: center; gap: 8px; padding: 52px 37px 70px; }
+  .pagination a { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-family: 'Instrument Sans', sans-serif; font-size: 14px; font-weight: 600; color: #3A444D; text-decoration: none; border: 1px solid #E5E1D8; }
+  .pagination a[aria-current="page"] { background: #16293D; color: #fff; border-color: #16293D; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+</style>

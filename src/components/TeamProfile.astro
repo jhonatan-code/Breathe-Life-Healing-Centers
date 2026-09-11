@@ -1,0 +1,151 @@
+---
+/**
+ * Shared hero + bio + "More from [department]" layout for every individual
+ * /about/our-team/{slug}/ page — replaces the old plain circle-photo +
+ * stacked-paragraphs pattern with one cohesive system used by all ~44
+ * profiles regardless of bio length (including the ~19 with none yet, which
+ * render BioComingSoon in the same column instead of paragraphs).
+ *
+ * Department + "More from" peers come from the single roster source of
+ * truth (src/data/team-roster.ts) via `slug` — never duplicate that data
+ * here or per-page.
+ *
+ * `pullQuote`, when passed, must be a sentence lifted verbatim from that
+ * same person's own bio — never invented, never paraphrased. It renders
+ * once, right after the first paragraph. Omit it entirely rather than
+ * manufacture one for a thin bio.
+ */
+import BioComingSoon from "./BioComingSoon.astro";
+import { getTeamContext } from "../data/team-roster";
+import BlogCard from "./blog/BlogCard.astro";
+import { getPostsByAuthor } from "../lib/blog";
+
+interface Props {
+  name: string;
+  role: string;
+  badge?: string;
+  photo: string;
+  slug: string;
+  fullBio?: string[];
+  pullQuote?: string;
+}
+const { name, role, badge, photo, slug, fullBio, pullQuote } = Astro.props;
+
+const ctx = getTeamContext(slug);
+const [firstPara, ...restParas] = fullBio ?? [];
+const articles = await getPostsByAuthor(slug);
+---
+
+{/* ══════════════  HERO + BIO — side by side  ══════════════
+   Photo stays sticky in the left column (matches the site's existing
+   sticky-rail convention, e.g. SiteFAQ.astro's top:110px) while the name,
+   role, badge and full bio run down the right column beside it — makes
+   real use of the space next to the photo instead of leaving it mostly
+   empty above a separate full-width bio section. */}
+<section data-screen-label="Hero" style="padding:70px 37px 60px;background:#FFFFFF;">
+  <div style="max-width:1440px;margin:0 auto;">
+    <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:26px;">
+      <a href="/about/our-team/" style="color:#2C5A64;">Our Team</a> <span aria-hidden="true" style="opacity:0.6;">›</span> {name}
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:stretch;max-width:1100px;">
+      {/* Colored panel runs the full row height (matches the bio column,
+         however long it is) rather than just the photo's own height — the
+         photo sits inset and sticky within it, so the left side reads as
+         one anchored card instead of a photo floating on plain white. */}
+      <div class="profile-photo-panel" style="flex:1 1 380px;max-width:380px;background:#F0F5FA;border-radius:20px;padding:20px;">
+        <div class="profile-photo" style="position:sticky;top:130px;aspect-ratio:4/5;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(20,24,28,0.08),0 10px 24px rgba(20,24,28,0.10);">
+          <img src={photo} alt={name} style="width:100%;height:100%;object-fit:cover;object-position:center 14%;display:block;" />
+        </div>
+      </div>
+      <div style="flex:1 1 360px;min-width:280px;">
+        {ctx && <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">{ctx.dept}</div>}
+        <h1 style="font-size:clamp(34px,4vw,52px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;margin:0 0 12px;text-wrap:balance;">{name}</h1>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:18px;color:#646D76;margin:0 0 16px;">{role}</p>
+        {badge && <span style="display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.14em;background:#F0F5FA;color:#2C5A64;padding:6px 12px;border-radius:4px;margin-bottom:32px;">{badge}</span>}
+
+        {firstPara ? (
+          <div class="profile-bio" style="margin-top:32px;border-left:3px solid #7FB3BC;padding-left:28px;display:grid;gap:22px;">
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:18px;line-height:1.75;color:#3A444D;margin:0;font-weight:300;">{firstPara}</p>
+            {pullQuote && (
+              <blockquote style="margin:6px 0;padding:0;border:0;font-family:'Instrument Sans',sans-serif;font-size:clamp(22px,2.4vw,30px);line-height:1.35;letter-spacing:-0.01em;font-weight:600;color:#16293D;">
+                “{pullQuote}”
+              </blockquote>
+            )}
+            {restParas.map((p) => (
+              <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:18px;line-height:1.75;color:#3A444D;margin:0;font-weight:300;">{p}</p>
+            ))}
+          </div>
+        ) : (
+          <div style="margin-top:32px;">
+            <BioComingSoon />
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* ══════════════  MORE FROM DEPARTMENT  ══════════════ */}
+{ctx && ctx.peers.length > 0 && (
+  <section data-screen-label="More from department" style="padding:0 37px 60px;background:#FFFFFF;">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:18px;">More from {ctx.dept}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:20px;">
+        {ctx.peers.map((p) => (
+          <a href={`/about/our-team/${p.slug}/`} style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex:0 0 auto;">
+            <span style="width:52px;height:52px;border-radius:999px;overflow:hidden;flex:0 0 auto;display:block;">
+              <img src={p.photo} alt={p.name} loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;" />
+            </span>
+            <span>
+              <span style="display:block;font-size:14px;font-weight:600;letter-spacing:-0.008em;">{p.name}</span>
+              <span style="display:block;font-family:'Montserrat',Helvetica,sans-serif;font-size:12.5px;color:#646D76;">{p.role}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{/* ══════════════  ARTICLES BY THIS AUTHOR  ══════════════ */}
+{articles.length > 0 && (
+  <section data-screen-label="Articles by author" style="padding:0 37px 60px;background:#FFFFFF;">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:18px;">Articles by {name}</div>
+      <div class="author-articles-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1180px;">
+        {articles.map((post) => <BlogCard post={post} />)}
+      </div>
+    </div>
+  </section>
+)}
+
+{/* ══════════════  BACK LINK  ══════════════ */}
+<section data-screen-label="Back to team" style="padding:0 37px 70px;background:#FFFFFF;">
+  <div style="max-width:1440px;margin:0 auto;">
+    <a href="/about/our-team/" style="color:#33679C;font-weight:600;font-family:'Montserrat',sans-serif;font-size:15px;">← Back to Our Team</a>
+  </div>
+</section>
+
+<style>
+  /* Drop cap on the bio's opening paragraph only — declarative via
+     :first-of-type so it works regardless of how many paragraphs a given
+     person's bio has. */
+  .profile-bio p:first-of-type::first-letter {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 3.4em;
+    font-weight: 600;
+    float: left;
+    line-height: 0.8;
+    padding: 0.05em 0.08em 0 0;
+    color: #16293D;
+  }
+
+  /* Sticky only makes sense in the true side-by-side desktop layout — once
+     the columns stack on narrower screens, a sticky photo would just hover
+     oddly over the bio text as it scrolls past underneath. */
+  @media (max-width: 1024px) {
+    .profile-photo { position: static !important; }
+  }
+  @media (max-width: 900px) { .author-articles-grid { grid-template-columns: 1fr 1fr !important; } }
+  @media (max-width: 620px) { .author-articles-grid { grid-template-columns: 1fr !important; } }
+</style>

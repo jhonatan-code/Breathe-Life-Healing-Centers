@@ -1,0 +1,282 @@
+---
+/**
+ * /what-we-treat/xanax/ — no approved content brief exists for this page yet.
+ * Structural/marketing copy (headings, framing sentences, CTA labels) is
+ * original; anything that would be a specific clinical claim is placeholdered
+ * via <ClinicalPlaceholder /> per CLAUDE.md's YMYL rule, rather than invented.
+ * Visual language and section structure mirror /what-we-treat/cocaine/ and
+ * /what-we-treat/methamphetamine/ — same shared components, same
+ * card/pill/pillar patterns.
+ *
+ * Xanax gets its own page (distinct from the broader Benzodiazepines page)
+ * per the approved sitemap. The two pages cross-link each other.
+ *
+ * FAQ and the "signs" card are <ClinicalPlaceholder /> — no FAQPage schema.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
+import SiteReviews from "../../components/SiteReviews.astro";
+import SiteInsurance from "../../components/SiteInsurance.astro";
+import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
+import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import { site } from "../../config/site";
+
+const PH = site.phoneDisplay;
+const HREF = site.phoneHref;
+
+const title = "Xanax Addiction Treatment in Los Angeles | Breathe";
+const description =
+  "Xanax (alprazolam) addiction treatment in Los Angeles — medically supervised detox, residential care, and dual diagnosis support. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+
+const S = {
+  eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
+  h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
+  intro: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 auto;",
+  ctaBlue: "background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaWhite: "background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);",
+  ctaGhost: "background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;",
+  card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
+};
+
+const care = [
+  {
+    icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", cta: "Learn About Medical Detox",
+    text: "A carefully managed, medically supervised start, built around your specific history with the medication.",
+  },
+  {
+    icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", cta: "Learn About Residential Treatment",
+    text: "Full-time structure and clinical support once detox is complete.",
+  },
+  {
+    icon: "psychology", title: "Cognitive Behavioral Therapy", href: "/therapies/cbt/", cta: "Learn About CBT",
+    text: "Helps you recognize the thought patterns that drive use, and build different ones.",
+  },
+  {
+    icon: "wb_sunny", title: "PHP & IOP", href: "/programs/php/", cta: "Explore PHP & IOP",
+    text: "Step-down options once you're stable, built around real life rather than replacing it.",
+  },
+];
+
+const conditions: [string, string][] = [
+  ["Anxiety", "/conditions/anxiety/"],
+  ["Depression", "/conditions/depression/"],
+  ["Trauma", "/conditions/trauma/"],
+];
+
+const why = [
+  {
+    icon: "volunteer_activism", title: "Staff who've lived it",
+    text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
+  },
+  {
+    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
+    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+  },
+  {
+    icon: "family_restroom", title: "Family involved, on your terms",
+    text: "Family therapy that doesn't assume blood relationships. Partners and chosen family are welcome participants.",
+  },
+];
+
+const pageUrl = new URL("/what-we-treat/xanax/", site.domain).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Xanax", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "MedicalWebPage",
+      name: title,
+      url: pageUrl,
+      about: { "@type": "MedicalCondition", name: "Xanax (alprazolam) dependence" },
+      provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/what-we-treat/xanax/">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader current="What We Treat" />
+
+    <main id="main">
+
+    {/* ══════════════  HERO  ══════════════ */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+      <img src="/Asset/Facility/facility-17-living-room-lounge.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+        <div style="flex:1 1 560px;">
+          <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
+            <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Xanax
+          </nav>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Xanax Addiction Treatment in Los Angeles. Steady Ground, Rebuilt Safely.</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Xanax dependence often starts with a legitimate prescription. Getting free of it safely takes more than stopping cold — it takes real medical support.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
+            <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+        </div>
+        <VerifyInsuranceForm />
+      </div>
+    </section>
+
+    {/* ══════════════  UNDERSTANDING XANAX ADDICTION  ══════════════ */}
+    <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
+        <div>
+          <div style={S.eyebrow}>Understanding</div>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:26ch;`}>Understanding Xanax addiction</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Xanax, known generically as alprazolam, is a fast-acting benzodiazepine often prescribed for anxiety or panic. Dependence can build even when it's taken exactly as directed, which is part of why so many people are caught off guard by it.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Stopping Xanax on your own can carry real risk. Our medical team manages this closely, with a plan built around your specific dose and history.</p>
+        </div>
+        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of Xanax dependence — needs approved clinical brief before publishing." />
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE TREAT XANAX ADDICTION  ══════════════ */}
+    <section data-screen-label="How we treat it" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>How we help</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>How we treat Xanax addiction</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+          {care.map((c, i) => {
+            const teal = i % 2 === 1;
+            return (
+              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
+                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                </span>
+                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
+                <p style={`${S.card}flex:1;`}>{c.text}</p>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{c.cta} <span aria-hidden="true">→</span></a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  CO-OCCURRING CONDITIONS  ══════════════ */}
+    <section data-screen-label="Co-occurring conditions" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:860px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Dual diagnosis</div>
+        <h2 style={`${S.h2}max-width:24ch;`}>Xanax use rarely travels alone</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Anxiety, depression, and trauma often show up alongside it. We treat what's actually happening, not just the Xanax use.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
+          {conditions.map(([name, href]) => (
+            <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
+          ))}
+        </div>
+        <a class="cta" href="/conditions/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Dual Diagnosis</a>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;margin:22px 0 0;">See <a href="/what-we-treat/" style="color:#2C5A64;font-weight:500;">everything we treat</a>, including our broader <a href="/what-we-treat/benzodiazepines/" style="color:#2C5A64;font-weight:500;">Benzodiazepines</a> page and <a href="/what-we-treat/opioids/" style="color:#2C5A64;font-weight:500;">Opioids</a>.</p>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for Xanax detox and treatment — before you commit to anything."
+    />
+
+    {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Why Breathe</div>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for Xanax treatment</h2>
+        </div>
+        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          {why.map((w) => (
+            <div style="padding:32px 30px;">
+              <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+              </span>
+              <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
+              <p style={S.card}>{w.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SiteReviews />
+
+    <SiteLocation />
+
+    {/* ══════════════  FAQ  ══════════════ */}
+    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:900px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style={S.eyebrow}>Questions</div>
+          <h2 style={`${S.h2}max-width:32ch;`}>Questions people ask about Xanax treatment</h2>
+        </div>
+        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content for Xanax addiction treatment — needs approved brief covering safe tapering, co-occurring benzodiazepine use, and insurance coverage." />
+      </div>
+    </section>
+
+    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px so
+       mobile users meet it here, right before the Final CTA. */}
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+      </div>
+    </section>
+
+    <SiteFinalCTA
+      heading="Are you ready to take the first step?"
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
+      background="/Asset/Facility/facility-18-great-room.jpg"
+    />
+
+    </main>
+
+    <SiteFooter />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<script>
+  // ── Section reveal on scroll (same behaviour as the homepage) ────────────
+  (() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top), footer"));
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    let lastY = window.scrollY || 0;
+    targets.forEach((el) => el.classList.add("blhc-reveal"));
+    const io = new IntersectionObserver((entries) => {
+      const y = window.scrollY || 0;
+      const down = y >= lastY;
+      lastY = y;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (down || e.boundingClientRect.top < innerHeight * 0.5) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+  })();
+
+  // The insurance-logo marquee and reviews carousel live in
+  // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+</script>
