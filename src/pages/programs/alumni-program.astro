@@ -1,13 +1,21 @@
 ---
 /**
  * /programs/alumni-program/ — no dedicated content brief exists yet for
- * this page. Structural/marketing copy only; the one substantive claim
- * (that the alumni program follows up with former patients) is grounded in
- * a real, sourced Google review already used elsewhere on the site
- * (programs/index.astro), not invented.
+ * this page, but two corrections came in directly from
+ * ~/Downloads/Breathe_Life_Alumni_Program_CORRECTIONS.docx (applied
+ * 2026-09-14) and are reflected below:
  *
- * FAQ has no approved brief, so it renders a ClinicalPlaceholder instead of
- * SiteFAQ/invented Q&A, and the page skips FAQPage JSON-LD entirely.
+ * 1. "What alumni are saying" replaced the old 3-card grid of generic
+ *    reviews (Edil Visli, Dustin Dudley, Troy Eaton's own quote truncated
+ *    right before the line that actually mentioned the alumni program) with
+ *    a single featured pull-quote — Troy Eaton's real, complete review,
+ *    quoted verbatim from the corrections doc (a slightly different
+ *    transcription than the one stored in data/home.ts `reviews`, which is
+ *    shared with other pages — this one is scoped to this page only, per
+ *    the doc, so it isn't pulled from that shared array).
+ * 2. The FAQ ClinicalPlaceholder is replaced with the 7 real Q&As the doc
+ *    says were "already delivered separately" — real SiteFAQ content now,
+ *    with FAQPage JSON-LD added since there's approved copy to back it.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -16,11 +24,11 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../config/site";
-import { why, reviews } from "../../data/home";
+import { why } from "../../data/home";
 
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
@@ -53,7 +61,16 @@ const included = [
   { icon: "family_restroom", title: "Room for family, too", text: "Family and chosen family stay part of the picture, not just the client alone." },
 ];
 
-const alumniQuotes = reviews.filter((r) => ["Edil Visli", "Troy Eaton", "Dustin Dudley"].includes(r.name));
+// Verbatim from Breathe_Life_Alumni_Program_CORRECTIONS.docx (2026-09-14).
+const faqs = [
+  { q: "What is the Alumni Program?", a: "Ongoing community and support for anyone who has completed treatment at Breathe. It includes weekly BreatheOUT support groups, a private alumni community, and an Alumni Coordinator who stays in touch after you leave." },
+  { q: "Is the Alumni Program only for people who did residential treatment?", a: "No. Anyone who has completed a program at Breathe is welcome to stay connected through the Alumni Program." },
+  { q: "How do the weekly support groups work?", a: "BreatheOUT hosts weekly virtual support groups, also available by podcast, where alumni can share progress, setbacks, and coping strategies with people who understand recovery from the inside." },
+  { q: "Can family members be involved in alumni support?", a: "Family involvement doesn't stop at discharge. Family Program options remain part of the picture for alumni and their families." },
+  { q: "How do I stay connected after I leave treatment?", a: "Keep your contact information updated with our Alumni Coordinator, and ask about joining the private alumni community for ongoing updates and connection." },
+  { q: "Is there a cost to participate in the Alumni Program?", a: "Alumni support is part of our ongoing commitment to your recovery. Reach out to our team for specifics on what's included." },
+  { q: "Is the Alumni Program open to LGBTQ+ and non-LGBTQ+ alumni alike?", a: "Yes. The same affirming space you had in treatment carries into the Alumni Program, open to everyone who came through our care." },
+];
 
 const related = [
   { icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", text: "Where most alumni started their treatment before staying connected here." },
@@ -81,6 +98,10 @@ const ld = {
       name: title,
       url: pageUrl,
       provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -167,19 +188,13 @@ const ld = {
 
     {/* ══════════════  WHAT ALUMNI ARE SAYING  ══════════════ */}
     <section data-screen-label="What alumni are saying" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1200px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:36px;">
-          <div style={S.eyebrow}>From public Google reviews</div>
-          <h2 style={`${S.h2}max-width:26ch;`}>What alumni are saying</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-          {alumniQuotes.map((r) => (
-            <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-radius:12px;padding:26px 24px;">
-              <p style={`${S.card}font-style:italic;margin-bottom:14px;max-height:180px;overflow-y:auto;`}>&ldquo;{r.quote}&rdquo;</p>
-              <div style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#14181C;">— {r.name}, Google review</div>
-            </div>
-          ))}
-        </div>
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>From a real alumnus</div>
+        <blockquote style="margin:0 0 22px;padding:0;border:0;font-family:'Instrument Sans',sans-serif;font-size:clamp(24px,3vw,34px);line-height:1.35;letter-spacing:-0.015em;font-weight:600;color:#16293D;text-wrap:balance;">
+          &ldquo;I spent 90 days at Breathe just about a year ago and it changed my life. The staff there guided me through dealing with some underlying emotional issues I had been overlooking for years. The care I received from the entire staff on campus and at the clinic was amazing. Their alumni program is incredible, they are big on following up and supporting former patients even after they leave the facility.&rdquo;
+        </blockquote>
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;color:#33679C;margin-bottom:36px;">Troy Eaton, Google review</div>
+        <p style={`${S.card}max-width:64ch;margin:0 auto;`}>Beyond what our alumni say, the program itself runs on real structure: weekly BreatheOUT support groups, a private alumni community, and an Alumni Coordinator who keeps in touch after you leave.</p>
       </div>
     </section>
 
@@ -241,16 +256,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style="margin-bottom:24px;max-width:52ch;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:26ch;`}>Questions people ask about the alumni program</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="No approved content brief exists yet for /programs/alumni-program/. Real FAQ copy (how to join, what events look like, whether it's open to all alumni) needs sign-off before it can replace this placeholder." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about the alumni program"
+      intro="Straight answers about who it's for, how it works, and what it costs."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">

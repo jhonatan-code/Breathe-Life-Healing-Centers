@@ -47,8 +47,24 @@ const tierAMigrationRedirects = {
   "/flight-attendant-mental-health/": "/blog/flight-attendant-mental-health/",
 };
 
+// New Beck Gee posts discovered 2026-09-14 via breathelifehealingcenters.com/author/beck/
+// -- published Sept 3-11, 2026, after our original GSC/tiering export, so they
+// never appeared in the Tier A-D classification. One of the three
+// (what-happens-to-your-body-and-mind-when-you-stop-using-meth-after-chemsex)
+// had already been redirected to /what-we-treat/methamphetamine/ as part of the
+// ~225-URL gap-fill map, purely because it looked like zero-traffic old content
+// in that export -- it was actually brand new. That redirect is removed; all
+// three get real pages at /blog/{slug}/, with their live bare URLs redirected
+// here the same way the Tier A migration above does.
+const newBeckGeePostRedirects = {
+  "/chosen-family-and-recovery-why-your-support-system-does-not-have-to-be-blood/": "/blog/chosen-family-and-recovery-why-your-support-system-does-not-have-to-be-blood/",
+  "/what-happens-to-your-body-and-mind-when-you-stop-using-meth-after-chemsex/": "/blog/what-happens-to-your-body-and-mind-when-you-stop-using-meth-after-chemsex/",
+  "/grindr-hookup-culture-and-substance-use-what-queer-men-should-know/": "/blog/grindr-hookup-culture-and-substance-use-what-queer-men-should-know/",
+};
+
 const redirects = {
   ...tierAMigrationRedirects,
+  ...newBeckGeePostRedirects,
   "/4-ways-to-heal-from-psychological-trauma/": "/conditions/complex-trauma/",
   "/5-absolute-important-steps-take-relapse/": "/programs/alumni-program/",
   "/5-things-cheaper-drug-screening/": "/",
@@ -261,7 +277,6 @@ const redirects = {
   "/what-causes-anorexia/": "/what-we-treat/eating-disorders/",
   "/what-does-dual-diagnosis-mean/": "/conditions/dual-diagnosis/",
   "/what-happens-during-meth-detox/": "/what-we-treat/methamphetamine/",
-  "/what-happens-to-your-body-and-mind-when-you-stop-using-meth-after-chemsex/": "/what-we-treat/methamphetamine/",
   "/what-is-anorexia/": "/what-we-treat/eating-disorders/",
   "/what-is-body-dysmorphic-disorder/": "/what-we-treat/eating-disorders/",
   "/what-is-bulimia/": "/what-we-treat/eating-disorders/",

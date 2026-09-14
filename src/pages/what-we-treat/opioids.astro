@@ -1,18 +1,20 @@
 ---
 /**
- * /what-we-treat/opioids/ — no approved content brief exists for this page yet.
- * Structural/marketing copy (headings, framing sentences, CTA labels) is
- * original; anything that would be a specific clinical claim is placeholdered
- * via <ClinicalPlaceholder /> per CLAUDE.md's YMYL rule, rather than invented.
- * Visual language and section structure mirror /what-we-treat/cocaine/ and
- * /what-we-treat/methamphetamine/ — same shared components, same
- * card/pill/pillar patterns.
+ * /what-we-treat/opioids/ — clinical content and FAQ sourced from
+ * Breathe_Life_Opioids_Content_and_FAQ.docx (2026-09-14), which defers to
+ * the BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review. Content itself is sourced from the live
+ * fentanyl page, consolidated here per the approved sitemap (this page
+ * covers heroin, fentanyl, and prescription opioids together).
  *
- * Per the approved sitemap, this page consolidates heroin, fentanyl, and
- * prescription opioids rather than splitting into separate pages —
- * acknowledged in the Understanding section, in general terms only.
+ * The live fentanyl page lists "Internal Family Systems (IFS), mindfulness,
+ * and somatic therapies" as a residential care approach — the sixth page
+ * found in this project with that exact issue. IFS is excluded from
+ * anything sourced from that page; mindfulness and somatic therapy, which
+ * Breathe does offer, are not affected by this exclusion.
  *
- * FAQ and the "signs" card are <ClinicalPlaceholder /> — no FAQPage schema.
+ * Overdose recognition signs are kept as real, life-safety information —
+ * not filler and not trimmed for space.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -21,8 +23,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -67,6 +69,26 @@ const conditions: [string, string][] = [
   ["Trauma", "/conditions/trauma/"],
 ];
 
+// Verbatim from Breathe_Life_Opioids_Content_and_FAQ.docx (2026-09-14),
+// itself sourced from the live fentanyl page.
+const signs = [
+  "Intense cravings and inability to stop use",
+  "Extreme drowsiness or nodding off",
+  "Pinpoint pupils",
+  "Confusion, slurred speech, or memory problems",
+  "Withdrawal symptoms: chills, muscle aches, sweating, insomnia, nausea, and anxiety",
+];
+
+const faqs = [
+  { q: "Is opioid withdrawal dangerous to manage alone?", a: "It can be severe, including muscle and bone pain, panic attacks, and real risk of relapse and overdose if use resumes after a period of abstinence. Medically supervised detox is the safer path." },
+  { q: "Why is fentanyl treated with extra urgency compared to other opioids?", a: "Fentanyl is far more potent than other opioids, an amount as small as two milligrams can be fatal, and it's often mixed into other drugs without the user's knowledge. Every day of continued use raises real overdose risk." },
+  { q: "What does medical detox for opioids actually involve?", a: "24/7 clinical supervision, medication to ease withdrawal symptoms, and emotional support through the hardest early days, all before moving into residential care." },
+  { q: "Is medication-assisted treatment part of opioid recovery here?", a: "For some people, yes, as part of a safe, sustainable recovery plan. Our team can talk through whether it fits your specific situation." },
+  { q: "Do you treat heroin, fentanyl, and prescription opioid addiction differently?", a: "The core medical and clinical approach is related across all three, which is why we treat them together on one page and one plan, tailored to your specific substance and situation." },
+  { q: "What happens after detox and residential care?", a: "Relapse prevention and aftercare, including skills for managing cravings and triggers, family involvement, and ongoing alumni support through BreatheOUT." },
+  { q: "Does insurance cover opioid addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -100,6 +122,10 @@ const ld = {
       url: pageUrl,
       about: { "@type": "MedicalCondition", name: "Opioid use disorder" },
       provider: { "@id": new URL("/#organization", site.domain).href },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -141,10 +167,31 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:28ch;`}>Understanding opioid addiction</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Opioid addiction can start in a lot of places, from a prescription after surgery or chronic pain, to recreational use that changed over time. Heroin, fentanyl, and prescription opioids sit on a related spectrum, and we treat all of them here rather than splitting them into separate tracks.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Opioid addiction covers a spectrum, from prescription pain medication to heroin to fentanyl, and it can start in a lot of different places. Fentanyl in particular is a synthetic opioid up to 100 times more potent than morphine, and it's increasingly found mixed into other drugs without the user's knowledge, which makes overdose risk real even for experienced opioid users.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Stopping opioid use safely is rarely something to manage alone. Our medical team can talk through what a safe, supported start looks like for your specific situation.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of opioid use disorder — needs approved clinical brief before publishing." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Signs and symptoms of opioid use disorder</div>
+            <div style="display:grid;gap:12px;">
+              {signs.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">Overdose signs — real emergency information</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Slow or stopped breathing, bluish lips or fingertips, and unresponsiveness are signs of overdose and require immediate emergency medical attention.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -219,16 +266,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:34ch;`}>Questions people ask about opioid treatment</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content for opioid addiction treatment — needs approved brief covering withdrawal safety, fentanyl-specific risk, MAT, and insurance coverage." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about opioid treatment"
+      intro="Straight answers about withdrawal safety, fentanyl-specific risk, MAT, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
