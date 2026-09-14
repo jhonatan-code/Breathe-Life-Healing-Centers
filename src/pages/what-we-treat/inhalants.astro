@@ -1,14 +1,22 @@
 ---
 /**
- * /what-we-treat/inhalants/ — no approved content brief exists for this page
- * yet. Structural/marketing copy (headings, framing sentences, CTA labels)
- * is original; anything that would be a specific clinical claim is
- * placeholdered via <ClinicalPlaceholder /> per CLAUDE.md's YMYL rule,
- * rather than invented. Visual language and section structure mirror
+ * /what-we-treat/inhalants/ — clinical content and FAQ sourced from
+ * Breathe_Life_Inhalants_Content_and_FAQ.docx (2026-09-14), which defers to
+ * the BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review. Content itself is sourced from the live page.
+ * Sudden sniffing death, a real risk even from a single use, is kept as
+ * genuine life-safety information per the brief, not trimmed for space.
+ *
+ * SCOPE NOTE, handled carefully per the brief: like the marijuana page, the
+ * live page mentions inhalants being associated with adolescent
+ * experimentation. Nothing below claims Breathe treats minors, that's
+ * general context about the substance category, consistent with the same
+ * caution flagged on /what-we-treat/marijuana/.
+ *
+ * Structural/marketing copy (headings, framing sentences, CTA labels) is
+ * original. Visual language and section structure mirror
  * /what-we-treat/cocaine/ and /what-we-treat/methamphetamine/ — same shared
  * components, same card/pill/pillar patterns.
- *
- * FAQ and the "signs" card are <ClinicalPlaceholder /> — no FAQPage schema.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -17,8 +25,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -63,6 +71,24 @@ const conditions: [string, string][] = [
   ["Trauma", "/conditions/trauma/"],
 ];
 
+// Verbatim from Breathe_Life_Inhalants_Content_and_FAQ.docx (2026-09-14),
+// itself sourced from the live page.
+const types = [
+  { name: "Volatile solvents", text: "Paint thinners, glue, gasoline, lighter fluid" },
+  { name: "Aerosols", text: "Spray paint, hair spray, deodorant, fabric protector sprays" },
+  { name: "Gases", text: "Nitrous oxide, butane, propane, refrigerants" },
+  { name: "Nitrites", text: "Often called poppers, used to dilate blood vessels" },
+];
+
+const faqs = [
+  { q: "Are inhalants really dangerous if they're legal, everyday products?", a: "Yes. Legal and accessible doesn't mean safe. Inhalants can cause sudden sniffing death from heart failure, even from a single use, and long-term use can cause lasting brain, organ, and hearing damage." },
+  { q: "What does treatment for inhalant addiction involve?", a: "Medical assessment and stabilization for immediate safety, residential treatment in a supportive environment, trauma-informed therapy, and relapse prevention planning." },
+  { q: "Will family be involved in treatment?", a: "Yes. Family involvement to repair and strengthen relationships is part of how we approach inhalant addiction treatment." },
+  { q: "Is inhalant addiction treated differently from other substance use disorders?", a: "The clinical approach shares a lot with how we treat other substances, real assessment, real care, and attention to what's underneath the use, but the specific physical risks of inhalants are addressed directly given how serious they can be." },
+  { q: "Will co-occurring mental health issues be addressed too?", a: "Yes. Depression and other mental health effects are common with inhalant use and are addressed as part of the same treatment plan, not separately." },
+  { q: "Does insurance cover inhalant addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -97,6 +123,10 @@ const ld = {
       about: { "@type": "MedicalCondition", name: "Inhalant use disorder" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -124,7 +154,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -140,7 +170,28 @@ const ld = {
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Inhalants are a broad category of everyday household and industrial products used for their mind-altering effects. Because they're legal and easy to access, inhalant use is sometimes dismissed as less serious than other substance use, but the pattern of dependence it can create is real.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Our team treats inhalant use disorder with the same seriousness and care as any other substance, starting with a full picture of what's been used and for how long.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of inhalant use disorder — needs approved clinical brief before publishing." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common types</div>
+            <div style="display:grid;gap:14px;">
+              {types.map((t) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#3A444D;"><strong style="font-weight:600;color:#14181C;">{t.name}:</strong> {t.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">Real, serious risk</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Inhalants work by depressing the central nervous system and replacing oxygen in the lungs with toxic chemicals. This can cause sudden sniffing death from heart failure, even after a single use. Long-term use can lead to brain damage, hearing loss, kidney and liver damage, and lasting coordination problems.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -166,6 +217,7 @@ const ld = {
             );
           })}
         </div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;margin:22px 0 0;text-align:center;">Treatment also includes <a href="/therapies/trauma-focused-therapy/" style="color:#2C5A64;font-weight:500;">trauma-informed therapy</a> and our <a href="/programs/family-program/" style="color:#2C5A64;font-weight:500;">family program</a>, to repair and strengthen relationships alongside the clinical work.</p>
       </div>
     </section>
 
@@ -187,7 +239,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for inhalant treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for inhalant treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -215,16 +267,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:34ch;`}>Questions people ask about inhalant treatment</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content for inhalant use disorder treatment — needs approved clinical brief." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about inhalant treatment"
+      intro="Straight answers about real risk, treatment, family involvement, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
@@ -238,7 +286,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-13-ensuite-bath-balcony.jpg"
     />

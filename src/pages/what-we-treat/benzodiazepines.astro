@@ -1,18 +1,18 @@
 ---
 /**
- * /what-we-treat/benzodiazepines/ — no approved content brief exists for this
- * page yet. Structural/marketing copy (headings, framing sentences, CTA
- * labels) is original; anything that would be a specific clinical claim is
- * placeholdered via <ClinicalPlaceholder /> per CLAUDE.md's YMYL rule, rather
- * than invented. Visual language and section structure mirror
+ * /what-we-treat/benzodiazepines/ — clinical content and FAQ sourced from
+ * Breathe_Life_Benzodiazepines_Content_and_FAQ.docx (2026-09-14), which
+ * defers to the BLHC Content Client Profile as authoritative and is not
+ * going through further client/team review. Content itself is sourced
+ * directly from the live page (signs, withdrawal, and seizure risk).
+ * Structural/marketing copy (headings, framing sentences, CTA labels) is
+ * original. Visual language and section structure mirror
  * /what-we-treat/cocaine/ and /what-we-treat/methamphetamine/ — same shared
  * components, same card/pill/pillar patterns.
  *
  * Covers the benzodiazepine class broadly (Klonopin, Ativan, Valium, etc.);
  * Xanax gets its own dedicated page per the approved sitemap, cross-linked
  * from here.
- *
- * FAQ and the "signs" card are <ClinicalPlaceholder /> — no FAQPage schema.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -21,8 +21,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -67,6 +67,25 @@ const conditions: [string, string][] = [
   ["Trauma", "/conditions/trauma/"],
 ];
 
+// Verbatim from Breathe_Life_Benzodiazepines_Content_and_FAQ.docx
+// (2026-09-14), itself sourced from the live page.
+const signs = [
+  "Needing higher doses to feel the same effect",
+  "Muscle pain or stiffness",
+  "Tremors or shaking, heart palpitations",
+  "Paranoia or heightened anxiety",
+  "Insomnia or disrupted sleep",
+];
+
+const faqs = [
+  { q: "Is it dangerous to stop taking benzodiazepines on my own?", a: "Yes, it can be. Stopping suddenly can trigger severe withdrawal, including seizures. A medically supervised taper, gradually reducing the dose, is the safe way to come off." },
+  { q: "What's the difference between Xanax and other benzodiazepines like Valium or Klonopin?", a: "They're all benzodiazepines, but they differ in how fast they act and how long they last, which is part of why they're prescribed for different situations. We treat Xanax dependence specifically on its own page if that's your primary concern." },
+  { q: "What are rebound symptoms?", a: "A sudden return of the anxiety, panic, or insomnia the medication was originally treating, often more intense than before. This is a normal part of withdrawal, and it's part of why medical support matters during detox." },
+  { q: "Will I get psychiatric support during detox, not just medical monitoring?", a: "Yes. Licensed psychiatric professionals are part of the detox process, including medication to help stabilize mood and coping skills for managing stress without returning to the medication." },
+  { q: "Can I become dependent on benzodiazepines even if I took them exactly as prescribed?", a: "Yes. Dependence can develop even with legitimate prescribed use over time, it isn't only a misuse issue." },
+  { q: "Does insurance cover benzodiazepine detox and treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -101,6 +120,10 @@ const ld = {
       about: { "@type": "MedicalCondition", name: "Benzodiazepine use disorder" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -128,7 +151,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -144,7 +167,28 @@ const ld = {
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Benzodiazepines are a class of medications, including Klonopin, Ativan, Valium, and Xanax, most often prescribed for anxiety, panic, or sleep. Dependence can develop even with a legitimate prescription, and it looks different from one person and one medication to the next. If Xanax specifically is what you're dealing with, our <a href="/what-we-treat/xanax/" style="color:#2C5A64;font-weight:500;">dedicated Xanax page</a> goes into more detail.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Tapering off benzodiazepines on your own can carry real risk. We manage this closely, with a plan built around your specific medication and history.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of benzodiazepine dependence — needs approved clinical brief before publishing." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Signs of benzodiazepine dependence</div>
+            <div style="display:grid;gap:12px;">
+              {signs.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">Why stopping suddenly is dangerous</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Benzodiazepines directly affect brain neurotransmitter activity. Stopping abruptly can cause rebound symptoms (a surge of the original anxiety or insomnia, often more intense than before) and can trigger seizures, which carry real risk of injury. Tapering off under medical supervision, not stopping cold, is the safe path.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -191,7 +235,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for benzodiazepine detox and treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for benzodiazepine detox and treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -219,16 +263,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:36ch;`}>Questions people ask about benzodiazepine treatment</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content for benzodiazepine addiction treatment — needs approved brief covering safe tapering, seizure risk, and insurance coverage." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about benzodiazepine treatment"
+      intro="Straight answers about safe tapering, seizure risk, rebound symptoms, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
@@ -242,7 +282,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-08-poolside-grotto-overlook.jpg"
     />

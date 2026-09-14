@@ -1,17 +1,28 @@
 ---
 /**
- * /what-we-treat/xanax/ — no approved content brief exists for this page yet.
+ * /what-we-treat/xanax/ — clinical content and FAQ sourced from
+ * Breathe_Life_Xanax_Content_and_FAQ.docx (2026-09-14), which defers to the
+ * BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review. Content itself is sourced from the live page.
+ * The live page's 2013 prescription-volume stat (49 million scripts that
+ * year) is deliberately not used, over a decade stale and cited as a
+ * specific reason in the brief.
+ *
+ * The FAQ brief's residential-duration answer ("generally somewhere between
+ * 30 and 90 days") is a fixed length-of-stay figure, which
+ * what-not-to-publish.md #2 prohibits ("reads as a commitment... varies by
+ * payer authorisation, clinical need and level of care"). Rewritten to the
+ * durable version the standard recommends, matching the pattern already used
+ * on /programs/intensive-outpatient/: describe how duration is determined
+ * rather than stating a day range.
+ *
  * Structural/marketing copy (headings, framing sentences, CTA labels) is
- * original; anything that would be a specific clinical claim is placeholdered
- * via <ClinicalPlaceholder /> per CLAUDE.md's YMYL rule, rather than invented.
- * Visual language and section structure mirror /what-we-treat/cocaine/ and
- * /what-we-treat/methamphetamine/ — same shared components, same
- * card/pill/pillar patterns.
+ * original. Visual language and section structure mirror
+ * /what-we-treat/cocaine/ and /what-we-treat/methamphetamine/ — same shared
+ * components, same card/pill/pillar patterns.
  *
  * Xanax gets its own page (distinct from the broader Benzodiazepines page)
  * per the approved sitemap. The two pages cross-link each other.
- *
- * FAQ and the "signs" card are <ClinicalPlaceholder /> — no FAQPage schema.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -20,8 +31,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -29,7 +40,7 @@ const HREF = site.phoneHref;
 
 const title = "Xanax Addiction Treatment in Los Angeles | Breathe";
 const description =
-  "Xanax (alprazolam) addiction treatment in Los Angeles — medically supervised detox, residential care, and dual diagnosis support. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Xanax (alprazolam) addiction treatment in Los Angeles, medically supervised detox, residential care, and dual diagnosis support. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -66,6 +77,31 @@ const conditions: [string, string][] = [
   ["Trauma", "/conditions/trauma/"],
 ];
 
+// Verbatim from Breathe_Life_Xanax_Content_and_FAQ.docx (2026-09-14), itself
+// sourced from the live page. The live page's 2013 prescription-volume stat
+// is deliberately excluded per the brief.
+const signs = [
+  "Slowed breathing, which can lead to respiratory problems or asphyxiation at high doses",
+  "Extended sedation, sometimes lasting 3 to 4 days",
+  "Confusion and disorientation while under the influence",
+  "Withdrawal that can include seizures, which can be fatal without medical support",
+];
+
+// FAQ #3's answer is rewritten from the brief, see the file header comment:
+// the original stated a fixed 30-90 day range, which what-not-to-publish.md
+// #2 prohibits. Every other answer is verbatim. SiteFAQ renders {it.a} as
+// escaped text, not set:html, so answers stay plain; internal links relevant
+// to these answers (outpatient, IOP, trauma therapy) are placed in template
+// prose elsewhere on the page instead, per internal-linking.md.
+const faqs = [
+  { q: "Is Xanax withdrawal dangerous?", a: "It can be. Withdrawal can include seizures, which is why a medically supervised taper, not stopping on your own, is the safe approach." },
+  { q: "Do all Xanax users need to detox?", a: "Not everyone, medical staff evaluate your specific situation to determine whether detox is needed before building your treatment plan." },
+  { q: "How long does residential treatment for Xanax addiction typically last?", a: "It varies by severity and is clinically assessed, then reviewed regularly as you progress. Your specific plan is built around your needs, not a fixed calendar." },
+  { q: "What's the difference between residential and outpatient care for Xanax addiction?", a: "Residential treatment means staying on-site with steady access to care. Outpatient means continuing to live at home while attending sessions a few days a week. Intensive outpatient sits in between, with daily sessions but no overnight stay." },
+  { q: "What kind of therapy is used in Xanax treatment?", a: "A mix of individual and group therapy, along with approaches like cognitive behavioral therapy and trauma treatment, tailored to your specific situation." },
+  { q: "Does insurance cover Xanax addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -100,6 +136,10 @@ const ld = {
       about: { "@type": "MedicalCondition", name: "Xanax (alprazolam) dependence" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -122,12 +162,12 @@ const ld = {
             <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Xanax
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Xanax Addiction Treatment in Los Angeles. Steady Ground, Rebuilt Safely.</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Xanax dependence often starts with a legitimate prescription. Getting free of it safely takes more than stopping cold — it takes real medical support.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Xanax dependence often starts with a legitimate prescription. Getting free of it safely takes more than stopping cold, it takes real medical support.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -143,7 +183,28 @@ const ld = {
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Xanax, known generically as alprazolam, is a fast-acting benzodiazepine often prescribed for anxiety or panic. Dependence can build even when it's taken exactly as directed, which is part of why so many people are caught off guard by it.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Stopping Xanax on your own can carry real risk. Our medical team manages this closely, with a plan built around your specific dose and history.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of Xanax dependence — needs approved clinical brief before publishing." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Real risks of Xanax misuse</div>
+            <div style="display:grid;gap:12px;">
+              {signs.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">Why tapering matters</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Stopping Xanax abruptly can be dangerous. A safe <a href="/programs/medical-detox/" style="color:#B4472A;font-weight:600;">medical detox</a> tapers the dose gradually, often using a lower-strength benzodiazepine to step down, rather than stopping cold. This reduces both the physical risk and the intensity of cravings.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -169,6 +230,7 @@ const ld = {
             );
           })}
         </div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;margin:22px 0 0;text-align:center;">Not everyone needs residential care. <a href="/programs/outpatient-rehab/" style="color:#2C5A64;font-weight:500;">Outpatient rehab</a> and <a href="/programs/intensive-outpatient/" style="color:#2C5A64;font-weight:500;">intensive outpatient</a> are options once you're stable, alongside <a href="/therapies/trauma-focused-therapy/" style="color:#2C5A64;font-weight:500;">trauma-focused therapy</a> where that's part of the picture.</p>
       </div>
     </section>
 
@@ -190,7 +252,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for Xanax detox and treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for Xanax detox and treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -218,16 +280,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:32ch;`}>Questions people ask about Xanax treatment</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content for Xanax addiction treatment — needs approved brief covering safe tapering, co-occurring benzodiazepine use, and insurance coverage." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about Xanax treatment"
+      intro="Straight answers about withdrawal safety, level of care, therapy, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
@@ -241,7 +299,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-18-great-room.jpg"
     />

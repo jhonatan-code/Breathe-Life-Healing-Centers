@@ -1,15 +1,16 @@
 ---
 /**
  * /what-we-treat/designer-drugs/ ("Designer / Synthetic Drugs" per the
- * approved sitemap) — no approved content brief exists for this page yet.
+ * approved sitemap) — clinical content and FAQ sourced from
+ * Breathe_Life_Designer_Drugs_Content_and_FAQ.docx (2026-09-14), which
+ * defers to the BLHC Content Client Profile as authoritative and is not
+ * going through further client/team review. Content itself is sourced from
+ * the live page, which confirms bath salts/Flakka and ecstasy/molly as real
+ * categories under designer drugs, consistent with the Detox and IOP pages.
  * Structural/marketing copy (headings, framing sentences, CTA labels) is
- * original; anything that would be a specific clinical claim is
- * placeholdered via <ClinicalPlaceholder /> per CLAUDE.md's YMYL rule,
- * rather than invented. Visual language and section structure mirror
+ * original. Visual language and section structure mirror
  * /what-we-treat/cocaine/ and /what-we-treat/methamphetamine/ — same shared
  * components, same card/pill/pillar patterns.
- *
- * FAQ and the "signs" card are <ClinicalPlaceholder /> — no FAQPage schema.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -18,8 +19,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -64,6 +65,24 @@ const conditions: [string, string][] = [
   ["Trauma", "/conditions/trauma/"],
 ];
 
+// Verbatim from Breathe_Life_Designer_Drugs_Content_and_FAQ.docx
+// (2026-09-14), itself sourced from the live page.
+const categories = [
+  { name: "Synthetic cannabinoids (Spice, K2)", text: "Mimic THC, can cause extreme anxiety, psychosis, and heart problems" },
+  { name: "Synthetic cathinones (bath salts, Flakka)", text: "Stimulants linked to paranoia, violent behavior, and hallucinations" },
+  { name: "Designer hallucinogens", text: "Variants of LSD, psilocybin, or mescaline, can cause dangerous delusions and dissociation" },
+  { name: "Designer stimulants (Molly, Ecstasy)", text: "Modified amphetamines or MDMA, linked to heart attacks, seizures, and overheating" },
+];
+
+const faqs = [
+  { q: "What counts as a designer drug?", a: "Synthetic substances made to mimic other drugs, including synthetic cannabinoids like Spice or K2, synthetic cathinones like bath salts or Flakka, designer hallucinogens, and designer stimulants like Molly or Ecstasy." },
+  { q: "Why are designer drugs more dangerous than the drugs they're meant to imitate?", a: "They're made in unregulated labs, so potency and effects can vary significantly from batch to batch. What worked one time can be far stronger, or react very differently, the next." },
+  { q: "Is it harder to treat someone for a designer drug they can't identify exactly?", a: "It can be more complex, since the chemistry keeps changing, but our team is experienced in treating the presenting symptoms and underlying causes, not just a single named substance." },
+  { q: "What does treatment for designer drug use involve?", a: "Medical detox to manage withdrawal safely, psychiatric evaluation for co-occurring conditions, trauma-informed therapy, relapse prevention planning, and holistic approaches like nutrition and mindfulness." },
+  { q: "Can designer drug use cause lasting psychological effects?", a: "Anxiety, paranoia, psychosis, and depression are common with designer drug use, and are addressed directly as part of treatment, not treated as separate from the substance use itself." },
+  { q: "Does insurance cover designer drug addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -98,6 +117,10 @@ const ld = {
       about: { "@type": "MedicalCondition", name: "Designer / synthetic drug use disorder" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -125,7 +148,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -141,7 +164,28 @@ const ld = {
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Designer or synthetic drugs cover a wide range of substances made to imitate the effects of cannabis, stimulants, or other drugs. Because their composition can change from batch to batch, the effects are often harder to predict than with more familiar substances.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Treatment starts with understanding exactly what you've been using and how it's affected you, since a generic approach doesn't fit a category this varied.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of designer/synthetic drug use — needs approved clinical brief before publishing." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common categories</div>
+            <div style="display:grid;gap:14px;">
+              {categories.map((c) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#3A444D;"><strong style="font-weight:600;color:#14181C;">{c.name}:</strong> {c.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">Why designer drugs carry extra risk</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Produced in unregulated labs without quality control, designer drugs carry unknown potency, unpredictable effects batch to batch, and a high risk of overdose, especially when mixed with other substances. Because their chemistry keeps changing, they're genuinely harder for medical professionals to identify and treat in an emergency.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -167,6 +211,7 @@ const ld = {
             );
           })}
         </div>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;margin:22px 0 0;text-align:center;">Care also includes <a href="/therapies/trauma-focused-therapy/" style="color:#2C5A64;font-weight:500;">trauma-informed therapy</a> and holistic approaches like <a href="/therapies/yoga-mindfulness/" style="color:#2C5A64;font-weight:500;">mindfulness practices</a>.</p>
       </div>
     </section>
 
@@ -188,7 +233,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -216,16 +261,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:38ch;`}>Questions people ask about designer drug treatment</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content for designer/synthetic drug treatment — needs approved clinical brief." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about designer drug treatment"
+      intro="Straight answers about identification, risk, treatment, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
@@ -239,7 +280,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-10-fitness-center.jpg"
     />
