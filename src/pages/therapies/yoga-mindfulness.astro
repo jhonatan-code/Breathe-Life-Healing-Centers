@@ -1,14 +1,12 @@
 ---
 /**
- * /therapies/yoga-mindfulness/ — modality page. No approved clinical brief exists yet
- * for therapy-modality copy (CLAUDE.md: never invent YMYL/clinical content
- * without a brief), so the "what is it" explanation and FAQ answers are
- * placeholdered with <ClinicalPlaceholder /> rather than written from general
- * knowledge. Structure/marketing copy around those blocks (hero, how-it-fits-
- * your-plan, why Breathe, cross-links) is original, non-clinical copy.
- * Structural template: src/pages/what-we-treat/cocaine.astro. Section order
- * and mobile-verify-slot placement follow the /therapies/ batch convention
- * (slot after the FAQ placeholder, right before SiteFinalCTA).
+ * /therapies/yoga-mindfulness/ modality page. "What is it" description and
+ * FAQ are verbatim from Breathe_Life_Yoga_Mindfulness_Content_and_FAQ.docx
+ * (2026-09-14), which defers to the BLHC Content Client Profile as
+ * authoritative and states this page does not go through client/team
+ * review. Structural template: src/pages/what-we-treat/cocaine.astro.
+ * Section order and mobile-verify-slot placement follow the /therapies/
+ * batch convention (slot after the FAQ section, right before SiteFinalCTA).
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -18,7 +16,7 @@ import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../config/site";
 
@@ -41,8 +39,18 @@ const S = {
 const fits = [
   "Woven into individual sessions with your primary therapist",
   "Included in group programming where appropriate for your plan",
-  "Adjusted to your level of care — residential, PHP, IOP, or outpatient",
+  "Adjusted to your level of care: residential, PHP, IOP, or outpatient",
   "Coordinated with the rest of your care team, not run in isolation",
+];
+
+// Verbatim from Breathe_Life_Yoga_Mindfulness_Content_and_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "Do I need prior yoga experience to participate?", a: "These sessions are built for people at any level, not for people who already consider themselves yoga practitioners." },
+  { q: "Is this a substitute for clinical therapy?", a: "Yoga and mindfulness work alongside your clinical treatment, not in place of it." },
+  { q: "What if I'm not comfortable with physical movement or touch?", a: "Mindfulness practices like breath work and grounding don't require physical intensity or touch, and can be adapted to your comfort." },
+  { q: "How often are yoga and mindfulness sessions offered?", a: "Frequency depends on your specific level of care and treatment plan. Your team can walk you through what your schedule includes." },
+  { q: "Is this only for stress relief, or does it connect to my recovery specifically?", a: "It connects directly. Building body awareness and grounding skills supports the same regulation work happening in your broader treatment plan." },
+  { q: "Is this covered by insurance?", a: "It's included as part of your overall treatment plan, not billed separately. Our admissions team can walk you through what your coverage includes." },
 ];
 
 const why = [
@@ -74,6 +82,10 @@ const ld = {
         { "@type": "ListItem", position: 3, name: "Yoga & Mindfulness", item: pageUrl },
       ],
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -96,12 +108,12 @@ const ld = {
             <a href="/therapies/" style="color:#7FB3BC;">Therapies</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Yoga & Mindfulness
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Yoga & Mindfulness in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Yoga and mindfulness practice are part of the holistic programming your care team may draw on at Breathe — built for the LGBTQ+ community first, open to anyone whose values align.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Yoga and mindfulness practice are part of the holistic programming your care team may draw on at Breathe, built for the LGBTQ+ community first, open to anyone whose values align.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -115,7 +127,10 @@ const ld = {
         <p style={`${S.intro}max-width:74ch;margin-bottom:26px;`}>Yoga and mindfulness practice are part of the holistic programming available at Breathe. Like every therapy we offer, how much a part they play in your plan is worked out with your clinical team, not applied as a one-size-fits-all track.</p>
       </div>
       <div style="max-width:900px;margin:0 auto;">
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Modality description — needs approved brief" />
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 32px;text-align:left;">
+          <p style={`${S.intro}margin-bottom:16px;`}>Yoga and mindfulness practice are part of the holistic programming available at Breathe. They work with the body and the present moment directly, breath, movement, grounding, offering a different way into regulation than talk therapy alone.</p>
+          <p style={S.intro}>These practices sit alongside your clinical treatment, not as a separate wellness add-on. They're introduced where they genuinely support your plan, helping build the kind of body awareness and stress regulation that supports the rest of your recovery work.</p>
+        </div>
       </div>
     </section>
 
@@ -125,7 +140,7 @@ const ld = {
         <div>
           <div style={S.eyebrow}>How we use it at Breathe</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:28ch;`}>Yoga & Mindfulness as part of your plan</h2>
-          <p style={`${S.intro}max-width:58ch;`}>Yoga and mindfulness aren't a stand-alone track at Breathe — they're folded into the individualized plan your clinical team builds around you, alongside our clinical programming.</p>
+          <p style={`${S.intro}max-width:58ch;`}>Yoga and mindfulness aren't a stand-alone track at Breathe. They're folded into the individualized plan your clinical team builds around you, alongside our clinical programming.</p>
         </div>
         <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="display:grid;gap:14px;">
@@ -159,7 +174,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -187,14 +202,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style={S.eyebrow}>Questions</div>
-        <h2 style={`${S.h2}max-width:30ch;margin-bottom:22px;`}>Questions people ask about Yoga & Mindfulness</h2>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="Needs approved FAQ copy — no clinical claims about this modality until a brief exists." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about Yoga & Mindfulness"
+      intro="Straight answers about how yoga and mindfulness work at Breathe and how they fit into your plan."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
@@ -209,7 +222,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-06-guest-house-exterior.jpg"
     />
