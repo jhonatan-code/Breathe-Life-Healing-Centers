@@ -1,12 +1,18 @@
 ---
 /**
- * /conditions/trauma/ — no approved content brief exists yet, so this page
- * carries general/structural framing only (CLAUDE.md hard rule: no invented
- * clinical content for a YMYL page without a brief). Signs/symptoms and FAQ
- * are placeholdered via ClinicalPlaceholder rather than invented. Structure
- * mirrors /what-we-treat/cocaine.astro (shared components, same card/pill/
- * pillar patterns), condition-framed instead of substance-framed. Distinct
- * page from /conditions/complex-trauma/ (C-PTSD / cumulative trauma).
+ * /conditions/trauma/ — clinical content and FAQ sourced from
+ * Breathe_Life_Trauma_Content_and_FAQ.docx (2026-09-14), which defers to
+ * the BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review. Distinct page from /conditions/complex-trauma/
+ * (C-PTSD / cumulative trauma).
+ *
+ * EMDR excluded (third confirmed instance in this project): the live page
+ * names it alongside Prolonged Exposure and Cognitive Processing Therapy,
+ * citing VA guidance. EMDR is not offered per the client profile. Prolonged
+ * Exposure and Cognitive Processing Therapy are both real, distinct,
+ * evidence-based modalities, neither is excluded, both are used below.
+ * Unlike the Complex Trauma page, this source page never named a specific
+ * clinician, so no correction was needed on that front.
  *
  * Sitemap flags this page as mandatory and requiring a video. No video asset
  * exists yet, so a clearly-labeled placeholder block sits where the video
@@ -19,8 +25,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 import { galleryImg } from "../../data/home";
 
@@ -47,7 +53,7 @@ const care = [
     text: "Full-time structure, daily therapy, and psychiatric support in one setting.",
   },
   {
-    icon: "wb_sunny", title: "PHP — Day Treatment", href: "/programs/php/", cta: "Learn About PHP",
+    icon: "wb_sunny", title: "PHP, Day Treatment", href: "/programs/php/", cta: "Learn About PHP",
     text: "Intensive daytime treatment, returning home or to transitional living in the evenings.",
   },
   {
@@ -66,10 +72,43 @@ const related: [string, string][] = [
   ["Alcohol", "/what-we-treat/alcohol/"],
 ];
 
+// Verbatim from Breathe_Life_Trauma_Content_and_FAQ.docx (2026-09-14),
+// itself sourced from the live page. Excludes EMDR, see file header comment.
+const causes = [
+  "Sexual assault or abuse",
+  "Physical abuse or domestic violence",
+  "Neglect",
+  "Natural disasters",
+  "Combat exposure",
+  "Unexpected loss",
+  "Medical trauma",
+];
+
+const symptoms = [
+  "Difficulty concentrating, confusion",
+  "Mood swings, anxiety, fear",
+  "Guilt or shame",
+  "Social isolation, feeling disconnected",
+  "Insomnia, fatigue, muscle tension",
+  "Being easily startled, racing heartbeat",
+];
+
+// FAQ #4's answer is reworded from the brief to not open with "No" (which
+// faq.md prohibits) while keeping the same meaning. Every other answer is
+// verbatim.
+const faqs = [
+  { q: "Is trauma treated on its own, or only alongside substance use?", a: "Trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both on the same plan, on the same timeline." },
+  { q: "What's the difference between trauma and complex trauma?", a: "Trauma can come from a single event. Complex trauma develops from repeated or prolonged experiences over time. Both are treated seriously here, with an approach matched to what you've actually been through." },
+  { q: "What kind of therapy is used for trauma?", a: "Evidence-based approaches including Prolonged Exposure and Cognitive Processing Therapy, tailored to your specific history and what you're ready for." },
+  { q: "I've avoided dealing with this for years. Is it too late to start?", a: "It's not too late. However long you've been carrying this, real treatment can still help, whatever point you're starting from." },
+  { q: "Does trauma treatment happen at every level of care?", a: "Yes, from residential to outpatient. Your team determines the right starting point based on what you're experiencing." },
+  { q: "Does insurance cover trauma treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "healing", title: "Trauma-informed at every level",
-    text: "Care built around how trauma actually shows up, woven into every level of treatment — not a separate track you have to ask for.",
+    text: "Care built around how trauma actually shows up, woven into every level of treatment, not a separate track you have to ask for.",
   },
   {
     icon: "diversity_3", title: "Built for the LGBTQ+ community first",
@@ -100,6 +139,10 @@ const ld = {
       about: { "@type": "MedicalCondition", name: "Trauma" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -127,7 +170,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -140,10 +183,38 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding trauma</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Trauma isn't only about what happened — it's about how the nervous system learned to respond, and how long that response can keep running after the danger is gone. It shows up differently for everyone.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">At Breathe, trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Trauma isn't only about what happened, it's about how the nervous system learned to respond, and how long that response can keep running after the danger is gone. It shows up differently for everyone, sometimes as avoidance, sometimes as being unable to stop thinking about it, and there's no single right way to react. Roughly 70 percent of adults in the United States experience at least one traumatic event in their lives. About 20 percent of those go on to develop PTSD, and more than 13 million American adults currently live with it.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 0 12px;max-width:58ch;">At Breathe, trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Our clinicians draw on evidence-based modalities including Prolonged Exposure and Cognitive Processing Therapy, helping you face and work through what happened rather than avoid it, and examine the beliefs trauma can leave behind against what's actually true.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of trauma card — pending an approved clinical brief and reviewer sign-off." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What can cause trauma</div>
+            <div style="display:grid;gap:12px;">
+              {causes.map((c) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{c}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #478694;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common symptoms</div>
+            <div style="display:grid;gap:12px;">
+              {symptoms.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(71,134,148,0.12);color:#2C5A64;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -154,8 +225,8 @@ const ld = {
           <span style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(201,134,43,0.14);margin-bottom:18px;">
             <span class="msym" style="font-size:40px;color:#8A5A1E;">play_circle</span>
           </span>
-          <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#8A5A1E;margin-bottom:8px;">[VIDEO — ASSET NEEDED]</div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#6B5233;margin:0 auto;max-width:52ch;">The sitemap flags a video as mandatory for this page. No video asset exists yet — this placeholder marks where it belongs rather than fabricating an embed.</p>
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#8A5A1E;margin-bottom:8px;">[VIDEO, ASSET NEEDED]</div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#6B5233;margin:0 auto;max-width:52ch;">The sitemap flags a video as mandatory for this page. No video asset exists yet, this placeholder marks where it belongs rather than fabricating an embed.</p>
         </div>
       </div>
     </section>
@@ -190,7 +261,7 @@ const ld = {
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Dual diagnosis</div>
         <h2 style={`${S.h2}max-width:24ch;`}>Trauma rarely travels alone</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Trauma often overlaps with depression, anxiety, and substance use — either driving it or left behind by it. We treat what's actually happening, not only the trauma.</p>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Trauma often overlaps with depression, anxiety, and substance use, either driving it or left behind by it. We treat what's actually happening, not only the trauma.</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
           {related.map(([name, href]) => (
             <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
@@ -202,7 +273,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for trauma treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for trauma treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -230,14 +301,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ (placeholder)  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style={S.eyebrow}>Questions</div>
-        <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about trauma treatment</h2>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="Trauma treatment FAQ — pending an approved clinical brief and reviewer sign-off. No FAQPage schema until this content is approved." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about trauma treatment"
+      intro="Straight answers about approach, complex trauma, timing, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* Placed after the FAQ/placeholder section on new pages (confirmed change
@@ -250,7 +319,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-21-quiet-reading-nook.jpg"
     />

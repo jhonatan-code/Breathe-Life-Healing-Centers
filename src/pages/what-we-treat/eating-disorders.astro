@@ -1,28 +1,35 @@
 ---
 /**
  * /what-we-treat/eating-disorders/ ("Co-Occurring Eating Disorders" per the
- * approved sitemap) — no approved content brief exists for this page yet.
+ * approved sitemap) — clinical content and FAQ sourced from
+ * Breathe_Life_Eating_Disorders_Content_and_FAQ.docx (2026-09-14), which
+ * defers to the BLHC Content Client Profile as authoritative and is not
+ * going through further client/team review.
  *
- * FRAMING (per CLAUDE.md, already-approved client guidance, not invented):
- * Breathe is explicitly NOT a standalone severe-eating-disorder program.
- * This page is framed as co-occurring body-image / emotional-eating issues
- * addressed within the context of substance-use and mental-health treatment
- * — never as a dedicated eating-disorder treatment page. Concretely, that
- * means:
+ * FRAMING (per CLAUDE.md, already-approved client guidance): Breathe is
+ * explicitly NOT a standalone severe-eating-disorder program. This page
+ * stays co-occurring body-image / emotional-eating issues addressed within
+ * substance-use and mental-health treatment, never a dedicated
+ * eating-disorder treatment page. The brief itself was written to this
+ * discipline: no specific diagnoses are named or clinically defined
+ * (anorexia, bulimia, binge eating disorder) anywhere below, since that
+ * level of clinical precision would itself imply the specialty the client
+ * has explicitly said this isn't. Concretely, that still means:
  *   - No "levels of ED care" section (no ED-specific detox/residential/PHP
  *     ladder — those levels exist generally at Breathe, not as an ED track).
- *   - The "How we help" cards below describe integration into existing
- *     programs, not ED-specific specialty tracks.
+ *   - The "How we help" cards describe integration into existing programs,
+ *     not ED-specific specialty tracks.
  *   - An explicit "not a standalone program" section sets expectations and
- *     points elsewhere for primary, severe ED needs, rather than implying
- *     Breathe treats eating disorders as a first diagnosis.
- *   - No FDA/medical claims, no diagnostic criteria, no signs checklist —
- *     placeholdered via <ClinicalPlaceholder /> same as every other page.
+ *     points elsewhere for primary, severe ED needs.
  *
- * Skips the FAQPage AND MedicalWebPage schema entirely (see ld below) —
- * asserting a MedicalCondition "about" here would overstate this as a
- * dedicated eating-disorder treatment page, which contradicts the framing
- * above.
+ * Schema: FAQPage is added below, now that a real FAQ exists (faq.md
+ * requires it whenever the FAQ component is present, and per schema.md
+ * FAQPage carries no "about" claim, it's Q&A markup only). MedicalWebPage
+ * with a MedicalCondition "about" is still deliberately withheld: that
+ * property is the actual mechanism that would assert this page is about
+ * the eating-disorder condition as a specialty, which is exactly what the
+ * framing above rules out. Those are two separable decisions; only the
+ * first changes here.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -31,8 +38,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -71,6 +78,29 @@ const care = [
   },
 ];
 
+// Verbatim from Breathe_Life_Eating_Disorders_Content_and_FAQ.docx
+// (2026-09-14). Deliberately stays at "body image, emotional eating,
+// patterns around food" and never names a specific diagnosis, per the
+// brief's own discipline (see file header comment).
+const signs = [
+  "Using food, or restricting it, as a way to manage difficult emotions",
+  "A strained or preoccupied relationship with body image",
+  "Eating patterns that shift noticeably during periods of stress, substance use, or mood changes",
+  "Feeling like food or body image has become tangled up with self-worth",
+];
+
+// FAQ #5's answer is reworded from the brief to not open with "No" (which
+// faq.md prohibits) while keeping the same meaning. Every other answer is
+// verbatim.
+const faqs = [
+  { q: "Does Breathe treat eating disorders?", a: "Breathe isn't a dedicated eating disorder treatment center. What we offer is support for body image and emotional eating patterns in the context of treating substance use and mental health together. If specialized, intensive eating disorder care is your primary need, we'll help you find a program built for that." },
+  { q: "I'm not sure if what I'm dealing with counts as an eating disorder. Should I still reach out?", a: "Yes. You don't need a diagnosis to have a conversation. If food, eating, or body image has become part of a harder picture for you, our admissions team can talk through whether we're the right fit." },
+  { q: "Will my eating patterns be addressed even if that's not why I'm coming to treatment?", a: "Yes. If these patterns come up during your care, they're part of the conversation, not something set aside because they weren't the reason you first reached out." },
+  { q: "What if I need more specialized eating disorder care than Breathe offers?", a: "We'll tell you honestly if that's the case, and help point you toward a program built specifically for that level of care." },
+  { q: "Is this addressed differently for different genders or body types?", a: "Care is approached the same way regardless of gender or body type. No assumptions are made about who experiences body image or food-related struggles, it's addressed as part of your individual care, whoever you are." },
+  { q: "Does insurance cover this kind of support?", a: "It's part of your overall treatment plan, not a separate billable program. Our admissions team can walk you through your specific coverage." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -97,6 +127,10 @@ const ld = {
         { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
         { "@type": "ListItem", position: 3, name: "Co-Occurring Eating Disorders", item: pageUrl },
       ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -125,7 +159,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -141,7 +175,28 @@ const ld = {
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Body-image struggles and emotional eating patterns are common alongside substance use and mental health treatment, and they deserve attention rather than being left unaddressed.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">What we offer is a team that notices these patterns, asks about them, and folds them into your broader individual and group therapy alongside whatever brought you here in the first place.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Any signs/symptoms content here — needs approved clinical brief. Framing reminder: co-occurring body-image / emotional-eating support, addressed within substance-use and mental-health treatment — not a standalone eating-disorder diagnosis or program (see CLAUDE.md)." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What this can look like</div>
+            <div style="display:grid;gap:12px;">
+              {signs.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #E2DED7;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#478694;">info</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#2C5A64;">How it's addressed</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#3A444D;margin:0;">These patterns come up in individual and group therapy alongside whatever brought you here, not as a separate diagnosis to manage on your own. Our team notices them, asks about them, and folds that conversation into your broader care.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -185,7 +240,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -213,16 +268,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:34ch;`}>Questions people ask about this support</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="FAQ content on how body-image/emotional-eating patterns are addressed within primary treatment — needs approved brief. Framing must stay co-occurring/integrated, never a standalone ED program (see CLAUDE.md)." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about this support"
+      intro="Straight answers about fit, scope, and how this is addressed alongside your care."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's

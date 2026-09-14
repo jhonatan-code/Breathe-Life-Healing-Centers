@@ -2,15 +2,34 @@
 /**
  * /signature-services/ — section hub for Breathe's three signature service
  * tracks (Chemsex & Sexualized Drug Use Treatment, LGBTQ+ Treatment, Flight
- * Attendant Program). No approved content brief exists for any of these
- * pages yet, so this hub carries general structural/marketing framing only
- * — what each track is for and who it's for — never invented clinical
- * content. FAQ content is placeholdered on the detail pages, not here.
+ * Attendant Program). Structural/marketing framing on the hub itself is
+ * original. FAQ sourced from Breathe_Life_Signature_Services_FAQ.docx
+ * (2026-09-14), which defers to the BLHC Content Client Profile as
+ * authoritative and is not going through further client/team review, this
+ * page previously had no FAQ section at all (same gap as the What We Treat
+ * overview had before its own FAQ was added), added below, same placement
+ * pattern: right after SiteLocation, before the mobile verify slot.
+ *
+ * Kathleen Murphy, credited on the live /breathe-services/ source page as
+ * "founding Clinical Director" with a full present-tense biography, is not
+ * named here, same exclusion already applied on the Complex Trauma and
+ * Chemsex pages (this is the third confirmed instance in this project).
+ *
+ * The brief also flagged three technical bugs on the live source page that
+ * are not content decisions for this repo: (1) its meta title reads
+ * "Bulimia Treatment in Los Angeles," mismatched to the actual page
+ * content, a template/metadata bug on whichever live page currently
+ * carries it; (2) its closing paragraph has a stray "obsessing about your
+ * meals" line, an eating-disorder reference on a page not about that
+ * topic; (3) it names the same program both "3-Day Family Workshop" and
+ * "5-Day Family Workshop" in different places, an inconsistency already
+ * resolved by the consolidated /programs/family-program/ page in this
+ * build. None of these three are acted on here, they belong to whoever
+ * owns the live site.
  *
  * Pattern mirrors /programs/ (see BUILD NOTES there): hero without a
  * breadcrumb, card grid, SiteInsurance, pillars-row, SiteReviews,
- * SiteLocation, mobile verify slot immediately before the Final CTA (no FAQ
- * section on this hub, same as /programs/).
+ * SiteLocation.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -19,6 +38,7 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import { site } from "../../config/site";
 import { galleryImg } from "../../data/home";
@@ -28,7 +48,7 @@ const HREF = site.phoneHref;
 
 const title = "Signature Services | Breathe Life Healing Centers";
 const description =
-  "Breathe's signature services — Chemsex & Sexualized Drug Use Treatment, LGBTQ+ Treatment, and the Flight Attendant Program. Built for people and situations general treatment often misses. Call 24/7.";
+  "Breathe's signature services, Chemsex & Sexualized Drug Use Treatment, LGBTQ+ Treatment, and the Flight Attendant Program. Built for people and situations general treatment often misses. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -43,16 +63,28 @@ const S = {
 const services = [
   {
     icon: "favorite", title: "Chemsex & Sexualized Drug Use Treatment", href: "/signature-services/chemsex-treatment/",
-    text: "A dedicated track for substance use tied to sex, intimacy, or identity — treated as its own clinical issue, judgment-free, and never folded into general sex addiction treatment.",
+    text: "A dedicated track for substance use tied to sex, intimacy, or identity, treated as its own clinical issue, judgment-free, and never folded into general sex addiction treatment.",
   },
   {
     icon: "diversity_3", title: "LGBTQ+ Treatment", href: "/signature-services/lgbtq/",
-    text: "Identity- and gender-affirming care woven into every level of treatment we offer — built for the LGBTQ+ community first, open to anyone whose values align.",
+    text: "Identity- and gender-affirming care woven into every level of treatment we offer, built for the LGBTQ+ community first, open to anyone whose values align.",
   },
   {
     icon: "flight", title: "Flight Attendant Program", href: "/signature-services/flight-attendant-program/",
-    text: "Treatment shaped around airline rosters, union benefits, and the specific pressures of flight crew work — from a team that knows the job.",
+    text: "Treatment shaped around airline rosters, union benefits, and the specific pressures of flight crew work, from a team that knows the job.",
   },
+];
+
+// FAQ #2's answer is reworded from the brief to not open with "No" (which
+// faq.md prohibits) while keeping the same meaning. Every other answer is
+// verbatim from Breathe_Life_Signature_Services_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "What makes a Signature Service different from a regular program?", a: "These three tracks exist because a standard program doesn't always fit. They're built around specific situations, chemsex, LGBTQ+ identity, or flight attendant work, not adapted from a generic template." },
+  { q: "Do I need to fit one of these three categories to be treated here?", a: "These are specialized tracks for specific situations, not a requirement. Our full range of programs and levels of care are available to anyone." },
+  { q: "Can I access a Signature Service alongside standard levels of care, like Residential or IOP?", a: "Yes. These tracks run alongside your primary level of care, not as a replacement for it." },
+  { q: "Is the Chemsex track only for people who identify as LGBTQ+?", a: "Chemsex shows up most often in gay and queer men's communities, and that shapes how the track is built, but it's open to anyone experiencing this pattern." },
+  { q: "How is the Flight Attendant Program different from general treatment?", a: "It's shaped around the real constraints of the job, airline schedules, union benefits, and the specific pressures of flight crew work, not a generic program with the job title attached." },
+  { q: "Does insurance cover treatment through a Signature Service?", a: "In most cases, yes. Our admissions team verifies your specific benefits and explains what's covered before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
 ];
 
 const why = [
@@ -91,6 +123,10 @@ const ld = {
         url: new URL(s.href, site.domain).href,
       })),
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -111,12 +147,12 @@ const ld = {
         <div style="flex:1 1 560px;">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">Signature services</div>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Treatment Built Around Who You Actually Are</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Some situations need more than a generic program. These are the parts of Breathe built specifically around them — not bolted on, not an afterthought.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Some situations need more than a generic program. These are the parts of Breathe built specifically around them, not bolted on, not an afterthought.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -128,7 +164,7 @@ const ld = {
       <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Why these exist</div>
         <h2 style={`${S.h2}max-width:30ch;`}>Not every situation fits a standard program</h2>
-        <p style={`${S.intro}max-width:78ch;`}>General addiction and mental health treatment works for a lot of people, but it doesn't account for everything — a substance pattern tied to sex or identity, a life built around airline schedules, or the specific weight of being LGBTQ+ in a world that isn't always safe to be honest in. We built these three tracks because those situations deserve treatment that actually understands them, not a version of care that has to be explained from scratch.</p>
+        <p style={`${S.intro}max-width:78ch;`}>General addiction and mental health treatment works for a lot of people, but it doesn't account for everything, a substance pattern tied to sex or identity, a life built around airline schedules, or the specific weight of being LGBTQ+ in a world that isn't always safe to be honest in. We built these three tracks because those situations deserve treatment that actually understands them, not a version of care that has to be explained from scratch.</p>
       </div>
     </section>
 
@@ -159,7 +195,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -187,9 +223,17 @@ const ld = {
 
     <SiteLocation />
 
+    <SiteFAQ
+      heading="Questions people ask about signature services"
+      intro="Straight answers about fit, eligibility, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
-    {/* No FAQ section on this hub (same as /programs/) — the slot lands
-       right before the Final CTA. */}
+    {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
+       script relocates the form node into #verify-mobile-slot at ≤1024px —
+       lands right before the Final CTA, after the FAQ above. */}
     <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
       <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
         <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>

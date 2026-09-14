@@ -1,11 +1,34 @@
 ---
 /**
- * /signature-services/flight-attendant-program/ — no approved content brief
- * exists yet, so this page carries general structural/marketing framing
- * only: what the program is for, who it's for, and how admissions works
- * around airline scheduling. No specific clinical claims, treatment-
- * modality efficacy claims, or FAQ content are invented here; see the
- * ClinicalPlaceholder before the Final CTA.
+ * /signature-services/flight-attendant-program/ — FAQ sourced from
+ * Breathe_Life_Flight_Attendant_FAQ.docx (2026-09-14), which defers to the
+ * BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review.
+ *
+ * No specific FAA or union policy details are invented, consistent with
+ * this page's original placeholder warning: questions about union leave,
+ * return-to-work timelines, and FAA/employer notification are answered by
+ * pointing to the real FADAP (Flight Attendant Drug and Alcohol Program)
+ * partnership, confirmed since 2013, and individualized coordination,
+ * never a specific regulation, union rule, or notification requirement
+ * that can't be verified.
+ *
+ * ALSO FOUND, not used here: the brief notes the live /about/ page still
+ * credits Brad Lamm as founder in present tense, the same exclusion
+ * already applied elsewhere, noted because it confirms this appears on the
+ * core About page too, not only Crystal Clear. Not referenced in this
+ * content, no action taken on /about/ by this change.
+ *
+ * STRUCTURAL CHANGE (2026-09-14, per the brief and the user's explicit
+ * instruction): the "Flight crew work and LGBTQ+ identity often overlap"
+ * section previously stood alone as a full-width block between the four
+ * differentiator cards and the insurance section, duplicating a claim the
+ * "Built for the LGBTQ+ community first" pillar card below already made.
+ * Removed that standalone section; its one non-duplicate element, the
+ * "Learn About LGBTQ+ Treatment" link, is now folded directly into that
+ * pillar card in the "Why Choose Breathe" section, so the real
+ * aviation/LGBTQ+ data point and its link sit with the claim they support
+ * instead of isolated between two unrelated sections.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -14,8 +37,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 import { galleryImg } from "../../data/home";
 
@@ -63,6 +86,16 @@ const different = [
   },
 ];
 
+// Verbatim from Breathe_Life_Flight_Attendant_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "Will treatment affect my standing with my union or airline?", a: "We work directly with the Flight Attendant Drug and Alcohol Program (FADAP), a partnership we've held since 2013, along with peer representatives and airline EAPs. Your specific situation, union leave, and any notification requirements are coordinated individually with our admissions and clinical team, not assumed in advance." },
+  { q: "How does a return-to-work timeline get decided?", a: "It's built around your individual treatment plan and coordinated through FADAP and your airline's EAP, not a fixed schedule. Our team works with you on this directly." },
+  { q: "Does entering treatment mean my employer will automatically find out?", a: "Notification requirements depend on your specific airline, union, and situation. Our admissions team can walk you through what applies to you before you commit to anything." },
+  { q: "Can I keep working or stay connected to my schedule while in treatment?", a: "We talk through bid status, reserve status, and union leave before you commit to anything, so treatment fits around your actual schedule rather than fighting it." },
+  { q: "What if I'm on a layover or based somewhere far from Los Angeles?", a: "Reach out to our admissions team to talk through logistics, our team works with flight crew from across the country, not just those based locally." },
+  { q: "Does insurance cover treatment through this program?", a: "In most cases, yes. We verify your specific benefits, including how union or airline-provided coverage applies, before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -70,7 +103,7 @@ const why = [
   },
   {
     icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Flight crews are one of the most LGBTQ+-represented workforces in the country, and this program is built with that in mind — while welcoming any crew member whose values align.",
+    text: "Flight crews are one of the most LGBTQ+-represented workforces in the country, and this program is built with that in mind, while welcoming any crew member whose values align.",
   },
   {
     icon: "calendar_month", title: "Schedule- and union-aware",
@@ -89,6 +122,10 @@ const ld = {
         { "@type": "ListItem", position: 2, name: "Signature Services", item: new URL("/signature-services/", site.domain).href },
         { "@type": "ListItem", position: 3, name: "Flight Attendant Program", item: pageUrl },
       ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -117,7 +154,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -130,7 +167,7 @@ const ld = {
         <div>
           <div style={S.eyebrow}>What this is</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Built around the job, not despite it</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Flight crew work carries a specific set of pressures that most treatment programs simply aren't built to account for — a schedule that changes every month, a body clock that never settles, and a professional culture where a drink or two on a layover is just what people do. The Flight Attendant Program exists because that context matters to recovery, and pretending it doesn't makes treatment harder to stick to.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Flight crew work carries a specific set of pressures that most treatment programs simply aren't built to account for, a schedule that changes every month, a body clock that never settles, and a professional culture where a drink or two on a layover is just what people do. The Flight Attendant Program exists because that context matters to recovery, and pretending it doesn't makes treatment harder to stick to.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">This program is built for flight attendants and other flight crew, and it welcomes airline and hospitality workers navigating similar rhythms.</p>
         </div>
         <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
@@ -173,19 +210,9 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  RELATED SIGNATURE SERVICE  ══════════════ */}
-    <section data-screen-label="Related" style="padding:56px 37px;background:#FFFFFF;">
-      <div style="max-width:1060px;margin:0 auto;text-align:center;">
-        <div style={S.eyebrow}>Also built for our community</div>
-        <h2 style={`${S.h2}max-width:36ch;`}>Flight crew work and LGBTQ+ identity often overlap</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:24px;`}>Aviation has long been one of the most LGBTQ+-represented industries in the country. Our LGBTQ+ Treatment approach runs underneath this program for anyone who wants it.</p>
-        <a class="cta" href="/signature-services/lgbtq/" style={`display:inline-block;${S.ctaBlue}`}>Learn About LGBTQ+ Treatment</a>
-      </div>
-    </section>
-
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits — including how union or airline-provided coverage applies — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits, including how union or airline-provided coverage applies, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -203,6 +230,9 @@ const ld = {
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>
+              {w.title === "Built for the LGBTQ+ community first" && (
+                <a href="/signature-services/lgbtq/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;margin-top:12px;">Learn About LGBTQ+ Treatment <span aria-hidden="true">→</span></a>
+              )}
             </div>
           ))}
         </div>
@@ -213,19 +243,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ PLACEHOLDER  ══════════════ */}
-    <section data-screen-label="FAQ placeholder" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style="margin-bottom:24px;max-width:760px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about this program</h2>
-        </div>
-        <ClinicalPlaceholder
-          kind="FAQ CONTENT"
-          note="Flight Attendant Program FAQ needs an approved brief before publishing — questions about union leave coordination, return-to-work timing, and FAA/employer notification requirements need confirmation from admissions and clinical leadership, not an invented answer."
-        />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about this program"
+      intro="Straight answers about union and airline coordination, scheduling, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* Placed after the FAQ placeholder / before the Final CTA per this
@@ -238,7 +261,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-14-community-kitchen.jpg"
     />

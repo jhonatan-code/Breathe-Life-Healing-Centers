@@ -1,11 +1,19 @@
 ---
 /**
- * /conditions/anxiety/ — no approved content brief exists yet, so this page
- * carries general/structural framing only (CLAUDE.md hard rule: no invented
- * clinical content for a YMYL page without a brief). Signs/symptoms and FAQ
- * are placeholdered via ClinicalPlaceholder rather than invented. Structure
- * mirrors /what-we-treat/cocaine.astro (shared components, same card/pill/
- * pillar patterns), condition-framed instead of substance-framed.
+ * /conditions/anxiety/ — clinical content and FAQ sourced from
+ * Breathe_Life_Anxiety_Content_and_FAQ.docx (2026-09-14), which defers to
+ * the BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review. Content itself is sourced from the live page,
+ * confirmed clean of IFS, EMDR, ECT, and contingency management.
+ *
+ * Specific brand medications (Celexa, Lexapro, Xanax, Klonopin, Zoloft,
+ * Wellbutrin) are not named, same rule as the depression page: medication
+ * fit is a psychiatrist's clinical decision, and naming Xanax/Klonopin here
+ * specifically would create an odd overlap with the separate dedicated
+ * Xanax and Benzodiazepines substance pages.
+ *
+ * Structure mirrors /what-we-treat/cocaine.astro (shared components, same
+ * card/pill/pillar patterns), condition-framed instead of substance-framed.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -14,8 +22,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 import { galleryImg } from "../../data/home";
 
@@ -42,7 +50,7 @@ const care = [
     text: "Full-time structure, daily therapy, and psychiatric support in one setting.",
   },
   {
-    icon: "wb_sunny", title: "PHP — Day Treatment", href: "/programs/php/", cta: "Learn About PHP",
+    icon: "wb_sunny", title: "PHP, Day Treatment", href: "/programs/php/", cta: "Learn About PHP",
     text: "Intensive daytime treatment, returning home or to transitional living in the evenings.",
   },
   {
@@ -59,6 +67,34 @@ const related: [string, string][] = [
   ["Depression", "/conditions/depression/"],
   ["Trauma", "/conditions/trauma/"],
   ["Methamphetamine", "/what-we-treat/methamphetamine/"],
+];
+
+// Verbatim from Breathe_Life_Anxiety_Content_and_FAQ.docx (2026-09-14),
+// itself sourced from the live page. No specific medications named, see
+// file header comment.
+const types = [
+  "Generalized anxiety disorder (GAD)",
+  "Obsessive-compulsive disorder (OCD)",
+  "Panic disorder",
+  "Posttraumatic stress disorder (PTSD)",
+  "Social anxiety disorder (SAD)",
+];
+
+const symptoms = [
+  "Fatigue and restlessness",
+  "Poor concentration, racing or unwanted thoughts",
+  "Irritability and excessive worry",
+  "Insomnia and heart palpitations",
+  "Trembling or a feeling of impending doom",
+];
+
+const faqs = [
+  { q: "Is anxiety treated on its own, or only alongside substance use?", a: "Anxiety is treated as its own focus, not an afterthought. When it overlaps with substance use, depression, or trauma, our clinical team treats it all on the same plan, on the same timeline." },
+  { q: "Will medication be part of my treatment?", a: "It may be, depending on your specific situation. Our psychiatric team evaluates what's appropriate for you individually, medication decisions are made clinically, not assumed in advance." },
+  { q: "What kind of therapy is used for anxiety?", a: "Psychotherapy and cognitive behavioral therapy are core approaches, helping you identify what's driving the anxiety and building new ways to manage it." },
+  { q: "I've been anxious my whole life. Is this even treatable at this point?", a: "Yes. Anxiety isn't something you have to have always had under control to get real relief from now." },
+  { q: "Does anxiety treatment happen at every level of care?", a: "Yes, from residential to outpatient. Your team determines the right starting point based on what you're experiencing." },
+  { q: "Does insurance cover anxiety treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
 ];
 
 const why = [
@@ -95,6 +131,10 @@ const ld = {
       about: { "@type": "MedicalCondition", name: "Anxiety" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -122,7 +162,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -135,10 +175,37 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding anxiety</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Anxiety can crowd out everything else — racing thoughts, a body that won't settle, situations you start avoiding without quite deciding to. It often builds around real pressures, and it can be exhausting to manage alone.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Anxiety can crowd out everything else, racing thoughts, a body that won't settle, situations you start avoiding without quite deciding to. It often builds around real pressures, and it can be exhausting to manage alone.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">At Breathe, anxiety is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
         </div>
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Signs and symptoms of anxiety card — pending an approved clinical brief and reviewer sign-off." />
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common types</div>
+            <div style="display:grid;gap:12px;">
+              {types.map((t) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{t}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #478694;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common symptoms</div>
+            <div style="display:grid;gap:12px;">
+              {symptoms.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(71,134,148,0.12);color:#2C5A64;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -172,7 +239,7 @@ const ld = {
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Dual diagnosis</div>
         <h2 style={`${S.h2}max-width:24ch;`}>Anxiety rarely travels alone</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Anxiety often overlaps with depression, trauma, and substance use — either driving it or left behind by it. We treat what's actually happening, not only the anxiety.</p>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Anxiety often overlaps with depression, trauma, and substance use, either driving it or left behind by it. We treat what's actually happening, not only the anxiety.</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
           {related.map(([name, href]) => (
             <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
@@ -184,7 +251,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for anxiety treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for anxiety treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -212,14 +279,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ (placeholder)  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style={S.eyebrow}>Questions</div>
-        <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about anxiety treatment</h2>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="Anxiety treatment FAQ — pending an approved clinical brief and reviewer sign-off. No FAQPage schema until this content is approved." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about anxiety treatment"
+      intro="Straight answers about medication, therapy, timing, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* Placed after the FAQ/placeholder section on new pages (confirmed change
@@ -232,7 +297,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-16-facility-entrance-drive.jpg"
     />

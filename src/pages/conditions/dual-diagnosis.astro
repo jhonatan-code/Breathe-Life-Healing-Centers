@@ -5,16 +5,29 @@
  * (alcohol/methamphetamine/cocaine "co-occurring conditions" sections) already
  * link here, so this needs to function as a real hub, not a stub.
  *
- * No approved content brief exists yet, so framing stays general/structural —
- * how Breathe organizes care — reusing language already approved elsewhere
- * (home.ts `why`: "Integrated dual-diagnosis approach — we don't treat
- * substance use in isolation from anxiety, depression, or trauma."). No
- * specific clinical/diagnostic claims. Unlike the other four Conditions
- * pages, dual diagnosis is a treatment model rather than a single condition,
- * so the "Understanding" section describes what integrated care looks like
- * (process, not diagnosis) instead of a signs/symptoms placeholder, and the
- * page adds Conditions/Substances link grids to work as a real hub. FAQ is
- * still placeholdered per the CLAUDE.md hard rule.
+ * Clinical content and FAQ sourced from
+ * Breathe_Life_Dual_Diagnosis_Content_and_FAQ.docx (2026-09-14), which
+ * defers to the BLHC Content Client Profile as authoritative and is not
+ * going through further client/team review. Unlike the other four
+ * Conditions pages, dual diagnosis is a treatment model rather than a
+ * single condition, so the "Understanding" section keeps its existing
+ * process-framed "What integrated care looks like" card (structural
+ * copy, approved elsewhere, not a clinical claim) and adds a second card
+ * for the brief's real "Common signs" list alongside it, plus a safety
+ * note where the brief flags one.
+ *
+ * Two corrections from the live page, per the brief:
+ *  - Methadone excluded (second confirmed instance in this project,
+ *    consistent with /programs/medical-detox/ and
+ *    /programs/medication-assisted-treatment/): the live page names
+ *    buprenorphine, methadone, and naltrexone as MAT medications. The
+ *    client profile confirms MAT is offered with the exception of
+ *    methadone. Only buprenorphine and naltrexone are named below.
+ *  - Xanax, named on the live page as an example anxiety medication, is
+ *    not named here, same rule as the Depression, Anxiety, and Complex
+ *    Trauma pages.
+ *
+ * The page adds Conditions/Substances link grids to work as a real hub.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -23,8 +36,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../config/site";
 import { galleryImg } from "../../data/home";
@@ -34,7 +47,7 @@ const HREF = site.phoneHref;
 
 const title = "Dual Diagnosis Treatment in Los Angeles | Breathe";
 const description =
-  "Integrated dual-diagnosis treatment in Los Angeles — mental health and substance use, treated together in one plan. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Integrated dual-diagnosis treatment in Los Angeles, mental health and substance use, treated together in one plan. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -51,7 +64,7 @@ const S = {
 const integrated = [
   "One clinical team treats both, instead of separate programs handing you off",
   "A single treatment plan covers substance use and mental health together",
-  "Care moves with you between levels — residential, PHP, IOP — without starting over",
+  "Care moves with you between levels, residential, PHP, IOP, without starting over",
   "Family therapy and case management stay connected to the whole picture, not just one part of it",
 ];
 
@@ -68,13 +81,32 @@ const substances: [string, string][] = [
   ["Cocaine", "/what-we-treat/cocaine/"],
 ];
 
+// Verbatim from Breathe_Life_Dual_Diagnosis_Content_and_FAQ.docx
+// (2026-09-14), itself sourced from the live page.
+const signs = [
+  "Sudden, drastic changes in behavior",
+  "Using substances under dangerous conditions",
+  "Inability to control substance use",
+  "Growing tolerance, feeling like a substance is needed to function",
+  "Significant mood changes",
+];
+
+const faqs = [
+  { q: "What is dual diagnosis?", a: "When substance use and a mental health condition occur together, sometimes one driving the other, sometimes developing independently. Both are treated as one plan, not as separate problems." },
+  { q: "Which condition gets treated first, the substance use or the mental health issue?", a: "Neither is treated in isolation. Our clinical team addresses both simultaneously, on the same plan, from day one." },
+  { q: "Will I need to detox before starting dual diagnosis treatment?", a: "If you're dependent on a substance, yes, detox is typically the safe starting point, managed with clinical support to make withdrawal as comfortable as possible." },
+  { q: "Will medication be part of my treatment?", a: "It may be, for either the substance use side or the mental health side, depending on your specific situation. Medication decisions are made by our psychiatric team, not assumed in advance." },
+  { q: "Is dual diagnosis treatment more intensive than treating one issue alone?", a: "It's more integrated, not necessarily more intensive. The goal is one coordinated plan instead of bouncing between separate, disconnected programs." },
+  { q: "Does insurance cover dual diagnosis treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const care = [
   {
     icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", cta: "Learn About Residential Treatment",
     text: "Full-time structure, daily therapy, and psychiatric care for both addiction and mental health, in one setting.",
   },
   {
-    icon: "wb_sunny", title: "PHP — Day Treatment", href: "/programs/php/", cta: "Learn About PHP",
+    icon: "wb_sunny", title: "PHP, Day Treatment", href: "/programs/php/", cta: "Learn About PHP",
     text: "Intensive daytime treatment, returning home or to transitional living in the evenings.",
   },
   {
@@ -83,7 +115,7 @@ const care = [
   },
   {
     icon: "support_agent", title: "Case Management", href: "/programs/case-management/", cta: "Learn About Case Management",
-    text: "One dedicated person who knows your whole file — not just the substance-use side or the mental-health side.",
+    text: "One dedicated person who knows your whole file, not just the substance-use side or the mental-health side.",
   },
 ];
 
@@ -114,6 +146,10 @@ const ld = {
         { "@type": "ListItem", position: 3, name: "Dual Diagnosis", item: pageUrl },
       ],
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -141,7 +177,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -154,20 +190,43 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:32ch;`}>What dual diagnosis means at Breathe</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>"Dual diagnosis" describes co-occurring substance use and mental health conditions — anxiety, depression, or trauma alongside drug or alcohol use, either driving it or left behind by it. Treating only one side rarely holds for long.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">That's why our clinical team treats substance use and mental health in the same plan from the start, rather than as separate programs you're referred between.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>"Dual diagnosis" describes co-occurring substance use and mental health conditions, anxiety, depression, or trauma alongside drug or alcohol use, either driving it or left behind by it. Treating only one side rarely holds for long.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 0 12px;max-width:58ch;">That's why our clinical team treats substance use and mental health in the same plan from the start, rather than as separate programs you're referred between.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Detox, when needed, is managed with clinical support to make withdrawal safer and more comfortable. <a href="/programs/medication-assisted-treatment/" style="color:#2C5A64;font-weight:500;">Medication</a> may be part of the plan where appropriate, both for substance use and for the specific mental health condition involved, always determined by a psychiatrist, not assumed in advance. Individual, group, and family therapy address both sides of the picture together, and support groups remain part of ongoing recovery.</p>
         </div>
-        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
-          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What integrated care looks like</div>
-          <div style="display:grid;gap:14px;">
-            {integrated.map((s) => (
-              <div style="display:flex;gap:12px;align-items:flex-start;">
-                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
-                  <Icon name="check" size={14} />
-                </span>
-                <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
-              </div>
-            ))}
+        <div style="display:grid;gap:20px;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What integrated care looks like</div>
+            <div style="display:grid;gap:14px;">
+              {integrated.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
+                    <Icon name="check" size={14} />
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #478694;border-radius:12px;padding:26px 26px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common signs</div>
+            <div style="display:grid;gap:12px;">
+              {signs.map((s) => (
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(71,134,148,0.12);color:#2C5A64;margin-top:1px;">
+                    <span class="msym" style="font-size:14px;">check</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">A note on safety</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">If suicidal thoughts or extreme mood changes are present, reaching out for immediate help matters, our admissions team is available 24/7.</p>
           </div>
         </div>
       </div>
@@ -178,7 +237,7 @@ const ld = {
       <div style="max-width:1100px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Treated together</div>
         <h2 style={`${S.h2}max-width:34ch;`}>Conditions and substances we treat together</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:30px;`}>These aren't separate tracks — whichever combination applies to you becomes one plan.</p>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:30px;`}>These aren't separate tracks, whichever combination applies to you becomes one plan.</p>
 
         <div style="margin-bottom:30px;">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#646D76;margin-bottom:12px;">Mental health</div>
@@ -229,7 +288,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for dual-diagnosis treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for dual-diagnosis treatment, before you commit to anything."
       background="#F7F5F1"
     />
 
@@ -258,14 +317,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ (placeholder)  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#F7F5F1;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style={S.eyebrow}>Questions</div>
-        <h2 style={`${S.h2}max-width:32ch;`}>Questions people ask about dual diagnosis</h2>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="Dual diagnosis treatment FAQ — pending an approved clinical brief and reviewer sign-off. No FAQPage schema until this content is approved." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about dual diagnosis"
+      intro="Straight answers about treatment order, detox, medication, and coverage."
+      groups={[{ items: faqs }]}
+      background="#F7F5F1"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* Placed after the FAQ/placeholder section on new pages (confirmed change
@@ -278,7 +335,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-19-outdoor-dining-deck.jpg"
     />

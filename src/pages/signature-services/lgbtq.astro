@@ -2,16 +2,38 @@
 /**
  * /signature-services/lgbtq/ — LGBTQ+ Treatment. Arguably the most
  * important page on the site given Breathe's brand positioning, so this
- * page gets extra design attention: a leadership/credibility strip (Beck
- * Gee's bio, reused verbatim from the already-approved data/home.ts `team`
- * entry — not invented here) and a pull-quote band built from a real,
- * sourced Google review (Stephen Timmer, data/home.ts `reviews`) that
- * happens to speak directly to "built for us first, not only for us."
+ * page gets extra design attention: Beck Gee's bio (reused verbatim from
+ * the already-approved data/home.ts `team` entry, not invented here) and a
+ * pull-quote band built from a real, sourced Google review (Stephen
+ * Timmer, data/home.ts `reviews`) that happens to speak directly to "built
+ * for us first, not only for us."
  *
- * No approved content brief exists yet, so beyond those two reused,
- * already-approved sources, this page carries general structural/marketing
- * framing only. No specific clinical claims or FAQ content are invented;
- * see the ClinicalPlaceholder before the Final CTA.
+ * FAQ sourced from Breathe_Life_LGBTQ_Treatment_FAQ.docx (2026-09-14),
+ * which defers to the BLHC Content Client Profile as authoritative and is
+ * not going through further client/team review.
+ *
+ * That same brief also confirms, via multiple independent sources
+ * (ZoomInfo, Psychology Today updated within the last two weeks, a
+ * published professional bio dated August 2026, and a cached page on
+ * Breathe's own site listing the current team), that Beck Gee's CEO status
+ * has real corroboration, unlike Crystal Clear or Kathleen Murphy. The
+ * brief also newly confirms Deb Hughes as current "Strategic Relations and
+ * Co-founder" (consistent with the earlier Sero Mental Health finding);
+ * that name isn't added anywhere in this change since no page here calls
+ * for it, flagged as available if a future page needs it.
+ *
+ * STRUCTURAL CHANGE (2026-09-14, per a follow-up docx and the user's
+ * explicit instruction): Beck Gee's bio previously stood alone as its own
+ * full-width "Leadership" section between "What Makes This Different" and
+ * the Stephen Timmer testimonial. Removed that standalone section, his
+ * photo, name, and role are now folded directly into the "Staff Who've
+ * Lived It" pillar card in the "Why Choose Breathe" section below, so the
+ * concrete, named example reinforces the general claim in the same visual
+ * location instead of requiring the visitor to recall it several scrolls
+ * later. His full bio paragraph is no longer shown on this page (it didn't
+ * fit the compact pillar-card format the other three cards use), but
+ * remains intact at its source in data/home.ts and on his own team profile
+ * page.
  *
  * Per CLAUDE.md: never call being LGBTQ+ a "lifestyle"; center the LGBTQ+
  * community as the primary audience without positioning Breathe as
@@ -25,8 +47,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 import { galleryImg, team, reviews } from "../../data/home";
 
@@ -58,7 +80,7 @@ const different = [
   },
   {
     icon: "family_restroom", title: "Chosen family welcomed",
-    text: "Family Class and our 3-Day Family Workshop make room for the people who actually show up for you — partners, chosen family, or family of origin.",
+    text: "Family Class and our 3-Day Family Workshop make room for the people who actually show up for you, partners, chosen family, or family of origin.",
   },
   {
     icon: "diversity_3", title: "Woven in, not bolted on",
@@ -82,19 +104,31 @@ const proofExcerpt =
 const related = [
   {
     icon: "favorite", title: "Chemsex & Sexualized Drug Use Treatment", href: "/signature-services/chemsex-treatment/",
-    text: "A dedicated track for substance use tied to sex, intimacy, or identity — treated as its own clinical issue.",
+    text: "A dedicated track for substance use tied to sex, intimacy, or identity, treated as its own clinical issue.",
   },
   {
     icon: "flight", title: "Flight Attendant Program", href: "/signature-services/flight-attendant-program/",
-    text: "Aviation is one of the most LGBTQ+-represented industries in the country — treatment built around that job.",
+    text: "Aviation is one of the most LGBTQ+-represented industries in the country, treatment built around that job.",
   },
 ];
 
+// FAQ #3's answer is reworded from the brief to not open with "No" (which
+// faq.md prohibits) while keeping the same meaning. Every other answer is
+// verbatim from Breathe_Life_LGBTQ_Treatment_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "Is Breathe only for LGBTQ+ clients?", a: "We're built for the LGBTQ+ community first, and that shapes everything about how we treat people, but our doors are open to anyone whose values align with how we operate." },
+  { q: "What does gender-affirming care actually look like day to day?", a: "Correct names and pronouns from the first phone call, not after an adjustment period. Staff trained in the specific weight of being LGBTQ+ in addiction and mental health treatment, not just in general." },
+  { q: "Does 'family' in your programming mean my biological family?", a: "Partners, chosen family, and community are valid participants in Family Class, our 3-Day Family Workshop, and every other part of how we involve the people who matter to you." },
+  { q: "Will I be treated by staff who understand LGBTQ+ experience specifically, or just generally trained staff?", a: "Staff here are trained in minority stress and the specific weight of being LGBTQ+, not general sensitivity training applied to every population." },
+  { q: "Is chemsex treatment part of this, or a separate thing?", a: "Chemsex and Sexualized Drug Use Treatment runs alongside this approach as a related, dedicated track, since chemsex shows up most often in LGBTQ+ men's spaces." },
+  { q: "Does insurance cover LGBTQ+-focused treatment the same way as standard treatment?", a: "Yes. In most cases, we're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why: [string, string, string, string][] = [
-  ["diversity_3", "#33679C", "LGBTQIA+-Affirming Care at Every Level", "Gender-affirming, identity-affirming clinical care — clinicians who understand minority stress and staff who use your pronouns without being asked twice."],
-  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Every person here, from the front desk to clinical leadership, has personal recovery experience — you're not being treated by someone who studied it from the outside."],
+  ["diversity_3", "#33679C", "LGBTQIA+-Affirming Care at Every Level", "Gender-affirming, identity-affirming clinical care, clinicians who understand minority stress and staff who use your pronouns without being asked twice."],
+  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Every person here, from the front desk to clinical leadership, has personal recovery experience, you're not being treated by someone who studied it from the outside."],
   ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Family therapy, Family Class, and a 3-Day Family Workshop, with room for chosen family, not only family of origin."],
-  ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate — care that respects who knows you're here, on your terms."],
+  ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate, care that respects who knows you're here, on your terms."],
 ];
 
 const pageUrl = new URL("/signature-services/lgbtq/", site.domain).href;
@@ -108,6 +142,10 @@ const ld = {
         { "@type": "ListItem", position: 2, name: "Signature Services", item: new URL("/signature-services/", site.domain).href },
         { "@type": "ListItem", position: 3, name: "LGBTQ+ Treatment", item: pageUrl },
       ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -136,7 +174,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -148,8 +186,8 @@ const ld = {
       <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>What this is</div>
         <h2 style={`${S.h2}max-width:32ch;`}>Care built around who you are, not in spite of it</h2>
-        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>LGBTQ+ Treatment at Breathe means identity- and gender-affirming care woven into every level of treatment we offer — medical detox, residential, PHP, IOP, and beyond. It isn't a separate track bolted onto a default program built with someone else in mind. It's the foundation everything else is built on.</p>
-        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>That doesn't mean Breathe is only for LGBTQ+ people. Aligned cis-hetero clients are welcome and held to the same standard of care — but the center of gravity here is, and has always been, our community.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>LGBTQ+ Treatment at Breathe means identity- and gender-affirming care woven into every level of treatment we offer, medical detox, residential, PHP, IOP, and beyond. It isn't a separate track bolted onto a default program built with someone else in mind. It's the foundation everything else is built on.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>That doesn't mean Breathe is only for LGBTQ+ people. Aligned cis-hetero clients are welcome and held to the same standard of care, but the center of gravity here is, and has always been, our community.</p>
         <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:70ch;">And "family," in our programming, is never assumed to mean blood relatives. Partners and chosen family are valid participants in Family Class, our 3-Day Family Workshop, and every other part of how we involve the people who matter to you.</p>
       </div>
     </section>
@@ -174,21 +212,6 @@ const ld = {
               </div>
             );
           })}
-        </div>
-      </div>
-    </section>
-
-    {/* ══════════════  LEADERSHIP STRIP  ══════════════ */}
-    <section data-screen-label="Leadership" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1000px;margin:0 auto;">
-        <div style="display:grid;grid-template-columns:minmax(200px,240px) 1fr;gap:36px;align-items:center;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:36px;">
-          <img src={beck.photo} alt={beck.name} style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;" />
-          <div>
-            <div style={S.eyebrow}>Led with lived experience</div>
-            <div style="font-size:22px;font-weight:600;letter-spacing:-0.016em;margin-bottom:4px;">{beck.name}</div>
-            <div style="font-family:'Instrument Sans',sans-serif;font-size:14px;color:#646D76;margin-bottom:14px;">{beck.role} · {beck.badge}</div>
-            <p style={`${S.card}max-width:52ch;`}>{beck.bio}</p>
-          </div>
         </div>
       </div>
     </section>
@@ -232,7 +255,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -250,6 +273,15 @@ const ld = {
               </span>
               <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
               <p style={S.card}>{p}</p>
+              {h === "Staff Who've Lived It" && (
+                <div style="display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid #E2DED7;">
+                  <img src={beck.photo} alt={beck.name} style="width:38px;height:38px;border-radius:999px;object-fit:cover;flex:0 0 auto;" />
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:#14181C;line-height:1.3;">{beck.name}</div>
+                    <div style="font-family:'Instrument Sans',sans-serif;font-size:11.5px;color:#646D76;line-height:1.3;">{beck.role}</div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -260,19 +292,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ PLACEHOLDER  ══════════════ */}
-    <section data-screen-label="FAQ placeholder" style="padding:70px 37px;background:#F7F5F1;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style="margin-bottom:24px;max-width:760px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about LGBTQ+ treatment</h2>
-        </div>
-        <ClinicalPlaceholder
-          kind="FAQ CONTENT"
-          note="LGBTQ+ Treatment FAQ needs an approved clinical brief before publishing — gender-affirming care coordination, minority-stress-informed assessment, and family/chosen-family definitions need clinical sign-off, not invented answers."
-        />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about LGBTQ+ treatment"
+      intro="Straight answers about fit, gender-affirming care, family, and coverage."
+      groups={[{ items: faqs }]}
+      background="#F7F5F1"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* Placed after the FAQ placeholder / before the Final CTA per this
@@ -285,7 +310,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-16-facility-entrance-drive.jpg"
     />

@@ -33,12 +33,22 @@
  * ⚠️ EATING DISORDER PROGRAM FLAG (brief, verbatim): "Recommend surfacing
  * this to Jasmine directly before finalizing this page or the eating
  * disorders page... Do not finalize until Jasmine confirms how the eating
- * disorder program should be positioned." Handled conservatively: the
- * three real, already-published testimonials that describe this program
- * (Shaun C., Kelly, Mike) are shown as testimonials, same as every other
- * category — but no NEW copy asserting a formal, named "Eating Disorder
- * Program" structure has been added anywhere on this page. That
- * positioning decision is still open and unresolved by this page.
+ * disorder program should be positioned." RESOLVED 2026-09-14, per
+ * Breathe_Life_Open_Items_Audit.docx and the user's direct decision: the
+ * eating-disorders page's informational-only, not-a-standalone-program
+ * framing was confirmed by the client, directly conflicting with this
+ * category's original three testimonials (Shaun C., Kelly, Mike), which
+ * named a "binge eating disorder program," a "food program," and David
+ * Wiss (dietitian) by name and in detail. Per the user: these are real,
+ * first-party quotes, editing someone's actual words to strip out what
+ * they said would misrepresent them, so they are not rewritten. Instead
+ * they are removed from display and replaced with three other real,
+ * already-verified quotes from the Reviews Compilation (Zahara Nakia,
+ * Stephen Timmer, Matt Berg, two of them already verbatim in
+ * src/data/home.ts) that don't touch eating disorders, named staff, or
+ * length of stay, the same principle SiteReviews.astro already applies on
+ * the homepage. The original three quotes aren't deleted from any source
+ * document, only no longer shown on this live page.
  *
  * BRAD LAMM: James King's testimonial mentions him in passing ("thanks to
  * Brad at smoking session group he hosted") — kept verbatim, same
@@ -111,12 +121,12 @@ const categories: Category[] = [
   {
     id: "eating-disorder-co-occurring",
     label: "Eating Disorder & Co-Occurring Care",
-    blurb: "Stories from clients whose treatment addressed food, body image, and substance use together.",
-    featured: { name: "Shaun C.", quote: "I did 90 days in the binge eating disorder program 18 months ago... Kathleen Murphy (clinical director) and David Wiss (dietitian nutritionist) were the two main reasons for my success." },
+    blurb: "Stories from clients about inclusive, whole-person care alongside substance use treatment.",
+    featured: { name: "Stephen Timmer", quote: "I have brought LGBTQ clients and straight or cis gender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance. Highly recommended!!!!" },
     entries: [
-      { name: "Shaun C.", quote: "I did 90 days in the binge eating disorder program 18 months ago. I also have a history of drug and alcohol addiction. My experience was positive! Kathleen Murphy (clinical director) and David Wiss (dietitian nutritionist) were the two main reasons for my success. The program was at times challenging but ultimately very rewarding, as I have maintained my weight loss and feel much more grounded in my personal and professional life. Working my program and maintaining my food plan is second nature to me now. Profoundly grateful." },
-      { name: "Kelly", quote: "I'm going on 6 months of sobriety after leaving Breathe for treatment of anorexia and alcohol abuse. It may not sound like much to you, but for this alcoholic it's a miracle! After almost 10 years of trying to take my life back and failing to stay sober for even one month outside of treatment or pregnancy, the treatment, tools, people and support I received at Breathe stays with me. It has impacted me on every level. I have sought lasting sobriety in countless treatment centers, doctors, people, places and things, all to no avail. This time there has been a shift — a shift that I wholeheartedly feel is a result of the experiences I had while at Breathe. It's difficult to describe in words the opportunity for sobriety that Breathe provided. I was a hopeless alcoholic battling a stout eating disorder when I entered Breathe, and today I have a new found richness in life, my higher power, and in myself. I am in acceptance. Today I am enough!" },
-      { name: "Mike", quote: "My time at Breathe was transformational for me. I graduated about a year ago after three months in the food program and have continued to apply what I learned. People do not take food addiction seriously, and to go into a program was a hard decision to make. Addicts are control freaks, and to think that it is a vacation is far from true — but they have a nutritional program which is by far the best I have encountered in years of nutritional education, and a clinical program that really addresses addiction and trauma in a realistic way. The accommodations are wonderful and there is a true commitment to health (mental, physical and spiritual) and exercise. My main reason for continual lack of control around food was a chronic pain condition. I became aware that the pain and food were separate and continue to follow the nutritional guidelines I learned at Breathe. Thank you all for dedicating your lives to helping others reclaim theirs." },
+      { name: "Zahara Nakia", quote: "This is pretty awesome. The staff for the most part is great. And the thing is liked about this place the most is they were patient enough with me the first time I was here. They allowed me to land emotionally the second time not so much but I left 5 stars because the CM's were very kind as well as the nursing staff. Blake is my spirit is amazing and most of the staff are extremely empathetic towards everyone not just people within the LGBTQ community." },
+      { name: "Stephen Timmer", quote: "As an interventionist, I have brought several people to Breathe for substance abuse treatment and co-occurring issues. I love this program. I have had great success with the individuals I brought here because of the clinical services provided, the environment, the quality of the treatment team and the fact that it is owned by individuals who are passionate about recovery. I have a bias against chain programs and prefer those that are owned and operated by people who are in this field to help others. That is what Breathe does!!! I have brought LGBTQ clients and straight or cis gender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance. Highly recommended!!!!" },
+      { name: "Matt Berg", quote: "I was able to process my trauma from issues I faced growing up as a gay boy in the 1980's to an abusive romantic relationship as a young adult. The trauma and shame that I grew up with fueled my lack of self worth and my use of drugs and alcohol to numb myself." },
     ],
   },
   {

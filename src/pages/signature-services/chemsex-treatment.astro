@@ -5,14 +5,13 @@
  * Treatment" CTA already shipped on /what-we-treat/methamphetamine/ (its
  * "Chemsex context" section), so this page needs to deliver on that link.
  *
- * No approved content brief exists yet, so this page carries general
- * structural/marketing framing only — what this track is for, who it's
- * for, and how it fits alongside standard levels of care. No specific
- * clinical claims, treatment-modality efficacy claims, or FAQ content are
- * invented here; see the ClinicalPlaceholder before the Final CTA.
+ * FAQ sourced from Breathe_Life_Chemsex_FAQ.docx (2026-09-14), which
+ * defers to the BLHC Content Client Profile as authoritative and is not
+ * going through further client/team review. Consistent with the rest of
+ * this page and CLAUDE.md: chemsex is never conflated with sex addiction
+ * below, treated throughout as its own distinct clinical issue, and no
+ * IFS, contingency management, or named individual appears in any answer.
  *
- * Per CLAUDE.md: chemsex / sexualized drug use is never conflated with sex
- * addiction — it's treated throughout as its own distinct clinical issue.
  * "Crystal Clear" (the meth page's proprietary program name for meth use
  * tied to sex/identity) is a separate open item — see the flag at the top
  * of methamphetamine.astro — and isn't rebranded onto this page; this page
@@ -27,8 +26,8 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 import { galleryImg } from "../../data/home";
 
@@ -37,7 +36,7 @@ const HREF = site.phoneHref;
 
 const title = "Chemsex & Sexualized Drug Use Treatment in Los Angeles | Breathe";
 const description =
-  "Dedicated treatment for chemsex and sexualized drug use in Los Angeles — substance use tied to sex, intimacy, or identity, treated as its own clinical issue. LGBTQ+-affirming. Call 24/7.";
+  "Dedicated treatment for chemsex and sexualized drug use in Los Angeles, substance use tied to sex, intimacy, or identity, treated as its own clinical issue. LGBTQ+-affirming. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -68,6 +67,19 @@ const different = [
   },
 ];
 
+// FAQ #1 and #2's answers are reworded from the brief to not open with "No"
+// (which faq.md prohibits) while keeping the same meaning. Every other
+// answer is verbatim from Breathe_Life_Chemsex_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "Is chemsex the same as sex addiction?", a: "Chemsex is a substance use pattern tied to sexual context, not sex addiction. We treat it as its own distinct clinical issue, not folded into that category." },
+  { q: "Will I be judged for how I have sex, or who I have it with?", a: "This track is sex-positive and identity-affirming. The substance use is what we treat, not your sexuality or how you express it." },
+  { q: "What substances does this cover?", a: "Methamphetamine, GHB, mephedrone, ketamine, cocaine, and other substances used in sexualized contexts." },
+  { q: "Is this only for gay or bisexual men?", a: "Chemsex shows up most often in gay and queer men's spaces, and that shapes how this track is built, but it's open to anyone experiencing this pattern." },
+  { q: "Will my HIV status or sexual health history be treated with respect?", a: "Yes. HIV-positive clients are welcomed and treated with clinical competence, not just tolerance." },
+  { q: "How does this run alongside standard treatment, like detox or residential care?", a: "This track runs together with medical detox, residential care, and PHP or IOP, one coordinated plan, not two separate programs." },
+  { q: "Does insurance cover treatment through this track?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+];
+
 const why = [
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -79,7 +91,7 @@ const why = [
   },
   {
     icon: "lock", title: "Your privacy, protected",
-    text: "Confidentiality built into every part of how we operate — care that respects who knows you're here, on your terms.",
+    text: "Confidentiality built into every part of how we operate, care that respects who knows you're here, on your terms.",
   },
 ];
 
@@ -94,6 +106,10 @@ const ld = {
         { "@type": "ListItem", position: 2, name: "Signature Services", item: new URL("/signature-services/", site.domain).href },
         { "@type": "ListItem", position: 3, name: "Chemsex & Sexualized Drug Use Treatment", item: pageUrl },
       ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -122,7 +138,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -134,9 +150,9 @@ const ld = {
       <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>What this is</div>
         <h2 style={`${S.h2}max-width:34ch;`}>A dedicated track, not a footnote in general treatment</h2>
-        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>Chemsex & Sexualized Drug Use Treatment is for anyone whose substance use has become tangled up with sex, intimacy, hookup culture, or identity — whether that means using to get in the mood, to stay in the moment longer, or to feel comfortable being seen at all. It's one of the few dedicated programs of its kind, and it exists because this pattern deserves its own clinical attention, not a generic addiction script.</p>
-        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>This is <strong>not</strong> sex addiction treatment, and we don't treat it as one. Sexualized drug use is its own clinical issue — distinct from compulsive sexual behavior — and folding the two together tends to miss both.</p>
-        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:70ch;">This pattern shows up most often alongside methamphetamine use, and it's the reason our <a href="/what-we-treat/methamphetamine/" style="color:#33679C;font-weight:600;">Methamphetamine page</a> points here — but it isn't limited to one substance, and it doesn't require a meth-specific starting point to get help.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>Chemsex & Sexualized Drug Use Treatment is for anyone whose substance use has become tangled up with sex, intimacy, hookup culture, or identity, whether that means using to get in the mood, to stay in the moment longer, or to feel comfortable being seen at all. It's one of the few dedicated programs of its kind, and it exists because this pattern deserves its own clinical attention, not a generic addiction script.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>This is <strong>not</strong> sex addiction treatment, and we don't treat it as one. Sexualized drug use is its own clinical issue, distinct from compulsive sexual behavior, and folding the two together tends to miss both.</p>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:70ch;">This pattern shows up most often alongside methamphetamine use, and it's the reason our <a href="/what-we-treat/methamphetamine/" style="color:#33679C;font-weight:600;">Methamphetamine page</a> points here, but it isn't limited to one substance, and it doesn't require a meth-specific starting point to get help.</p>
       </div>
     </section>
 
@@ -176,7 +192,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -204,19 +220,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ PLACEHOLDER  ══════════════ */}
-    <section data-screen-label="FAQ placeholder" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style="margin-bottom:24px;max-width:760px;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about this track</h2>
-        </div>
-        <ClinicalPlaceholder
-          kind="FAQ CONTENT"
-          note="Chemsex & Sexualized Drug Use Treatment FAQ needs an approved clinical brief before publishing. Must not conflate chemsex / sexualized drug use with sex addiction (CLAUDE.md) — treat as its own distinct clinical issue in any Q&A written here."
-        />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about this track"
+      intro="Straight answers about how this differs from sex addiction treatment, who it's for, and coverage."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* Placed after the FAQ placeholder / before the Final CTA per this
@@ -229,7 +238,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are you ready to take the first step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-13-ensuite-bath-balcony.jpg"
     />

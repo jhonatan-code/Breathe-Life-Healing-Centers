@@ -26,6 +26,20 @@ import tailwindcss from '@tailwindcss/vite';
 // src/content.config.ts and src/pages/blog/. The 18 redirects below trade
 // some of that backlink equity for that consistency; this is a deliberate,
 // requested reversal of the earlier decision, not an oversight.
+//
+// RESOLVED 2026-09-14 (Breathe_Life_Open_Items_Audit.docx, then the user's
+// direct correction): the audit flagged that Mackenzie Phillips' and Steve
+// Karp's current employment status can't be confirmed, and initially
+// recommended redirecting their posts to the Our Team page instead of
+// keeping them live here. That was wrong -- this project already has a
+// precedent for exactly this situation (Dr. Tian Dayton's bio, kept live as
+// historical content rather than redirected) and it applies here too: these
+// are dated announcements ("joined as of [then]"), not current-status
+// claims. The exclusion rule is about new content making forward-looking
+// claims, not about erasing real, dated, historical content. No redirect
+// change needed -- these stay exactly where they are, preserving the
+// BuzzFeed/Vanity Fair/Daily Mail backlinks this decision was about in the
+// first place.
 const tierAMigrationRedirects = {
   "/toxic-codependency-looks-like/": "/blog/toxic-codependency-looks-like/",
   "/sex-addiction-drug-addiction/": "/blog/sex-addiction-drug-addiction/",
