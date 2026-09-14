@@ -3,16 +3,36 @@
  * /confidentiality-form/ — legal page. Linked from SiteFooter.astro under
  * "Legal".
  *
- * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): legally binding document — the page
- * shell is real, the body is a ClinicalPlaceholder pending the client's
- * actual confidentiality form / consent-to-release language from legal
- * counsel. We do not draft 42 CFR Part 2 / HIPAA release language ourselves.
+ * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): legally binding document. Policy text
+ * below is fetched verbatim from the live page
+ * (breathelifehealingcenters.com/confidentiality-form/, confirmed
+ * 2026-09-14), not authored or rewritten by this build.
+ *
+ * IMPORTANT SCOPE NOTE: the live page is not a plain policy notice like
+ * Terms of Use / NPP, it's an interactive signable form ("I, [name], as a
+ * guest, employee, intern, or volunteer of Breathe Life Healing Centers,
+ * LLC, acknowledge..." with Date/Signature/Submit fields) for facility
+ * visitors, staff, interns, and volunteers to acknowledge PHI
+ * confidentiality obligations, not a client-facing consent-to-release
+ * document. This page reproduces the real policy text verbatim but does
+ * NOT implement a working signature-capture/submission form, that's a
+ * distinct build decision (validation, e-signature handling, backend
+ * storage) flagged for the user rather than assumed. In its place, a
+ * short line directs anyone who needs to sign it to admissions.
  */
 import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import ClinicalPlaceholder from "../components/ClinicalPlaceholder.astro";
 import { site } from "../config/site";
+
+// Verbatim from breathelifehealingcenters.com/confidentiality-form/ (2026-09-14).
+const policyParagraphs = [
+  "Breathe Life Healing Centers, LLC (BLHC) is committed to protecting the privacy, dignity, and confidentiality of all clients in accordance with the Health Insurance Portability and Accountability Act (HIPAA), The Joint Commission standards, and all applicable federal and state laws.",
+  "All guests, employees, interns, and volunteers must maintain strict confidentiality regarding client identities, treatment participation, activities, records, and any Protected Health Information (PHI) obtained during or after their visit, employment, internship, or volunteer service with BLHC.",
+  "Protected Health Information includes, but is not limited to, a client's name, image, voice, diagnosis, treatment information, medical or mental health records, payment information, and any information that could reasonably identify a client. PHI may only be accessed, used, or disclosed on a need-to-know basis and solely within the scope of one's assigned role.",
+  "A valid, written Release of Information (ROI) signed by the client is required prior to the disclosure of any client information outside of BLHC, unless otherwise permitted or required by law. Unauthorized access, use, or disclosure of PHI is strictly prohibited.",
+  "Violations of this policy may result in immediate corrective action, including termination, denial of future visits, and potential legal consequences.",
+] as const;
 
 const title = "Confidentiality Form | Breathe Life Healing Centers";
 const description = "Breathe Life Healing Centers' confidentiality form and how your information is protected.";
@@ -53,10 +73,13 @@ const ld = {
     {/* ══════════════  BODY  ══════════════ */}
     <section data-screen-label="Confidentiality Form body" style="padding:60px 37px 80px;background:#FFFFFF;">
       <div style="max-width:760px;margin:0 auto;">
-        <ClinicalPlaceholder
-          kind="LEGAL CONTENT"
-          note="Requires actual Confidentiality Form text from legal counsel — do not publish placeholder copy as real policy. Confidentiality of substance use disorder treatment records is governed by 42 CFR Part 2 in addition to HIPAA; the client's counsel should confirm which release/consent language applies here."
-        />
+        <h2 style="font-size:20px;font-weight:600;letter-spacing:-0.01em;margin:0 0 14px;color:#14181C;">Confidentiality, HIPAA &amp; Social Media Policy</h2>
+        <div style="display:grid;gap:12px;margin-bottom:8px;">
+          {policyParagraphs.map((t) => <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0;">{t}</p>)}
+        </div>
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-radius:12px;padding:20px 22px;margin-top:20px;">
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#3A444D;margin:0;">This document is available to sign directly through our admissions team, in person or as part of your intake paperwork.</p>
+        </div>
         <div style="margin-top:44px;padding-top:28px;border-top:1px solid #E2DED7;">
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 16px;">Questions about confidentiality? <a href={site.emailHref} style="color:#2C5A64;font-weight:500;">{site.email}</a> or call <a href={site.phoneHref} style="color:#2C5A64;font-weight:500;">{site.phoneDisplay}</a>.</p>
           <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Instrument Sans',sans-serif;font-size:14px;">

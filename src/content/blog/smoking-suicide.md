@@ -15,6 +15,6 @@ Richard Grucza, PhD, the paper's lead author, has suggested that nicotine is a p
 
 As someone eleven years removed from alcohol and crystal meth dependence, I know firsthand what it feels like to need a drug just to feel normal. I also know how powerful and difficult tobacco specifically can be to quit. I've been free of cigarettes for years now, and having lived through what it takes to overcome addiction, I've built my career around helping others carry that same burden and come out the other side.
 
-If you or someone you love is struggling with addiction, our team is here to talk it through. And if you or someone you know is having thoughts of suicide, the 988 Suicide & Crisis Lifeline is available 24/7 by call or text.
+If you or someone you love is struggling with addiction, our team is here to talk it through, including [support for depression and suicide risk](/conditions/depression/) when the two are connected. And if you or someone you know is having thoughts of suicide, the 988 Suicide & Crisis Lifeline is available 24/7 by call or text.
 
 It's easy to see how putting harmful things into our bodies can leave us feeling worse, even depressed. It won't push everyone toward suicide, but that doesn't mean the suffering underneath isn't real. Movement, real food, and healthy choices genuinely help us feel better, and when we ask for help, hope is closer than it seems. Put the tobacco down. Be smart, be safe, and be well.

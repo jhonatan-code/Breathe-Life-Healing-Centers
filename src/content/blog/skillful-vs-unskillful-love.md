@@ -7,7 +7,7 @@ order: 11
 readingTime: 5
 ---
 
-Loving someone skillfully through a relapse is not easy, especially when it's a close friend or family member. For those of us in recovery ourselves, it's worth acknowledging our own limits in being "helpful" when someone we love is struggling. Depriving someone of their own experience of relapse can actually work against their future recovery.
+Loving someone skillfully through a relapse is not easy, especially when it's a close [friend or family member](/admissions/for-families/). For those of us in recovery ourselves, it's worth acknowledging our own limits in being "helpful" when someone we love is struggling. Depriving someone of their own experience of relapse can actually work against their future recovery.
 
 Helpfulness can quietly turn into a need to control another person's actions and choices. It's possible to become enmeshed in, or overly invested in, someone else's sobriety in a way that puts our own recovery at risk. None of this means we shouldn't offer help to someone who reaches out to us. It means we can't do their recovery for them. No one has the power to make another person use, or get sober.
 

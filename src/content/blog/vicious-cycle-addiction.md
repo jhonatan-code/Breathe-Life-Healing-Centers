@@ -36,4 +36,4 @@ How long a full cycle takes varies by person, and can run hours, days, or weeks.
 
 Interrupting this cycle means seeking treatment, and the most effective point to intervene is between the guilt-and-shame stage and the rising-tension stage that follows it, by learning new ways to manage that stress and anxiety before it restarts the loop.
 
-Breaking free is far easier with support around you: friends, family, and a treatment center that understands what you're working against. If you're ready to talk about what that could look like, we're here.
+Breaking free is far easier with support around you: friends, family, and a [treatment center](/programs/residential-treatment/) that understands what you're working against. If you're ready to talk about what that could look like, we're here.

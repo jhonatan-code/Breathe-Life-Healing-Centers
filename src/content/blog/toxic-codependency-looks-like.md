@@ -77,4 +77,4 @@ Life usually teaches people to be responsible: unpaid bills and skipped self-car
 
 ## Getting help
 
-If you and your family are affected by codependency, you don't have to stay on the same path. Support is available, for the person struggling and for the people around them. Breathe's Family Therapy Program is built specifically for this, helping the people around someone in treatment get care of their own while their loved one works through treatment.
+If you and your family are affected by codependency, you don't have to stay on the same path. Support is available, for the person struggling and for the people around them. [Breathe's Family Program](/programs/family-program/) is built specifically for this, helping the people around someone in treatment get care of their own while their loved one works through treatment.

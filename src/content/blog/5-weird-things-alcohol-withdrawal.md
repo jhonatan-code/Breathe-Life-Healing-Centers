@@ -37,4 +37,4 @@ Delirium tremens, or DT, is a severe and thankfully rare form of alcohol withdra
 
 ## Get help today
 
-If any of this sounds familiar and you're concerned about your own drinking or someone else's, you're not alone. It doesn't hurt to ask questions and prepare. Reach out to us to talk through what withdrawal might look like for you and what kind of support makes sense.
+If any of this sounds familiar and you're concerned about your own drinking or someone else's, you're not alone. It doesn't hurt to ask questions and prepare. Reach out to us to talk through what [medically supervised detox](/programs/medical-detox/) might look like for you and what kind of support makes sense.

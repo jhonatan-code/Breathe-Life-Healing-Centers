@@ -3,10 +3,9 @@
  * /terms-of-use/ — legal page. Linked from SiteFooter.astro under "Legal".
  *
  * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): this is a legally binding document.
- * We do not write fake legal text — invented boilerplate is worse than no
- * content, it could misrepresent real policy. The page shell (header, hero/
- * title, footer, consistent styling) is real; the body is a
- * ClinicalPlaceholder pending actual Terms of Use text from legal counsel.
+ * We do not write fake legal text. Body text below is fetched verbatim from
+ * the live page (breathelifehealingcenters.com/terms-of-use/, confirmed
+ * 2026-09-14), not authored or rewritten by this build.
  *
  * No approved SiteHeader `current` label matches a legal page, so `current`
  * is omitted — nothing in primaryNav is highlighted, which is correct.
@@ -17,8 +16,18 @@
 import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import ClinicalPlaceholder from "../components/ClinicalPlaceholder.astro";
 import { site } from "../config/site";
+
+// Verbatim from breathelifehealingcenters.com/terms-of-use/ (2026-09-14).
+const paragraphs = [
+  "All data, information, text, graphics, links and other material on the Breathe Treatment Services, Inc. website are provided as a convenience to our site visitors.",
+  "Breathe Treatment Services, Inc. does not warrant the accuracy of any data, information, text, graphics or other materials on this site or any other sites linked to or from this site.",
+  "Breathe Treatment Services, Inc. makes no commitment to update or correct any information on this website and accepts no responsibility for any errors or omissions in any of the materials on or any materials referred to in this site or linked to this site.",
+  "All material on the website is provided “as is” without warranties of any kind, expressed or implied.",
+  "Breathe Treatment Services, Inc. makes no warranty that the information on this site will be applicable to your particular purposes, and under no circumstances will Breathe Treatment Services, Inc. be responsible for any loss or damage resulting from anyone’s reliance on the information or other content posted on this site or from sites linked to this site.",
+  "Breathe Treatment Services, Inc. makes no warranty that the use of this site will be uninterrupted and although Breathe Treatment Services, Inc. maintains the most recent virus protection available on this site, Breathe Treatment Services, Inc. makes no guarantee that this site is free from viruses.",
+  "By visiting this website, you agree that neither Breathe Treatment Services, Inc., the website designer, host or Internet service provider is responsible to you, and you hold harmless Breathe Treatment Services, Inc., website designer, host and Internet service provider from any claim, loss, direct or indirect expense, special or punitive damages of any kind you may incur in connection with the use of this website, even if you have previously advised Breathe Treatment Services, Inc. of the possibility of such claim.",
+] as const;
 
 const title = "Terms of Use | Breathe Life Healing Centers";
 const description = "The terms that govern use of the Breathe Life Healing Centers website.";
@@ -59,10 +68,10 @@ const ld = {
     {/* ══════════════  BODY  ══════════════ */}
     <section data-screen-label="Terms of Use body" style="padding:60px 37px 80px;background:#FFFFFF;">
       <div style="max-width:760px;margin:0 auto;">
-        <ClinicalPlaceholder
-          kind="LEGAL CONTENT"
-          note="Requires actual Terms of Use text from legal counsel — do not publish placeholder copy as real policy. Should cover, at minimum: acceptable use of this site, intellectual property, disclaimers, limitation of liability, and governing law, as approved by Breathe's counsel."
-        />
+        <h2 style="font-size:20px;font-weight:600;letter-spacing:-0.01em;margin:0 0 14px;color:#14181C;">Disclaimer and Site Agreement</h2>
+        <div style="display:grid;gap:12px;">
+          {paragraphs.map((t) => <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0;">{t}</p>)}
+        </div>
         <div style="margin-top:44px;padding-top:28px;border-top:1px solid #E2DED7;">
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 16px;">Questions about these terms? <a href={site.emailHref} style="color:#2C5A64;font-weight:500;">{site.email}</a> or call <a href={site.phoneHref} style="color:#2C5A64;font-weight:500;">{site.phoneDisplay}</a>.</p>
           <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Instrument Sans',sans-serif;font-size:14px;">

@@ -87,7 +87,7 @@ The idea that someone has to "hit rock bottom" before they're ready is one of th
 
 ## Your next step
 
-If you've read this far, you're already taking one of the more courageous steps: seeking information and exploring what's possible. You don't have to figure this out alone. Our admissions team can talk through your specific situation, explain what levels of care might make sense, and verify insurance benefits in plain language, no surprises, no pressure. Recovery starts with a conversation, and we're available any time you're ready to have it.
+If you've read this far, you're already taking one of the more courageous steps: seeking information and exploring what's possible. You don't have to figure this out alone. [Our admissions team](/admissions/for-families/) can talk through your specific situation, explain what levels of care might make sense, and verify insurance benefits in plain language, no surprises, no pressure. Recovery starts with a conversation, and we're available any time you're ready to have it.
 
 ### Sources
 

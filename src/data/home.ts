@@ -1,10 +1,16 @@
 /**
  * Homepage content for the design-faithful port of Breathe Life Homepage.dc.html.
  * Copy is the design's, with these client fixes applied (see docs/BUILD-NOTES.md):
- *  - Beck Gee (Brad Lamm / Deb Hughes not shown — open client decision)
  *  - no "Since 2013", no room/home counts
  *  - phone from the content brief
  *  - review quotes verbatim from docs/content/Breathe_Life_Reviews_Compilation
+ *
+ * Leadership: Beck Gee (CEO), Brad Lamm (Founder), and Deb Hughes
+ * (Co-founder, Strategic Relations) are all shown, per the client's request
+ * (2026-08-31) restoring Brad Lamm and Deb Hughes, and per Jasmine's direct
+ * confirmation (Breathe_Life_Claude_Code_Instructions.docx, 2026-09-14) that
+ * Brad Lamm may be credited as founder wherever leadership is named, with
+ * Beck Gee confirmed alongside as current CEO. See the `team` array below.
  *
  * `levels` (Detox/PHP/IOP/Sober Living/Outpatient) and `signature`'s Case
  * Management + MAT descriptions were fleshed out per
@@ -154,8 +160,11 @@ export const faqGroups = [
 
 /** Leadership — the design's three cards. Brad Lamm and Deb Hughes restored at
  *  the client's request (2026-08-31), reversing the earlier "Beck Gee only".
- *  NB: this re-adds Brad Lamm to the homepage while the approved sitemap removes
- *  his bio page — flagged for the client in docs/BUILD-NOTES.md. */
+ *  The founder-positioning question flagged in docs/BUILD-NOTES.md is now
+ *  resolved: Jasmine confirmed directly (2026-09-14) that Brad Lamm is still
+ *  the founder and may be credited as such, with Beck Gee confirmed
+ *  alongside as current CEO wherever leadership is named. His bio page at
+ *  /about/our-team/brad-lamm/ is live with his real bio. */
 export const team = [
   { name: "Brad Lamm", slug: "brad-lamm", badge: "CIP", role: "Founder", photo: "/Asset/Our%20Team/Brad-Lamm.webp",
     bio: "Founded Breathe after his own recovery in 2003 — personally selects every clinician on staff." },

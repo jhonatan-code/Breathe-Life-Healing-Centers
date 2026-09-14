@@ -8,8 +8,12 @@
  * from the already-approved `levels` entry in data/home.ts (same copy shown
  * on the homepage and /programs/), rather than invented.
  *
- * FAQ has no approved brief, so it renders a ClinicalPlaceholder instead of
- * SiteFAQ/invented Q&A, and the page skips FAQPage JSON-LD entirely.
+ * FAQ is verbatim from Breathe_Life_Residential_Treatment_FAQ.docx
+ * (2026-09-14), which confirms the rest of this page (admission criteria
+ * framing, what residential looks like, what's included, next steps, Why
+ * Choose Breathe) was already complete and only the FAQ was a placeholder.
+ * Defers to the BLHC Content Client Profile as authoritative; not going
+ * through further client/team review.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -18,7 +22,7 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../config/site";
@@ -29,7 +33,7 @@ const HREF = site.phoneHref;
 
 const title = "Residential Treatment in Los Angeles | Breathe";
 const description =
-  "Residential addiction and mental health treatment on our Laurel Canyon campus — 24/7 structure, daily therapy, and psychiatric care. LGBTQ+-affirming. In-network with most major insurers.";
+  "Residential addiction and mental health treatment on our Laurel Canyon campus: 24/7 structure, daily therapy, and psychiatric care. LGBTQ+-affirming. In-network with most major insurers.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -53,7 +57,7 @@ const forYou = [
 const included = [
   {
     icon: "cottage", title: "Housing on our Laurel Canyon campus",
-    text: "You live on-site, in community with others who are doing the same work — not in a clinical ward.",
+    text: "You live on-site, in community with others who are doing the same work, not in a clinical ward.",
   },
   {
     icon: "calendar_month", title: "A structured daily schedule",
@@ -65,7 +69,7 @@ const included = [
   },
   {
     icon: "trending_down", title: "A planned step-down",
-    text: "Before you leave, we build the next step with you — PHP, IOP, sober living, or outpatient care.",
+    text: "Before you leave, we build the next step with you: PHP, IOP, sober living, or outpatient care.",
   },
 ];
 
@@ -73,6 +77,16 @@ const related = [
   { icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", text: "Often the step before residential care, for people who need supervised withdrawal first." },
   { icon: "wb_sunny", title: "PHP — Day Treatment", href: "/programs/php/", text: "The usual next step down after residential, with continued daily structure." },
   { icon: "support_agent", title: "Case Management", href: "/programs/case-management/", text: "One dedicated person coordinating your care for the whole stay." },
+];
+
+// Verbatim from Breathe_Life_Residential_Treatment_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "What are the admission criteria for residential treatment?", a: "Your clinical team assesses your specific situation, including whether medical detox is needed first, to determine if residential care is the right starting point for you." },
+  { q: "How long does residential treatment usually last?", a: "It varies by individual, generally averaging around 90 days. Your specific plan is built around your progress, not a fixed timeline." },
+  { q: "What does a typical day actually look like?", a: "A structured daily schedule, therapy, groups, and quiet time balanced across the day, with psychiatric care built in for both addiction and mental health, not treated as separate tracks." },
+  { q: "Do I need to complete detox first?", a: "In many cases, yes, if you're medically dependent on a substance. It's usually the first level of care people move into before, or directly into, residential treatment." },
+  { q: "Will I be in a clinical, hospital-like environment?", a: "You live on-site in community with others doing the same work, in housing on our Laurel Canyon campus, not a clinical ward." },
+  { q: "Is residential treatment covered by insurance?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
 const whyPicks = why.filter(([, , h]) =>
@@ -97,6 +111,10 @@ const ld = {
       url: pageUrl,
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -113,7 +131,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src="/Asset/Facility/facility-12-residence-exterior.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
             <a href="/programs/" style="color:#7FB3BC;">Programs</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Residential Treatment
@@ -124,7 +142,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -138,7 +156,7 @@ const ld = {
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>What residential treatment looks like</h2>
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Residential treatment is our most structured, primary level of care. You live on-site on our Laurel Canyon campus, with 24/7 supervision, daily therapy, and psychiatric care for both addiction and mental health, rather than fitting recovery around the rest of your life.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">It's usually the first full level of care people move into — either directly, or after a medically supervised detox — and it's the foundation the rest of a treatment plan is built on.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">It's usually the first full level of care people move into, either directly, or after a medically supervised detox, and it's the foundation the rest of a treatment plan is built on.</p>
         </div>
         <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Residential treatment may be right for you if</div>
@@ -210,7 +228,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for residential treatment — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for residential treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -238,16 +256,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style="margin-bottom:24px;max-width:52ch;">
-          <div style={S.eyebrow}>Questions</div>
-          <h2 style={`${S.h2}max-width:30ch;`}>Questions people ask about residential treatment</h2>
-        </div>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="No approved content brief exists yet for /programs/residential-treatment/. Real FAQ copy (admission criteria, length of stay, what a day looks like) needs clinical sign-off before it can replace this placeholder." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about residential treatment"
+      intro="Straight answers about admission, length of stay, and what a day at Breathe actually looks like."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* New-page placement: after the FAQ, right before the Final CTA. */}
@@ -259,7 +273,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-09-twin-bedroom-suite.jpg"
     />

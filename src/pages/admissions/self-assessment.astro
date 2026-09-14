@@ -2,11 +2,23 @@
 /**
  * /admissions/self-assessment/ — page shell/framing is real content (general
  * "not sure if treatment is right for you" framing is standard admissions
- * copy, not a clinical claim). The actual self-assessment questions are
- * CLINICAL CONTENT per the batch brief — what a screening tool actually
- * asks/measures requires a clinically-reviewed brief, which doesn't exist
- * yet, so that section is a ClinicalPlaceholder rather than invented
- * questions (CLAUDE.md: never invent YMYL content without a brief).
+ * copy, not a clinical claim).
+ *
+ * URGENT SAFETY FIX (per Breathe_Life_Claude_Code_Instructions.docx,
+ * confirmed by Jasmine, 2026-09-14): the live suicidal-thoughts question on
+ * breathelifehealingcenters.com/admissions/self-assessment-forms/ ("Have you
+ * had thoughts of ending your own life? If yes, how is this affecting you?")
+ * has no crisis resource on the live site. The 988 Suicide and Crisis
+ * Lifeline is now placed directly next to that question below, same
+ * tel:988 treatment already used on the Depression condition page.
+ *
+ * The questionnaire content itself (Food & Weight / Alcohol / Drugs /
+ * Depression & Anxiety) is real, already live at the URL above, and used
+ * here as a working draft to replace the previous ClinicalPlaceholder, per
+ * Jasmine's instruction. She flagged it may not be a standard clinical
+ * instrument and wants Charmaine to confirm directly with the client before
+ * it's treated as final; the 988 fix is applied regardless of that
+ * confirmation. Do not remove the 988 line if this section is revised.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -17,7 +29,6 @@ import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
 import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
@@ -45,13 +56,81 @@ const reasons = [
   "You're supporting someone else and aren't sure where to start",
 ];
 
+// Working draft, sourced verbatim from the real, live questionnaire at
+// breathelifehealingcenters.com/admissions/self-assessment-forms/, per
+// Breathe_Life_Claude_Code_Instructions.docx (2026-09-14). Not yet confirmed
+// as final with the client; the 988 crisis-line addition below applies
+// regardless of that confirmation.
+const assessmentCategories = [
+  {
+    title: "Food & Weight",
+    questions: [
+      "Do you tend to experience dramatic weight loss or weight gain?",
+      "Do you wear baggy or layered clothes to disguise weight change?",
+      "Are you obsessed with exercise, especially after eating?",
+      "Do you complain about being overweight despite being very thin?",
+      "Are large amounts of money spent on sugary or high-fat foods?",
+      "Do you base self-worth on weight and body image?",
+      "Do you frequently make excuses to avoid eating or skip meals?",
+      "Do you get weighed often and overreact to small fluctuations?",
+      "Do you avoid social situations where food is available?",
+      "Have you hidden behaviors such as bingeing, purging, or laxative abuse?",
+    ],
+  },
+  {
+    title: "Alcohol",
+    questions: [
+      "Do you feel you drink more than other people?",
+      "Do you worry about your drinking?",
+      "Have you tried to stop drinking but been unable to?",
+      "Has your drinking created problems with a loved one?",
+      "Have you gotten in trouble at work because of drinking?",
+      "Have you neglected obligations for two or more days because of drinking?",
+      "Have you been arrested or ticketed for drunk driving?",
+      "Have you missed work or an obligation due to being hung-over?",
+      "Have you lost friends because of drinking?",
+      "Have you been hospitalized because of drinking?",
+    ],
+  },
+  {
+    title: "Drugs",
+    questions: [
+      "Have you used drugs other than for medical reasons?",
+      "Do you use drugs more than once a week?",
+      "Have you tried to stop using drugs but been unable to?",
+      "Are you worried about your drug use?",
+      "Has your drug use created problems with a loved one?",
+      "Have you lost friends because of drug use?",
+      "Have you neglected obligations because of drug use?",
+      "Have you gotten in trouble at work because of drug use?",
+      "Have you lost a job because of drug use?",
+      "Have you engaged in illegal or dangerous activities to obtain drugs?",
+    ],
+  },
+  {
+    title: "Depression & Anxiety",
+    questions: [
+      "Do you often feel sad or irritable?",
+      "Have you lost interest in activities you once enjoyed?",
+      "Have you lost interest in sex?",
+      "Have you noticed changes in your weight or appetite?",
+      "Have your sleeping patterns changed?",
+      "Do you often feel guilt, or cry easily?",
+      "Has your appearance or self-care declined?",
+      "Are you overly critical, or does your temper get out of control easily?",
+      "Do you often feel hopeless and worthless?",
+      "Have you had thoughts of ending your own life?",
+    ],
+  },
+];
+
 const faqs = [
-  { q: "Is this a diagnosis?", a: "No. A self-assessment is a private starting point for reflection, not a clinical diagnosis. Only a licensed clinician can assess and diagnose after speaking with you directly." },
+  { q: "Is this a diagnosis?", a: "A self-assessment is a private starting point for reflection, not a clinical diagnosis. Only a licensed clinician can assess and diagnose after speaking with you directly." },
   { q: "What happens after I complete it?", a: "That's up to you. You can call us to talk through what you noticed, with no pressure or obligation to move forward with anything." },
   { q: "Is it confidential?", a: "Yes. Whatever you share with us, whether through a self-assessment or a phone call, is handled confidentially." },
   { q: "What if I'm not sure treatment is 'serious enough' for me?", a: "That's a common feeling, and it isn't a reason to wait. A phone call with our admissions team costs nothing and doesn't commit you to anything." },
-  { q: "Do I need insurance to talk to someone?", a: "No — you can call and talk to our admissions team regardless of insurance status. We'll help you understand coverage separately, when you're ready." },
-  { q: "Is this only for LGBTQ+ people?", a: "No. We're built for the LGBTQ+ community first, and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
+  { q: "Do I need insurance to talk to someone?", a: "You can call and talk to our admissions team regardless of insurance status. We'll help you understand coverage separately, when you're ready." },
+  { q: "Is this only for LGBTQ+ people?", a: "We're built for the LGBTQ+ community first, and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
 ];
 
 const pageUrl = new URL("/admissions/self-assessment/", site.domain).href;
@@ -86,7 +165,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src="/Asset/Facility/facility-21-quiet-reading-nook.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
             <a href="/admissions/" style="color:#7FB3BC;">Admissions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Self-Assessment
@@ -109,7 +188,7 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Getting oriented</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>You don't need to be certain to reach out</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>There's no threshold you need to cross before it's "okay" to call. People reach out for all kinds of reasons, at all kinds of stages — a conversation with our admissions team costs nothing and commits you to nothing.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>There's no threshold you need to cross before it's "okay" to call. People reach out for all kinds of reasons, at all kinds of stages, a conversation with our admissions team costs nothing and commits you to nothing.</p>
         </div>
         <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common reasons people reach out</div>
@@ -127,18 +206,38 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  SELF-ASSESSMENT TOOL — CLINICAL PLACEHOLDER  ══════════════ */}
+    {/* ══════════════  SELF-ASSESSMENT TOOL  ══════════════ */}
     <section data-screen-label="Self-assessment tool" style="padding:70px 37px;background:#F7F5F1;">
-      <div style="max-width:900px;margin:0 auto;">
+      <div style="max-width:1200px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:28px;">
           <div style={S.eyebrow}>Self-assessment</div>
           <h2 style={`${S.h2}max-width:26ch;`}>Take a private self-assessment</h2>
-          <p style={`${S.intro}max-width:64ch;`}>The screening questions themselves need to come from our clinical team before we can publish them here.</p>
+          <p style={`${S.intro}max-width:64ch;`}>These questions can help you reflect on patterns across a few different areas. Answering "yes" to several isn't a diagnosis, it's a starting point worth talking through.</p>
         </div>
-        <ClinicalPlaceholder
-          kind="CLINICAL CONTENT"
-          note="Self-assessment questions need clinical review before publishing. This should be a validated or clinically-approved screening tool (e.g. covering substance use and/or mental health), not staff-invented questions — placeholdered pending a brief from the clinical reviewer (see CLAUDE.md: clinical reviewer sign-off is currently TBD)."
-        />
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+          {assessmentCategories.map((cat) => (
+            <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">{cat.title}</div>
+              <div style="display:grid;gap:10px;">
+                {cat.questions.map((q) => (
+                  <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <span style="flex:0 0 auto;width:6px;height:6px;border-radius:999px;background:#33679C;margin-top:8px;"></span>
+                    <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.55;color:#3A444D;">{q}</span>
+                  </div>
+                ))}
+              </div>
+              {cat.title === "Depression & Anxiety" && (
+                <div style="margin-top:18px;background:#FBEFEA;border:1px solid #E8B9A6;border-radius:10px;padding:16px 18px;">
+                  <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+                    <span class="msym" style="font-size:18px;color:#B4472A;">emergency</span>
+                    <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">A note on safety</div>
+                  </div>
+                  <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13.5px;line-height:1.55;color:#5A3A32;margin:0;">If thoughts of ending your life are part of what you're experiencing, please reach out immediately, our admissions team is available 24/7, and the <a href="tel:988" style="color:#B4472A;font-weight:600;">988 Suicide and Crisis Lifeline</a> is available by call or text at any time.</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -167,7 +266,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="You Don't Have to Be Sure to Call"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-09-twin-bedroom-suite.jpg"
     />

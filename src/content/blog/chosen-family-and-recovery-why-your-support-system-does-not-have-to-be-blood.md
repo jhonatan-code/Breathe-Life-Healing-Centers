@@ -35,7 +35,7 @@ From intake through discharge and into aftercare, the people who matter most to 
 
 For clients coming out of chemsex communities or other spaces where drugs and alcohol were deeply woven into their social life, we also make room for the real grief of leaving those connections behind.
 
-When you're ready, chosen family is welcome to join Breathe Together, our free three-day family workshop, as part of the recovery process. Reach out to our admissions team to learn more.
+When you're ready, chosen family is welcome to join Breathe Together, our free three-day family workshop, as part of the recovery process. Reach out to [our admissions team](/admissions/for-families/) to learn more.
 
 ### Sources
 

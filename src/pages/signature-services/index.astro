@@ -11,9 +11,18 @@
  * pattern: right after SiteLocation, before the mobile verify slot.
  *
  * Kathleen Murphy, credited on the live /breathe-services/ source page as
- * "founding Clinical Director" with a full present-tense biography, is not
- * named here, same exclusion already applied on the Complex Trauma and
- * Chemsex pages (this is the third confirmed instance in this project).
+ * "founding Clinical Director" with a full present-tense biography, was
+ * originally left unnamed here pending confirmation of her current
+ * employment status, same exclusion applied on the Complex Trauma page.
+ * REVERSED per Jasmine's direct confirmation (2026-09-14): "if she was in
+ * recent reviews by clients then it's safe to assume she's still a
+ * provider there, unless we get told otherwise by client." Named below as
+ * "Kathleen Murphy, MA, LPC, Clinical Director" (the simpler of two
+ * credential variants seen on live sources, until the "MA, LMFT, LPC"
+ * discrepancy is resolved). Her old extended bio (30 years' experience,
+ * University of Texas Austin, St. Edward's University, "founding Clinical
+ * Director") is deliberately NOT reintroduced, only her being a current
+ * provider is confirmed, not that specific bio text.
  *
  * The brief also flagged three technical bugs on the live source page that
  * are not content decisions for this repo: (1) its meta title reads
@@ -84,7 +93,7 @@ const faqs = [
   { q: "Can I access a Signature Service alongside standard levels of care, like Residential or IOP?", a: "Yes. These tracks run alongside your primary level of care, not as a replacement for it." },
   { q: "Is the Chemsex track only for people who identify as LGBTQ+?", a: "Chemsex shows up most often in gay and queer men's communities, and that shapes how the track is built, but it's open to anyone experiencing this pattern." },
   { q: "How is the Flight Attendant Program different from general treatment?", a: "It's shaped around the real constraints of the job, airline schedules, union benefits, and the specific pressures of flight crew work, not a generic program with the job title attached." },
-  { q: "Does insurance cover treatment through a Signature Service?", a: "In most cases, yes. Our admissions team verifies your specific benefits and explains what's covered before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+  { q: "Does insurance cover treatment through a Signature Service?", a: "In most cases, yes. Our admissions team verifies your specific benefits and explains what's covered before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
 const why = [
@@ -143,7 +152,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src={galleryImg("facility-20-estate-entrance-gate.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">Signature services</div>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Treatment Built Around Who You Actually Are</h1>
@@ -164,7 +173,8 @@ const ld = {
       <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Why these exist</div>
         <h2 style={`${S.h2}max-width:30ch;`}>Not every situation fits a standard program</h2>
-        <p style={`${S.intro}max-width:78ch;`}>General addiction and mental health treatment works for a lot of people, but it doesn't account for everything, a substance pattern tied to sex or identity, a life built around airline schedules, or the specific weight of being LGBTQ+ in a world that isn't always safe to be honest in. We built these three tracks because those situations deserve treatment that actually understands them, not a version of care that has to be explained from scratch.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:14px;`}>General addiction and mental health treatment works for a lot of people, but it doesn't account for everything, a substance pattern tied to sex or identity, a life built around airline schedules, or the specific weight of being LGBTQ+ in a world that isn't always safe to be honest in. We built these three tracks because those situations deserve treatment that actually understands them, not a version of care that has to be explained from scratch.</p>
+        <p style={`${S.intro}max-width:78ch;`}>These tracks are overseen by Kathleen Murphy, MA, LPC, Clinical Director.</p>
       </div>
     </section>
 

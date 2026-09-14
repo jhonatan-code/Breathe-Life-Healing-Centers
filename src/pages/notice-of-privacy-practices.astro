@@ -9,16 +9,106 @@
  * with one. Built at the sitemap's URL; the footer link was corrected to
  * point here (see SiteFooter.astro) rather than building a second page.
  *
- * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): legally binding document — the page
- * shell is real, the body is a ClinicalPlaceholder pending the client's
- * actual HIPAA NPP, which per privacy-consent.md §2 must come from the
- * client's own compliance function, not be authored here.
+ * ⚠️ LEGAL CONTENT RULE (CLAUDE.md): legally binding document. Body text
+ * below is fetched verbatim from the live page (breathelifehealingcenters.com
+ * /notice-of-privacy-practices/, confirmed 2026-09-14), not authored or
+ * rewritten by this build — per privacy-consent.md §2 an NPP must come from
+ * the client's own compliance function. No wording changed; only reflowed
+ * into this page's heading/paragraph/list structure.
+ *
+ * NOTE: the live document lists Deb Hughes as "Chief Operations Officer"
+ * (contact Deb.Hughes@BreatheLHC.org). This differs from the "Co-founder,
+ * Strategic Relations" title used elsewhere in this project (src/data/home.ts,
+ * restored at the client's request 2026-08-31). Reproduced here exactly as
+ * it appears in the source document; the discrepancy is not resolved by
+ * this change and is flagged for Charmaine.
  */
 import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import ClinicalPlaceholder from "../components/ClinicalPlaceholder.astro";
 import { site } from "../config/site";
+
+// Verbatim from breathelifehealingcenters.com/notice-of-privacy-practices/ (2026-09-14).
+const sections = [
+  {
+    h: "Our Privacy Policy",
+    p: [
+      "Breathe Life Healing Center, its facilities and subsidiaries, and all associates are committed to providing you with quality behavioral healthcare services. An important part of that commitment is protecting your health information according to applicable law. This notice (“Notice of Privacy Practices”) describes your rights and our duties under Federal Law. Protected health information (“PHI”) is information about you, including demographic information, that may identify you and that relates to your past, present or future physical or mental health or condition; the provision of healthcare services; or the past, present, or future payment for the provision of healthcare services to you.",
+    ],
+  },
+  {
+    h: "Our Duties",
+    p: [
+      "We are required by law to maintain the privacy of your PHI; provide you with notice of our legal duties and privacy practices with respect to your PHI; and to notify you following a breach of unsecured PHI related to you. We are required to abide by the terms of this Notice of Privacy Practices. This Notice of Privacy Practices is effective as of the date listed on the first page of this Notice of Privacy Practices. This Notice of Privacy Practices will remain in effect until it is revised. We are required to modify this Notice of Privacy Practices when there are material changes to your rights, our duties, or other practices contained herein.",
+      "We reserve the right to change our privacy policy and practices and the terms of this Notice of Privacy Practices, consistent with applicable law and our current business processes, at any time. Any new Notice of Privacy Practices will be effective for all PHI that we maintain at that time. Notification of revisions of this Notice of Privacy Practices will be provided as follows:",
+    ],
+    list: ["Upon request;", "Electronically via our website or via other electronic means;", "And as posted in our place of business."],
+    pAfter: ["In addition to the above, we have a duty to respond to your requests (e.g. those corresponding to your rights) in a timely and appropriate manner. We support and value your right to privacy and are committed to maintaining reasonable and appropriate safeguards for your PHI."],
+  },
+  {
+    h: "Confidentiality of Mental Health, Eating Disorder & Substance Use Records",
+    p: [
+      "The confidentiality of behavioral healthcare patient records maintained by us is protected by Federal law and regulations. Generally, we may not say to a person outside the treatment center that you are a patient of the treatment center, or disclose any information identifying you as a patient in our care unless:",
+    ],
+    list: [
+      "You consent in writing (as discussed below in “Authorization to Use or Disclose PHI”);",
+      "The disclosure is allowed by a court order (as discussed below in “Uses and Disclosures”); or",
+      "The disclosure is made to medical personnel in a medical emergency or to qualified personnel for research, audit, or program evaluation (as discussed below in “Uses and Disclosures”).",
+    ],
+    pAfter: [
+      "Violation of the Federal law and regulations by the treatment center is a crime. Suspected violations may be reported to appropriate authorities in accordance with Federal regulations.",
+      "Federal law and regulations do not protect any information about a crime committed by you either at the treatment center or against any person who works for the treatment center or about any threat to commit such a crime (as discussed below in “Uses and Disclosures”).",
+      "Federal laws and regulations do not protect any information about suspected child abuse or neglect from being reported under California State law to appropriate State or local authorities (as discussed below in “Uses and Disclosures”).",
+      "See 42 U.S.C. 290dd-3 and 42 U.S.C. 290ee-3 for Federal laws and 42 CFR part 2 for Federal regulations.",
+    ],
+  },
+  {
+    h: "Uses & Disclosures",
+    p: ["Uses and disclosures of your PHI may be permitted, required, or authorized. The following categories describe various ways that we use and disclose PHI."],
+    sub: [
+      { t: "Among Treatment Center and Breathe Life Healing Center Personnel.", d: "We may use or disclose information between or among personnel having a need for the information in connection with their duties that arise out of the provision of diagnosis, treatment, or referral for treatment of alcohol or drug abuse, provided such communication is: (i) Within the treatment center; or (ii) Between the treatment center and Breathe Life Healing Center. For example, our staff, including doctors, nurses, and clinicians, will use your PHI to provide your treatment care. Your PHI may be used in connection with billing statements we send you and in connection with tracking charges and credits to your account. Your PHI will be used to check for eligibility for insurance coverage and prepare claims for your insurance company where appropriate. We may use and disclose your PHI in order to conduct our healthcare business and to perform functions associated with our business activities, including accreditation and licensing." },
+      { t: "Secretary of Health and Human Services.", d: "We are required to disclose PHI to the Secretary of the U.S. Department of Health and Human Services when the Secretary is investigating or determining our compliance with the HIPAA Privacy Rules." },
+      { t: "Business Associates.", d: "We may disclose your PHI to Business Associates that are contracted by us to perform services on our behalf which may involve receipt, use or disclose of your PHI. All of our Business Associates must agree to: (i) Protect the privacy of your PHI; (ii) Use and disclose the information only for the purposes for which the Business Associate was engaged; (iii) Be bound by 42 CFR Part 2; and (iv) if necessary, resist in judicial proceedings any efforts to obtain access to patient records except as permitted by law." },
+      { t: "Crimes on Premises.", d: "We may disclose to law enforcement officers information that is directly related to the commission of a crime on the premises or against our personnel or to a threat to commit such a crime." },
+      { t: "Reports of Suspected Child Abuse & Neglect.", d: "We may disclose information required to report under state law incidents of suspected child abuse and neglect to the appropriate state or local authorities. However, we may not disclose the original patient records, including for civil or criminal proceedings which may arise out of the report of suspected child abuse and neglect, without consent." },
+      { t: "Court Order.", d: "We may disclose information required by a court order, provided certain regulatory requirements are met." },
+      { t: "Emergency Situations.", d: "We may disclose information to medical personnel for the purpose of treating you in an emergency." },
+      { t: "Research.", d: "We may use and disclose your information for research if certain requirements are met, such as approval by an Institutional Review Board." },
+      { t: "Audit & Evaluation Activities.", d: "We may disclose your information to persons conducting certain audit and evaluation activities, provided the person agrees to certain restrictions on disclosure of information." },
+      { t: "Reporting of Death.", d: "We may disclose your information related to cause of death to a public health authority that is authorized to receive such information." },
+    ],
+  },
+  {
+    h: "Authorization to Use or Disclose PHI",
+    p: ["Other than as stated above, we will not use or disclose your PHI other than with your written authorization. Subject to compliance with limited exceptions, we will not use or disclose psychotherapy notes, use or disclose your PHI for marketing purposes, or sell your PHI unless you have signed an authorization. If you or your representative authorize us to use or disclose your PHI, you may revoke that authorization in writing at any time to stop future uses or disclosures. We will honor oral revocations upon authenticating your identity until a written revocation is obtained. Your revocation will not affect any use or disclosures permitted by your authorization while it was in effect."],
+  },
+  {
+    h: "Patient/Client Rights",
+    p: ["The following are the rights that you have regarding PHI that we maintain about you. Information regarding how to exercise those rights is also provided. Protecting your PHI is an important part of the services we provide you. We want to ensure that you have access to your PHI when you need it and that you clearly understand your rights as described below."],
+    sub: [
+      { t: "Right to Notice", d: "You have the right to adequate notice of the uses and disclosures of your PHI, and our duties and responsibilities regarding the same, as provided for herein. You have the right to request both a paper and electronic copy of this Notice. You may ask us to provide a copy of this Notice at any time. You may obtain this Notice on our website at www.BreatheLifeHealingCenters.com or from facility staff or our Chief Operating Officer." },
+      { t: "Right of Access to Inspect & Copy", d: "You have the right to access, inspect and obtain a copy of your PHI for as long as we maintain it as required by law. This right may be restricted only in certain limited circumstances as dictated by applicable law. All requests for access to your PHI must be made in writing. Under a limited set of circumstances, we may deny your request. Any denial of a request to access will be communicated to you in writing. If you are denied access to your PHI, you may request that the denial be reviewed. Another licensed health care professional chosen by Breathe Life Healing Center will review your request and the denial. The person conducting the review will not be the person who denied your request. We will comply with the decision made by the designated professional. If you are further denied, you have a right to have a denial reviewed by a licensed third-party healthcare professional (i.e. one not affiliated with us). We will comply with the decision made by the designated professional. We may charge a reasonable, cost-based fee for the copying and/or mailing process of your request. As to PHI which may be maintained in electronic form and format, you may request a copy to which you are otherwise entitled in that electronic form and format if it is readily producible, but if not, then in any readable form and format as we may agree (e.g. PDF). Your request may also include transmittal directions to another individual or entity." },
+      { t: "Right to Amend", d: "If you believe the PHI we have about you is incorrect or incomplete, you have the right to request that we amend your PHI for as long as it is maintained by us. The request must be made in writing and you must provide a reason to support the requested amendment. Under certain circumstances we may deny your request to amend, including but not limited to, when the PHI: 1. Was not created by us; 2. Is excluded from access and inspection under applicable law; or 3. Is accurate and complete. If we deny amendment, we will provide the rationale for denial to you in writing. You may write a statement of disagreement if your request is denied. This statement will be maintained as part of your PHI and will be included with any disclosure. If we accept the amendment we will work with you to identify other healthcare stakeholders that require notification and provide the notification." },
+      { t: "Right to Request an Accounting of Disclosures", d: "We are required to create and maintain an accounting (list) of certain disclosures we make of your PHI. You have the right to request a copy of such an accounting during a time period specified by applicable law prior to the date on which the accounting is requested (up to six years). You must make any request for an accounting in writing. We are not required by law to record certain types of disclosures (such as disclosures made pursuant to an authorization signed by you), and a listing of these disclosures will not be provided. If you request this accounting more than once in a 12-month period, we may charge you a reasonable, cost-based fee for responding to these additional requests. We will notify you of the fee to be charged (if any) at the time of the request." },
+      { t: "Right to Request Restrictions", d: "You have the right to request restrictions or limitations on how we use and disclose your PHI for treatment, payment, and operations. We are not required to agree to restrictions for treatment, payment, and healthcare operations except in limited circumstances as described below. This request must be in writing. If we do agree to the restriction, we will comply with restriction going forward, unless you take affirmative steps to revoke it or we believe, in our professional judgment, that an emergency warrants circumventing the restriction in order to provide the appropriate care or unless the use or disclosure is otherwise permitted by law. In rare circumstances, we reserve the right to terminate a restriction that we have previously agreed to, but only after providing you notice of termination." },
+      { t: "Out-of-Pocket Payments", d: "If you have paid out-of-pocket (or in other words, you or someone besides your health plan has paid for your care) in full for a specific item or service, you have the right to request that your PHI with respect to that item or service not be disclosed to a health plan for purposes of payment or healthcare operations, and we are required by law to honor that request unless affirmatively terminated by you in writing and when the disclosures are not required by law. This request must be made in writing." },
+      { t: "Right to Confidential Communications", d: "You have the right to request that we communicate with you about your PHI and health matters by alternative means or alternative locations. Your request must be made in writing and must specify the alternative means or location. We will accommodate all reasonable requests consistent with our duty to ensure that your PHI is appropriately protected." },
+      { t: "Right to Notification of a Breach", d: "You have the right to be notified in the event that we (or one of our Business Associates) discover a breach involving unsecured PHI." },
+      { t: "Right to Voice Concerns", d: "You have the right to file a complaint in writing with us or with the U.S. Department of Health and Human Services if you believe we have violated your privacy rights. Any complaints to us should be made in writing to our Privacy Official at the address listed below. We will not retaliate against you for filing a complaint." },
+    ],
+  },
+  {
+    h: "Questions, Requests for Information & Complaints",
+    p: [
+      "For questions, requests for information, more information about our privacy policy or concerns, compliance and privacy questions please contact us. Our company’s Chief Operations Officer can be contacted at:",
+    ],
+    address: ["Breathe Life Healing Center", "Chief Operations Officer Deb Hughes", "Deb.Hughes@BreatheLHC.org", "8060 Melrose Avenue, 3rd Floor", "Los Angeles, CA 90046"],
+    pAfter: [
+      "We support your right to privacy of your Protected Health Information. You will not be retaliated against in any way if you choose to file a complaint with us or with the U.S. Department of Health & Human Services. If you believe your rights have been violated and would like to submit a complaint directly to the U.S. Department of Health & Human Services, then you may submit a formal written complaint to the following address:",
+    ],
+    address2: ["U.S. Department of Health & Human Services Office for Civil Rights", "200 Independence Avenue, S.W.", "Washington, D.C. 20201", "877-696-6775", "OCRMail@hhs.gov", "www.HHS.gov"],
+  },
+] as const;
 
 const title = "Notice of Privacy Practices | Breathe Life Healing Centers";
 const description = "How Breathe Life Healing Centers may use and disclose protected health information, and your rights regarding that information under HIPAA.";
@@ -60,10 +150,37 @@ const ld = {
     {/* ══════════════  BODY  ══════════════ */}
     <section data-screen-label="Notice of Privacy Practices body" style="padding:60px 37px 80px;background:#FFFFFF;">
       <div style="max-width:760px;margin:0 auto;">
-        <ClinicalPlaceholder
-          kind="LEGAL CONTENT"
-          note="Requires actual Notice of Privacy Practices text from Breathe's compliance function / legal counsel — do not publish placeholder copy as real policy. Per privacy-consent.md §2, this is a HIPAA NPP covering the clinical relationship and PHI, distinct from the website privacy policy covering forms/analytics/cookies. Written by the client's compliance function, not this build."
-        />
+        <div style="display:grid;gap:36px;">
+          {sections.map((s) => (
+            <div>
+              <h2 style="font-size:20px;font-weight:600;letter-spacing:-0.01em;margin:0 0 12px;color:#14181C;">{s.h}</h2>
+              {s.p.map((t) => <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 12px;">{t}</p>)}
+              {"list" in s && s.list && (
+                <ul style="margin:0 0 12px;padding-left:20px;display:grid;gap:6px;">
+                  {s.list.map((li) => <li style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;">{li}</li>)}
+                </ul>
+              )}
+              {"pAfter" in s && s.pAfter && s.pAfter.map((t) => <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 12px;">{t}</p>)}
+              {"sub" in s && s.sub && (
+                <div style="display:grid;gap:14px;margin-top:8px;">
+                  {s.sub.map((item) => (
+                    <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0;"><strong style="color:#14181C;">{item.t}</strong> {item.d}</p>
+                  ))}
+                </div>
+              )}
+              {"address" in s && s.address && (
+                <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 12px;">
+                  {s.address.map((line, i) => <>{line}{i < s.address.length - 1 && <br />}</>)}
+                </p>
+              )}
+              {"address2" in s && s.address2 && (
+                <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0;">
+                  {s.address2.map((line, i) => <>{line}{i < s.address2.length - 1 && <br />}</>)}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
         <div style="margin-top:44px;padding-top:28px;border-top:1px solid #E2DED7;">
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#3A444D;margin:0 0 16px;">Questions about your privacy rights? <a href={site.emailHref} style="color:#2C5A64;font-weight:500;">{site.email}</a> or call <a href={site.phoneHref} style="color:#2C5A64;font-weight:500;">{site.phoneDisplay}</a>.</p>
           <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Instrument Sans',sans-serif;font-size:14px;">

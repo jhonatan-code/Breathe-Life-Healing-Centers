@@ -51,4 +51,4 @@ If quitting cold turkey without patches or medication is the plan, these can hel
 5. **Carry a reusable water bottle.** More water gives your hands and mouth something to do instead of reaching for a cigarette, and it helps with constipation, dry mouth, and weight gain too.
 6. **Pick up something new.** Early on, it's easy to think about cigarettes constantly. A new hobby or interest gives your attention somewhere else to go, and by the time the cravings fade, you might have a genuinely new skill to show for it.
 
-Quitting smoking is hard, and it rarely happens on the first try. If you're still struggling with nicotine withdrawal after working through these, reach out to us. We have real experience in smoking cessation and can help you get there.
+Quitting smoking is hard, and it rarely happens on the first try. If you're still struggling with nicotine withdrawal after working through these, [reach out to us](/programs/medical-detox/). We have real experience in smoking cessation and can help you get there.

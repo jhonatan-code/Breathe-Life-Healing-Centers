@@ -8,11 +8,14 @@
  *
  * EMDR excluded (third confirmed instance in this project): the live page
  * names it alongside Prolonged Exposure and Cognitive Processing Therapy,
- * citing VA guidance. EMDR is not offered per the client profile. Prolonged
- * Exposure and Cognitive Processing Therapy are both real, distinct,
- * evidence-based modalities, neither is excluded, both are used below.
- * Unlike the Complex Trauma page, this source page never named a specific
- * clinician, so no correction was needed on that front.
+ * citing VA guidance. EMDR is not offered per the client profile. Per
+ * Jasmine's direct instruction (2026-09-14), the EMDR replacement text uses
+ * her exact approved phrase, "Trauma-focused therapy: Addressing what is
+ * underneath the substance use, not just the substance use itself," word
+ * for word, so this page matches the corresponding live-WordPress-site
+ * replacement exactly rather than only in principle. Unlike the Complex
+ * Trauma page, this source page never named a specific clinician, so no
+ * correction was needed on that front.
  *
  * Sitemap flags this page as mandatory and requiring a video. No video asset
  * exists yet, so a clearly-labeled placeholder block sits where the video
@@ -99,10 +102,10 @@ const symptoms = [
 const faqs = [
   { q: "Is trauma treated on its own, or only alongside substance use?", a: "Trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both on the same plan, on the same timeline." },
   { q: "What's the difference between trauma and complex trauma?", a: "Trauma can come from a single event. Complex trauma develops from repeated or prolonged experiences over time. Both are treated seriously here, with an approach matched to what you've actually been through." },
-  { q: "What kind of therapy is used for trauma?", a: "Evidence-based approaches including Prolonged Exposure and Cognitive Processing Therapy, tailored to your specific history and what you're ready for." },
+  { q: "What kind of therapy is used for trauma?", a: "Trauma-focused therapy: Addressing what is underneath the substance use, not just the substance use itself, tailored to your specific history and what you're ready for." },
   { q: "I've avoided dealing with this for years. Is it too late to start?", a: "It's not too late. However long you've been carrying this, real treatment can still help, whatever point you're starting from." },
   { q: "Does trauma treatment happen at every level of care?", a: "Yes, from residential to outpatient. Your team determines the right starting point based on what you're experiencing." },
-  { q: "Does insurance cover trauma treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare." },
+  { q: "Does insurance cover trauma treatment?", a: "In most cases, yes. We're in-network with most major providers and verify your specific benefits before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
 const why = [
@@ -159,7 +162,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src={galleryImg("facility-17-living-room-lounge.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
             <a href="/conditions/" style="color:#7FB3BC;">Conditions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Trauma
@@ -185,7 +188,7 @@ const ld = {
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding trauma</h2>
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Trauma isn't only about what happened, it's about how the nervous system learned to respond, and how long that response can keep running after the danger is gone. It shows up differently for everyone, sometimes as avoidance, sometimes as being unable to stop thinking about it, and there's no single right way to react. Roughly 70 percent of adults in the United States experience at least one traumatic event in their lives. About 20 percent of those go on to develop PTSD, and more than 13 million American adults currently live with it.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 0 12px;max-width:58ch;">At Breathe, trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Our clinicians draw on evidence-based modalities including Prolonged Exposure and Cognitive Processing Therapy, helping you face and work through what happened rather than avoid it, and examine the beliefs trauma can leave behind against what's actually true.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Trauma-focused therapy: Addressing what is underneath the substance use, not just the substance use itself. Our clinicians help you face and work through what happened rather than avoid it, and examine the beliefs trauma can leave behind against what's actually true.</p>
         </div>
         <div style="display:grid;gap:20px;">
           <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">

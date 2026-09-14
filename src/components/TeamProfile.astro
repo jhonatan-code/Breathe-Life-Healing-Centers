@@ -111,7 +111,8 @@ const articles = await getPostsByAuthor(slug);
 {articles.length > 0 && (
   <section data-screen-label="Articles by author" style="padding:0 37px 60px;background:#FFFFFF;">
     <div style="max-width:1440px;margin:0 auto;">
-      <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:18px;">Articles by {name}</div>
+      <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Articles by {name}</h2>
+      <div aria-hidden="true" style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:18px;">Articles by {name}</div>
       <div class="author-articles-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1180px;">
         {articles.map((post) => <BlogCard post={post} />)}
       </div>

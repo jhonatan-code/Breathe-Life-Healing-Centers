@@ -65,4 +65,4 @@ Worries about privacy, time away, or how seeking help might be seen at work are 
 
 ## Taking this seriously is a form of strength
 
-The changing schedules, emotional demands, long stretches away from home, and pressure to stay composed can build into something real. If your mind and body have been asking for support, that doesn't make you less capable. It makes you human. If any of this feels familiar, reaching out may be the first step toward feeling steadier and more like yourself again.
+The changing schedules, emotional demands, long stretches away from home, and pressure to stay composed can build into something real. If your mind and body have been asking for support, that doesn't make you less capable. It makes you human. If any of this feels familiar, [our Flight Attendant Program](/signature-services/flight-attendant-program/) was built around exactly this, and reaching out may be the first step toward feeling steadier and more like yourself again.

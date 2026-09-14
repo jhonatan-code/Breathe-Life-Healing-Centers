@@ -55,4 +55,4 @@ Wanting to escape a situation without the means to do it is its own kind of terr
 
 ## Recovering from complex trauma
 
-Treatment for C-PTSD matters because this condition rarely resolves on its own. Waiting for it to fade isn't a real solution. Getting better generally involves addressing the symptoms and behaviors it produces, opening up a safe space to process the trauma, and learning and practicing new coping mechanisms and relationship skills. Nobody should have to work through trauma like this alone. Every trauma survivor deserves real support, expert guidance, and a treatment plan built around their own needs.
+[Treatment for complex trauma](/conditions/complex-trauma/) matters because this condition rarely resolves on its own. Waiting for it to fade isn't a real solution. Getting better generally involves addressing the symptoms and behaviors it produces, opening up a safe space to process the trauma, and learning and practicing new coping mechanisms and relationship skills. Nobody should have to work through trauma like this alone. Every trauma survivor deserves real support, expert guidance, and a treatment plan built around their own needs.

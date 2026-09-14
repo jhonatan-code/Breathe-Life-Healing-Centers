@@ -41,7 +41,7 @@ The honest answer is not suffering through it alone. The people who get through 
 
 ## Chemsex and meth recovery at Breathe
 
-We've been doing this work since 2013. Our chemsex track is one of the only programs in the country built specifically for gay and queer people navigating sexualized drug use, with our own clinical workbook now in its fourth edition and a team drawn from this community who haven't just studied this, they've lived it. You won't have to explain what PnP means or justify your sexuality, and you won't have to pretend the intimacy piece doesn't exist to access clinical care. When you're ready, we're here.
+We've been doing this work since 2013. Our [chemsex track](/signature-services/chemsex-treatment/) is one of the only programs in the country built specifically for gay and queer people navigating sexualized drug use, with our own clinical workbook now in its fourth edition and a team drawn from this community who haven't just studied this, they've lived it. Our [methamphetamine treatment program](/what-we-treat/methamphetamine/) covers the medical side of what you're going through. You won't have to explain what PnP means or justify your sexuality, and you won't have to pretend the intimacy piece doesn't exist to access clinical care. When you're ready, we're here.
 
 ### Sources
 

@@ -44,10 +44,14 @@ export const site = {
     formReactorKey: "SiXBFeH8R9fkUciJsXRy8tYCQY-2Wim_ynhSQjWhV2DJhkAG",
     targetNumber: "(888) 362-5576",
   },
-  // Google Tag Manager container, provided directly by the client 2026-09-11.
+  // Google Tag Manager container. Corrected 2026-09-14 to GTM-MRQRGDN9 after
+  // independent verification: fetched breathelifehealingcenters.com directly
+  // (raw HTML, not a relayed claim) and confirmed this exact ID rendered
+  // consistently across multiple live pages. The prior value, GTM-N9GP4KF,
+  // did not appear on any live page checked and has been replaced.
   // Installed sitewide in Layout.astro (head snippet + body noscript), per
   // Google's own install instructions — no other page should embed this.
-  gtmContainerId: "GTM-N9GP4KF",
+  gtmContainerId: "GTM-MRQRGDN9",
   // Rating as supplied by the reviews compilation at build time. Owned number —
   // update when a fresh export is taken (see components.md §5/§10).
   google: { rating: 4.1, count: 155 },

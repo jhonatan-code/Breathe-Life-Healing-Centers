@@ -7,17 +7,28 @@
  * Distinct page from /conditions/trauma/ — complex/cumulative trauma vs.
  * single-incident/PTSD framing.
  *
- * Three corrections from the live page, per the brief:
+ * Three corrections from the live page, per the brief, one since reversed:
  *  - Kathleen Murphy, named on the live page as the specialist leading this
- *    treatment (meta description and body copy), is not named here. Her
- *    current employment status has never been confirmed anywhere in this
- *    project, same handling as Crystal Clear's authorship. The clinical
- *    approach is described without attributing it to a named individual.
+ *    treatment (meta description and body copy), was originally left
+ *    unnamed here pending confirmation of her current employment status.
+ *    REVERSED per Jasmine's direct confirmation (2026-09-14): "if she was
+ *    in recent reviews by clients then it's safe to assume she's still a
+ *    provider there, unless we get told otherwise by client." She's now
+ *    named below as "Kathleen Murphy, MA, LPC, Clinical Director" (the
+ *    simpler of two credential variants seen on live sources, used until
+ *    the "MA, LMFT, LPC" discrepancy is resolved). Her old extended bio
+ *    (30 years' experience, University of Texas Austin, St. Edward's
+ *    University, "founding Clinical Director") is deliberately NOT
+ *    reintroduced, only her being a current provider is confirmed, not
+ *    that specific bio text, which was never checked.
  *  - EMDR, listed twice on the live page (body copy and an already-built
  *    FAQ answer), is excluded, this is the first confirmed instance of EMDR
- *    specifically (as opposed to IFS) found in this project. Replaced with
- *    somatic therapy and trauma-focused CBT only, both already confirmed
- *    offered.
+ *    specifically (as opposed to IFS) found in this project. Per Jasmine's
+ *    direct instruction (2026-09-14), the EMDR replacement text now uses her
+ *    exact approved phrase, "Trauma-focused therapy: Addressing what is
+ *    underneath the substance use, not just the substance use itself," word
+ *    for word, so this page matches the corresponding live-WordPress-site
+ *    replacement exactly rather than only in principle.
  *  - Specific medications (Paxil, Zoloft) are not named, same rule as the
  *    depression and anxiety pages.
  *
@@ -102,7 +113,7 @@ const symptoms = [
 
 const faqs = [
   { q: "What is complex trauma?", a: "Complex trauma results from repeated or prolonged traumatic experiences, such as ongoing abuse, captivity, or chronic neglect, rather than a single traumatic event. It can affect a person's sense of safety, self-worth, and ability to trust others, and often requires a different treatment approach than single-incident PTSD." },
-  { q: "How is complex PTSD treated?", a: "Treatment typically combines psychotherapy and, when appropriate, medication. Our clinicians use evidence-based modalities including somatic therapy and trauma-focused CBT, applied through a structured phase-based approach that builds safety and coping skills before processing traumatic memories." },
+  { q: "How is complex PTSD treated?", a: "Treatment typically combines psychotherapy and, when appropriate, medication. Trauma-focused therapy: Addressing what is underneath the substance use, not just the substance use itself, applied through a structured phase-based approach that builds safety and coping skills before processing traumatic memories." },
   { q: "How long does complex trauma treatment take?", a: "Treatment length varies by individual, depending on the severity and duration of past trauma, co-occurring conditions, and each person's response to therapy. Our clinical team develops a personalized treatment plan and timeline during the initial assessment." },
   { q: "Is complex trauma treatment covered by insurance?", a: "Coverage depends on your specific insurance plan. Our admissions team can help verify your benefits and explain what your policy covers before you begin treatment." },
 ];
@@ -161,7 +172,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src={galleryImg("facility-06-guest-house-exterior.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
             <a href="/conditions/" style="color:#7FB3BC;">Conditions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Complex Trauma / C-PTSD
@@ -187,7 +198,7 @@ const ld = {
           <h2 style={`${S.h2}margin:0 0 14px;max-width:32ch;`}>Understanding complex trauma</h2>
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Complex trauma, sometimes called C-PTSD, tends to come from prolonged or repeated experiences rather than a single incident, and it can quietly shape how you relate to yourself and other people long after the circumstances have changed. Roughly 70 percent of Americans experience at least one traumatic event in their lives, according to the National Institute of Mental Health, though complex trauma specifically develops from repeated exposure, not a single event.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 0 12px;max-width:58ch;">At Breathe, complex trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Our clinicians draw on evidence-based modalities including <a href="/therapies/somatic-therapy/" style="color:#2C5A64;font-weight:500;">somatic therapy</a> and trauma-focused CBT, applied through a structured, phase-based approach: building safety and coping skills first, processing the trauma itself once that foundation is in place, and consolidating what's been gained.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Trauma-focused therapy: Addressing what is underneath the substance use, not just the substance use itself. Our clinical team, led by Kathleen Murphy, MA, LPC, Clinical Director, applies a structured, phase-based approach: building safety and coping skills first, processing the trauma itself once that foundation is in place, and consolidating what's been gained.</p>
         </div>
         <div style="display:grid;gap:20px;">
           <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">

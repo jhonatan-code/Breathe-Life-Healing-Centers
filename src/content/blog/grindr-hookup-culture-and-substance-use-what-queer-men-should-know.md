@@ -35,7 +35,7 @@ Using apps with more intention doesn't mean using them less, giving up casual se
 
 ## Chemsex and intimacy treatment at Breathe
 
-Our chemsex track is one of the only programs in the country designed specifically for the queer community whose drug use is entangled with sex, intimacy, and the emotional landscape that comes with it. We don't treat your sexuality as a problem. We don't conflate chemsex with sex addiction. We don't use shame as a clinical tool. We use sex-positive care to help you understand the relationship between what you've been using, what you've been avoiding, and what you actually want, and to build the capacity to access that without needing a substance to get there first. When you're ready, we're here.
+Our [chemsex track](/signature-services/chemsex-treatment/) is one of the only programs in the country designed specifically for the queer community whose drug use is entangled with sex, intimacy, and the emotional landscape that comes with it. We don't treat your sexuality as a problem. We don't conflate chemsex with sex addiction. We don't use shame as a clinical tool. We use sex-positive care to help you understand the relationship between what you've been using, what you've been avoiding, and what you actually want, and to build the capacity to access that without needing a substance to get there first. When you're ready, we're here.
 
 ### Sources
 

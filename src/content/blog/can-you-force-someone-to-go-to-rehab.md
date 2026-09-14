@@ -7,7 +7,7 @@ order: 7
 readingTime: 9
 ---
 
-In our years working with families facing a severe addiction crisis, this question comes up constantly. It sits at a painful crossroads where concern meets legal limits, and it's understandable that families want to know every option available. The real answer depends heavily on where you live and how severe the situation is.
+In our years [working with families](/admissions/for-families/) facing a severe addiction crisis, this question comes up constantly. It sits at a painful crossroads where concern meets legal limits, and it's understandable that families want to know every option available. The real answer depends heavily on where you live and how severe the situation is.
 
 ## Key takeaways
 

@@ -2,13 +2,23 @@
 /**
  * /admissions/ — section hub. "How do I start treatment" overview page:
  * hero, a four-step process (same framing as the homepage's "Four Simple
- * Steps" section, src/pages/index.astro — search `data-screen-label="Four
- * steps"` — reused here as the admissions-specific version of that pattern),
+ * Steps" section, src/pages/index.astro, search `data-screen-label="Four
+ * steps"`, reused here as the admissions-specific version of that pattern),
  * then cards into the five admissions sub-pages this batch builds.
  *
  * This is process/logistics content (CLAUDE.md: admissions batch has more
- * room for real operational copy than the clinical batches) — nothing here
+ * room for real operational copy than the clinical batches), nothing here
  * makes a clinical claim.
+ *
+ * Step 04 corrected per Breathe_Life_Admissions_Overview_FAQ.docx
+ * (2026-09-14): the unconfirmed LAX/Burbank airport-transportation claim
+ * (same unconfirmed claim already removed once from the Programs page
+ * location section) is removed; no source in this project confirms that
+ * specific service.
+ *
+ * FAQ added from the same brief, same missing-FAQ pattern as the other
+ * overview hubs. Placed below SiteLocation, above the mobile-verify slot
+ * and Final CTA, per the brief.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -17,13 +27,14 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import { site } from "../../config/site";
 
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 
-const title = "Admissions — How to Start Treatment | Breathe";
+const title = "Admissions: How to Start Treatment | Breathe";
 const description =
   "How admissions works at Breathe Life Healing Centers: call, verify insurance, get assessed, and begin treatment. LGBTQ+-affirming care in Los Angeles. Call 24/7.";
 
@@ -38,11 +49,21 @@ const S = {
 };
 
 const steps = [
-  ["01", "Call us", "Speak confidentially with our admissions team, 24/7, about your situation. No pressure, no obligation — just a real conversation about what's going on and what could help."],
+  ["01", "Call us", "Speak confidentially with our admissions team, 24/7, about your situation. No pressure, no obligation, just a real conversation about what's going on and what could help."],
   ["02", "Verify insurance", "We contact your insurer directly and explain exactly what's covered, before you commit to anything. No cost, no obligation."],
-  ["03", "Get assessed", "A brief conversation with our clinical team helps determine the right level of care for you — detox, residential, or an outpatient program."],
-  ["04", "Begin treatment", "We arrange your arrival, including transportation from LAX or Burbank if you're coming from out of state, and you begin your program at our Laurel Canyon campus."],
+  ["03", "Get assessed", "A brief conversation with our clinical team helps determine the right level of care for you: detox, residential, or an outpatient program."],
+  ["04", "Begin treatment", "We arrange your arrival and begin your program at our Laurel Canyon campus. Contact our admissions team for help planning your travel."],
 ] as const;
+
+// Verbatim from Breathe_Life_Admissions_Overview_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "How long does the admissions process take?", a: "It varies, but many people complete the full process, from first call to starting treatment, within a few days. Your admissions specialist can give you a clearer sense once you talk." },
+  { q: "Do I need insurance to start the process?", a: "Call our admissions team first, insurance verification happens as part of the process, not a requirement before you reach out." },
+  { q: "What if I'm calling on behalf of someone else, not for myself?", a: "That's common. Our admissions team can walk you through what involvement looks like for a family member or loved one." },
+  { q: "Will I be pressured to commit during the first call?", a: "The first call is about understanding your situation and answering questions, not pressuring you into a decision." },
+  { q: "What happens during the clinical assessment?", a: "A brief conversation with our clinical team to determine the right level of care for you, detox, residential, or an outpatient program." },
+  { q: "Is everything I share during admissions confidential?", a: "Yes. Your information is protected under federal law throughout the entire admissions process." },
+];
 
 const pages = [
   {
@@ -55,7 +76,7 @@ const pages = [
   },
   {
     icon: "luggage", title: "What to Bring", href: "/admissions/what-to-bring/",
-    text: "A real packing list — clothing, toiletries, documents, and medications — for arrival day.",
+    text: "A real packing list: clothing, toiletries, documents, and medications, for arrival day.",
   },
   {
     icon: "assignment_ind", title: "Professional Referral", href: "/admissions/professional-referral/",
@@ -78,6 +99,10 @@ const ld = {
         { "@type": "ListItem", position: 2, name: "Admissions", item: pageUrl },
       ],
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -94,7 +119,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src="/Asset/Facility/facility-20-estate-entrance-gate.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
             Admissions
@@ -161,12 +186,19 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     <SiteReviews />
 
     <SiteLocation />
+
+    <SiteFAQ
+      heading="Questions people ask about admissions"
+      intro="Straight answers about how long it takes, what's required, and what to expect on the first call."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
@@ -177,7 +209,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-06-guest-house-exterior.jpg"
     />

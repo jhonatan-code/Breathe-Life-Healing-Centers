@@ -3,16 +3,21 @@
  * /areas-we-service/ — section hub (approved sitemap: "Areas We Service").
  * Card grid linking to the four service-area pages. Pattern follows
  * /programs/index.astro (hero + grid + shared trust sections), trimmed down
- * since this hub's only job is routing — see page-types.md §7 "Hub pages."
+ * since this hub's only job is routing, see page-types.md §7 "Hub pages."
  *
  * Breathe has one physical presence (Melrose Ave outpatient office +
- * Laurel Canyon residential campus, both in Los Angeles) — these are not
+ * Laurel Canyon residential campus, both in Los Angeles), these are not
  * separate facility locations, they're geo-targeted service-area pages for
  * nearby communities. West Hollywood is CONFIRMED in the approved sitemap;
  * Beverly Hills, Santa Monica and Santa Barbara are NEW pages justified by
  * CTM call-volume data (docs/00-INVENTORY.md). No per-city call counts are
- * cited here or on the detail pages — the source data isn't broken out by
+ * cited here or on the detail pages, the source data isn't broken out by
  * city, so specific numbers aren't fabricated to fill that gap.
+ *
+ * FAQ added from Breathe_Life_Areas_We_Service_Overview_FAQ.docx
+ * (2026-09-14), same missing-FAQ pattern as the other three overview hubs
+ * (What We Treat, Signature Services, Therapies). Placed below SiteLocation,
+ * above the mobile-verify slot and Final CTA, per the brief.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -21,6 +26,7 @@ import VerifyInsuranceForm from "../../components/VerifyInsuranceForm.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../config/site";
@@ -43,7 +49,7 @@ const S = {
 const areas = [
   {
     city: "West Hollywood", slug: "west-hollywood",
-    text: "Close to home for the community we were built around first — a short drive from our Melrose Avenue office.",
+    text: "Close to home for the community we were built around first, a short drive from our Melrose Avenue office.",
   },
   {
     city: "Beverly Hills", slug: "beverly-hills",
@@ -57,6 +63,16 @@ const areas = [
     city: "Santa Barbara", slug: "santa-barbara",
     text: "A comfortable drive down the coast for clients and families in Santa Barbara.",
   },
+];
+
+// Verbatim from Breathe_Life_Areas_We_Service_Overview_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "Do you have a facility in each of these areas?", a: "Our residential campus is in Laurel Canyon and our admissions office is on Melrose Avenue, both in Los Angeles. We regularly serve clients and families from these communities, we don't have separate facilities in each one." },
+  { q: "Which area is closest to your actual campus?", a: "West Hollywood is closest to our Melrose Avenue admissions office. All four areas are within reasonable reach of our Los Angeles campus." },
+  { q: "Do you serve clients outside these four specific areas?", a: "Yes. These represent where clients most often come from, but our admissions team works with people from across Southern California and beyond." },
+  { q: "Is care different depending on which area I'm coming from?", a: "You receive the same full range of programs and levels of care regardless of which community you're coming from." },
+  { q: "How do I get to your campus if I'm coming from out of town?", a: "Contact our admissions team for help planning your travel, wherever you're coming from." },
+  { q: "Does insurance coverage vary based on my location?", a: "Coverage depends on your specific insurance plan, not your location. Our admissions team verifies your benefits before you commit to anything." },
 ];
 
 const pageUrl = new URL("/areas-we-service/", site.domain).href;
@@ -80,6 +96,10 @@ const ld = {
         url: new URL(`/areas-we-service/${a.slug}/`, site.domain).href,
       })),
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -96,18 +116,18 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src="/Asset/Facility/facility-20-estate-entrance-gate.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Areas We Service
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Areas We Service</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Breathe is based in Los Angeles, with an outpatient office on Melrose Avenue and a residential campus in Laurel Canyon — and clients come to us from all across Southern California.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Breathe is based in Los Angeles, with an outpatient office on Melrose Avenue and a residential campus in Laurel Canyon, and clients come to us from all across Southern California.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -138,15 +158,21 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Wherever you're calling from, our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Wherever you're calling from, our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     <SiteReviews />
 
     <SiteLocation />
 
+    <SiteFAQ
+      heading="Questions people ask about the areas we serve"
+      intro="Straight answers about our campus, coverage area, and how location affects your care."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
+
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
-    {/* No FAQ section on this hub — the mobile slot lands right before the Final CTA. */}
     <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
       <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
         <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>

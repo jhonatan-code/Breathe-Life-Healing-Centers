@@ -42,4 +42,4 @@ A disappointing grade or a missed goal is a normal part of growing up, not a cat
 
 Make sure your child knows you love them for who they are, not only for what they achieve. Being proud of their accomplishments is natural, but if love feels conditional on success, it teaches insecurity instead of confidence. A child who grows up feeling unconditionally loved tends to develop a stronger sense of identity and healthier relationships later in life. A child who feels love is conditional often carries fear and insecurity into those same relationships.
 
-If you've tried all of this and you still feel like you can't reach your young adult child, we're here. This is a situation we understand, and we have the resources to help your family move forward.
+If you've tried all of this and you still feel like you can't reach your young adult child, we're here. This is a situation we understand, and [we have the resources to help your family move forward](/admissions/for-families/).
