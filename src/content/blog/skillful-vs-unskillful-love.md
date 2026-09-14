@@ -1,7 +1,6 @@
 ---
 title: "Skillful vs. Unskillful Love During Relapse | Breathe"
 description: "How to support someone through relapse without losing yourself in it: detaching with love, setting boundaries, and what to do if suicide risk is involved."
-author: "beck-gee"
 category: "for-the-family"
 order: 11
 readingTime: 5

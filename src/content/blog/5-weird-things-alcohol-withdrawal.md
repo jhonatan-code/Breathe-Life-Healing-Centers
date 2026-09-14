@@ -1,7 +1,6 @@
 ---
 title: "5 Things You Probably Didn't Know About Alcohol Withdrawal | Breathe"
 description: "How alcohol withdrawal actually behaves: why it's unpredictable, why it gets worse each time, what medical detox involves, and when it becomes a medical emergency."
-author: "beck-gee"
 category: "understanding-addiction"
 order: 5
 readingTime: 3

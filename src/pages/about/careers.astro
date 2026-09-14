@@ -12,11 +12,12 @@
  * application page per the confirmed sitemap. Application fields aren't
  * detailed in the live source, so that form should be handled as a
  * standard job-application form unless real field requirements are
- * provided." No real field list exists anywhere in this project, so the
- * `#apply` form below is a standard name/email/phone/position/resume/
- * message set — same `data-ctm-pending` "not connected yet" stub pattern
- * already used by VerifyInsuranceForm.astro (forms-ctm.md is 🔴 BLOCKED in
- * the elev8 system, so no page on this site has a real form backend yet).
+ * provided." No real form backend exists anywhere in this project
+ * (forms-ctm.md is 🔴 BLOCKED in the elev8 system), so `#apply` below is a
+ * direct "email us your resume" CTA rather than a form that silently goes
+ * nowhere on submit (2026-09-14 correction: an earlier version of this
+ * page had exactly that, a full application form with a fake-submit stub
+ * message, a real dead end for anyone who filled it out).
  *
  * "Why Work at Breathe" copy is verbatim from the brief, which sources it
  * from "the confirmed brand pillars already established for this site, not
@@ -31,7 +32,7 @@ import ScrollActivateSteps from "../../components/ScrollActivateSteps.astro";
 import { site } from "../../config/site";
 
 const title = "Careers | Work at Breathe Life Healing Centers";
-const description = "Join the team at Breathe Life Healing Centers — an LGBTQ+-affirming treatment community in Los Angeles built around lived experience. See our current opening and apply.";
+const description = "Join the team at Breathe Life Healing Centers, an LGBTQ+-affirming treatment community in Los Angeles built around lived experience. See our current opening and apply.";
 
 const why = [
   { title: "Lived experience is valued here", text: "Many of our staff are in recovery themselves. That isn't incidental to how we hire, it's central to it." },
@@ -104,7 +105,7 @@ const ld = {
         <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
           <a href="/about/" style="color:#7FB3BC;">About</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Careers
         </nav>
-        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:22ch;text-wrap:balance;">Work Somewhere Your Own Story Matters.</h1>
+        <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:22ch;text-wrap:balance;">Careers at Breathe. Work Somewhere Your Own Story Matters.</h1>
         <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0;max-width:56ch;">Every person on our team, from the front desk to clinical leadership, brings something real to this work. If that's you, we want to hear from you.</p>
       </div>
     </section>
@@ -141,11 +142,11 @@ const ld = {
                 <span data-plus="1" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(51,103,156,0.10);font-family:'Instrument Sans',sans-serif;font-size:18px;color:#33679C;transition:transform 400ms cubic-bezier(.4,0,.2,1);">+</span>
               </summary>
               <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 0 22px;">{o.text}</p>
-              <a href="#apply" data-position={o.title} class="job-apply-link" style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;height:44px;box-sizing:border-box;padding:0 22px;font-size:15px;font-weight:500;border-radius:8px;align-items:center;justify-content:center;margin-bottom:22px;">Apply Now</a>
+              <a href={`mailto:${site.email}?subject=${encodeURIComponent(`Application for ${o.title}`)}`} class="job-apply-link" style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;height:44px;box-sizing:border-box;padding:0 22px;font-size:15px;font-weight:500;border-radius:8px;align-items:center;justify-content:center;margin-bottom:22px;">Apply Now</a>
             </details>
           ))}
         </div>
-        <p style="text-align:center;font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;color:#3A444D;margin:24px 0 0;">Don't see the right fit? <a href="#apply" data-position="General Interest" class="job-apply-link" style="color:#33679C;font-weight:600;">Send us your resume anyway →</a></p>
+        <p style="text-align:center;font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;color:#3A444D;margin:24px 0 0;">Don't see the right fit? <a href={`mailto:${site.email}?subject=${encodeURIComponent("General Interest Application")}`} class="job-apply-link" style="color:#33679C;font-weight:600;">Send us your resume anyway →</a></p>
       </div>
     </section>
 
@@ -165,59 +166,40 @@ const ld = {
           id="apply-steps-row"
           steps={[
             { title: "Review the opening above" },
-            { title: "Fill out the online application" },
+            { title: "Email us your resume" },
             { title: "Our team will follow up if it's a fit" },
           ]}
           circleNumbers
         />
         <div style="text-align:center;margin-top:36px;">
-          <a href="#apply" data-position="" class="job-apply-link" style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#FFFFFF;color:#16293D;height:48px;box-sizing:border-box;padding:0 28px;font-size:15px;font-weight:600;border-radius:8px;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);">Fill Out the Employment Application</a>
+          <a href="#apply" style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#FFFFFF;color:#16293D;height:48px;box-sizing:border-box;padding:0 28px;font-size:15px;font-weight:600;border-radius:8px;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);">See How to Apply</a>
         </div>
       </div>
     </section>
 
-    {/* ══════════════  APPLICATION FORM — merged in per the brief's sitemap note  ══════════════ */}
+    {/* ══════════════  APPLY BY EMAIL  ══════════════ */}
+    {/* No online application backend exists yet (forms-ctm.md BLOCKED, same
+       as every other form on this site). Rather than show a form that
+       silently goes nowhere on submit, this is a direct, honest email CTA
+       using the same fallback address the old form stub already pointed
+       to (site.email), no new assumption introduced. Revisit once a real
+       backend exists. */}
     <section id="apply" data-screen-label="Employment application" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:640px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">Employment application</div>
-          <h2 style="font-size:clamp(26px,2.8vw,36px);line-height:1.12;letter-spacing:-0.024em;font-weight:600;margin:0 0 12px;">Tell us about yourself</h2>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;">Takes a few minutes. Our team will follow up if it's a fit.</p>
+          <h2 style="font-size:clamp(26px,2.8vw,36px);line-height:1.12;letter-spacing:-0.024em;font-weight:600;margin:0 0 12px;">Email Us Your Resume</h2>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;">Send your resume and the position you're interested in to <a href={site.emailHref} style="color:#2C5A64;font-weight:500;">{site.email}</a>. Our team will follow up if it's a fit.</p>
         </div>
-        <form id="job-apply-form" data-ctm-pending data-fallback-email={site.email} style="display:grid;gap:16px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:28px;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
-            <label style="display:block;">
-              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Full Name <span aria-hidden="true" style="color:#C0392B;">*</span></span>
-              <input type="text" name="name" required style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
-            </label>
-            <label style="display:block;">
-              <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Phone <span aria-hidden="true" style="color:#C0392B;">*</span></span>
-              <input type="tel" name="phone" required placeholder="(000) 000-0000" style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
-            </label>
+        <div style="display:grid;gap:16px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:28px;text-align:center;">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;color:#646D76;">Include in your email:</div>
+          <div style="display:grid;gap:8px;text-align:left;max-width:360px;margin:0 auto;">
+            <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;color:#3A444D;display:flex;gap:8px;align-items:flex-start;"><span aria-hidden="true" style="color:#33679C;">&bull;</span> Your resume</div>
+            <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;color:#3A444D;display:flex;gap:8px;align-items:flex-start;"><span aria-hidden="true" style="color:#33679C;">&bull;</span> The position you're interested in, or "General Interest" if nothing above fits yet</div>
+            <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;color:#3A444D;display:flex;gap:8px;align-items:flex-start;"><span aria-hidden="true" style="color:#33679C;">&bull;</span> A little about yourself, if you'd like</div>
           </div>
-          <label style="display:block;">
-            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Email <span aria-hidden="true" style="color:#C0392B;">*</span></span>
-            <input type="email" name="email" required style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;" />
-          </label>
-          <label style="display:block;">
-            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Position</span>
-            <select id="job-position-select" name="position" style="width:100%;box-sizing:border-box;height:44px;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:0 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;">
-              {openings.map((o) => <option value={o.title}>{o.title} — {o.location}</option>)}
-              <option value="General Interest">General Interest / Other</option>
-            </select>
-          </label>
-          <label style="display:block;">
-            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Resume</span>
-            <input type="file" name="resume" accept=".pdf,.doc,.docx" style="width:100%;box-sizing:border-box;font-family:'Montserrat',sans-serif;font-size:14px;color:#3A444D;" />
-          </label>
-          <label style="display:block;">
-            <span style="display:block;font-size:13px;color:#646D76;margin-bottom:6px;">Tell us a bit about yourself</span>
-            <textarea name="message" rows="4" style="width:100%;box-sizing:border-box;font-family:'Instrument Sans',sans-serif;font-size:15px;padding:10px 13px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#14181C;resize:vertical;"></textarea>
-          </label>
-          <button type="submit" style="font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;border:0;height:48px;box-sizing:border-box;padding:0 30px;font-size:15px;font-weight:600;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);cursor:pointer;" class="cta">Submit Application</button>
-          <p class="job-apply-status" role="status" hidden style="font-family:'Montserrat',sans-serif;font-size:14px;color:#2C5A64;background:#EFF5FA;border-radius:8px;padding:10px 12px;margin:0;"></p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:10px;line-height:1.5;color:#8A94A0;margin:0;text-align:center;">By submitting, you agree to our <a href="/terms-of-use/" style="color:#8A94A0;text-decoration:underline;">Terms of Use</a> and <a href="/notice-of-privacy-practices/" style="color:#8A94A0;text-decoration:underline;">Notice of Privacy Practices</a>.</p>
-        </form>
+          <a href={site.emailHref} style="display:inline-flex;font-family:'Instrument Sans',sans-serif;background:#33679C;color:#FFFFFF;height:48px;box-sizing:border-box;padding:0 30px;font-size:15px;font-weight:600;border-radius:8px;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);margin:0 auto;">Email {site.email}</a>
+        </div>
       </div>
     </section>
 
@@ -246,31 +228,8 @@ const ld = {
 </Layout>
 
 <script>
-  // ── "Apply Now" / "Send us your resume anyway" links pre-select the
-  //    position on the merged application form below, then scroll to it. ──
-  document.querySelectorAll<HTMLAnchorElement>('.job-apply-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      const position = link.dataset.position;
-      const select = document.getElementById('job-position-select') as HTMLSelectElement | null;
-      if (select && position) select.value = position;
-    });
-  });
-
-  // ── No verified backend yet (forms-ctm.md BLOCKED, same as every other
-  //    form on this site) — stub the submit with an honest status message
-  //    instead of pretending it went anywhere. ──
-  document.querySelectorAll<HTMLFormElement>('form[data-ctm-pending]').forEach((form) => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      const s = form.querySelector<HTMLElement>('.job-apply-status');
-      if (s) {
-        s.hidden = false;
-        const email = form.dataset.fallbackEmail || '';
-        s.textContent = "Thanks — online applications aren't connected yet. Please email your resume to " + email + " and our team will follow up.";
-      }
-    });
-  });
+  // job-apply-link elements are now real mailto: links with a prefilled
+  // subject, computed server-side in the frontmatter, no click handler needed.
 
   // ── Section reveal on scroll ──────────────────────────────────────────────
   // #how-to-apply is excluded — it now uses the same ScrollActivateSteps

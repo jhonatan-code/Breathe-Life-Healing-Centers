@@ -1,7 +1,6 @@
 ---
-title: "Living With Someone Who Has OCD | Breathe"
-description: "How OCD actually shows up day to day, what family members can do to help, and how to build a supportive home without losing yourself in the process."
-author: "beck-gee"
+title: "Living With Someone Who Has OCD: A Family Guide"
+description: "OCD affects the whole household, not just the person living with it. Practical guidance for family members on understanding it and building a supportive home."
 category: "for-the-family"
 order: 16
 readingTime: 4

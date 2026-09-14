@@ -1,7 +1,6 @@
 ---
 title: "How to Start the Conversation About Rehab | Breathe"
 description: "A practical, judgment-free framework for talking to a loved one about treatment: timing, language, the CRAFT method, boundaries, and how to present treatment as a partnership."
-author: "beck-gee"
 category: "for-the-family"
 order: 13
 readingTime: 8

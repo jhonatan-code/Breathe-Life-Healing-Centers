@@ -1,7 +1,6 @@
 ---
-title: "Mackenzie Phillips on Orange Is the New Black | Breathe"
-description: "Breathe counselor Mackenzie Phillips drew on her own recovery story for a role on Orange Is the New Black season 6."
-author: "beck-gee"
+title: "How Mackenzie Phillips Drew on Recovery for OITNB"
+description: "Breathe counselor Mackenzie Phillips talks to Vanity Fair about playing an addicted character on Orange Is the New Black season 6, and what her own recovery brought to the role."
 category: "news"
 order: 17
 readingTime: 1

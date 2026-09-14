@@ -91,12 +91,12 @@ const ld = {
             <h1>{data.title.replace(/\s*\|\s*Breathe$/, '')}</h1>
             <div class="post-meta-row">
               {author ? (
-                <span class="author-chip">
+                <a class="author-chip" href={`/about/our-team/${author.slug}/`}>
                   <img src={author.photo} alt={author.name} loading="lazy" />
                   <span><span class="name">{author.name}</span>{author.badge && <><br /><span class="cred">{author.badge}</span></>}</span>
-                </span>
+                </a>
               ) : (
-                <span class="author-chip"><span class="name">Breathe Team</span></span>
+                <a class="author-chip" href="/blog/author/breathe-life-team/"><span class="name">Breathe Team</span></a>
               )}
               {data.publishDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Published {dateFmt(data.publishDate)}</span></>}
               {data.updatedDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Updated {dateFmt(data.updatedDate)}</span></>}
@@ -208,7 +208,8 @@ const ld = {
   .post-cat { display: inline-block; font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #16293D; background: #7FB3BC; padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; }
   .post-banner h1 { font-size: clamp(30px,4vw,46px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 22px; max-width: 22ch; text-wrap: balance; }
   .post-meta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 13.5px; color: #C7D4DE; }
-  .author-chip { display: flex; align-items: center; gap: 10px; }
+  .author-chip { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .author-chip:hover .name { text-decoration: underline; }
   .author-chip img { width: 36px; height: 36px; border-radius: 999px; object-fit: cover; }
   .author-chip .name { color: #fff; font-weight: 600; }
   .author-chip .cred { color: #9DB2C2; font-size: 12px; }

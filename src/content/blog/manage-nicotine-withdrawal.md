@@ -1,7 +1,6 @@
 ---
-title: "Ways to Manage Nicotine Withdrawal | Breathe"
-description: "What nicotine withdrawal actually feels like, and four real ways to manage it: tapering, replacement therapy, medication, and natural remedies that help."
-author: "beck-gee"
+title: "Nicotine Withdrawal: Symptoms and 4 Ways to Manage It"
+description: "Cravings, irritability, trouble sleeping: here's what nicotine withdrawal actually feels like, and four real ways to get through it, from tapering to medication."
 category: "understanding-addiction"
 order: 15
 readingTime: 3

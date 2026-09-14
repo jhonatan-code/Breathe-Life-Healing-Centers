@@ -1,0 +1,84 @@
+---
+/**
+ * /blog/author/breathe-life-team/ — generic author archive page.
+ *
+ * Per-post authorship was checked against the live WordPress REST API
+ * (breathelifehealingcenters.com/wp-json/wp/v2/posts?slug={slug}&_embed,
+ * confirmed 2026-09-14) rather than guessed. Result: most local posts had
+ * been attributed to "beck-gee" (or "brad-lamm") as a placeholder voice
+ * that never matched the real byline. The live API shows only 3 of this
+ * project's 21 real posts are genuinely authored by Beck Gee; the rest are
+ * published under the site's generic "Breathe Life Healing Centers"
+ * institutional account, or (one post) an account called "Vectoron" that
+ * has no bio, no real name, and is clearly a technical/publishing account
+ * rather than a content author, not someone to credit by name. All of
+ * those now fall back to this generic team byline instead, per the
+ * explicit instruction not to individually credit anyone without a real
+ * source. See each post's frontmatter `author` field for the correction.
+ *
+ * No fabricated headshot: a plain icon badge stands in for a photo, since
+ * "Breathe Life Team" isn't a real individual with a real photo on file.
+ */
+import Layout from '../../../layouts/Layout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import Icon from '../../../components/Icon.astro';
+import { getVisiblePosts, getAuthor } from '../../../lib/blog';
+import { site } from '../../../config/site';
+
+const allPosts = await getVisiblePosts();
+const posts = allPosts.filter((p) => !getAuthor(p.data.author));
+
+const title = 'Breathe Life Team, Author at Breathe | Blog';
+const description = 'Posts published under Breathe Life Healing Centers’ institutional byline: guidance written and reviewed by our clinical and admissions team.';
+const pageUrl = new URL('/blog/author/breathe-life-team/', site.domain).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain + '/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: new URL('/blog/', site.domain).href },
+        { '@type': 'ListItem', position: 3, name: 'Breathe Life Team', item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description} path="/blog/author/breathe-life-team/">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
+    <SiteHeader />
+    <main id="main">
+      <section style="padding:56px 37px 40px;background:#FFFFFF;">
+        <div style="max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+          <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:999px;background:rgba(51,103,156,0.10);color:#33679C;">
+            <Icon name="users" size={36} />
+          </span>
+          <div>
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:8px;">Author</div>
+            <h1 style="font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-0.028em;font-weight:600;margin:0 0 8px;">Breathe Life Team</h1>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0;max-width:62ch;">Posts published under Breathe Life Healing Centers' institutional byline, guidance written and reviewed by our clinical and admissions team rather than credited to one individual.</p>
+          </div>
+        </div>
+      </section>
+
+      <div style="max-width:1440px;margin:0 auto;padding:44px 37px 70px;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1180px;margin:0 auto;">
+          {posts.map((p) => <BlogCard post={p} />)}
+        </div>
+      </div>
+    </main>
+    <SiteFooter />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </div>
+</Layout>
+
+<style>
+  @media (max-width: 900px) {
+    div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+  }
+</style>

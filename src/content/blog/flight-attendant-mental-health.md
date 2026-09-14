@@ -1,7 +1,6 @@
 ---
 title: "Flight Attendant Mental Health | Breathe"
 description: "Why aviation crew face a unique kind of burnout, anxiety, and substance use risk, what the warning signs look like, and how treatment can be matched to what you're carrying."
-author: "beck-gee"
 category: "understanding-addiction"
 order: 18
 readingTime: 6

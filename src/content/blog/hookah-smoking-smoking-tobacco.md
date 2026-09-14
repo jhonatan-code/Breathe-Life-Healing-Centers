@@ -1,8 +1,7 @@
 ---
-title: "Hookah Smoking: Not So Harmless | Breathe"
-description: "Hookah is often seen as a safer alternative to cigarettes. Here's what the research actually says about the health risks, from Breathe founder Brad Lamm."
+title: "Is Hookah Smoking Bad for You? What the Research Says"
+description: "Hookah has a reputation as safer than cigarettes. It isn't. Here's what one hookah session actually does to your lungs, heart, and risk of dependence."
 category: "understanding-addiction"
-author: "brad-lamm"
 order: 6
 readingTime: 2
 ---

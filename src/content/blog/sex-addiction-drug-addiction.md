@@ -1,7 +1,6 @@
 ---
 title: "Sex Addiction and Drug Addiction: The Connection | Breathe"
 description: "How sex addiction and drug addiction share the same underlying mechanisms, why one so often shows up alongside the other, and how to recognize the signs."
-author: "beck-gee"
 category: "understanding-addiction"
 order: 2
 readingTime: 4
