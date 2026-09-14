@@ -1,14 +1,15 @@
 ---
 /**
- * /therapies/motivational-interviewing/ — modality page. No approved clinical brief exists yet
- * for therapy-modality copy (CLAUDE.md: never invent YMYL/clinical content
- * without a brief), so the "what is it" explanation and FAQ answers are
- * placeholdered with <ClinicalPlaceholder /> rather than written from general
- * knowledge. Structure/marketing copy around those blocks (hero, how-it-fits-
- * your-plan, why Breathe, cross-links) is original, non-clinical copy.
- * Structural template: src/pages/what-we-treat/cocaine.astro. Section order
- * and mobile-verify-slot placement follow the /therapies/ batch convention
- * (slot after the FAQ placeholder, right before SiteFinalCTA).
+ * /therapies/motivational-interviewing/ modality page. "What is it"
+ * description and FAQ are verbatim from
+ * Breathe_Life_Motivational_Interviewing_Content_and_FAQ.docx (2026-09-14),
+ * which defers to the BLHC Content Client Profile as authoritative and
+ * states this page does not go through client/team review. Motivational
+ * interviewing is treated as a widely established, non-proprietary approach
+ * described generally, not a claim unique to this facility. Structural
+ * template: src/pages/what-we-treat/cocaine.astro. Section order and
+ * mobile-verify-slot placement follow the /therapies/ batch convention
+ * (slot after the FAQ section, right before SiteFinalCTA).
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -18,7 +19,7 @@ import SiteReviews from "../../components/SiteReviews.astro";
 import SiteInsurance from "../../components/SiteInsurance.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
+import SiteFAQ from "../../components/SiteFAQ.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../config/site";
 
@@ -41,8 +42,18 @@ const S = {
 const fits = [
   "Woven into individual sessions with your primary therapist",
   "Included in group programming where appropriate for your plan",
-  "Adjusted to your level of care — residential, PHP, IOP, or outpatient",
+  "Adjusted to your level of care: residential, PHP, IOP, or outpatient",
   "Coordinated with the rest of your care team, not run in isolation",
+];
+
+// Verbatim from Breathe_Life_Motivational_Interviewing_Content_and_FAQ.docx (2026-09-14).
+const faqs = [
+  { q: "What does a motivational interviewing conversation actually sound like?", a: "Less like being told what to do, more like being asked real questions that help you explore your own reasons for wanting things to be different." },
+  { q: "Is motivational interviewing used only at the very start of treatment?", a: "It often starts there, in your first conversations with admissions, but it continues to be useful throughout treatment, especially when ambivalence comes up." },
+  { q: "What if I'm not sure I actually want to change?", a: "That ambivalence is exactly what motivational interviewing is built to work with, not something you need to resolve before starting treatment." },
+  { q: "Is motivational interviewing used alone, or with other therapies?", a: "At Breathe, it's part of a broader individualized plan, often alongside other approaches, not a stand-alone track." },
+  { q: "Is motivational interviewing used for substance use, mental health, or both?", a: "Both. It's woven into treatment whether the primary focus is substance use, a mental health condition, or the two together." },
+  { q: "Is motivational interviewing covered by insurance?", a: "In most cases, yes, as part of your overall treatment plan. Our admissions team verifies your specific benefits before you commit to anything." },
 ];
 
 const why = [
@@ -74,6 +85,10 @@ const ld = {
         { "@type": "ListItem", position: 3, name: "Motivational Interviewing", item: pageUrl },
       ],
     },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
   ],
 };
 ---
@@ -96,12 +111,12 @@ const ld = {
             <a href="/therapies/" style="color:#7FB3BC;">Therapies</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Motivational Interviewing
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Motivational Interviewing in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Motivational interviewing works with your own reasons for change, as one of the therapies your care team may draw on as part of your plan at Breathe — built for the LGBTQ+ community first, open to anyone whose values align.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Motivational interviewing works with your own reasons for change, as one of the therapies your care team may draw on as part of your plan at Breathe, built for the LGBTQ+ community first, open to anyone whose values align.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -115,7 +130,10 @@ const ld = {
         <p style={`${S.intro}max-width:74ch;margin-bottom:26px;`}>Motivational interviewing is one of the therapeutic approaches available at Breathe, used across several of our substance-use and mental-health programs. Like every therapy we offer, it's introduced and adjusted by your clinical team as part of a plan built around you, not applied as a one-size-fits-all track.</p>
       </div>
       <div style="max-width:900px;margin:0 auto;">
-        <ClinicalPlaceholder kind="CLINICAL CONTENT" note="Modality description — needs approved brief" />
+        <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 32px;text-align:left;">
+          <p style={`${S.intro}margin-bottom:16px;`}>Motivational interviewing works with your own reasons for change, rather than working against your resistance to it. It's a collaborative conversation style, not a lecture, built on the idea that lasting change comes from your own motivation, not from being told what to do.</p>
+          <p style={S.intro}>At Breathe, it often starts from your very first conversation with admissions, and continues as part of your ongoing treatment, especially useful when ambivalence about change is part of what's keeping you stuck.</p>
+        </div>
       </div>
     </section>
 
@@ -125,7 +143,7 @@ const ld = {
         <div>
           <div style={S.eyebrow}>How we use it at Breathe</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:28ch;`}>Motivational Interviewing as part of your plan</h2>
-          <p style={`${S.intro}max-width:58ch;`}>Motivational interviewing isn't a stand-alone track at Breathe — it's folded into the individualized plan your clinical team builds around you, often from your very first conversation with admissions.</p>
+          <p style={`${S.intro}max-width:58ch;`}>Motivational interviewing isn't a stand-alone track at Breathe. It's folded into the individualized plan your clinical team builds around you, often from your very first conversation with admissions.</p>
         </div>
         <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="display:grid;gap:14px;">
@@ -159,7 +177,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -187,14 +205,12 @@ const ld = {
 
     <SiteLocation />
 
-    {/* ══════════════  FAQ  ══════════════ */}
-    <section data-screen-label="FAQ" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1080px;margin:0 auto;">
-        <div style={S.eyebrow}>Questions</div>
-        <h2 style={`${S.h2}max-width:30ch;margin-bottom:22px;`}>Questions people ask about Motivational Interviewing</h2>
-        <ClinicalPlaceholder kind="FAQ CONTENT" note="Needs approved FAQ copy — no clinical claims about this modality until a brief exists." />
-      </div>
-    </section>
+    <SiteFAQ
+      heading="Questions people ask about Motivational Interviewing"
+      intro="Straight answers about how motivational interviewing works at Breathe and how it fits into your plan."
+      groups={[{ items: faqs }]}
+      background="#FFFFFF"
+    />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; VerifyInsuranceForm's
@@ -209,7 +225,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-02-shared-bedroom-blue.jpg"
     />
