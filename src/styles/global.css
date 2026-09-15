@@ -432,6 +432,10 @@ img { height: auto; }
     justify-content: start !important;
     gap: 8px !important;
   }
+  /* "Follow Us" label follows the icons back to the left on mobile — it's
+     only right-aligned on desktop to sit above the right-justified icon
+     grid (see .social-icons's justify-content:end at that width). */
+  .footer-follow-label { text-align: left !important; }
 }
 
 @media (max-width: 374px) {

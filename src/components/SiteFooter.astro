@@ -55,7 +55,7 @@ const accreditations: [string, string, string?][] = [
           <img src="/Asset/Logo/White%20Logo.svg" alt="Breathe Life Healing Centers" style="width:172px;display:block;margin-bottom:18px;" />
         </a>
         <div style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.012em;color:#FFFFFF;margin-bottom:12px;">Contact</div>
-        <div style="font-size:14px;line-height:1.75;">
+        <div style="font-size:16px;line-height:1.75;">
           <a class="footer-link" href={site.emailHref} style="color:#DCE6EF;">{site.email}</a><br />
           <a class="footer-link" href={HREF} style="color:#FFFFFF;font-weight:500;">Call 24/7: {PH}</a><br />
           <span style="color:#B9CBDC;">8060 Melrose Avenue, 3rd Floor, Los Angeles, CA 90046</span>
@@ -63,7 +63,7 @@ const accreditations: [string, string, string?][] = [
       </div>
       <div>
         <div style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.012em;color:#FFFFFF;margin-bottom:12px;">Explore</div>
-        <div style="display:grid;gap:7px;font-size:14px;">
+        <div style="display:grid;gap:7px;font-size:16px;">
           {explore.map((l) => (
             <a
               class="footer-link"
@@ -76,7 +76,7 @@ const accreditations: [string, string, string?][] = [
       </div>
       <div>
         <div style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.012em;color:#FFFFFF;margin-bottom:12px;">Legal</div>
-        <div style="display:grid;gap:7px;font-size:14px;margin-bottom:14px;">
+        <div style="display:grid;gap:7px;font-size:16px;margin-bottom:14px;">
           {legal.map((l) => (
             <a
               class="footer-link"
@@ -89,7 +89,7 @@ const accreditations: [string, string, string?][] = [
         <p style="font-family:'Instrument Sans',sans-serif;font-size:11px;line-height:1.7;color:#B9CBDC;margin:0;">Licensed by the California DHCS · 190788AP (exp 9/30/2026) · 190788BP (exp 9/30/2027)</p>
       </div>
       <div>
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.012em;color:#FFFFFF;margin-bottom:12px;">Follow Us</div>
+        <div class="footer-follow-label" style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;letter-spacing:-0.012em;color:#FFFFFF;margin-bottom:12px;text-align:right;">Follow Us</div>
         <div class="social-icons" style="display:grid;grid-template-columns:repeat(4,38px);gap:10px;justify-content:end;">
           {socials.map((s) => (
             <a class="social-btn" href={s.href} aria-label={s.label} title={s.label} style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#16293D;color:#DCE6EF;">
