@@ -78,7 +78,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src={galleryImg("facility-04-community-dining-lounge.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
-      <div style="position:relative;max-width:1440px;margin:0 auto;padding:70px 37px;">
+      <div style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;">
         <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
           <a href="/resources/" style="color:#7FB3BC;">Resources</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Media & Press
         </nav>
@@ -100,29 +100,49 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  WHAT TO LOOK FOR  ══════════════ */}
+    {/* ══════════════  WHAT TO LOOK FOR — Wellness Wave  ══════════════
+       Same pattern as /therapies/ "Holistic & experiential": six items
+       riding a gentle wave instead of a grid, path redraws every time it
+       scrolls back into view. */}
     <section data-screen-label="What to look for" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>Comparing options</div>
           <h2 style={`${S.h2}max-width:32ch;`}>What to look for in a treatment center</h2>
-          <p style={`${S.intro}max-width:74ch;margin:0 auto;`}>General questions worth asking of any facility you're considering — not just Breathe.</p>
+          <p style={`${S.intro}max-width:74ch;margin:0 auto;`}>General questions worth asking of any facility you're considering, not just Breathe.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-          {lookFor.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <div class="treat-card" style={`display:flex;flex-direction:column;gap:12px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:26px 24px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:22px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={S.card}>{c.text}</p>
-              </div>
-            );
-          })}
+        <div class="wave-zone" id="wave-lookfor">
+          <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+            <path class="wave-path" d="M0,60 C 100,10 200,10 300,60 C 400,110 500,110 600,60 C 700,10 800,10 900,60 C 1000,110 1100,110 1200,60" stroke="url(#waveGradLookfor)" />
+            <defs>
+              <linearGradient id="waveGradLookfor" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#33679C" /><stop offset="0.5" stop-color="#478694" /><stop offset="1" stop-color="#7FB3BC" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="wave-nodes">
+            {lookFor.map((c, i) => {
+              const colors = ["#33679C", "#3F76A0", "#478694", "#5C9CA3", "#6DAAAF", "#7FB3BC"];
+              const dir = i % 2 === 0 ? "up" : "down";
+              return (
+                <div class={`wave-item ${dir}`}>
+                  {dir === "up" ? (
+                    <>
+                      <div class="wave-card"><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></div>
+                      <div class="wave-stem" />
+                    </>
+                  ) : (
+                    <>
+                      <div class="wave-stem" />
+                      <div class="wave-card"><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;text-align:center;margin:28px auto 0;max-width:70ch;">Have questions about how Breathe answers any of these? <a href={HREF} style="color:#2C5A64;font-weight:500;">Call us 24/7</a> — we'd rather you ask than guess.</p>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;text-align:center;margin:28px auto 0;max-width:70ch;">Have questions about how Breathe answers any of these? <a href={HREF} style="color:#2C5A64;font-weight:500;">Call us 24/7</a>, we'd rather you ask than guess.</p>
       </div>
     </section>
 
@@ -153,6 +173,55 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Wellness Wave — "What to look for" ──────────────────────────── */
+  .wave-zone { position: relative; padding: 20px 0 0; }
+  .wave-svg { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 120px; overflow: visible; pointer-events: none; }
+  .wave-path { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; }
+  .wave-path.draw { animation: wave-draw 2.2s ease-out forwards; }
+  @keyframes wave-draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .wave-path { stroke-dashoffset: 0; animation: none; } }
+  .wave-nodes { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); column-gap: 14px; height: 270px; }
+  .wave-item { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .wave-item.up { justify-content: flex-start; }
+  .wave-item.down { justify-content: flex-end; }
+  .wave-card {
+    background: #FFFFFF; border: 1px solid #E2DED7; border-radius: 14px; padding: 16px 14px; text-align: center;
+    width: 100%; max-width: 190px; box-shadow: 0 8px 20px rgba(20,24,28,.05);
+  }
+  .wave-dot { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: #fff; }
+  .wave-dot .msym { font-size: 20px; }
+  .wave-card h3 { font-size: 15px; font-weight: 600; margin: 0 0 5px; line-height: 1.3; }
+  .wave-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; color: #646D76; margin: 0; line-height: 1.45; }
+  .wave-stem { width: 2px; flex: 1; background: #E2DED7; min-height: 14px; }
+
+  @media (max-width: 900px) {
+    .wave-nodes { grid-template-columns: repeat(3, 1fr); height: auto; row-gap: 26px; padding: 20px 0; }
+    .wave-svg { display: none; }
+    .wave-item, .wave-item.up, .wave-item.down { justify-content: flex-start; }
+    .wave-stem { display: none; }
+  }
+  @media (max-width: 560px) { .wave-nodes { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<script>
+  // Wellness Wave path replays every time it scrolls into view — same
+  // pattern as /therapies/ "Holistic & experiential".
+  (() => {
+    const root = document.getElementById("wave-lookfor");
+    if (!root) return;
+    const path = root.querySelector<SVGPathElement>(".wave-path");
+    if (!path || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) path.classList.toggle("draw", e.isIntersecting);
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(root);
+  })();
+</script>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────
