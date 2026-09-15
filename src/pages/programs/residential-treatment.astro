@@ -73,10 +73,17 @@ const included = [
   },
 ];
 
-const related = [
-  { icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", text: "Often the step before residential care, for people who need supervised withdrawal first." },
-  { icon: "wb_sunny", title: "PHP — Day Treatment", href: "/programs/php/", text: "The usual next step down after residential, with continued daily structure." },
-  { icon: "support_agent", title: "Case Management", href: "/programs/case-management/", text: "One dedicated person coordinating your care for the whole stay." },
+// Levels-of-care ladder, same pattern as /programs/php/: real sequence
+// (Detox → Residential → PHP → IOP → Outpatient → Sober Living), text
+// reused verbatim from the canonical `levels` array in data/home.ts,
+// nothing invented. Case Management (a support service, not a sequential
+// level of care) doesn't belong in this ladder, unlike the old plain
+// "related programs" grid it replaces.
+const ladder = [
+  { n: "Before Residential", title: "Detox", href: "/programs/medical-detox/", text: levels.find((l) => l.title === "Detox")!.text },
+  { n: "You are here", title: "Residential Treatment", href: null, text: level.text, active: true },
+  { n: "After Residential", title: "PHP — Day Treatment", href: "/programs/php/", text: levels.find((l) => l.title === "PHP — Day Treatment (SUD, MH)")!.text },
+  { n: "Ongoing support", title: "Intensive Outpatient", href: "/programs/intensive-outpatient/", text: levels.find((l) => l.title === "IOP — Intensive Outpatient (SUD, MH)")!.text },
 ];
 
 // Verbatim from Breathe_Life_Residential_Treatment_FAQ.docx (2026-09-14).
@@ -205,18 +212,19 @@ const ld = {
           <div style={S.eyebrow}>Where you go from here</div>
           <h2 style={`${S.h2}max-width:26ch;`}>Residential treatment doesn't stand alone</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {related.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
-              </div>
+        <div class="ladder">
+          {ladder.map((step) => {
+            const inner = (
+              <>
+                <p class="ladder-n">{step.n}</p>
+                <h3 class="ladder-title">{step.title}</h3>
+                <p class="ladder-text">{step.text}</p>
+              </>
+            );
+            return step.href ? (
+              <a href={step.href} class="ladder-step">{inner}<span class="ladder-link">Learn more <span aria-hidden="true">→</span></span></a>
+            ) : (
+              <div class="ladder-step ladder-step--active">{inner}</div>
             );
           })}
         </div>
@@ -227,6 +235,7 @@ const ld = {
     </section>
 
     <SiteInsurance
+      background="#F7F5F1"
       heading="In-network with most major insurers"
       intro="Our admissions team verifies your specific benefits and explains exactly what's covered for residential treatment, before you commit to anything."
     />
@@ -285,6 +294,31 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Levels-of-care ladder, same pattern as /programs/php/ ──────────── */
+  .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: end; }
+  .ladder-step {
+    display: flex; flex-direction: column; gap: 8px; text-decoration: none;
+    background: #FFFFFF; border: 1px solid #E2DED7; border-top: 2px solid #33679C;
+    border-radius: 12px; padding: 22px 20px;
+  }
+  .ladder-n { font-family: "Instrument Sans", sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #646D76; margin: 0; }
+  .ladder-title { font-family: "Instrument Sans", sans-serif; font-size: 17px; font-weight: 600; color: #14181C; margin: 0; }
+  .ladder-text { font-family: "Montserrat", Helvetica, sans-serif; font-size: 13.5px; line-height: 1.55; color: #646D76; margin: 0; flex: 1; }
+  .ladder-link { font-family: "Instrument Sans", sans-serif; font-size: 13px; font-weight: 600; color: #33679C; }
+  .ladder-step--active {
+    background: #16293D; border-color: #16293D; transform: translateY(-10px);
+    box-shadow: 0 18px 40px rgba(22,41,61,0.28);
+  }
+  .ladder-step--active .ladder-n { color: #7FB3BC; }
+  .ladder-step--active .ladder-title { color: #FFFFFF; }
+  .ladder-step--active .ladder-text { color: #C3D2DE; }
+  @media (max-width: 760px) {
+    .ladder { grid-template-columns: repeat(2, 1fr); }
+    .ladder-step--active { transform: none; }
+  }
+</style>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────

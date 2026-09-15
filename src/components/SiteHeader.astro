@@ -100,6 +100,10 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 </a>
 
 <script>
+  // Shared between both IIFEs below: same breakpoint as the CSS's mobile
+  // nav rules (@media max-width: 1024px in global.css).
+  const mobileQuery = window.matchMedia("(max-width: 1024px)");
+
   // ── Mobile nav toggle ──────────────────────────────────────────────────
   (() => {
     const burger = document.getElementById("m-burger");
@@ -113,8 +117,10 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     });
     nav.addEventListener("click", (e) => {
       const t = e.target as HTMLElement;
-      // A real page link (not a dropdown trigger button) closes the whole menu.
-      if (t.tagName === "A") close();
+      // A real page link (not a dropdown trigger) closes the whole menu.
+      // .hdr-trigger-link is excluded on mobile, where it's intercepted
+      // below to open the submenu instead of navigating on the first tap.
+      if (t.tagName === "A" && !(mobileQuery.matches && t.classList.contains("hdr-trigger-link"))) close();
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   })();
@@ -130,14 +136,27 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         el.querySelector<HTMLElement>(".hdr-caret-btn")?.setAttribute("aria-expanded", "false");
       });
     };
+    const toggle = (item: HTMLElement, trigger: HTMLElement) => {
+      const open = item.classList.contains("is-open");
+      closeAll(item);
+      item.classList.toggle("is-open", !open);
+      trigger.setAttribute("aria-expanded", String(!open));
+    };
     items.forEach((item) => {
-      const trigger = item.querySelector<HTMLElement>(".hdr-caret-btn");
-      if (!trigger) return;
-      trigger.addEventListener("click", () => {
-        const open = item.classList.contains("is-open");
-        closeAll(item);
-        item.classList.toggle("is-open", !open);
-        trigger.setAttribute("aria-expanded", String(!open));
+      const caret = item.querySelector<HTMLElement>(".hdr-caret-btn");
+      const link = item.querySelector<HTMLElement>(".hdr-trigger-link");
+      if (!caret) return;
+      caret.addEventListener("click", () => toggle(item, caret));
+      // On mobile, the whole row is one big tap target and there's no
+      // hover to fall back on — the first tap should open the submenu
+      // (matching a standard mobile accordion), not navigate away before
+      // the visitor ever sees it. The panel's own "All {label}" link
+      // still goes to the section page. Desktop behavior (link navigates,
+      // caret toggles, panel also opens on hover) is unchanged.
+      link?.addEventListener("click", (e) => {
+        if (!mobileQuery.matches) return;
+        e.preventDefault();
+        toggle(item, caret);
       });
     });
     document.addEventListener("click", (e) => {

@@ -424,6 +424,21 @@ img { height: auto; }
   #footer > div > div:last-child {
     flex-direction: column; align-items: flex-start !important; gap: 6px !important;
   }
+
+  /* footer social icons: left-aligned on mobile (matches the rest of the
+     stacked footer columns), all 8 on one line where there's room. */
+  .social-icons {
+    grid-template-columns: repeat(8, 34px) !important;
+    justify-content: start !important;
+    gap: 8px !important;
+  }
+}
+
+@media (max-width: 374px) {
+  /* Below ~375px, 8 icons in one row no longer fits inside the footer's
+     20px side gutters -- fall back to a clean 4x4 grid instead of
+     wrapping wherever they happen to run out of room. */
+  .social-icons { grid-template-columns: repeat(4, 34px) !important; }
 }
 
 @media (max-width: 480px) {
@@ -432,7 +447,8 @@ img { height: auto; }
   .hdr-logo img { width: 128px !important; }
 }
 
-@media (max-width: 639px) {
-  /* single-up review cards — no need to clip the quote for card alignment */
-  .reviews-quote { height: auto !important; max-height: none !important; }
-}
+/* Reviews (.reviews-quote, SiteReviews.astro) intentionally keep the same
+   fixed height + internal scroll on mobile as on desktop -- a mobile-only
+   height:auto override used to live here, removed so every review card is
+   the same size regardless of quote length (~7 visible lines, rest
+   scrollable), consistent across every page that uses SiteReviews. */
