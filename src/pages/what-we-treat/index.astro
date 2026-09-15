@@ -42,17 +42,30 @@ const S = {
 };
 
 const substances = [
-  { icon: "local_bar", title: "Alcohol", href: "/what-we-treat/alcohol/", text: "Medical detox and residential care for alcohol use disorder." },
-  { icon: "bolt", title: "Methamphetamine", href: "/what-we-treat/methamphetamine/", text: "Treatment for meth and amphetamine use, including Chemsex Programming." },
-  { icon: "science", title: "Cocaine", href: "/what-we-treat/cocaine/", text: "CBT and motivational interviewing for cocaine and stimulant use." },
-  { icon: "medication", title: "Opioids", href: "/what-we-treat/opioids/", text: "Care for heroin, fentanyl, and prescription opioid use, together." },
-  { icon: "bedtime", title: "Xanax", href: "/what-we-treat/xanax/", text: "Medically supervised support for Xanax (alprazolam) dependence." },
-  { icon: "healing", title: "Benzodiazepines", href: "/what-we-treat/benzodiazepines/", text: "Support for Klonopin, Ativan, Valium, and related medications." },
-  { icon: "eco", title: "Kratom", href: "/what-we-treat/kratom/", text: "Real treatment for kratom dependence, taken seriously." },
-  { icon: "spa", title: "Marijuana", href: "/what-we-treat/marijuana/", text: "Support for marijuana use disorder, without judgment." },
-  { icon: "biotech", title: "Designer / Synthetic Drugs", href: "/what-we-treat/designer-drugs/", text: "Care for synthetic cannabinoids, bath salts, and other designer drugs." },
-  { icon: "air", title: "Inhalants", href: "/what-we-treat/inhalants/", text: "Treatment for inhalant use disorder, with the same seriousness as any other." },
-  { icon: "restaurant", title: "Co-Occurring Eating Disorders", href: "/what-we-treat/eating-disorders/", text: "Body-image and emotional-eating support, integrated into your care." },
+  { icon: "local_bar", title: "Alcohol", href: "/what-we-treat/alcohol/", text: "Medical detox and residential care for alcohol use disorder.", cat: "depressant" },
+  { icon: "bolt", title: "Methamphetamine", href: "/what-we-treat/methamphetamine/", text: "Treatment for meth and amphetamine use, including Chemsex Programming.", cat: "stimulant" },
+  { icon: "science", title: "Cocaine", href: "/what-we-treat/cocaine/", text: "CBT and motivational interviewing for cocaine and stimulant use.", cat: "stimulant" },
+  { icon: "medication", title: "Opioids", href: "/what-we-treat/opioids/", text: "Care for heroin, fentanyl, and prescription opioid use, together.", cat: "opioid" },
+  { icon: "bedtime", title: "Xanax", href: "/what-we-treat/xanax/", text: "Medically supervised support for Xanax (alprazolam) dependence.", cat: "depressant" },
+  { icon: "healing", title: "Benzodiazepines", href: "/what-we-treat/benzodiazepines/", text: "Support for Klonopin, Ativan, Valium, and related medications.", cat: "depressant" },
+  { icon: "eco", title: "Kratom", href: "/what-we-treat/kratom/", text: "Real treatment for kratom dependence, taken seriously.", cat: "other" },
+  { icon: "spa", title: "Marijuana", href: "/what-we-treat/marijuana/", text: "Support for marijuana use disorder, without judgment.", cat: "other" },
+  { icon: "biotech", title: "Designer / Synthetic Drugs", href: "/what-we-treat/designer-drugs/", text: "Care for synthetic cannabinoids, bath salts, and other designer drugs.", cat: "other" },
+  { icon: "air", title: "Inhalants", href: "/what-we-treat/inhalants/", text: "Treatment for inhalant use disorder, with the same seriousness as any other.", cat: "other" },
+  { icon: "restaurant", title: "Co-Occurring Eating Disorders", href: "/what-we-treat/eating-disorders/", text: "Body-image and emotional-eating support, integrated into your care.", cat: "cooccurring" },
+] as const;
+
+// Groups substances the way they come up in conversation rather than
+// alphabetically — "Substance Groups" proposal, approved 2026-09-15.
+// Colors reused from the site's existing accent palette (no new hues):
+// blue/teal/dark-teal are already load-bearing elsewhere, seaglass kept to
+// this one small dot per CLAUDE.md's ~2%-of-surface rule.
+const categories = [
+  { id: "depressant", label: "Depressants", color: "#33679C" },
+  { id: "stimulant", label: "Stimulants", color: "#C98A3A" },
+  { id: "opioid", label: "Opioids", color: "#478694" },
+  { id: "other", label: "Other Substances", color: "#2C5A64" },
+  { id: "cooccurring", label: "Co-occurring", color: "#7FB3BC" },
 ] as const;
 
 const why = [
@@ -140,26 +153,41 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  SUBSTANCES GRID  ══════════════ */}
+    {/* ══════════════  SUBSTANCES — GROUPED  ══════════════
+       "Substance Groups" proposal: the 11 real substance pages clustered
+       by how they come up in conversation (depressants / stimulants /
+       opioids / other / co-occurring) instead of one flat 11-card grid.
+       Static, no JS — each cluster gets a color rail matching its category. */}
     <section data-screen-label="Substances" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1440px;margin:0 auto;">
+      <div style="max-width:1080px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>Substances</div>
           <h2 style={`${S.h2}max-width:30ch;`}>Find the page that matches your situation</h2>
           <p style={`${S.intro}max-width:80ch;`}>Every page below covers assessment, levels of care, and how we treat what's underneath the substance use, not just the substance itself.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {substances.map((c, i) => {
-            const teal = i % 2 === 1;
+        <div class="cluster-wrap">
+          {categories.map((cat) => {
+            const items = substances.filter((s) => s.cat === cat.id);
+            if (!items.length) return null;
             return (
-              <a class="treat-card" href={c.href} style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);color:inherit;`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></span>
-              </a>
+              <div class="cluster">
+                <div class="cluster-head">
+                  <span class="cluster-bar" style={`background:${cat.color};`} />
+                  <h3>{cat.label}</h3>
+                  <span>{items.length} page{items.length > 1 ? "s" : ""}</span>
+                </div>
+                <div class="cluster-row">
+                  {items.map((s) => (
+                    <a class="cl-card" href={s.href}>
+                      <span class="msym" style={`color:${cat.color};`}>{s.icon}</span>
+                      <span>
+                        <b>{s.title}</b>
+                        <small>{s.text}</small>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
             );
           })}
         </div>
@@ -171,7 +199,7 @@ const ld = {
     <SiteInsurance
       heading="In-network with most major insurers"
       intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
-      background="#F7F5F1"
+      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -195,7 +223,7 @@ const ld = {
       </div>
     </section>
 
-    <SiteReviews />
+    <SiteReviews background="#FFFFFF" />
 
     <SiteLocation />
 
@@ -230,6 +258,29 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Substance Groups — "Substances" ─────────────────────────────── */
+  /* Category panels in a 2-up grid instead of 5 full-width stacked rows,
+     each panel a compact divided list rather than a card grid — cuts the
+     section's overall height roughly in half. */
+  .cluster-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px 22px; align-items: start; }
+  .cluster { background: #F7F5F1; border: 1px solid #E2DED7; border-radius: 14px; padding: 20px 22px; }
+  .cluster-head { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .cluster-bar { width: 4px; height: 16px; border-radius: 2px; flex: 0 0 auto; }
+  .cluster-head h3 { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; color: #14181C; }
+  .cluster-head span { font-family: "Montserrat", Helvetica, sans-serif; font-size: 12px; color: #646D76; }
+  .cluster-row { display: flex; flex-direction: column; }
+  .cl-card {
+    display: flex; align-items: flex-start; gap: 10px; text-decoration: none; color: inherit;
+    padding: 9px 0; border-top: 1px solid #E2DED7;
+  }
+  .cluster-row .cl-card:first-child { border-top: 0; }
+  .cl-card:hover b { text-decoration: underline; }
+  .cl-card .msym { font-size: 18px; flex: 0 0 auto; margin-top: 1px; }
+  .cl-card b { display: block; font-size: 14.5px; font-weight: 600; letter-spacing: -0.008em; }
+  .cl-card small { display: block; font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; color: #646D76; margin-top: 2px; line-height: 1.4; }
+</style>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────
