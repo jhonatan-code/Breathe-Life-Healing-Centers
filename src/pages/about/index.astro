@@ -3,10 +3,19 @@
  * /about/ — the About hub. Per the approved sitemap (context/Breathe_Life_Sitemap_v12.xlsx),
  * this page absorbs the old Locations hub plus the former standalone Mission & Vision and
  * Accreditations & Memberships URLs (structure confirmed; kills the /joint-commission/
- * duplicate). The MERGE is approved — the actual Mission/Vision and Accreditations prose
- * was never supplied to this project, so those two blocks are placeholdered
- * (CLAUDE.md / docs/00-INVENTORY.md item 5). The accreditation LOGOS/NAMES themselves are
- * real, already-approved facts (same list as SiteFooter.astro) and are shown as-is.
+ * duplicate).
+ *
+ * Mission & Vision and Accreditations copy filled in 2026-09-15. The referenced
+ * Breathe_Life_Final_Content_Gaps.docx does not exist anywhere in this repo (checked
+ * docs/ and the full tree) — content was instead sourced independently: the Mission
+ * paragraph is verbatim from the live homepage's "Our Mission" section (fetched
+ * 2026-09-15). That live page has no separate Vision statement anywhere on it, so
+ * none is invented here — this section carries one real mission statement, not two.
+ * Accreditations copy describes only the three the client named (Joint Commission,
+ * LegitScript, DHCS) using generic, publicly-verifiable facts about what each
+ * accreditation means, plus the real DHCS license numbers from config/site.ts. "Fair
+ * Care Promise" has no description anywhere in this project beyond its own badge name,
+ * so it's left as logo-only, same as before, rather than inventing what it verifies.
  *
  * Team preview uses the same `team` array as the homepage (src/data/home.ts) — Brad Lamm
  * is included in the card grid like every other leader. His own bio page
@@ -20,7 +29,6 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
-import ClinicalPlaceholder from "../../components/ClinicalPlaceholder.astro";
 import { site } from "../../config/site";
 import { team } from "../../data/home";
 
@@ -83,7 +91,7 @@ const ld = {
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
       <img src="/Asset/Facility/facility-18-great-room.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
-      <div style="position:relative;max-width:1440px;margin:0 auto;padding:90px 37px;">
+      <div style="position:relative;max-width:1514px;margin:0 auto;padding:90px 37px;">
         <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
           <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> About
         </nav>
@@ -96,13 +104,22 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  MISSION & VISION  ══════════════ */}
+    {/* ══════════════  MISSION & VISION — Founding Thread  ══════════════
+       The founding idea sits as a small italic lede, the real mission
+       statement (verbatim from the live homepage) becomes the visual
+       centerpiece, held by one accent thread instead of a plain paragraph
+       stack. Same real copy as before, restructured. */}
     <section data-screen-label="Mission & Vision" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:900px;margin:0 auto;text-align:center;">
-        <div style={S.eyebrow}>Our why</div>
-        <h2 style={`${S.h2}max-width:24ch;`}>Mission &amp; Vision</h2>
-        <p style={`${S.intro}max-width:70ch;margin-bottom:24px;`}>Breathe was founded on the idea that recovery works better when it doesn't ask anyone to leave part of themselves at the door — an idea that's shaped every level of care we offer since.</p>
-        <ClinicalPlaceholder kind="CONTENT" note="Mission & Vision copy needed" />
+      <div style="max-width:1080px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style={S.eyebrow}>Our why</div>
+          <h2 style={`${S.h2}max-width:24ch;`}>Mission &amp; Vision</h2>
+        </div>
+        <div class="thread">
+          <p class="thread-lede">Breathe was founded on the idea that recovery works better when it doesn't ask anyone to leave part of themselves at the door — an idea that's shaped every level of care we offer since.</p>
+          <span class="thread-quote" aria-hidden="true">&ldquo;</span>
+          <p class="thread-mission">At Breathe Life Healing Center, our mission is to deliver exceptional, world-class care with compassion, innovation, and integrity. Our team is our soul, and we treat every client with the same respect and dedication we would offer our own loved ones. We embrace diversity, welcome feedback, and see every challenge as an opportunity to grow. United in purpose, we strive to make a difference each day, knowing that the work we do today helps clients reclaim their strength, live with intention, and fully show up for their own lives.</p>
+        </div>
       </div>
     </section>
 
@@ -133,50 +150,95 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  ACCREDITATIONS  ══════════════ */}
+    {/* ══════════════  ACCREDITATIONS — Verification Trail  ══════════════
+       The real logos sit inside seal-style medallions along one connecting
+       line, reading as a sequence of independent checks. Descriptions are
+       generic, publicly-verifiable facts about only the three the client
+       named; "Fair Care Promise" gets its name and logo like the other
+       three but no invented description, since none exists anywhere in
+       this project beyond the badge name itself. */}
     <section data-screen-label="Accreditations" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1000px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Trust &amp; credentials</div>
         <h2 style={`${S.h2}max-width:30ch;`}>Accreditations &amp; memberships</h2>
-        <p style={`${S.intro}max-width:70ch;margin-bottom:24px;`}>Breathe is licensed and independently verified by the organizations that hold treatment providers accountable.</p>
-        <div style="margin-bottom:28px;">
-          <ClinicalPlaceholder kind="CONTENT" note="Accreditations & Memberships copy needed" />
-        </div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px 40px;padding:28px 0;border-top:1px solid #E2DED7;border-bottom:1px solid #E2DED7;">
-          {accreditations.map(([src, alt, href]) => (
-            href ? (
-              <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">
-                <img src={src} alt={alt} loading="lazy" style="height:48px;width:auto;display:block;" />
-              </a>
-            ) : (
-              <img src={src} alt={alt} loading="lazy" style="height:48px;width:auto;display:block;" />
-            )
-          ))}
+        <p style={`${S.intro}max-width:70ch;margin-bottom:36px;`}>Breathe is licensed and independently verified by the organizations that hold treatment providers accountable.</p>
+        <div class="trail">
+          <div class="trail-line" />
+          <div class="trail-row">
+            {accreditations.map(([src, alt, href]) => {
+              const text =
+                alt === "The Joint Commission National Quality Approval Gold Seal"
+                  ? "Independent, third-party review of our safety and quality-of-care standards."
+                  : alt === "LegitScript Certified"
+                  ? "Verified as a legitimate treatment provider."
+                  : alt === "Licensed by the California Department of Health Care Services"
+                  ? `Licensed by the state's DHCS (${site.licenses.map((l) => l.number).join(" · ")}).`
+                  : null;
+              const label =
+                alt === "The Joint Commission National Quality Approval Gold Seal" ? "The Joint Commission"
+                : alt === "LegitScript Certified" ? "LegitScript"
+                : alt === "Licensed by the California Department of Health Care Services" ? "California DHCS"
+                : alt;
+              const ring = (
+                <div class="trail-ring">
+                  <img src={src} alt="" loading="lazy" />
+                </div>
+              );
+              return (
+                <div class="trail-item">
+                  {href ? <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt}>{ring}</a> : ring}
+                  <h3>{label}</h3>
+                  {text && <p>{text}</p>}
+                </div>
+              );
+            })}
+          </div>
+          <div class="trail-end"><span class="msym" aria-hidden="true">verified</span>Licensed and independently verified</div>
         </div>
       </div>
     </section>
 
-    {/* ══════════════  EXPLORE  ══════════════ */}
+    {/* ══════════════  EXPLORE — Wellness Wave pattern  ══════════════
+       Same wave device as /therapies/'s "Holistic & experiential" section:
+       six real destinations riding a gentle wave instead of a grid.
+       Redraws every time it scrolls into view. Same real explore array,
+       icons, and hrefs as before, just restructured. */}
     <section data-screen-label="Explore About" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>Learn more</div>
           <h2 style={`${S.h2}max-width:26ch;`}>More about Breathe</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {explore.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <a href={c.href} class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);color:#14181C;`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Explore <span aria-hidden="true">→</span></span>
-              </a>
-            );
-          })}
+        <div class="wave-zone" id="wave-explore">
+          <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+            <path class="wave-path" d="M0,60 C 100,10 200,10 300,60 C 400,110 500,110 600,60 C 700,10 800,10 900,60 C 1000,110 1100,110 1200,60" stroke="url(#waveGradExplore)" />
+            <defs>
+              <linearGradient id="waveGradExplore" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#33679C" /><stop offset="0.5" stop-color="#478694" /><stop offset="1" stop-color="#7FB3BC" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="wave-nodes">
+            {explore.map((c, i) => {
+              const colors = ["#33679C", "#3F76A0", "#478694", "#5C9CA3", "#6DAAAF", "#7FB3BC"];
+              const dir = i % 2 === 0 ? "up" : "down";
+              return (
+                <div class={`wave-item ${dir}`}>
+                  {dir === "up" ? (
+                    <>
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                      <div class="wave-stem" />
+                    </>
+                  ) : (
+                    <>
+                      <div class="wave-stem" />
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -199,6 +261,88 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Wellness Wave — "Learn more" ──────────────────────────────────── */
+  .wave-zone { position: relative; padding: 20px 0 0; }
+  .wave-svg { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 120px; overflow: visible; pointer-events: none; }
+  .wave-path { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; }
+  .wave-path.draw { animation: wave-draw 2.2s ease-out forwards; }
+  @keyframes wave-draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .wave-path { stroke-dashoffset: 0; animation: none; } }
+  .wave-nodes { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); column-gap: 14px; height: 270px; }
+  .wave-item { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .wave-item.up { justify-content: flex-start; }
+  .wave-item.down { justify-content: flex-end; }
+  .wave-card {
+    background: #FFFFFF; border: 1px solid #E2DED7; border-radius: 14px; padding: 16px 14px; text-align: center;
+    text-decoration: none; color: inherit; width: 100%; max-width: 190px; box-shadow: 0 8px 20px rgba(20,24,28,.05);
+  }
+  .wave-dot { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: #fff; }
+  .wave-dot .msym { font-size: 20px; }
+  .wave-card h3 { font-size: 15px; font-weight: 600; margin: 0 0 5px; line-height: 1.3; }
+  .wave-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; color: #646D76; margin: 0; line-height: 1.45; }
+  .wave-stem { width: 2px; flex: 1; background: #E2DED7; min-height: 14px; }
+
+  @media (max-width: 900px) {
+    .wave-nodes { grid-template-columns: repeat(3, 1fr); height: auto; row-gap: 26px; padding: 20px 0; }
+    .wave-svg { display: none; }
+    .wave-item, .wave-item.up, .wave-item.down { justify-content: flex-start; }
+    .wave-stem { display: none; }
+  }
+  @media (max-width: 560px) { .wave-nodes { grid-template-columns: 1fr 1fr; } }
+
+  /* ── Founding Thread — "Our why" ───────────────────────────────────── */
+  .thread { max-width: 1080px; margin: 0 auto; position: relative; padding-left: 28px; }
+  .thread::before {
+    content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px;
+    background: linear-gradient(180deg, #7FB3BC, #33679C); border-radius: 99px;
+  }
+  .thread-lede { font-family: "Montserrat", Helvetica, sans-serif; font-size: 16px; color: #646D76; margin: 0 0 18px; font-style: italic; line-height: 1.65; }
+  .thread-quote { font-family: Georgia, serif; font-size: 56px; line-height: 0.5; color: #7FB3BC; display: block; margin-bottom: 6px; }
+  .thread-mission {
+    font-family: "Instrument Sans", sans-serif; font-size: clamp(18px, 2vw, 22px); font-weight: 500;
+    line-height: 1.55; color: #14181C; letter-spacing: -0.01em; margin: 0;
+  }
+  @media (max-width: 640px) { .thread { padding-left: 20px; } }
+
+  /* ── Verification Trail — "Trust & credentials" ────────────────────── */
+  .trail { position: relative; }
+  .trail-line { position: absolute; left: 10%; right: 10%; top: 35px; height: 2px; background: #E2DED7; z-index: 0; }
+  .trail-row { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .trail-item { text-align: center; }
+  .trail-ring { height: 70px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+  .trail-ring img { height: 70px; width: auto; max-width: 100%; object-fit: contain; }
+  .trail-item h3 { font-family: "Instrument Sans", sans-serif; font-size: 16px; font-weight: 600; margin: 0 0 6px; color: #14181C; }
+  .trail-item p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 16px; color: #3A444D; margin: 0; line-height: 1.55; max-width: 26ch; margin-inline: auto; }
+  .trail-end {
+    text-align: center; margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: "Instrument Sans", sans-serif; font-size: 16px; font-weight: 700; color: #2C5A64;
+  }
+  .trail-end .msym { font-size: 18px; }
+  @media (max-width: 760px) { .trail-row { grid-template-columns: 1fr 1fr; row-gap: 26px; } .trail-line { display: none; } }
+  @media (max-width: 480px) { .trail-row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // Wellness Wave path replays every time it scrolls into view — same
+  // pattern as /therapies/'s "Holistic & experiential" section.
+  (() => {
+    const root = document.getElementById("wave-explore");
+    if (root) {
+      const path = root.querySelector<SVGPathElement>(".wave-path");
+      if (path && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) path.classList.toggle("draw", e.isIntersecting);
+          },
+          { threshold: 0.4 }
+        );
+        io.observe(root);
+      }
+    }
+  })();
+</script>
 
 <script>
   (() => {
