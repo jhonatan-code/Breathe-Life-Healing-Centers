@@ -152,6 +152,12 @@ const ld = {
     </section>
 
     {/* ══════════════  CORE THERAPIES  ══════════════ */}
+    {/* ══════════════  CORE THERAPIES — Woven Foundation  ══════════════
+       Six real threads (same coreTherapies data as before) converge into
+       one "Your Plan" anchor, literalizing the phrase already used four
+       times in these six real descriptions ("woven into your plan").
+       Redraws every time the section scrolls into view, same replay
+       pattern as the vitals pulse line on medical-detox/MAT. */}
     <section data-screen-label="Core therapies" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
@@ -159,25 +165,41 @@ const ld = {
           <h2 style={`${S.h2}max-width:30ch;`}>The clinical foundation of your plan</h2>
           <p style={`${S.intro}max-width:80ch;`}>These are drawn on across most levels of care, adjusted to what you need at each stage.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {coreTherapies.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
-              </div>
-            );
-          })}
+        <div class="weave" id="weave-core">
+          <div class="weave-threads">
+            {coreTherapies.map((c, i) => {
+              const colors = ["#33679C", "#478694", "#7FB3BC"];
+              const color = colors[i % 3];
+              return (
+                <a class="weave-card" href={c.href} style={`--thread-color:${color};`}>
+                  <span class="ic msym">{c.icon}</span>
+                  <h3>{c.title}</h3>
+                  <p>{c.text}</p>
+                </a>
+              );
+            })}
+            <svg class="weave-svg" viewBox="0 0 620 64" preserveAspectRatio="none" aria-hidden="true">
+              <path class="weave-path" d="M20,0 C 20,30 310,20 310,50" stroke="#33679C" />
+              <path class="weave-path" d="M124,0 C 124,26 310,24 310,50" stroke="#478694" />
+              <path class="weave-path" d="M228,0 C 228,22 310,28 310,50" stroke="#7FB3BC" />
+              <path class="weave-path" d="M392,0 C 392,22 310,28 310,50" stroke="#33679C" />
+              <path class="weave-path" d="M496,0 C 496,26 310,24 310,50" stroke="#478694" />
+              <path class="weave-path" d="M600,0 C 600,30 310,20 310,50" stroke="#7FB3BC" />
+            </svg>
+          </div>
+          <div class="weave-plan"><span class="msym">route</span><b>Your Plan</b></div>
         </div>
       </div>
     </section>
 
     {/* ══════════════  HOLISTIC & EXPERIENTIAL  ══════════════ */}
+    {/* ══════════════  HOLISTIC & EXPERIENTIAL — Wellness Wave  ══════════════
+       Same six real modalities (holisticTherapies, unchanged) riding a
+       gentle wave instead of a grid — deliberately not "Woven Foundation"
+       again (that's for Core therapies, which funnels into one plan);
+       holistic/experiential care is additive, so this one flows. Redraws
+       every time it scrolls into view, same replay pattern as the weave
+       and the vitals pulse line. */}
     <section data-screen-label="Holistic and experiential" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
@@ -185,20 +207,36 @@ const ld = {
           <h2 style={`${S.h2}max-width:30ch;`}>Care that goes beyond the therapy room</h2>
           <p style={`${S.intro}max-width:80ch;`}>Whole-person programming that rounds out your clinical care.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {holisticTherapies.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
-              </div>
-            );
-          })}
+        <div class="wave-zone" id="wave-holistic">
+          <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+            <path class="wave-path" d="M0,60 C 100,10 200,10 300,60 C 400,110 500,110 600,60 C 700,10 800,10 900,60 C 1000,110 1100,110 1200,60" stroke="url(#waveGradHolistic)" />
+            <defs>
+              <linearGradient id="waveGradHolistic" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#33679C" /><stop offset="0.5" stop-color="#478694" /><stop offset="1" stop-color="#7FB3BC" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="wave-nodes">
+            {holisticTherapies.map((c, i) => {
+              const colors = ["#33679C", "#3F76A0", "#478694", "#5C9CA3", "#6DAAAF", "#7FB3BC"];
+              const dir = i % 2 === 0 ? "up" : "down";
+              return (
+                <div class={`wave-item ${dir}`}>
+                  {dir === "up" ? (
+                    <>
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                      <div class="wave-stem" />
+                    </>
+                  ) : (
+                    <>
+                      <div class="wave-stem" />
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -265,6 +303,101 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Woven Foundation — "Core therapies" ───────────────────────────── */
+  .weave { position: relative; }
+  .weave-threads { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; position: relative; padding-bottom: 64px; }
+  .weave-svg { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 64px; overflow: visible; pointer-events: none; }
+  .weave-path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; }
+  .weave-path.draw { animation: weave-draw 1.8s ease-out forwards; }
+  @keyframes weave-draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .weave-path { stroke-dashoffset: 0; animation: none; } }
+  .weave-card {
+    background: #FFFFFF; border: 1px solid #E2DED7; border-top: 3px solid var(--thread-color, #33679C); border-radius: 12px;
+    padding: 18px 16px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1;
+  }
+  .weave-card .ic { width: 38px; height: 38px; border-radius: 9px; background: #F0F5FA; display: flex; align-items: center; justify-content: center; color: var(--thread-color, #33679C); font-size: 20px; }
+  .weave-card h3 { font-size: 16px; font-weight: 600; margin: 0; line-height: 1.3; }
+  .weave-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; color: #646D76; margin: 0; line-height: 1.5; flex: 1; }
+  .weave-plan {
+    max-width: 280px; margin: 0 auto; background: #16293D; color: #fff; border-radius: 14px; padding: 20px 26px;
+    text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .weave-plan .msym { color: #7FB3BC; font-size: 20px; }
+  .weave-plan b { font-family: "Instrument Sans", sans-serif; font-size: 15px; font-weight: 600; }
+
+  @media (max-width: 900px) { .weave-threads { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .weave-threads { grid-template-columns: 1fr 1fr; } .weave-svg { display: none; } }
+
+  /* ── Wellness Wave — "Holistic & experiential" ────────────────────── */
+  .wave-zone { position: relative; padding: 20px 0 0; }
+  .wave-svg { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 120px; overflow: visible; pointer-events: none; }
+  .wave-path { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; }
+  .wave-path.draw { animation: wave-draw 2.2s ease-out forwards; }
+  @keyframes wave-draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .wave-path { stroke-dashoffset: 0; animation: none; } }
+  .wave-nodes { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); column-gap: 14px; height: 270px; }
+  .wave-item { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .wave-item.up { justify-content: flex-start; }
+  .wave-item.down { justify-content: flex-end; }
+  .wave-card {
+    background: #FFFFFF; border: 1px solid #E2DED7; border-radius: 14px; padding: 16px 14px; text-align: center;
+    text-decoration: none; color: inherit; width: 100%; max-width: 190px; box-shadow: 0 8px 20px rgba(20,24,28,.05);
+  }
+  .wave-dot { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: #fff; }
+  .wave-dot .msym { font-size: 20px; }
+  .wave-card h3 { font-size: 15px; font-weight: 600; margin: 0 0 5px; line-height: 1.3; }
+  .wave-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; color: #646D76; margin: 0; line-height: 1.45; }
+  .wave-stem { width: 2px; flex: 1; background: #E2DED7; min-height: 14px; }
+
+  @media (max-width: 900px) {
+    .wave-nodes { grid-template-columns: repeat(3, 1fr); height: auto; row-gap: 26px; padding: 20px 0; }
+    .wave-svg { display: none; }
+    .wave-item, .wave-item.up, .wave-item.down { justify-content: flex-start; }
+    .wave-stem { display: none; }
+  }
+  @media (max-width: 560px) { .wave-nodes { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<script>
+  // Woven Foundation threads replay every time they scroll into view —
+  // same pattern as the vitals pulse line on medical-detox/MAT.
+  (() => {
+    const root = document.getElementById("weave-core");
+    if (!root) return;
+    const paths = Array.from(root.querySelectorAll<SVGPathElement>(".weave-path"));
+    if (!paths.length || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) paths.forEach((p) => p.classList.add("draw"));
+          else paths.forEach((p) => p.classList.remove("draw"));
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(root);
+  })();
+</script>
+
+<script>
+  // Wellness Wave path replays every time it scrolls into view — same
+  // pattern as Woven Foundation and the vitals pulse line.
+  (() => {
+    const root = document.getElementById("wave-holistic");
+    if (!root) return;
+    const path = root.querySelector<SVGPathElement>(".wave-path");
+    if (!path || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) path.classList.toggle("draw", e.isIntersecting);
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(root);
+  })();
+</script>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────
