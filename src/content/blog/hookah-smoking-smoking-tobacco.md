@@ -2,6 +2,7 @@
 title: "Is Hookah Smoking Bad for You? What the Research Says"
 description: "Hookah has a reputation as safer than cigarettes. It isn't. Here's what one hookah session actually does to your lungs, heart, and risk of dependence."
 category: "understanding-addiction"
+author: "beck-gee"
 order: 6
 readingTime: 2
 ---

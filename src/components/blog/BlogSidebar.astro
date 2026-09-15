@@ -14,12 +14,11 @@ interface Props {
 }
 const { related } = Astro.props;
 const review = reviews[1] ?? reviews[0];
-const insurerNames = insurers.slice(0, 6).map((i) => i.name);
 ---
 
 <aside class="side-rail" aria-label="Article tools">
   <div class="side-card">
-    <h4>On this page</h4>
+    <h4>Table of Contents</h4>
     <ul class="toc-list" id="toc-list"></ul>
   </div>
 
@@ -31,8 +30,14 @@ const insurerNames = insurers.slice(0, 6).map((i) => i.name);
 
   <div class="side-card">
     <h4>Coverage</h4>
-    <div class="ins-chips">
-      {insurerNames.map((n) => <span class="ins-chip">{n}</span>)}
+    <div class="mini-ins-wrap">
+      <div class="mini-ins-track no-scrollbar">
+        {[...insurers, ...insurers, ...insurers, ...insurers].map((i, k) => (
+          <div class="mini-ins-logo" aria-hidden={k >= insurers.length ? 'true' : undefined}>
+            <img src={i.src} alt={i.name} loading="lazy" style={`height:${Math.round(i.h * 0.6)}px;`} />
+          </div>
+        ))}
+      </div>
     </div>
     <a class="ins-link" href="/insurance-verification/">Verify your insurance &rarr;</a>
   </div>
@@ -70,8 +75,12 @@ const insurerNames = insurers.slice(0, 6).map((i) => i.name);
   .call-card h4 { color: #9DB2C2; }
   .call-card .num { font-size: 22px; font-weight: 700; font-family: 'Instrument Sans', sans-serif; letter-spacing: -0.01em; margin: 8px 0 12px; }
   .call-card a.btn { display: block; background: #7FB3BC; color: #16293D; font-weight: 700; font-family: 'Instrument Sans', sans-serif; padding: 11px; border-radius: 8px; text-decoration: none; font-size: 14px; }
-  .ins-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .ins-chip { font-family: 'Montserrat', sans-serif; font-size: 11.5px; color: #3A444D; background: #F0F5FA; padding: 5px 9px; border-radius: 6px; }
+  .mini-ins-wrap { -webkit-mask-image: linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask-image: linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+  .mini-ins-track { display: flex; align-items: center; overflow-x: auto; }
+  .mini-ins-track.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .mini-ins-track.no-scrollbar::-webkit-scrollbar { display: none; }
+  .mini-ins-logo { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; padding: 0 12px; }
+  .mini-ins-logo img { width: auto; max-width: 90px; object-fit: contain; }
   .ins-link { display: block; margin-top: 12px; font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; color: #33679C; text-decoration: none; }
   .review-quote { font-family: 'Montserrat', sans-serif; font-size: 13.5px; line-height: 1.6; color: #3A444D; font-style: italic; margin: 0 0 10px; }
   .review-name { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; color: #14181C; }

@@ -2,6 +2,7 @@
 title: "This Is What Toxic Codependency Looks Like | Breathe"
 description: "What codependency actually is, the signs it's grown unhealthy, and the most common patterns it takes in relationships. From Breathe Life Healing Centers."
 category: "for-the-family"
+author: "beck-gee"
 order: 1
 readingTime: 4
 ---

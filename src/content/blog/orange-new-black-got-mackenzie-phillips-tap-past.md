@@ -2,6 +2,7 @@
 title: "How Mackenzie Phillips Drew on Recovery for OITNB"
 description: "Breathe counselor Mackenzie Phillips talks to Vanity Fair about playing an addicted character on Orange Is the New Black season 6, and what her own recovery brought to the role."
 category: "news"
+author: "beck-gee"
 order: 17
 readingTime: 1
 ---

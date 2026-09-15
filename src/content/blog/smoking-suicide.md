@@ -2,6 +2,7 @@
 title: "Smoking and Suicide | Breathe"
 description: "New research links smoking to a significantly higher suicide risk. Breathe founder Brad Lamm on what the study found and what it means, from his own recovery."
 category: "understanding-addiction"
+author: "brad-lamm"
 order: 9
 readingTime: 3
 ---

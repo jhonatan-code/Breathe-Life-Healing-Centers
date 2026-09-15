@@ -2,6 +2,7 @@
 title: "The Vicious Cycle of Addiction | Breathe"
 description: "Why addiction isn't a matter of willpower: the misuse-to-addiction pathway, the eight-stage cycle that keeps someone stuck, and how treatment interrupts it."
 category: "understanding-addiction"
+author: "beck-gee"
 order: 3
 readingTime: 3
 ---

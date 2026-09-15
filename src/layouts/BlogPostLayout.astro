@@ -11,11 +11,10 @@ import Layout from './Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteFinalCTA from '../components/SiteFinalCTA.astro';
-import BlogCard from '../components/blog/BlogCard.astro';
 import BlogSidebar from '../components/blog/BlogSidebar.astro';
 import BlogMobileTools from '../components/blog/BlogMobileTools.astro';
 import ShareButtons from '../components/blog/ShareButtons.astro';
-import { CATEGORY_LABELS, CATEGORY_PHOTOS, getAuthor, type BlogEntry } from '../lib/blog';
+import { CATEGORY_LABELS, CATEGORY_PHOTOS, getAuthor, postHref, type BlogEntry } from '../lib/blog';
 import type { MarkdownHeading } from 'astro';
 import { site } from '../config/site';
 
@@ -89,22 +88,32 @@ const ld = {
             </nav>
             <span class="post-cat">{categoryLabel}</span>
             <h1>{data.title.replace(/\s*\|\s*Breathe$/, '')}</h1>
-            <div class="post-meta-row">
+            <div class="post-byline">
               {author ? (
                 <a class="author-chip" href={`/about/our-team/${author.slug}/`}>
                   <img src={author.photo} alt={author.name} loading="lazy" />
                   <span><span class="name">{author.name}</span>{author.badge && <><br /><span class="cred">{author.badge}</span></>}</span>
                 </a>
               ) : (
-                <a class="author-chip" href="/blog/author/breathe-life-team/"><span class="name">Breathe Team</span></a>
+                <a class="author-chip" href="/blog/"><span class="name">Breathe Team</span></a>
               )}
-              {data.publishDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Published {dateFmt(data.publishDate)}</span></>}
-              {data.updatedDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Updated {dateFmt(data.updatedDate)}</span></>}
-              <span class="dot" aria-hidden="true">&middot;</span>
-              <span>{minutes} min read</span>
+              <span class="byline-meta">
+                {data.publishDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Published {dateFmt(data.publishDate)}</span></>}
+                {data.updatedDate && <><span class="dot" aria-hidden="true">&middot;</span><span>Updated {dateFmt(data.updatedDate)}</span></>}
+                <span class="dot" aria-hidden="true">&middot;</span>
+                <span>{minutes} min read</span>
+              </span>
             </div>
             <div class="share-wrap">
               <ShareButtons url={canonicalUrl} title={data.title.replace(/\s*\|\s*Breathe$/, '')} variant="dark" />
+            </div>
+            <div class="mobile-toc">
+              <button class="mobile-toc-toggle" id="mobile-toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list-banner">
+                <span class="msym" aria-hidden="true">list</span> Table of Contents
+              </button>
+              <div class="mobile-toc-popup" id="mobile-toc-popup">
+                <ul class="toc-list" id="toc-list-banner"></ul>
+              </div>
             </div>
           </div>
         </div>
@@ -127,8 +136,16 @@ const ld = {
         <section class="related-section">
           <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Related reading</h2>
           <div class="eyebrow" aria-hidden="true">Related reading</div>
-          <div class="grid">
-            {related.map((p) => <BlogCard post={p} />)}
+          <div class="related-list">
+            {related.map((p) => (
+              <a class="related-row" href={postHref(p)}>
+                <span class="msym" aria-hidden="true">article</span>
+                <span>
+                  <span class="related-cat">{CATEGORY_LABELS[p.data.category]}</span>
+                  <span class="related-title">{p.data.title.replace(/\s*\|\s*Breathe$/, '')}</span>
+                </span>
+              </a>
+            ))}
           </div>
         </section>
       )}
@@ -160,6 +177,7 @@ const ld = {
   }
   buildTOC('toc-list');
   buildTOC('toc-list-mobile');
+  buildTOC('toc-list-banner');
 
   document.querySelectorAll('.toc-list a').forEach((a) => {
     a.addEventListener('click', (e) => {
@@ -168,8 +186,48 @@ const ld = {
       const el = target ? document.getElementById(target) : null;
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       document.getElementById('tools-sheet')?.classList.remove('open');
+      document.getElementById('mobile-toc-popup')?.classList.remove('open');
+      document.getElementById('mobile-toc-toggle')?.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // Mobile-only "Table of Contents" toggle under the share icons, separate
+  // from the persistent bottom "Article tools" sheet — a lighter-weight,
+  // collapsed-by-default popup for readers who want the outline immediately.
+  const mobileTocToggle = document.getElementById('mobile-toc-toggle');
+  const mobileTocPopup = document.getElementById('mobile-toc-popup');
+  mobileTocToggle?.addEventListener('click', () => {
+    const open = mobileTocPopup?.classList.toggle('open');
+    mobileTocToggle.setAttribute('aria-expanded', String(!!open));
+  });
+
+  // Mini insurance-logo marquees (sidebar + mobile sheet Coverage cards) —
+  // same auto-scroll/pause-on-hover technique as SiteInsurance.astro's
+  // sitewide marquee, just narrower tracks.
+  if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.mini-ins-wrap').forEach((wrap) => {
+      const track = wrap.querySelector('.mini-ins-track');
+      if (!track) return;
+      const SPEED = 0.02;
+      let last = 0, pos = null, paused = false;
+      wrap.addEventListener('mouseenter', () => (paused = true));
+      wrap.addEventListener('mouseleave', () => (paused = false));
+      wrap.addEventListener('focusin', () => (paused = true));
+      wrap.addEventListener('focusout', () => (paused = false));
+      const step = (t) => {
+        const half = track.scrollWidth / 2;
+        if (last && !paused && half > 0) {
+          if (pos == null) pos = track.scrollLeft;
+          pos += (t - last) * SPEED;
+          if (pos >= half) pos -= half;
+          track.scrollLeft = pos;
+        }
+        last = t;
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
 
   function onScroll() {
     let current = null;
@@ -195,17 +253,53 @@ const ld = {
   .crumbs a { color: #9DB2C2; text-decoration: none; }
   .crumbs a:hover { color: #fff; }
   .post-cat { display: inline-block; font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #16293D; background: #7FB3BC; padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; }
-  .post-banner h1 { font-size: clamp(30px,4vw,46px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 22px; max-width: 22ch; text-wrap: balance; }
-  .post-meta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 13.5px; color: #C7D4DE; }
+  .post-banner h1 { font-size: clamp(30px,4vw,46px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 22px; max-width: 850px; text-wrap: balance; }
+  .post-byline { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 13.5px; color: #C7D4DE; }
   .author-chip { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .author-chip:hover .name { text-decoration: underline; }
-  .author-chip img { width: 36px; height: 36px; border-radius: 999px; object-fit: cover; }
+  .author-chip img { width: 36px; height: 36px; border-radius: 999px; object-fit: cover; flex: 0 0 auto; }
   .author-chip .name { color: #fff; font-weight: 600; }
   .author-chip .cred { color: #9DB2C2; font-size: 12px; }
+  .byline-meta { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .dot { opacity: .5; }
   .share-wrap { margin-top: 24px; }
+  .mobile-toc { display: none; }
 
-  .post-layout { max-width: 1180px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: start; }
+  /* Desktop-only byline split: author left, category/date/share stacked
+     right. .post-byline dissolves via display:contents so its two children
+     (author-chip, byline-meta) become direct grid items alongside .post-cat
+     and .share-wrap, which otherwise live outside it in the DOM — grid-area
+     placement is what lets all four reflow into one banner-col grid without
+     re-ordering markup. Below 981px none of this applies; .post-byline stays
+     a plain flex row exactly as before. */
+  @media (min-width: 981px) {
+    .banner-col {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 48px;
+      row-gap: 10px;
+      align-items: start;
+      grid-template-areas:
+        "crumbs crumbs"
+        "h1     h1"
+        "author cat"
+        "author meta"
+        "author share";
+    }
+    .crumbs { grid-area: crumbs; }
+    .post-banner h1 { grid-area: h1; }
+    .post-byline { display: contents; }
+    .author-chip { grid-area: author; }
+    .byline-meta { grid-area: meta; justify-self: end; text-align: right; }
+    .byline-meta .dot:first-child { display: none; }
+    .post-cat { grid-area: cat; justify-self: end; margin-bottom: 0; }
+    .share-wrap { grid-area: share; justify-self: end; margin-top: 0; }
+  }
+
+  .post-layout { max-width: 1440px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: start; }
+  @media (min-width: 981px) {
+    .post-layout { padding-bottom: 60px; }
+  }
   .post-content { font-family: 'Montserrat', sans-serif; font-size: 17px; line-height: 1.75; color: #3A444D; max-width: 720px; }
   .post-content :global(h2) { font-family: 'Instrument Sans', sans-serif; font-size: clamp(22px,2.6vw,28px); font-weight: 600; letter-spacing: -0.02em; color: #14181C; margin: 36px 0 14px; scroll-margin-top: 100px; }
   .post-content :global(h2:first-child) { margin-top: 0; }
@@ -233,7 +327,36 @@ const ld = {
 
   .related-section { max-width: 1180px; margin: 60px auto 0; padding: 0 37px 20px; }
   .related-section .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; margin-bottom: 18px; }
-  .related-section .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .related-list { display: flex; flex-direction: column; max-width: 720px; }
+  .related-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px 4px; border-top: 1px solid #E5E1D8; text-decoration: none; color: inherit; }
+  .related-row:first-child { border-top: 0; padding-top: 0; }
+  .related-row .msym { font-size: 22px; color: #7FB3BC; margin-top: 2px; flex: 0 0 auto; }
+  .related-row .related-cat { display: block; font-family: 'Instrument Sans', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #2C5A64; margin-bottom: 4px; }
+  .related-row .related-title { font-family: 'Instrument Sans', sans-serif; font-size: 16px; font-weight: 600; color: #14181C; line-height: 1.4; }
+  .related-row:hover .related-title { text-decoration: underline; }
+
+  /* Mobile-only "Table of Contents" popup under the share icons — distinct
+     from BlogMobileTools.astro's persistent bottom "Article tools" sheet,
+     which still holds the full TOC/Coverage/reviews set unchanged. */
+  @media (max-width: 980px) {
+    .mobile-toc { display: block; margin-top: 16px; }
+    .mobile-toc-toggle {
+      display: inline-flex; align-items: center; gap: 6px; background: none;
+      border: 1px solid rgba(255,255,255,.25); color: #C7D4DE;
+      font-family: 'Instrument Sans', sans-serif; font-size: 12.5px; font-weight: 600;
+      padding: 7px 14px; border-radius: 999px; cursor: pointer;
+    }
+    .mobile-toc-toggle .msym { font-size: 16px; }
+    .mobile-toc-popup { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+    .mobile-toc-popup.open { max-height: 260px; margin-top: 10px; }
+    .mobile-toc-popup .toc-list {
+      list-style: none; margin: 0; padding: 14px 16px; background: rgba(255,255,255,.06);
+      border-radius: 10px; display: flex; flex-direction: column; gap: 9px;
+      font-family: 'Montserrat', sans-serif; font-size: 13.5px;
+    }
+    .mobile-toc-popup .toc-list a { text-decoration: none; color: #C7D4DE; display: block; padding: 2px 0 2px 12px; border-left: 2px solid rgba(255,255,255,.2); }
+    .mobile-toc-popup .toc-list a.active { color: #fff; font-weight: 600; border-left-color: #7FB3BC; }
+  }
 
   @media (max-width: 980px) {
     .post-layout { grid-template-columns: 1fr; padding-bottom: 30px; }
@@ -241,6 +364,5 @@ const ld = {
   @media (max-width: 640px) {
     .post-layout { padding-inline: 20px; }
     .related-section { padding-inline: 20px; }
-    .related-section .grid { grid-template-columns: 1fr; }
   }
 </style>

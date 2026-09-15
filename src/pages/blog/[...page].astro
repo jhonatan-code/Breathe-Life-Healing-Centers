@@ -11,7 +11,7 @@ import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
-import { getVisiblePosts, CATEGORY_LABELS, CATEGORY_SLUGS, type BlogEntry } from '../../lib/blog';
+import { getVisiblePosts, getAuthor, CATEGORY_LABELS, CATEGORY_SLUGS, type BlogEntry } from '../../lib/blog';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getVisiblePosts();
@@ -22,6 +22,14 @@ const { page } = Astro.props as { page: Page<BlogEntry> };
 const [featured, ...rest] = page.data;
 const title = page.currentPage === 1 ? 'Blog | Breathe Life Healing Centers' : `Blog, Page ${page.currentPage} | Breathe`;
 const description = 'Guidance for people in recovery and the families who love them, written by our own clinical team.';
+
+// The two standing contributors behind the blog's byline, per Elizabeth's
+// 2026-09-14 instruction consolidating authorship. Brad Lamm's one
+// first-person post keeps his real name in its own byline (see
+// smoking-suicide.md) but isn't a recurring blog contributor by design, so
+// he isn't featured in this spotlight grid the way Beck Gee and Shoshana
+// Katz are.
+const authors = [getAuthor('beck-gee'), getAuthor('shoshana-katz')].filter((a) => a !== null);
 ---
 
 <Layout title={title} description={description} path="/blog/">
@@ -29,7 +37,9 @@ const description = 'Guidance for people in recovery and the families who love t
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
     <SiteHeader />
     <main id="main">
-      <section class="listing-head">
+      <section class="listing-head" data-screen-label="Hero">
+        <img class="listing-head-photo" src="/Asset/Facility/facility-21-quiet-reading-nook.jpg" alt="" />
+        <div class="listing-head-overlay"></div>
         <div class="listing-head-inner">
           <div class="eyebrow">From Breathe</div>
           <h1>Real stories, honest information</h1>
@@ -38,6 +48,23 @@ const description = 'Guidance for people in recovery and the families who love t
             <a class="filter-pill is-active" href="/blog/">All</a>
             {CATEGORY_SLUGS.map((c) => <a class="filter-pill" href={`/blog/category/${c}/`}>{CATEGORY_LABELS[c]}</a>)}
           </nav>
+        </div>
+      </section>
+
+      <section class="authors-row" aria-label="Our authors">
+        <div class="authors-row-inner">
+          <div class="authors-eyebrow">Our authors</div>
+          <div class="authors-grid">
+            {authors.map((a) => (
+              <a class="author-card" href={`/about/our-team/${a.slug}/`}>
+                <img src={a.photo} alt={a.name} loading="lazy" />
+                <span>
+                  <span class="author-card-name">{a.name}</span>
+                  {a.badge && <span class="author-card-badge">{a.badge}</span>}
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -66,14 +93,28 @@ const description = 'Guidance for people in recovery and the families who love t
 </Layout>
 
 <style>
-  .listing-head { padding: 56px 37px 30px; }
-  .listing-head-inner { max-width: 1440px; margin: 0 auto; }
-  .listing-head h1 { font-size: clamp(34px,4.4vw,54px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 600; max-width: 16ch; margin: 14px 0 16px; }
-  .listing-head p { font-family: 'Montserrat', sans-serif; color: #3A444D; max-width: 58ch; margin: 0; font-size: 17px; }
+  .listing-head { position: relative; overflow: hidden; background: #16293D; padding: 70px 37px 40px; }
+  .listing-head-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+  .listing-head-overlay { position: absolute; inset: 0; background: linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.55) 100%); }
+  .listing-head-inner { position: relative; max-width: 1440px; margin: 0 auto; }
+  .listing-head h1 { font-size: clamp(34px,4.4vw,54px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 600; max-width: 16ch; margin: 14px 0 16px; color: #FFFFFF; }
+  .listing-head p { font-family: 'Montserrat', sans-serif; color: #E6EDF4; max-width: 58ch; margin: 0; font-size: 17px; font-weight: 300; }
+  .listing-head .eyebrow { color: #7FB3BC; }
   .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; }
   .filters { display: flex; gap: 10px; justify-content: flex-start; flex-wrap: wrap; margin-top: 28px; }
-  .filter-pill { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1px solid #E5E1D8; background: #fff; color: #3A444D; text-decoration: none; }
-  .filter-pill.is-active { background: #16293D; color: #fff; border-color: #16293D; }
+  .filter-pill { font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #E6EDF4; text-decoration: none; }
+  .filter-pill.is-active { background: #7FB3BC; color: #16293D; border-color: #7FB3BC; }
+
+  .authors-row { background: #FFFFFF; padding: 36px 37px; border-bottom: 1px solid #E5E1D8; }
+  .authors-row-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .authors-eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #2C5A64; flex: 0 0 auto; }
+  .authors-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+  .author-card { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; padding: 8px 16px 8px 8px; border: 1px solid #E5E1D8; border-radius: 999px; }
+  .author-card:hover { border-color: #7FB3BC; }
+  .author-card img { width: 44px; height: 44px; border-radius: 999px; object-fit: cover; flex: 0 0 auto; }
+  .author-card-name { display: block; font-family: 'Instrument Sans', sans-serif; font-size: 14px; font-weight: 600; color: #14181C; }
+  .author-card-badge { display: block; font-family: 'Instrument Sans', sans-serif; font-size: 11px; color: #646D76; margin-top: 1px; }
+
   .wrap { max-width: 1440px; margin: 0 auto; padding-inline: 37px; }
   .feature-row { margin: 44px auto 0; max-width: 1180px; }
   .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1180px; margin: 36px auto 0; }
@@ -81,5 +122,8 @@ const description = 'Guidance for people in recovery and the families who love t
   .pagination a { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-family: 'Instrument Sans', sans-serif; font-size: 14px; font-weight: 600; color: #3A444D; text-decoration: none; border: 1px solid #E5E1D8; }
   .pagination a[aria-current="page"] { background: #16293D; color: #fff; border-color: #16293D; }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: 1fr; }
+    .authors-row-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+  }
 </style>

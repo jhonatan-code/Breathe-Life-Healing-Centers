@@ -2,6 +2,7 @@
 title: "Living With Someone Who Has OCD: A Family Guide"
 description: "OCD affects the whole household, not just the person living with it. Practical guidance for family members on understanding it and building a supportive home."
 category: "for-the-family"
+author: "beck-gee"
 order: 16
 readingTime: 4
 ---

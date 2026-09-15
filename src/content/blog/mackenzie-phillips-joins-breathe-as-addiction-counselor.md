@@ -2,6 +2,7 @@
 title: "Mackenzie Phillips Joins Breathe as Addiction Counselor | Breathe"
 description: "Actress, author, and recovering addict Mackenzie Phillips joins the team at Breathe Life Healing Centers."
 category: "news"
+author: "beck-gee"
 order: 4
 readingTime: 1
 ---

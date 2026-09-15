@@ -80,6 +80,12 @@ const newBeckGeePostRedirects = {
 const redirects = {
   ...tierAMigrationRedirects,
   ...newBeckGeePostRedirects,
+  // Every post now has a real named author (Beck Gee, Shoshana Katz, or
+  // Brad Lamm for his one first-person essay) per Elizabeth's 2026-09-14
+  // instruction to retire the generic institutional byline. The archive
+  // page for it was deleted since it would render with zero posts; this
+  // catches anything already indexed or linked to the old URL.
+  "/blog/author/breathe-life-team/": "/blog/",
   "/4-ways-to-heal-from-psychological-trauma/": "/conditions/complex-trauma/",
   "/5-absolute-important-steps-take-relapse/": "/programs/alumni-program/",
   "/5-things-cheaper-drug-screening/": "/",

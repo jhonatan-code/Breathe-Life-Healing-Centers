@@ -2,6 +2,7 @@
 title: "Nicotine Withdrawal: Symptoms and 4 Ways to Manage It"
 description: "Cravings, irritability, trouble sleeping: here's what nicotine withdrawal actually feels like, and four real ways to get through it, from tapering to medication."
 category: "understanding-addiction"
+author: "beck-gee"
 order: 15
 readingTime: 3
 ---
