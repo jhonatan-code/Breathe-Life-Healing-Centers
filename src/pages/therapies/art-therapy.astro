@@ -68,7 +68,17 @@ const why = [
   },
 ];
 
-const related: { label: string; href: string }[] = [{"label":"Music Therapy","href":"/therapies/music-therapy/"},{"label":"Experiential Therapies","href":"/therapies/experiential-therapies/"},{"label":"Yoga & Mindfulness","href":"/therapies/yoga-mindfulness/"}];
+// Constellation "Explore more" — hub is this page's own therapy, nodes are
+// the same real related-therapy set this page already linked to (just with
+// an icon added per item, matching the icon already assigned to each
+// therapy on /therapies/index.astro).
+const hubIcon = "palette";
+const hubShort = "Art Therapy";
+const related: { label: string; href: string; icon: string }[] = [
+  { label: "Music Therapy", href: "/therapies/music-therapy/", icon: "music_note" },
+  { label: "Experiential Therapies", href: "/therapies/experiential-therapies/", icon: "hiking" },
+  { label: "Yoga & Mindfulness", href: "/therapies/yoga-mindfulness/", icon: "self_improvement" },
+];
 
 const pageUrl = new URL("/therapies/art-therapy/", site.domain).href;
 const ld = {
@@ -157,15 +167,22 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  RELATED THERAPIES  ══════════════ */}
+    {/* ══════════════  RELATED THERAPIES — constellation  ══════════════
+       Same pattern as cbt/dbt/act/motivational-interviewing: this page's
+       own therapy sits at the hub as "you are here", the same three
+       related therapies already linked to orbit it, connected by lines. */}
     <section data-screen-label="Related therapies" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Explore more</div>
         <h2 style={`${S.h2}max-width:26ch;`}>Related therapies at Breathe</h2>
-        <p style={`${S.intro}max-width:72ch;margin-bottom:22px;`}>Every plan at Breathe draws on more than one approach. Here's where to look next.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
-          {related.map((r) => (
-            <a class="link-card" href={r.href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{r.label}</a>
+        <p style={`${S.intro}max-width:72ch;margin-bottom:36px;`}>Every plan at Breathe draws on more than one approach. Here's where to look next.</p>
+        <div class="constellation">
+          <svg viewBox="0 0 620 300" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M310,150 L90,45" /><path d="M310,150 L530,45" /><path d="M310,150 L310,260" />
+          </svg>
+          <div class="const-hub"><span class="msym">{hubIcon}</span><b>{hubShort}<br />(you are here)</b></div>
+          {related.map((r, i) => (
+            <a class={`const-node n${i + 1}`} href={r.href}><span class="msym">{r.icon}</span>{r.label}</a>
           ))}
         </div>
         <a class="cta" href="/therapies/" style={`display:inline-block;${S.ctaBlue}`}>See All Therapies</a>
@@ -235,6 +252,39 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Constellation — "Explore more" ───────────────────────────────── */
+  .constellation { position: relative; height: 300px; max-width: 620px; margin: 0 auto 26px; }
+  .constellation svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .constellation svg path { fill: none; stroke: #C9D2DA; stroke-width: 1.5; }
+  .const-hub {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; height: 120px; border-radius: 50%;
+    background: #16293D; color: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+    font-family: "Instrument Sans", sans-serif; text-align: center; z-index: 2; box-shadow: 0 10px 30px rgba(22,41,61,.25);
+  }
+  .const-hub .msym { font-size: 26px; color: #7FB3BC; }
+  .const-hub b { font-size: 14px; font-weight: 700; line-height: 1.25; }
+  .const-node {
+    position: absolute; display: flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #C9D2DA;
+    border-radius: 999px; padding: 10px 16px; font-family: "Instrument Sans", sans-serif; font-size: 14px; font-weight: 600; color: #14181C;
+    text-decoration: none; z-index: 2; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; max-width: 230px;
+  }
+  .const-node .msym { font-size: 17px; color: #33679C; flex: 0 0 auto; }
+  .const-node:hover { transform: translateY(-3px) scale(1.04); border-color: #33679C; box-shadow: 0 8px 20px rgba(51,103,156,.18); }
+  .const-node.n1 { top: 8%; left: 6%; }
+  .const-node.n2 { top: 8%; right: 6%; }
+  .const-node.n3 { bottom: 6%; left: 50%; transform: translateX(-50%); }
+  .const-node.n3:hover { transform: translateX(-50%) translateY(-3px) scale(1.04); }
+
+  @media (max-width: 640px) {
+    .constellation { height: auto; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .constellation svg { display: none; }
+    .const-hub { position: static; transform: none; }
+    .const-node { position: static; transform: none; max-width: none; width: 100%; justify-content: center; }
+    .const-node:hover, .const-node.n3:hover { transform: translateY(-2px); }
+  }
+</style>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────
