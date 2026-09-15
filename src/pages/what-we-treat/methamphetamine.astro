@@ -83,6 +83,19 @@ const therapies: [string, string, string][] = [
   ["self_improvement", "Holistic Therapy, Yoga & Mindfulness", "/therapies/holistic-therapy/"],
 ];
 
+// "Approach Wheel" — same radial hub-and-spoke visual language as the
+// Constellation pattern on the therapy modality pages, extended to a full
+// ellipse for 7 nodes instead of 3. Geometry computed once at build time
+// (no client JS needed), viewBox 620x460, hub at center. Same pattern as
+// alcohol.astro (approved 2026-09-15, proposal 2 of 3).
+const WHEEL_CX = 310, WHEEL_CY = 230, WHEEL_RX = 250, WHEEL_RY = 175;
+const wheelNodes = therapies.map(([icon, name, href], i) => {
+  const angle = ((-90 + (360 / therapies.length) * i) * Math.PI) / 180;
+  const x = WHEEL_CX + WHEEL_RX * Math.cos(angle);
+  const y = WHEEL_CY + WHEEL_RY * Math.sin(angle);
+  return { icon, name, href, x, y };
+});
+
 const conditions: [string, string][] = [
   ["Depression", "/conditions/depression/"],
   ["Anxiety", "/conditions/anxiety/"],
@@ -233,22 +246,27 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  OUR CLINICAL APPROACH  ══════════════ */}
+    {/* ══════════════  OUR CLINICAL APPROACH — Approach Wheel  ══════════════
+       Same pattern as alcohol.astro: radial hub-and-spoke instead of a
+       link-card grid. */}
     <section data-screen-label="Clinical approach" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1100px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:32px;">
+        <div style="text-align:center;margin-bottom:20px;">
           <div style={S.eyebrow}>Our clinical approach</div>
           <h2 style={`${S.h2}max-width:26ch;`}>Evidence-based care, matched to you</h2>
           <p style={`${S.intro}max-width:78ch;`}>Treatment here draws on evidence-based modalities matched to what you actually need, not a one-size program.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
-          {therapies.map(([icon, name, href]) => (
-            <a class="link-card" href={href} style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #C9D2DA;border-radius:10px;padding:14px 18px;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:500;color:#14181C;">
-              <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:rgba(51,103,156,0.10);">
-                <span class="msym" style="font-size:19px;color:#33679C;">{icon}</span>
-              </span>
-              <span style="flex:1;">{name}</span>
-              <span aria-hidden="true" style="color:#33679C;">→</span>
+        <div class="wheel">
+          <svg viewBox={`0 0 ${WHEEL_CX * 2} ${WHEEL_CY * 2}`} preserveAspectRatio="none" aria-hidden="true">
+            {wheelNodes.map((n) => (
+              <path d={`M${WHEEL_CX},${WHEEL_CY} L${n.x.toFixed(1)},${n.y.toFixed(1)}`} />
+            ))}
+          </svg>
+          <div class="wheel-hub"><span class="msym">bolt</span><b>Meth<br />Treatment</b></div>
+          {wheelNodes.map((n) => (
+            <a class="wheel-node" href={n.href} style={`left:${n.x.toFixed(1)}px;top:${n.y.toFixed(1)}px;`}>
+              <span class="ic"><span class="msym">{n.icon}</span></span>
+              <span>{n.name}</span>
             </a>
           ))}
         </div>
@@ -331,6 +349,36 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* ── Approach Wheel — "Our clinical approach" ─────────────────────── */
+  .wheel { position: relative; width: 100%; max-width: 620px; height: 460px; margin: 0 auto; }
+  .wheel svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .wheel svg path { fill: none; stroke: #E2DED7; stroke-width: 1.5; }
+  .wheel-hub {
+    position: absolute; top: 230px; left: 310px; transform: translate(-50%, -50%); width: 132px; height: 132px; border-radius: 50%;
+    background: #16293D; color: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+    text-align: center; z-index: 2; box-shadow: 0 10px 30px rgba(22,41,61,.25);
+  }
+  .wheel-hub .msym { font-size: 26px; color: #7FB3BC; }
+  .wheel-hub b { font-size: 13px; font-weight: 700; line-height: 1.25; font-family: "Instrument Sans", sans-serif; }
+  .wheel-node {
+    position: absolute; display: flex; align-items: center; gap: 9px; background: #FFFFFF; border: 1px solid #E2DED7;
+    border-radius: 14px; padding: 9px 14px 9px 9px; font-size: 13px; font-weight: 600; color: #14181C; text-decoration: none;
+    line-height: 1.25; z-index: 2; transform: translate(-50%, -50%); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    width: 190px;
+  }
+  .wheel-node .ic { width: 26px; height: 26px; border-radius: 50%; background: rgba(51,103,156,.1); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .wheel-node .ic .msym { font-size: 15px; color: #33679C; }
+  .wheel-node:hover { transform: translate(-50%, -50%) scale(1.05); border-color: #33679C; box-shadow: 0 8px 20px rgba(51,103,156,.18); }
+  @media (max-width: 660px) {
+    .wheel { height: auto; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .wheel svg { display: none; }
+    .wheel-hub { position: static; transform: none; }
+    .wheel-node { position: static; transform: none; max-width: none; width: 100%; justify-content: center; white-space: normal; }
+    .wheel-node:hover { transform: translateY(-2px); }
+  }
+</style>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────
