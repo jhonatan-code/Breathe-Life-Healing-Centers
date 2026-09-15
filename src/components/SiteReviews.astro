@@ -2,7 +2,8 @@
 /**
  * Client-testimonials carousel — identical on every page. Self-contained:
  * pulls from the shared reviews compilation and Google rating in data/home
- * and config/site, so it needs no props.
+ * and config/site, so it needs no props beyond the optional background
+ * override below.
  *
  * Card design + review copy sourced from the client-provided Reviews.astro
  * (2026-09-01): real per-reviewer avatar art instead of colored-initial
@@ -11,13 +12,18 @@
 import { reviews } from "../data/home";
 import { site } from "../config/site";
 
+interface Props {
+  background?: string;
+}
+const { background = "#F0F5FA" } = Astro.props;
+
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
   h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
 };
 ---
 
-<section id="reviews" data-screen-label="Reviews" style="padding:70px 37px;background:#F0F5FA;border-top:1px solid #E2DED7;">
+<section id="reviews" data-screen-label="Reviews" style={`padding:70px 37px;background:${background};border-top:1px solid #E2DED7;`}>
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:44px;">
       <div style={S.eyebrow}>In their words</div>
