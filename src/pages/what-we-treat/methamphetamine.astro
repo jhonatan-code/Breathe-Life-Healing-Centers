@@ -83,13 +83,20 @@ const therapies: [string, string, string][] = [
   ["self_improvement", "Holistic Therapy, Yoga & Mindfulness", "/therapies/holistic-therapy/"],
 ];
 
-// "Approach Spine" — a compact hub-and-spoke variant for the text-left/
-// graphic-right split (user request): a hub badge over a vertical divided
-// list instead of a full radial ellipse. Plain flex stacking means the
-// gap between every item is guaranteed by CSS `gap`, not by coordinate
-// math, so there's no way for two items to touch regardless of how long
-// any modality's name is. Narrow enough (~260px) to sit beside the
-// heading/intro text without squeezing it.
+// "Approach Wheel" — same radial hub-and-spoke visual language as the
+// Constellation pattern on the therapy modality pages, extended to a full
+// ellipse for 7 nodes instead of 3. Geometry computed once at build time
+// (no client JS needed), viewBox 620x460, hub at center. Same pattern as
+// alcohol.astro (approved 2026-09-15, proposal 2 of 3) — kept at its
+// proven, non-touching size; text sits beside it in its own column rather
+// than the wheel being shrunk to fit.
+const WHEEL_CX = 310, WHEEL_CY = 230, WHEEL_RX = 280, WHEEL_RY = 210;
+const wheelNodes = therapies.map(([icon, name, href], i) => {
+  const angle = ((-90 + (360 / therapies.length) * i) * Math.PI) / 180;
+  const x = WHEEL_CX + WHEEL_RX * Math.cos(angle);
+  const y = WHEEL_CY + WHEEL_RY * Math.sin(angle);
+  return { icon, name, href, x, y };
+});
 
 const conditions: [string, string][] = [
   ["Depression", "/conditions/depression/"],
@@ -242,29 +249,30 @@ const ld = {
     </section>
 
     {/* ══════════════  OUR CLINICAL APPROACH — Approach Wheel  ══════════════
-       "Approach Spine": text left, compact hub-over-list graphic right.
-       Plain vertical flex stack (gap-based), so there's no coordinate math
-       that could ever let two items touch, unlike a radial layout at this
-       width. */}
+       Same pattern as alcohol.astro: text in its own column to the left of
+       the wheel, which keeps its proven full size (620x460) in a fixed-
+       width right column instead of being shrunk to fit. */}
     <section data-screen-label="Clinical approach" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1100px;margin:0 auto;">
         <div class="approach-split">
           <div>
             <div style={S.eyebrow}>Our clinical approach</div>
             <h2 style={`${S.h2}max-width:22ch;margin:0 0 14px;`}>Evidence-based care, matched to you</h2>
-            <p style={`${S.intro}max-width:52ch;margin:0;`}>Treatment here draws on evidence-based modalities matched to what you actually need, not a one-size program.</p>
+            <p style={`${S.intro}max-width:40ch;margin:0;`}>Treatment here draws on evidence-based modalities matched to what you actually need, not a one-size program.</p>
           </div>
-          <div class="spine">
-            <div class="spine-hub"><span class="msym">bolt</span><b>Meth<br />Treatment</b></div>
-            <div class="spine-trunk" />
-            <div class="spine-list">
-              {therapies.map(([icon, name, href]) => (
-                <a class="spine-row" href={href}>
-                  <span class="ic"><span class="msym">{icon}</span></span>
-                  <span>{name}</span>
-                </a>
+          <div class="wheel">
+            <svg viewBox={`0 0 ${WHEEL_CX * 2} ${WHEEL_CY * 2}`} preserveAspectRatio="none" aria-hidden="true">
+              {wheelNodes.map((n) => (
+                <path d={`M${WHEEL_CX},${WHEEL_CY} L${n.x.toFixed(1)},${n.y.toFixed(1)}`} />
               ))}
-            </div>
+            </svg>
+            <div class="wheel-hub"><span class="msym">bolt</span><b>Meth<br />Treatment</b></div>
+            {wheelNodes.map((n) => (
+              <a class="wheel-node" href={n.href} style={`left:${n.x.toFixed(1)}px;top:${n.y.toFixed(1)}px;`}>
+                <span class="ic"><span class="msym">{n.icon}</span></span>
+                <span>{n.name}</span>
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -348,31 +356,39 @@ const ld = {
 </Layout>
 
 <style>
-  /* ── Approach Spine — "Our clinical approach" ─────────────────────── */
-  /* Text left, compact hub-over-list graphic right. Plain flex stacking
-     (gap-based) instead of radial coordinates, so no two rows can ever
-     touch regardless of text length. */
-  .approach-split { display: grid; grid-template-columns: minmax(300px, 1.6fr) minmax(220px, 1fr); gap: 40px; align-items: start; }
-  .spine { max-width: 260px; margin: 0 auto; }
-  .spine-hub {
-    width: 90px; height: 90px; border-radius: 50%; background: #16293D; color: #fff; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 2px; margin: 0 auto; text-align: center; box-shadow: 0 8px 20px rgba(22,41,61,.25);
+  /* ── Approach Wheel — "Our clinical approach" ─────────────────────── */
+  /* Text in its own column to the left; the wheel keeps its proven,
+     non-touching full size (620x460) in a fixed-width right column
+     instead of being shrunk to fit. */
+  .approach-split { display: grid; grid-template-columns: minmax(260px, 1fr) 620px; gap: 40px; align-items: center; }
+  .wheel { position: relative; width: 100%; max-width: 620px; height: 460px; margin: 0 auto; }
+  .wheel svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .wheel svg path { fill: none; stroke: #E2DED7; stroke-width: 1.5; }
+  .wheel-hub {
+    position: absolute; top: 230px; left: 310px; transform: translate(-50%, -50%); width: 132px; height: 132px; border-radius: 50%;
+    background: #16293D; color: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+    text-align: center; z-index: 2; box-shadow: 0 10px 30px rgba(22,41,61,.25);
   }
-  .spine-hub .msym { font-size: 19px; color: #7FB3BC; }
-  .spine-hub b { font-size: 11px; font-weight: 700; line-height: 1.15; font-family: "Instrument Sans", sans-serif; }
-  .spine-trunk { width: 2px; height: 18px; background: #E2DED7; margin: 0 auto; }
-  .spine-list { display: flex; flex-direction: column; gap: 12px; }
-  .spine-row {
-    display: flex; align-items: center; gap: 10px; text-decoration: none; color: #14181C; font-size: 14px; font-weight: 600;
-    line-height: 1.25; background: #FFFFFF; border: 1px solid #E2DED7; border-radius: 12px; padding: 9px 12px;
-    transition: border-color .15s ease, box-shadow .15s ease;
+  .wheel-hub .msym { font-size: 26px; color: #7FB3BC; }
+  .wheel-hub b { font-size: 13px; font-weight: 700; line-height: 1.25; font-family: "Instrument Sans", sans-serif; }
+  .wheel-node {
+    position: absolute; display: flex; align-items: center; gap: 9px; background: #FFFFFF; border: 1px solid #E2DED7;
+    border-radius: 14px; padding: 9px 14px 9px 9px; font-size: 14px; font-weight: 600; color: #14181C; text-decoration: none;
+    line-height: 1.25; z-index: 2; transform: translate(-50%, -50%); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    width: 190px;
   }
-  .spine-row:hover { border-color: #33679C; box-shadow: 0 4px 12px rgba(51,103,156,.12); }
-  .spine-row .ic { width: 26px; height: 26px; border-radius: 50%; background: rgba(51,103,156,.1); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
-  .spine-row .ic .msym { font-size: 14px; color: #33679C; }
-  @media (max-width: 760px) {
-    .approach-split { grid-template-columns: 1fr; gap: 28px; }
-    .spine { max-width: 420px; }
+  .wheel-node .ic { width: 26px; height: 26px; border-radius: 50%; background: rgba(51,103,156,.1); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .wheel-node .ic .msym { font-size: 15px; color: #33679C; }
+  .wheel-node:hover { transform: translate(-50%, -50%) scale(1.05); border-color: #33679C; box-shadow: 0 8px 20px rgba(51,103,156,.18); }
+  @media (max-width: 1050px) {
+    .approach-split { grid-template-columns: 1fr; gap: 28px; justify-items: center; text-align: center; }
+  }
+  @media (max-width: 660px) {
+    .wheel { height: auto; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .wheel svg { display: none; }
+    .wheel-hub { position: static; transform: none; }
+    .wheel-node { position: static; transform: none; max-width: none; width: 100%; justify-content: center; white-space: normal; }
+    .wheel-node:hover { transform: translateY(-2px); }
   }
 </style>
 
