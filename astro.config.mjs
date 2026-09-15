@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import vercel from '@astrojs/vercel';
 
 // Redirects for the ~225 old-site blog/utility URLs that don't get their own
 // page on the rebuilt site (see docs/11-REDIRECTS-GAPFILL.md for the tiering
@@ -312,6 +313,15 @@ const redirects = {
 
 // https://astro.build/config
 export default defineConfig({
+  // Static output (no SSR needed, this is a fully prerendered marketing
+  // site). The Vercel adapter still applies here: it translates the
+  // `redirects` map below into Vercel's native edge redirect config
+  // (real HTTP 301s) instead of the static meta-refresh stub pages Astro
+  // falls back to with no adapter, per the plan already noted above.
+  // Vercel itself is not yet confirmed as the actual host (CLAUDE.md marks
+  // it TBD) -- this is prep, not a hosting decision.
+  output: 'static',
+  adapter: vercel(),
   vite: {
     plugins: [tailwindcss()]
   },
