@@ -84,7 +84,7 @@ const therapies: [string, string, string][] = [
 // Constellation pattern on the therapy modality pages, extended to a full
 // ellipse for 7 nodes instead of 3. Geometry computed once at build time
 // (no client JS needed), viewBox 620x460, hub at center.
-const WHEEL_CX = 310, WHEEL_CY = 230, WHEEL_RX = 250, WHEEL_RY = 175;
+const WHEEL_CX = 310, WHEEL_CY = 230, WHEEL_RX = 280, WHEEL_RY = 210;
 const wheelNodes = therapies.map(([icon, name, href], i) => {
   const angle = ((-90 + (360 / therapies.length) * i) * Math.PI) / 180;
   const x = WHEEL_CX + WHEEL_RX * Math.cos(angle);
@@ -363,7 +363,7 @@ const ld = {
   .wheel-hub b { font-size: 13px; font-weight: 700; line-height: 1.25; font-family: "Instrument Sans", sans-serif; }
   .wheel-node {
     position: absolute; display: flex; align-items: center; gap: 9px; background: #FFFFFF; border: 1px solid #E2DED7;
-    border-radius: 14px; padding: 9px 14px 9px 9px; font-size: 13px; font-weight: 600; color: #14181C; text-decoration: none;
+    border-radius: 14px; padding: 9px 14px 9px 9px; font-size: 14px; font-weight: 600; color: #14181C; text-decoration: none;
     line-height: 1.25; z-index: 2; transform: translate(-50%, -50%); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
     width: 190px;
   }

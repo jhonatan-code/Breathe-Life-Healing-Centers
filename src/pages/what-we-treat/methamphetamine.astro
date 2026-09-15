@@ -90,7 +90,7 @@ const therapies: [string, string, string][] = [
 // 2026-09-15, proposal 2 of 3), but sized down here to sit in a side
 // column next to the heading/intro text instead of taking the full
 // section width (user request, this page only).
-const WHEEL_CX = 230, WHEEL_CY = 185, WHEEL_RX = 175, WHEEL_RY = 130;
+const WHEEL_CX = 310, WHEEL_CY = 230, WHEEL_RX = 280, WHEEL_RY = 210;
 const wheelNodes = therapies.map(([icon, name, href], i) => {
   const angle = ((-90 + (360 / therapies.length) * i) * Math.PI) / 180;
   const x = WHEEL_CX + WHEEL_RX * Math.cos(angle);
@@ -250,31 +250,32 @@ const ld = {
 
     {/* ══════════════  OUR CLINICAL APPROACH — Approach Wheel  ══════════════
        Same pattern as alcohol.astro: radial hub-and-spoke instead of a
-       link-card grid. This page only: heading/intro sit in a left column
-       with the wheel sized down into a right column, instead of the wheel
-       running the full section width (user request). */}
+       link-card grid. Reverted from the side-column split back to the
+       full-width centered layout: getting real separation between all 7
+       nodes at the 14px text floor needed a wheel too large (~740px) to
+       fit a narrow side column without squeezing the heading/intro text
+       into an unreadably narrow strip, so this now matches alcohol.astro's
+       geometry exactly. */}
     <section data-screen-label="Clinical approach" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1100px;margin:0 auto;">
-        <div class="wheel-split">
-          <div>
-            <div style={S.eyebrow}>Our clinical approach</div>
-            <h2 style={`${S.h2}max-width:22ch;margin:0 0 14px;`}>Evidence-based care, matched to you</h2>
-            <p style={`${S.intro}max-width:52ch;margin:0;`}>Treatment here draws on evidence-based modalities matched to what you actually need, not a one-size program.</p>
-          </div>
-          <div class="wheel">
-            <svg viewBox={`0 0 ${WHEEL_CX * 2} ${WHEEL_CY * 2}`} preserveAspectRatio="none" aria-hidden="true">
-              {wheelNodes.map((n) => (
-                <path d={`M${WHEEL_CX},${WHEEL_CY} L${n.x.toFixed(1)},${n.y.toFixed(1)}`} />
-              ))}
-            </svg>
-            <div class="wheel-hub"><span class="msym">bolt</span><b>Meth<br />Treatment</b></div>
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style={S.eyebrow}>Our clinical approach</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Evidence-based care, matched to you</h2>
+          <p style={`${S.intro}max-width:78ch;`}>Treatment here draws on evidence-based modalities matched to what you actually need, not a one-size program.</p>
+        </div>
+        <div class="wheel">
+          <svg viewBox={`0 0 ${WHEEL_CX * 2} ${WHEEL_CY * 2}`} preserveAspectRatio="none" aria-hidden="true">
             {wheelNodes.map((n) => (
-              <a class="wheel-node" href={n.href} style={`left:${n.x.toFixed(1)}px;top:${n.y.toFixed(1)}px;`}>
-                <span class="ic"><span class="msym">{n.icon}</span></span>
-                <span>{n.name}</span>
-              </a>
+              <path d={`M${WHEEL_CX},${WHEEL_CY} L${n.x.toFixed(1)},${n.y.toFixed(1)}`} />
             ))}
-          </div>
+          </svg>
+          <div class="wheel-hub"><span class="msym">bolt</span><b>Meth<br />Treatment</b></div>
+          {wheelNodes.map((n) => (
+            <a class="wheel-node" href={n.href} style={`left:${n.x.toFixed(1)}px;top:${n.y.toFixed(1)}px;`}>
+              <span class="ic"><span class="msym">{n.icon}</span></span>
+              <span>{n.name}</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -358,32 +359,26 @@ const ld = {
 
 <style>
   /* ── Approach Wheel — "Our clinical approach" ─────────────────────── */
-  /* This page only: text left, smaller wheel right, instead of a full-width
-     centered wheel (user request). */
-  .wheel-split { display: grid; grid-template-columns: minmax(280px, 1fr) minmax(300px, 1fr); gap: 36px; align-items: center; }
-  .wheel { position: relative; width: 100%; max-width: 460px; height: 370px; margin: 0 auto; }
+  .wheel { position: relative; width: 100%; max-width: 620px; height: 460px; margin: 0 auto; }
   .wheel svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
   .wheel svg path { fill: none; stroke: #E2DED7; stroke-width: 1.5; }
   .wheel-hub {
-    position: absolute; top: 185px; left: 230px; transform: translate(-50%, -50%); width: 104px; height: 104px; border-radius: 50%;
-    background: #16293D; color: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 3px;
+    position: absolute; top: 230px; left: 310px; transform: translate(-50%, -50%); width: 132px; height: 132px; border-radius: 50%;
+    background: #16293D; color: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px;
     text-align: center; z-index: 2; box-shadow: 0 10px 30px rgba(22,41,61,.25);
   }
-  .wheel-hub .msym { font-size: 21px; color: #7FB3BC; }
-  .wheel-hub b { font-size: 11.5px; font-weight: 700; line-height: 1.2; font-family: "Instrument Sans", sans-serif; }
+  .wheel-hub .msym { font-size: 26px; color: #7FB3BC; }
+  .wheel-hub b { font-size: 13px; font-weight: 700; line-height: 1.25; font-family: "Instrument Sans", sans-serif; }
   .wheel-node {
-    position: absolute; display: flex; align-items: center; gap: 7px; background: #FFFFFF; border: 1px solid #E2DED7;
-    border-radius: 12px; padding: 7px 11px 7px 7px; font-size: 12px; font-weight: 600; color: #14181C; text-decoration: none;
-    line-height: 1.2; z-index: 2; transform: translate(-50%, -50%); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    width: 148px;
+    position: absolute; display: flex; align-items: center; gap: 9px; background: #FFFFFF; border: 1px solid #E2DED7;
+    border-radius: 14px; padding: 9px 14px 9px 9px; font-size: 14px; font-weight: 600; color: #14181C; text-decoration: none;
+    line-height: 1.25; z-index: 2; transform: translate(-50%, -50%); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    width: 190px;
   }
-  .wheel-node .ic { width: 22px; height: 22px; border-radius: 50%; background: rgba(51,103,156,.1); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
-  .wheel-node .ic .msym { font-size: 13px; color: #33679C; }
+  .wheel-node .ic { width: 26px; height: 26px; border-radius: 50%; background: rgba(51,103,156,.1); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .wheel-node .ic .msym { font-size: 15px; color: #33679C; }
   .wheel-node:hover { transform: translate(-50%, -50%) scale(1.05); border-color: #33679C; box-shadow: 0 8px 20px rgba(51,103,156,.18); }
-  @media (max-width: 760px) {
-    .wheel-split { grid-template-columns: 1fr; gap: 28px; }
-  }
-  @media (max-width: 560px) {
+  @media (max-width: 660px) {
     .wheel { height: auto; display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .wheel svg { display: none; }
     .wheel-hub { position: static; transform: none; }
