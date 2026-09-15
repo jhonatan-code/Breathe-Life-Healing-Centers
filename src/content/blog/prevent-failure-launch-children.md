@@ -2,6 +2,7 @@
 title: "How to Prevent Failure to Launch in Your Children | Breathe"
 description: "Why so many young adults struggle to become independent, what well-meaning parenting habits contribute to it, and what actually helps."
 category: "for-the-family"
+author: "shoshana-katz"
 order: 10
 readingTime: 5
 ---

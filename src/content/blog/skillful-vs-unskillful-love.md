@@ -2,6 +2,7 @@
 title: "Skillful vs. Unskillful Love During Relapse | Breathe"
 description: "How to support someone through relapse without losing yourself in it: detaching with love, setting boundaries, and what to do if suicide risk is involved."
 category: "for-the-family"
+author: "shoshana-katz"
 order: 11
 readingTime: 5
 ---

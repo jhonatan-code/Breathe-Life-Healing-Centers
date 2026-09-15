@@ -1,15 +1,29 @@
 ---
 /**
- * /about/our-team/shoshana-katz/ — placeholder bio. The official live
- * site's dedicated page for Shoshana Katz
- * (breathelifehealingcenters.com/our-team/shoshana-katz-lmft/, checked
- * 2026-09-02) carries her name, credential (LMFT), pronouns (She/Her), and
- * role (Therapist) plus a photo — but no first-person biography text at all
- * (verified with two separate fetch passes, including a full-page-text
- * dump). Per this batch's hard rule, no bio content is invented — the bio
- * section below uses ClinicalPlaceholder instead. Hero/photo/name/role are
- * still real and populated normally. Not in src/data/home.ts's `team`
- * array, so name/role/photo/badge are defined directly below.
+ * /about/our-team/shoshana-katz/ — real bio, built 2026-09-14. The official
+ * Breathe team page (breathelifehealingcenters.com/our-team/shoshana-katz-lmft/,
+ * checked 2026-09-02 and re-verified this pass) has no first-person
+ * biography text for her at all, only name/pronouns/role. Per the user's
+ * explicit instruction, the only other approved source is her own practice
+ * site (shoshanakatztherapy.com), fetched and read in full this pass.
+ *
+ * fullBio below is written in third person (not a verbatim first-person
+ * quote, since she has never spoken these words for Breathe specifically)
+ * and draws only on real, professional facts from that site: her
+ * credential, education, work history, and clinical approach. Deliberately
+ * excluded: anything specific to her private practice as a business (fees,
+ * booking flow, Psychology Today listing, sliding-scale/insurance policy,
+ * private-practice contact info) since that describes a separate business,
+ * not her role at Breathe. Also excluded per CLAUDE.md's "Never reference
+ * EMDR, IFS, or contingency management" rule: her site lists IFS among the
+ * modalities she integrates, omitted here since Breathe does not offer it.
+ * No pullQuote: TeamProfile.astro requires one be lifted verbatim from the
+ * bio actually used on the page, and fullBio here is a paraphrase, not a
+ * quote, so per that component's own instruction it's omitted rather than
+ * manufactured.
+ *
+ * Not in src/data/home.ts's `team` array, so name/role/photo/badge are
+ * defined directly below.
  */
 import Layout from "../../../layouts/Layout.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
@@ -23,8 +37,14 @@ const role = "Therapist";
 const badge = "LMFT";
 const photo = "/Asset/Our%20Team/shoshana-katz.jpg";
 
+const fullBio = [
+  "Shoshana Katz is a licensed Marriage and Family Therapist and a trans woman who brings a relational, trauma-informed approach to her work with individuals, adolescents, and families. She holds a B.A. in Cultural Anthropology, an MSc in Psychological and Psychiatric Anthropology from Brunel University in London, and an M.A. in Clinical Psychology from Antioch University, Los Angeles.",
+  "Over nearly ten years in the field, Shoshana has worked across a wide range of settings, from volunteering on Didi Hirsch's National Suicide Prevention Center hotline to serving as a case manager helping unhoused community members access housing and health resources across Los Angeles County. Her clinical training took her through the Valley Community Counseling Clinic and The People Concern's outpatient Wellness Center on Skid Row, and included a post-graduate fellowship at the University of Southern California, where she supported survivors of sexual violence and student mental health. She has also worked at the residential level of care with families and adolescents in crisis.",
+  "She draws on the NeuroAffective Relational Model (NARM) and Dialectical Behavior Therapy (DBT) to support clients through complex trauma, transgender and queer experience, neurodivergence, attachment and relationship concerns, family conflict, and grief, and is committed to an inclusive, affirming practice where every part of a client's identity is met with care.",
+];
+
 const title = "Shoshana Katz, LMFT | Therapist | Breathe Life Healing Centers";
-const description = "Shoshana Katz, LMFT is a Therapist at Breathe Life Healing Centers.";
+const description = "Shoshana Katz, LMFT is a Therapist at Breathe Life Healing Centers, bringing a relational, trauma-informed approach to individual, adolescent, and family therapy.";
 
 const pageUrl = new URL("/about/our-team/shoshana-katz/", site.domain).href;
 const ld = {
@@ -60,7 +80,7 @@ const ld = {
 
     <main id="main">
 
-    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="shoshana-katz" />
+    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="shoshana-katz" fullBio={fullBio} />
 
     <SiteFinalCTA
       heading="Talk to someone who's been where you are"
