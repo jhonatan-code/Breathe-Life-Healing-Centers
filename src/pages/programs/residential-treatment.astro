@@ -181,26 +181,44 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  WHAT'S INCLUDED  ══════════════ */}
+    {/* ══════════════  WHAT'S INCLUDED — monitoring dashboard  ══════════════
+       Same varied-readout pattern as case-management.astro and
+       sober-living.astro: each of the same four real facts gets the readout
+       shape that matches what it actually is (a status tag, a schedule
+       checklist, another status tag, a progress bar toward the next level
+       of care) rather than a uniform icon grid. */}
     <section data-screen-label="What's included" style="padding:70px 37px;background:#F7F5F1;">
-      <div style="max-width:1440px;margin:0 auto;">
+      <div style="max-width:1180px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>What's included</div>
-          <h2 style={`${S.h2}max-width:26ch;`}>What residential treatment includes</h2>
+          <h2 style={`${S.h2}max-width:26ch;`}>A typical stay, at a glance</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {included.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
-              </div>
-            );
-          })}
+        <div class="dash">
+          <div class="dash-card">
+            <div class="dash-top"><span class="dash-tag">Where you live</span></div>
+            <h3>{included[0].title}</h3>
+            <p>{included[0].text}</p>
+          </div>
+          <div class="dash-card">
+            <div class="dash-top"><span class="dash-tag">Daily</span><span class="dash-live"><span class="dash-live-dot"></span>In session</span></div>
+            <h3>{included[1].title}</h3>
+            <div class="checklist">
+              <span><span class="checkbox"></span>Therapy</span>
+              <span><span class="checkbox"></span>Groups</span>
+              <span><span class="checkbox"></span>Quiet time</span>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-top"><span class="dash-tag">Who's welcome</span></div>
+            <h3>{included[2].title}</h3>
+            <p>{included[2].text}</p>
+          </div>
+          <div class="dash-card">
+            <div class="dash-top"><span class="dash-tag">Next level of care</span></div>
+            <h3>{included[3].title}</h3>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+            <p>{included[3].text}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -296,6 +314,26 @@ const ld = {
 </Layout>
 
 <style>
+  /* ── Monitoring dashboard — "What's included" ─────────────────────── */
+  .dash { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .dash-card { background: #FFFFFF; border: 1px solid #E2DED7; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .dash-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .dash-tag { font-family: "Instrument Sans", sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #2C5A64; }
+  .dash-live { display: flex; align-items: center; gap: 5px; font-family: "Instrument Sans", sans-serif; font-size: 9.5px; font-weight: 700; color: #478694; flex: 0 0 auto; }
+  .dash-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #478694; animation: dash-blink 1.6s ease-in-out infinite; }
+  @keyframes dash-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .dash-live-dot { animation: none; } }
+  .dash-card h3 { font-size: 14.5px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .dash-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 12px; line-height: 1.55; color: #3A444D; margin: 0; flex: 1; }
+  .checklist { display: flex; flex-direction: column; gap: 6px; }
+  .checklist span { display: flex; align-items: center; gap: 6px; font-family: "Montserrat", Helvetica, sans-serif; font-size: 11.5px; color: #3A444D; }
+  .checkbox { width: 13px; height: 13px; border-radius: 4px; background: #33679C; flex: 0 0 auto; position: relative; }
+  .checkbox::after { content: ""; position: absolute; left: 3px; top: 1px; width: 4px; height: 7px; border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+  .progress-track { height: 6px; border-radius: 99px; background: #F0F5FA; overflow: hidden; }
+  .progress-fill { height: 100%; width: 78%; background: linear-gradient(90deg,#33679C,#7FB3BC); border-radius: 99px; }
+  @media (max-width: 900px) { .dash { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .dash { grid-template-columns: 1fr; } }
+
   /* ── Levels-of-care ladder, same pattern as /programs/php/ ──────────── */
   .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: end; }
   .ladder-step {

@@ -186,26 +186,36 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  WHAT'S INCLUDED  ══════════════ */}
+    {/* ══════════════  WHAT'S INCLUDED — vitals pulse line  ══════════════
+       A heartbeat trace draws itself on load, each peak marking one of the
+       four real things detox includes — the most literal way to say
+       "medically monitored" for the one program where that's the whole
+       point. See docs/proposals: applied here and on
+       medication-assisted-treatment.astro, the two programs where ongoing
+       medical/psychiatric monitoring is the defining feature. */}
     <section data-screen-label="What's included" style="padding:70px 37px;background:#F7F5F1;">
-      <div style="max-width:1440px;margin:0 auto;">
+      <div style="max-width:1180px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>What's included</div>
-          <h2 style={`${S.h2}max-width:26ch;`}>What medical detox includes</h2>
+          <h2 style={`${S.h2}max-width:26ch;`}>You're monitored, every step</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-          {included.map((c, i) => {
-            const teal = i % 2 === 1;
-            return (
-              <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
-                <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
-                </span>
-                <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
-                <p style={`${S.card}flex:1;`}>{c.text}</p>
+        <div class="pulse-wrap">
+          <svg class="pulse-svg" viewBox="0 0 800 64" preserveAspectRatio="none" aria-hidden="true">
+            <path class="pulse-path" d="M0,32 L140,32 L160,10 L180,54 L200,32 L340,32 L360,10 L380,54 L400,32 L540,32 L560,10 L580,54 L600,32 L740,32 L760,10 L780,54 L800,32" />
+            <circle class="pulse-dot" cx="170" cy="10" r="4" />
+            <circle class="pulse-dot" cx="370" cy="10" r="4" />
+            <circle class="pulse-dot" cx="570" cy="10" r="4" />
+            <circle class="pulse-dot" cx="770" cy="10" r="4" />
+          </svg>
+          <div class="pulse-grid">
+            {included.map((c, i) => (
+              <div class="pulse-card">
+                <div class="pulse-marker">Beat {i + 1}</div>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -300,6 +310,24 @@ const ld = {
 </Layout>
 
 <style>
+  /* ── Vitals pulse line — "What's included" ────────────────────────── */
+  .pulse-wrap { position: relative; }
+  .pulse-svg { display: block; width: 100%; height: 64px; margin-bottom: 8px; }
+  .pulse-path {
+    fill: none; stroke: #33679C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 900; stroke-dashoffset: 900; animation: pulse-draw 2.6s ease-out forwards;
+  }
+  @keyframes pulse-draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pulse-path { animation: none; stroke-dashoffset: 0; } }
+  .pulse-dot { fill: #C98A3A; }
+  .pulse-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 4px; }
+  .pulse-card { text-align: center; }
+  .pulse-marker { font-family: "Instrument Sans", sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #C98A3A; margin-bottom: 8px; }
+  .pulse-card h3 { font-size: 15.5px; font-weight: 600; margin: 0 0 6px; }
+  .pulse-card p { font-family: "Montserrat", Helvetica, sans-serif; font-size: 13px; line-height: 1.6; color: #3A444D; margin: 0; }
+  @media (max-width: 900px) { .pulse-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .pulse-grid { grid-template-columns: 1fr; } }
+
   /* ── Levels-of-care ladder, same pattern as /programs/php/ ──────────── */
   .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: end; }
   .ladder-step {
