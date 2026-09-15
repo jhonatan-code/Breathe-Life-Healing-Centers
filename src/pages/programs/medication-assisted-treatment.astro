@@ -302,10 +302,11 @@ const ld = {
   .pulse-svg { display: block; width: 100%; height: 64px; margin-bottom: 8px; }
   .pulse-path {
     fill: none; stroke: #33679C; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
-    stroke-dasharray: 900; stroke-dashoffset: 900; animation: pulse-draw 2.6s ease-out forwards;
+    stroke-dasharray: 900; stroke-dashoffset: 900;
   }
+  .pulse-path.draw { animation: pulse-draw 2.6s ease-out forwards; }
   @keyframes pulse-draw { to { stroke-dashoffset: 0; } }
-  @media (prefers-reduced-motion: reduce) { .pulse-path { animation: none; stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pulse-path, .pulse-path.draw { animation: none; stroke-dashoffset: 0; } }
   .pulse-dot { fill: #C98A3A; }
   .pulse-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 4px; }
   .pulse-card { text-align: center; }
@@ -336,5 +337,24 @@ const ld = {
       }
     }, { rootMargin: "0px 0px -200px 0px", threshold: 0 });
     targets.forEach((el) => io.observe(el));
+  })();
+
+  // Vitals pulse line replays every time it scrolls into view, not just
+  // once on load — remove the class on exit so the stroke resets to
+  // undrawn, then re-add it on the next entry to restart the draw.
+  (() => {
+    const svg = document.querySelector<SVGElement>(".pulse-svg");
+    const path = svg?.querySelector<SVGPathElement>(".pulse-path");
+    if (!svg || !path || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) path.classList.add("draw");
+          else path.classList.remove("draw");
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(svg);
   })();
 </script>
