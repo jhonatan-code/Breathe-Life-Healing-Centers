@@ -142,6 +142,55 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       item.classList.toggle("is-open", !open);
       trigger.setAttribute("aria-expanded", String(!open));
     };
+
+    // Panels are centered on their trigger by default (CSS: left:50% +
+    // translateX(-50%)), which overflows off-screen for triggers near
+    // either edge of the viewport — confirmed bug for "About" and
+    // "Therapies" at desktop widths where the panel's centered position
+    // pushed part of it past x=0. This pulls the panel back onscreen via a
+    // CSS var, --panel-shift.
+    //
+    // Computed proactively for every panel on load/resize, not lazily on
+    // hover: .hdr-panel has `transition: transform 200ms`, so a shift
+    // applied for the first time right as a panel opens animates into
+    // place instead of being there on the very first visible frame — for
+    // an edge item that's a visible slide from the clipped position to
+    // the correct one. Computing it ahead of time means the transition
+    // only ever animates opacity/translateY, never a horizontal jump.
+    const panels = items
+      .map((item) => item.querySelector<HTMLElement>(".hdr-panel"))
+      .filter((p): p is HTMLElement => !!p);
+    const clampPanel = (panel: HTMLElement) => {
+      // .hdr-panel has `transition: transform 200ms`, so measuring right
+      // after a setProperty call can catch a mid-animation value instead
+      // of the real target — killing the transition for the duration of
+      // the measurement (inline style beats the class rule) makes both
+      // the reset and the final set apply synchronously.
+      const prevTransition = panel.style.transition;
+      panel.style.transition = "none";
+      panel.style.setProperty("--panel-shift", "0px");
+      const rect = panel.getBoundingClientRect();
+      const pad = 16;
+      let shift = 0;
+      if (rect.left < pad) shift = pad - rect.left;
+      else if (rect.right > window.innerWidth - pad) shift = window.innerWidth - pad - rect.right;
+      panel.style.setProperty("--panel-shift", `${shift}px`);
+      void panel.offsetHeight; // force the transition:none to actually apply before restoring it
+      panel.style.transition = prevTransition;
+    };
+    const clampAll = () => panels.forEach(clampPanel);
+    clampAll();
+    // Re-run once everything (including web fonts) has actually loaded —
+    // a font swap can nudge nav item widths enough to change whether a
+    // trigger sits close enough to the edge to need a shift.
+    window.addEventListener("load", clampAll);
+    if ("fonts" in document) (document as any).fonts.ready.then(clampAll).catch(() => {});
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(clampAll, 100);
+    });
+
     items.forEach((item) => {
       const caret = item.querySelector<HTMLElement>(".hdr-caret-btn");
       const link = item.querySelector<HTMLElement>(".hdr-trigger-link");

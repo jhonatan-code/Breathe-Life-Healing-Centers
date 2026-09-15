@@ -248,7 +248,13 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
      box, breaking hover as the cursor crosses it (confirmed: the panel was
      closing before the cursor ever reached it). */
   position: absolute; top: 100%; left: 50%; margin-top: 0;
-  transform: translateX(-50%) translateY(4px);
+  /* --panel-shift: set by JS (SiteHeader.astro) right before the panel
+     opens, to pull it back onscreen when centering on the trigger would
+     push it past the left or right viewport edge — confirmed bug for
+     triggers near either edge (e.g. "About") at desktop widths where the
+     panel's natural centered position overflowed off-screen, clipping the
+     panel's content. Defaults to 0px (pure centering) until JS runs. */
+  transform: translateX(calc(-50% + var(--panel-shift, 0px))) translateY(4px);
   width: max-content; max-width: min(640px, calc(100vw - 40px));
   background: #fff; border: 1px solid #e2ded7; border-radius: 12px;
   box-shadow: 0 12px 32px rgba(20, 24, 28, 0.14);
@@ -266,7 +272,8 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
 .hdr-item:hover .hdr-panel,
 .hdr-item:focus-within .hdr-panel,
 .hdr-item.is-open .hdr-panel {
-  opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(calc(-50% + var(--panel-shift, 0px))) translateY(0);
 }
 .hdr-panel-all {
   grid-column: 1 / -1;
