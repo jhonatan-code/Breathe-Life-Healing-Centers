@@ -153,7 +153,7 @@ export const faqGroups = [
     label: "After, and what it costs",
     items: [
       { q: "What happens when residential treatment ends?", a: "You do not simply leave. Before discharge we build the next step with you — outpatient care, transitional living, therapists, a meeting schedule — and our Alumni Program keeps a real community around you afterwards, with groups and staff who follow up because they want to know how you are." },
-      { q: "Will my insurance help cover this?", a: "Very likely. We are in-network with most major providers, and our team verifies your specific benefits directly with your insurer, at no cost and with no obligation, before you commit to anything. We do not accept Medi-Cal or Medicare, and if that is your coverage we will say so straight away and point you somewhere that can help." },
+      { q: "Will my insurance help cover this?", a: "Very likely. We are in-network with most major providers, and our team [verifies your specific benefits](/admissions/insurance/) directly with your insurer, at no cost and with no obligation, before you commit to anything. We do not accept Medi-Cal or Medicare, and if that is your coverage we will say so straight away and point you somewhere that can help." },
     ],
   },
 ] as const;

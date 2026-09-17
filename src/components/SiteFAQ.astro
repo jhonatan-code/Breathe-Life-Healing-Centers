@@ -5,8 +5,14 @@ import { msymChar } from "../lib/icons";
  * "still not sure?" card + accordion list), but every page passes its own
  * question set. A group with no `label` renders as a flat list with no
  * header row (used by service pages that don't group their FAQs).
+ *
+ * Answers (`a`) are plain text but support an inline `[label](href)` link
+ * -- see src/lib/richtext.ts -- for the cases where an answer genuinely
+ * points somewhere else on the site (a commercial page, a blog post).
+ * Not every answer needs one; most stay plain text.
  */
 import { site } from "../config/site";
+import { parseInlineLinks } from "../lib/richtext";
 
 interface FaqItem { q: string; a: string }
 interface FaqGroup { icon?: string; label?: string; items: FaqItem[] }
@@ -68,7 +74,11 @@ const S = {
                   {it.q}
                   <span data-plus="1" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(51,103,156,0.10);font-family:'Instrument Sans',sans-serif;font-size:18px;color:#33679C;transition:transform 400ms cubic-bezier(.4,0,.2,1);">+</span>
                 </summary>
-                <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 0 22px;max-width:78ch;">{it.a}</p>
+                <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0 0 22px;max-width:78ch;">
+                  {parseInlineLinks(it.a).map((seg) =>
+                    seg.href ? <a href={seg.href} style="color:#2C5A64;font-weight:500;">{seg.text}</a> : seg.text
+                  )}
+                </p>
               </details>
             ))}
           </div>
