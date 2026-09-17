@@ -168,7 +168,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       <div style="max-width:1024px;margin:0 auto;display:grid;grid-template-columns:minmax(340px,1.2fr) minmax(300px,1fr);gap:64px;align-items:center;">
         <div>
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">Belonging</div>
-          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 0 14px;max-width:32ch;text-wrap:balance;">Whoever you are, you belong here</h2>
+          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 0 14px;max-width:32ch;text-wrap:balance;">LGBTQIA+ Community and Belonging</h2>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.75;color:#3A444D;margin:0 0 26px;max-width:68ch;">Recovery takes enough energy without also managing how you're perceived. Whether you're out to everyone, out to no one, or still figuring it out — whether the people supporting you are the family you were born into or the one you chose — nothing about who you are needs to be hidden, minimized, or explained here.</p>
           <a class="cta" href={HREF} style={`display:inline-flex;${S.ctaBlue}`}>Call Now: {PH}</a>
         </div>
@@ -212,14 +212,14 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
             <button type="button" data-scroll="sub" data-dir="1" aria-label="Scroll right" class="icon-btn" style="font-family:'Instrument Sans',sans-serif;width:44px;height:44px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#33679C;font-size:16px;cursor:pointer;">›</button>
           </div>
           <div data-scroller="sub" class="no-scrollbar" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:14px 2px 18px;">
-            {substances.map(([icon, h, p]) => (
-              <div class="treat-card" style="flex:0 0 300px;scroll-snap-align:start;background:#FFFFFF;border:1px solid rgba(51,103,156,0.22);border-radius:12px;box-shadow:0 1px 2px rgba(51,103,156,0.07),0 4px 10px rgba(51,103,156,0.07);padding:24px 22px;box-sizing:border-box;">
+            {substances.map(([icon, h, p, href]) => (
+              <a href={href} class="treat-card" style="flex:0 0 300px;scroll-snap-align:start;background:#FFFFFF;border:1px solid rgba(51,103,156,0.22);border-radius:12px;box-shadow:0 1px 2px rgba(51,103,156,0.07),0 4px 10px rgba(51,103,156,0.07);padding:24px 22px;box-sizing:border-box;text-decoration:none;color:inherit;display:block;">
                 <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
                   <span class="msym" style="font-size:24px;color:#33679C;">{icon}</span>
                 </span>
                 <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 8px;text-wrap:balance;">{h}</h3>
                 <p style={`${S.card}font-size:15px;line-height:1.6;`}>{p}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -230,14 +230,14 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
             <button type="button" data-scroll="mh" data-dir="1" aria-label="Scroll right" class="icon-btn" style="font-family:'Instrument Sans',sans-serif;width:44px;height:44px;border:1px solid #C9D2DA;border-radius:8px;background:#FFFFFF;color:#33679C;font-size:16px;cursor:pointer;">›</button>
           </div>
           <div data-scroller="mh" class="no-scrollbar" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:14px 2px 18px;">
-            {mentalHealth.map(([icon, h, p, teal]) => (
-              <div class="treat-card" style={`flex:0 0 300px;scroll-snap-align:start;background:#FFFFFF;border:1px solid ${teal ? "rgba(71,134,148,0.42)" : "rgba(51,103,156,0.22)"};border-radius:12px;box-shadow:0 1px 2px rgba(51,103,156,0.07),0 4px 10px rgba(51,103,156,0.07);padding:24px 22px;box-sizing:border-box;`}>
+            {mentalHealth.map(([icon, h, p, teal, href]) => (
+              <a href={href} class="treat-card" style={`flex:0 0 300px;scroll-snap-align:start;background:#FFFFFF;border:1px solid ${teal ? "rgba(71,134,148,0.42)" : "rgba(51,103,156,0.22)"};border-radius:12px;box-shadow:0 1px 2px rgba(51,103,156,0.07),0 4px 10px rgba(51,103,156,0.07);padding:24px 22px;box-sizing:border-box;text-decoration:none;color:inherit;display:block;`}>
                 <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
                   <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{icon}</span>
                 </span>
                 <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 8px;text-wrap:balance;">{h}</h3>
                 <p style={`${S.card}font-size:15px;line-height:1.6;`}>{p}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -267,7 +267,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
                   <h3 style={`font-size:${i === 0 ? "22px" : "19px"};font-weight:600;letter-spacing:-0.018em;margin:0;text-wrap:balance;`}>{l.title}</h3>
                   {"flag" in l && l.flag && <span style="font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF;background:#2C5A64;padding:5px 9px;">{l.flag}</span>}
                 </div>
-                <p style={S.card}>{l.text}</p>
+                <p style={`${S.card}margin:0 0 10px;`}>{l.text}</p>
+                <a href={l.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
               </div>
             ))}
             <a class="cta" href={HREF} style={`align-self:start;justify-self:start;${S.ctaBlue}`}>Find the right program for you</a>
@@ -286,15 +287,15 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
         </div>
         <div id="sig-wrap">
           <div id="sig-track" class="no-scrollbar" style="display:flex;gap:18px;overflow-x:auto;align-items:stretch;padding:4px 2px 10px;">
-            {[...signature, ...signature].map(([icon, h, p, tag], i) => (
-              <div aria-hidden={i >= signature.length ? "true" : undefined} style="flex:0 0 330px;box-sizing:border-box;background:#FFFFFF;border-top:3px solid #33679C;border-radius:12px;padding:30px 28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(20,24,28,0.06),0 6px 16px rgba(20,24,28,0.06);">
+            {[...signature, ...signature].map(([icon, h, p, tag, href], i) => (
+              <a href={href} aria-hidden={i >= signature.length ? "true" : undefined} tabindex={i >= signature.length ? -1 : undefined} style="flex:0 0 330px;box-sizing:border-box;background:#FFFFFF;border-top:3px solid #33679C;border-radius:12px;padding:30px 28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(20,24,28,0.06),0 6px 16px rgba(20,24,28,0.06);text-decoration:none;color:inherit;">
                 <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:rgba(51,103,156,0.10);">
                   <span class="msym" style="font-size:26px;color:#33679C;">{icon}</span>
                 </span>
                 <h3 style="font-size:20px;font-weight:600;letter-spacing:-0.016em;margin:0;color:#14181C;text-wrap:balance;">{h}</h3>
                 <p style={`${S.card}flex:1;`}>{p}</p>
                 <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#2C5A64;border-top:1px solid #E9E5DE;padding-top:12px;">{tag}</div>
-              </div>
+              </a>
             ))}
           </div>
           <div style="display:flex;align-items:center;gap:12px;margin-top:14px;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#7FB3BC;">
@@ -312,7 +313,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Why Breathe</div>
-          <h2 style={`${S.h2}max-width:44ch;`}>More than a rehab — a place you don't have to explain yourself</h2>
+          <h2 style={`${S.h2}max-width:44ch;`}>Why Choose Breathe for LGBTQIA+-Affirming Treatment</h2>
           <p style={`${S.intro}max-width:96ch;`}>Breathe is a residential, LGBTQIA+-affirming healing center treating addiction and mental health as equal, connected parts of the same journey. Affirming care here means clinicians who understand minority stress, staff who use your pronouns without being asked twice, and a community where your energy goes into recovery instead of into managing how you're seen.</p>
         </div>
         <CareDial id="why-dial" pillars={whyPillars} ctaHref={HREF} />

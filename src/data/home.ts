@@ -48,48 +48,48 @@ export const gallery = [
 ];
 
 export const substances = [
-  ["liquor", "Alcohol Addiction", "Support for withdrawal, cravings, and long-term sobriety."],
-  ["science", "Meth Addiction", "Structured care for stimulant use and recovery."],
-  ["vaccines", "Heroin Addiction", "Medical detox and support for opioid dependence."],
-  ["emergency", "Fentanyl Addiction", "Specialized care for high-risk synthetic opioid use."],
-  ["medication", "Opioids & Opiates", "Comprehensive treatment for prescription and street opioids."],
-  ["eco", "Kratom", "Guidance for kratom dependence and withdrawal."],
-  ["local_pharmacy", "Prescription Drug Addiction", "Help stepping away from prescribed medication misuse."],
-  ["medication_liquid", "Benzodiazepine Addiction", "Medically supervised benzo taper and recovery."],
-  ["bolt", "Amphetamine Addiction", "Care for stimulant use disorders and their effects."],
-  ["grain", "Cocaine Addiction", "Support for cocaine use and co-occurring issues."],
-  ["pill", "Xanax Addiction", "Targeted care for Xanax dependence and withdrawal."],
-  ["grass", "Marijuana Addiction", "Help for cannabis dependence at any level of use."],
-  ["air", "Inhalant Addiction", "Care for inhalant use and its health effects."],
-  ["biotech", "Designer Drug Addiction", "Treatment for synthetic and novel substance use."],
-  ["favorite", "Chemsex", "Compassionate, judgment-free chemsex recovery support — one of the few dedicated programs in the country."],
+  ["liquor", "Alcohol Addiction", "Support for withdrawal, cravings, and long-term sobriety.", "/what-we-treat/alcohol/"],
+  ["science", "Meth Addiction", "Structured care for stimulant use and recovery.", "/what-we-treat/methamphetamine/"],
+  ["vaccines", "Heroin Addiction", "Medical detox and support for opioid dependence.", "/what-we-treat/opioids/"],
+  ["emergency", "Fentanyl Addiction", "Specialized care for high-risk synthetic opioid use.", "/what-we-treat/opioids/"],
+  ["medication", "Opioids & Opiates", "Comprehensive treatment for prescription and street opioids.", "/what-we-treat/opioids/"],
+  ["eco", "Kratom", "Guidance for kratom dependence and withdrawal.", "/what-we-treat/kratom/"],
+  ["local_pharmacy", "Prescription Drug Addiction", "Help stepping away from prescribed medication misuse.", "/what-we-treat/opioids/"],
+  ["medication_liquid", "Benzodiazepine Addiction", "Medically supervised benzo taper and recovery.", "/what-we-treat/benzodiazepines/"],
+  ["bolt", "Amphetamine Addiction", "Care for stimulant use disorders and their effects.", "/what-we-treat/methamphetamine/"],
+  ["grain", "Cocaine Addiction", "Support for cocaine use and co-occurring issues.", "/what-we-treat/cocaine/"],
+  ["pill", "Xanax Addiction", "Targeted care for Xanax dependence and withdrawal.", "/what-we-treat/xanax/"],
+  ["grass", "Marijuana Addiction", "Help for cannabis dependence at any level of use.", "/what-we-treat/marijuana/"],
+  ["air", "Inhalant Addiction", "Care for inhalant use and its health effects.", "/what-we-treat/inhalants/"],
+  ["biotech", "Designer Drug Addiction", "Treatment for synthetic and novel substance use.", "/what-we-treat/designer-drugs/"],
+  ["favorite", "Chemsex", "Compassionate, judgment-free chemsex recovery support — one of the few dedicated programs in the country.", "/signature-services/chemsex-treatment/"],
 ] as const;
 
 export const mentalHealth = [
-  ["psychology", "Anxiety", "Tools to calm the mind and manage daily stress.", false],
-  ["sentiment_dissatisfied", "Depression", "Support to rebuild energy, hope, and connection.", false],
-  ["healing", "Complex Trauma / PTSD", "Trauma-informed care for deep and lasting healing.", false],
-  ["hub", "Dual Diagnosis", "Integrated care for co-occurring mental health and addiction.", false],
-  ["restaurant", "Eating Disorders", "Treated alongside substance use, simultaneously — the reason many families call us first.", false],
+  ["psychology", "Anxiety", "Tools to calm the mind and manage daily stress.", false, "/conditions/anxiety/"],
+  ["sentiment_dissatisfied", "Depression", "Support to rebuild energy, hope, and connection.", false, "/conditions/depression/"],
+  ["healing", "Complex Trauma / PTSD", "Trauma-informed care for deep and lasting healing.", false, "/conditions/complex-trauma/"],
+  ["hub", "Dual Diagnosis", "Integrated care for co-occurring mental health and addiction.", false, "/conditions/dual-diagnosis/"],
+  ["restaurant", "Eating Disorders", "Treated alongside substance use, simultaneously — the reason many families call us first.", false, "/what-we-treat/eating-disorders/"],
 ] as const;
 
 export const levels = [
-  { title: "Residential Treatment", flag: "Flagship", text: "Our most structured, primary level of care. Clients live on-site with 24/7 supervision, daily therapy, and psychiatric care for both addiction and mental health." },
-  { title: "Detox", text: "A safe, clinically monitored start. Our team manages withdrawal around the clock, so your body can safely let go of what it has been depending on before treatment begins in earnest." },
-  { title: "PHP — Day Treatment (SUD, MH)", text: "Full clinical days without a residential stay. The same intensity of care as residential treatment, with evenings spent at home or in transitional living." },
-  { title: "IOP — Intensive Outpatient (SUD, MH)", text: "Structured treatment that flexes around a life you are already rebuilding. Real clinical support without stepping away from work, school, or family." },
-  { title: "Transitional Living / Enhanced Sober Living", text: "A stable, substance-free home base as you find your footing. Structure and community support while you build toward full independence." },
-  { title: "Outpatient (OP)", text: "The lightest touch level of care, built for ongoing support once you are stable. A natural step down after residential, PHP, or IOP." },
+  { title: "Residential Treatment", flag: "Flagship", text: "Our most structured, primary level of care. Clients live on-site with 24/7 supervision, daily therapy, and psychiatric care for both addiction and mental health.", href: "/programs/residential-treatment/" },
+  { title: "Detox", text: "A safe, clinically monitored start. Our team manages withdrawal around the clock, so your body can safely let go of what it has been depending on before treatment begins in earnest.", href: "/programs/medical-detox/" },
+  { title: "PHP — Day Treatment (SUD, MH)", text: "Full clinical days without a residential stay. The same intensity of care as residential treatment, with evenings spent at home or in transitional living.", href: "/programs/php/" },
+  { title: "IOP — Intensive Outpatient (SUD, MH)", text: "Structured treatment that flexes around a life you are already rebuilding. Real clinical support without stepping away from work, school, or family.", href: "/programs/intensive-outpatient/" },
+  { title: "Transitional Living / Enhanced Sober Living", text: "A stable, substance-free home base as you find your footing. Structure and community support while you build toward full independence.", href: "/programs/sober-living/" },
+  { title: "Outpatient (OP)", text: "The lightest touch level of care, built for ongoing support once you are stable. A natural step down after residential, PHP, or IOP.", href: "/programs/outpatient-rehab/" },
 ] as const;
 
 export const signature = [
-  ["diversity_3", "LGBTQIA+ Therapy Services", "Identity- and gender-affirming care woven into every level of treatment — never a separate track.", "Individual, group, and identity-focused therapy"],
-  ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised"],
-  ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work"],
-  ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one"],
-  ["family_restroom", "Family Therapy Programs", "A Family Class and a 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome"],
-  ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware"],
-  ["medication", "Medication-Assisted Treatment", "Medical support available where it is clinically appropriate, always paired with therapy and psychiatric oversight, never offered as treatment on its own.", "Prescriber on staff"],
+  ["diversity_3", "LGBTQIA+ Therapy Services", "Identity- and gender-affirming care woven into every level of treatment — never a separate track.", "Individual, group, and identity-focused therapy", "/signature-services/lgbtq/"],
+  ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised", "/signature-services/chemsex-treatment/"],
+  ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work", "/conditions/complex-trauma/"],
+  ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one", "/programs/case-management/"],
+  ["family_restroom", "Family Therapy Programs", "A Family Class and a 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
+  ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware", "/signature-services/flight-attendant-program/"],
+  ["medication", "Medication-Assisted Treatment", "Medical support available where it is clinically appropriate, always paired with therapy and psychiatric oversight, never offered as treatment on its own.", "Prescriber on staff", "/programs/medication-assisted-treatment/"],
 ] as const;
 
 export const why = [
