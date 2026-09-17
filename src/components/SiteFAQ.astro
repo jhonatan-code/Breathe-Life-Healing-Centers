@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../lib/icons";
 /**
  * FAQ section shell — shared presentation (full-width header above a sticky
  * "still not sure?" card + accordion list), but every page passes its own
@@ -39,7 +40,7 @@ const S = {
         <div style="background:#FFFFFF;border:1px solid #E2DED7;border-radius:12px;padding:22px 24px;display:grid;gap:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="display:flex;align-items:center;gap:12px;">
             <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(51,103,156,0.10);">
-              <span class="msym" style="font-size:22px;color:#33679C;">support_agent</span>
+              <span class="msym" style="font-size:22px;color:#33679C;">{msymChar("support_agent")}</span>
             </span>
             <div>
               <div style="font-size:16px;font-weight:600;color:#14181C;line-height:1.35;">Still not sure?</div>
@@ -55,7 +56,7 @@ const S = {
             {g.label && (
               <div style="display:flex;align-items:center;gap:12px;">
                 <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(51,103,156,0.10);">
-                  <span class="msym" style="font-size:20px;color:#33679C;">{g.icon}</span>
+                  <span class="msym" style="font-size:20px;color:#33679C;">{msymChar(g.icon)}</span>
                 </span>
                 <span style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;">{g.label}</span>
                 <span style="flex:1;height:1px;background:#E2DED7;"></span>

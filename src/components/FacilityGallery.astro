@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../lib/icons";
 /**
  * "Facility Gallery" — a large photo display on the left, and on the right
  * a fixed-count rotating wheel of curated campus photos, passed in by the
@@ -90,9 +91,9 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
   <div class="fg-grid">
     <div class="fg-main" data-fg-main tabindex="0" role="button" aria-label={`Enlarge photo: ${photos[0].cap}`}>
       <img class="fg-main-img" id={`${id}-main-img`} src={photos[0].src} alt={photos[0].cap} />
-      <span class="fg-expand"><span class="msym">fullscreen</span>Expand View</span>
-      <button type="button" class="fg-nav fg-nav-prev" data-fg-nav="prev" aria-label="Previous photo"><span class="msym">chevron_left</span></button>
-      <button type="button" class="fg-nav fg-nav-next" data-fg-nav="next" aria-label="Next photo"><span class="msym">chevron_right</span></button>
+      <span class="fg-expand"><span class="msym">{msymChar("fullscreen")}</span>Expand View</span>
+      <button type="button" class="fg-nav fg-nav-prev" data-fg-nav="prev" aria-label="Previous photo"><span class="msym">{msymChar("chevron_left")}</span></button>
+      <button type="button" class="fg-nav fg-nav-next" data-fg-nav="next" aria-label="Next photo"><span class="msym">{msymChar("chevron_right")}</span></button>
       <div class="fg-main-bar">
         <span class="fg-main-title" id={`${id}-main-title`}>{photos[0].cap}</span>
         <span class="fg-main-count" id={`${id}-main-count`}>1 of {photos.length}</span>
@@ -102,7 +103,7 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     <div class="fg-wheel-wrap d-only">
       <div class="fg-track">
         <div class="fg-hub">
-          <span class="msym">photo_camera</span>
+          <span class="msym">{msymChar("photo_camera")}</span>
           <span class="fg-hub-label">Explore the campus</span>
           <span class="fg-hub-sub">Click a photo to bring it forward</span>
         </div>
@@ -129,9 +130,9 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
 </div>
 
 <div class="fg-lightbox" id={`${id}-lightbox`} role="dialog" aria-modal="true" aria-label="Facility photo viewer" hidden>
-  <button class="fg-lb-btn fg-lb-close" type="button" data-fg-close aria-label="Close"><span class="msym">close</span></button>
-  <button class="fg-lb-btn fg-lb-prev" type="button" data-fg-prev aria-label="Previous photo"><span class="msym">chevron_left</span></button>
-  <button class="fg-lb-btn fg-lb-next" type="button" data-fg-next aria-label="Next photo"><span class="msym">chevron_right</span></button>
+  <button class="fg-lb-btn fg-lb-close" type="button" data-fg-close aria-label="Close"><span class="msym">{msymChar("close")}</span></button>
+  <button class="fg-lb-btn fg-lb-prev" type="button" data-fg-prev aria-label="Previous photo"><span class="msym">{msymChar("chevron_left")}</span></button>
+  <button class="fg-lb-btn fg-lb-next" type="button" data-fg-next aria-label="Next photo"><span class="msym">{msymChar("chevron_right")}</span></button>
   <figure class="fg-lb-figure">
     <img class="fg-lb-img" id={`${id}-lb-img`} alt="" />
     <figcaption class="fg-lb-bar">

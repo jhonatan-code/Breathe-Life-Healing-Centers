@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../lib/icons";
 /**
  * Shell for a real /blog/{slug}/ post. Banner intentionally carries no
  * feature image or stock photo (client instruction) — the wave motif below
@@ -109,7 +110,7 @@ const ld = {
             </div>
             <div class="mobile-toc">
               <button class="mobile-toc-toggle" id="mobile-toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list-banner">
-                <span class="msym" aria-hidden="true">list</span> Table of Contents
+                <span class="msym" aria-hidden="true">{msymChar("list")}</span> Table of Contents
               </button>
               <div class="mobile-toc-popup" id="mobile-toc-popup">
                 <ul class="toc-list" id="toc-list-banner"></ul>
@@ -139,7 +140,7 @@ const ld = {
           <div class="related-list">
             {related.map((p) => (
               <a class="related-row" href={postHref(p)}>
-                <span class="msym" aria-hidden="true">article</span>
+                <span class="msym" aria-hidden="true">{msymChar("article")}</span>
                 <span>
                   <span class="related-cat">{CATEGORY_LABELS[p.data.category]}</span>
                   <span class="related-title">{p.data.title.replace(/\s*\|\s*Breathe$/, '')}</span>

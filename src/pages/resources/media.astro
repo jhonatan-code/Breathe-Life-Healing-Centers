@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /resources/media/ — "Media / Press", the one item in the Resources
  * dropdown (site.ts). Per the approved sitemap this absorbs the old
@@ -128,13 +129,13 @@ const ld = {
                 <div class={`wave-item ${dir}`}>
                   {dir === "up" ? (
                     <>
-                      <div class="wave-card"><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></div>
+                      <div class="wave-card"><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{msymChar(c.icon)}</span></span><h3>{c.title}</h3><p>{c.text}</p></div>
                       <div class="wave-stem" />
                     </>
                   ) : (
                     <>
                       <div class="wave-stem" />
-                      <div class="wave-card"><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></div>
+                      <div class="wave-card"><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{msymChar(c.icon)}</span></span><h3>{c.title}</h3><p>{c.text}</p></div>
                     </>
                   )}
                 </div>

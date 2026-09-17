@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /therapies/holistic-therapy/ modality page. "What is it" description and
  * FAQ are verbatim from Breathe_Life_Holistic_Therapy_Content_and_FAQ.docx
@@ -189,7 +190,7 @@ const ld = {
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
-                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+                <span class="msym" style="font-size:24px;color:#33679C;">{msymChar(w.icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>

@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /programs/residential-treatment/ — no dedicated content brief exists yet
  * for this page (see CLAUDE.md: only Family Program has an approved brief
@@ -269,7 +270,7 @@ const ld = {
           {whyPicks.map(([icon, color, h, p]) => (
             <div style="padding:32px 30px;">
               <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
-                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{msymChar(icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
               <p style={S.card}>{p}</p>

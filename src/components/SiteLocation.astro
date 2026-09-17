@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../lib/icons";
 /**
  * Map + "getting here" panel — the address is a fixed sitewide fact, so this
  * needs no props. Hover-reveal on the property photo is CSS-only
@@ -46,7 +47,7 @@ const S = {
             ].map(([icon, h, p]) => (
               <div style="display:flex;gap:14px;align-items:flex-start;">
                 <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.12);">
-                  <span class="msym" style="font-size:20px;color:#FFFFFF;">{icon}</span>
+                  <span class="msym" style="font-size:20px;color:#FFFFFF;">{msymChar(icon)}</span>
                 </span>
                 <div>
                   <div style="font-size:16px;font-weight:600;color:#FFFFFF;">{h}</div>

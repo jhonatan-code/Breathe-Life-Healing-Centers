@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /therapies/ — Therapies section hub (sitewide nav's "Therapies" top-level
  * item, primaryNav in ../../config/site). Card grid to all 12 modality pages,
@@ -189,7 +190,7 @@ const ld = {
               <path class="weave-path" d="M600,0 C 600,30 310,20 310,50" stroke="#7FB3BC" />
             </svg>
           </div>
-          <div class="weave-plan"><span class="msym">route</span><b>Your Plan</b></div>
+          <div class="weave-plan"><span class="msym">{msymChar("route")}</span><b>Your Plan</b></div>
         </div>
       </div>
     </section>
@@ -226,13 +227,13 @@ const ld = {
                 <div class={`wave-item ${dir}`}>
                   {dir === "up" ? (
                     <>
-                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{msymChar(c.icon)}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
                       <div class="wave-stem" />
                     </>
                   ) : (
                     <>
                       <div class="wave-stem" />
-                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{msymChar(c.icon)}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
                     </>
                   )}
                 </div>
@@ -254,7 +255,7 @@ const ld = {
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
-                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+                <span class="msym" style="font-size:24px;color:#33679C;">{msymChar(w.icon)}</span>
               </span>
               <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>

@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /conditions/ — Conditions section hub (sitemap: mental-health conditions,
  * distinct from the Substances hub under /what-we-treat/). No dedicated
@@ -138,7 +139,7 @@ const ld = {
             return (
               <a href={c.href} class="treat-card link-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);text-decoration:none;color:inherit;`}>
                 <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{msymChar(c.icon)}</span>
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
                 <p style={`${S.card}flex:1;`}>{c.text}</p>
@@ -168,7 +169,7 @@ const ld = {
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
-                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+                <span class="msym" style="font-size:24px;color:#33679C;">{msymChar(w.icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>

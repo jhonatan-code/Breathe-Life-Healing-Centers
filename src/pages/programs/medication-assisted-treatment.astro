@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /programs/medication-assisted-treatment/ — MAT isn't a "level of care"
  * (no entry in the `levels` array), it's one of the `signature` services in
@@ -70,7 +71,7 @@ const included = [
   { icon: "medication", title: "A prescriber on staff", text: mat[3] },
   { icon: "join_inner", title: "Care integrated with therapy", text: "Medication support runs alongside your individual and group therapy, not as a separate track." },
   { icon: "psychology", title: "Ongoing psychiatric oversight", text: "Your plan is monitored and adjusted by our clinical team throughout your stay." },
-  { icon: "clipboard", title: "A plan built around your own history", text: "What's appropriate is a conversation with our prescribing team, not a standard protocol applied to everyone." },
+  { icon: "content_paste", title: "A plan built around your own history", text: "What's appropriate is a conversation with our prescribing team, not a standard protocol applied to everyone." },
 ];
 
 const related = [
@@ -221,7 +222,7 @@ const ld = {
             return (
               <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;`}>
                 <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{msymChar(c.icon)}</span>
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
                 <p style={`${S.card}flex:1;`}>{c.text}</p>
@@ -253,7 +254,7 @@ const ld = {
           {whyPicks.map(([icon, color, h, p]) => (
             <div style="padding:32px 30px;">
               <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
-                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{msymChar(icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
               <p style={S.card}>{p}</p>

@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /about/ — the About hub. Per the approved sitemap (context/Breathe_Life_Sitemap_v12.xlsx),
  * this page absorbs the old Locations hub plus the former standalone Mission & Vision and
@@ -193,7 +194,7 @@ const ld = {
               );
             })}
           </div>
-          <div class="trail-end"><span class="msym" aria-hidden="true">verified</span>Licensed and independently verified</div>
+          <div class="trail-end"><span class="msym" aria-hidden="true">{msymChar("verified")}</span>Licensed and independently verified</div>
         </div>
       </div>
     </section>
@@ -226,13 +227,13 @@ const ld = {
                 <div class={`wave-item ${dir}`}>
                   {dir === "up" ? (
                     <>
-                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{msymChar(c.icon)}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
                       <div class="wave-stem" />
                     </>
                   ) : (
                     <>
                       <div class="wave-stem" />
-                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{c.icon}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
+                      <a class="wave-card" href={c.href}><span class="wave-dot" style={`background:${colors[i]};`}><span class="msym">{msymChar(c.icon)}</span></span><h3>{c.title}</h3><p>{c.text}</p></a>
                     </>
                   )}
                 </div>

@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /what-we-treat/opioids/ — clinical content and FAQ sourced from
  * Breathe_Life_Opioids_Content_and_FAQ.docx (2026-09-14), which defers to
@@ -177,7 +178,7 @@ const ld = {
               {signs.map((s) => (
                 <div style="display:flex;gap:12px;align-items:flex-start;">
                   <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
-                    <span class="msym" style="font-size:14px;">check</span>
+                    <span class="msym" style="font-size:14px;">{msymChar("check")}</span>
                   </span>
                   <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
                 </div>
@@ -186,7 +187,7 @@ const ld = {
           </div>
           <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
             <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
-              <span class="msym" style="font-size:20px;color:#B4472A;">emergency</span>
+              <span class="msym" style="font-size:20px;color:#B4472A;">{msymChar("emergency")}</span>
               <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">Overdose signs — real emergency information</div>
             </div>
             <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Slow or stopped breathing, bluish lips or fingertips, and unresponsiveness are signs of overdose and require immediate emergency medical attention.</p>
@@ -208,7 +209,7 @@ const ld = {
             return (
               <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
                 <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{msymChar(c.icon)}</span>
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
                 <p style={`${S.card}flex:1;`}>{c.text}</p>
@@ -253,7 +254,7 @@ const ld = {
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
-                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+                <span class="msym" style="font-size:24px;color:#33679C;">{msymChar(w.icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>

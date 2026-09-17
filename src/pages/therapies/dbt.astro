@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /therapies/dbt/ modality page. "What is it" description and FAQ are
  * verbatim from Breathe_Life_DBT_Content_and_FAQ.docx (2026-09-14), which
@@ -181,9 +182,9 @@ const ld = {
           <svg viewBox="0 0 620 300" preserveAspectRatio="none" aria-hidden="true">
             <path d="M310,150 L90,45" /><path d="M310,150 L530,45" /><path d="M310,150 L310,260" />
           </svg>
-          <div class="const-hub"><span class="msym">{hubIcon}</span><b>{hubShort}<br />(you are here)</b></div>
+          <div class="const-hub"><span class="msym">{msymChar(hubIcon)}</span><b>{hubShort}<br />(you are here)</b></div>
           {related.map((r, i) => (
-            <a class={`const-node n${i + 1}`} href={r.href}><span class="msym">{r.icon}</span>{r.label}</a>
+            <a class={`const-node n${i + 1}`} href={r.href}><span class="msym">{msymChar(r.icon)}</span>{r.label}</a>
           ))}
         </div>
         <a class="cta" href="/therapies/" style={`display:inline-block;${S.ctaBlue}`}>See All Therapies</a>
@@ -207,7 +208,7 @@ const ld = {
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
-                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+                <span class="msym" style="font-size:24px;color:#33679C;">{msymChar(w.icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>

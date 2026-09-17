@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../lib/icons";
 /**
  * /contact-us/ — no approved content brief exists for this page, but it's
  * mostly factual (phone/email/address + a contact form), so it's written
@@ -128,7 +129,7 @@ const ld = {
             return (
               <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
                 <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{w.icon}</span>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{msymChar(w.icon)}</span>
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{w.title}</h3>
                 <a href={w.href} target={w.icon === "location_on" ? "_blank" : undefined} rel={w.icon === "location_on" ? "noopener noreferrer" : undefined} style="font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:600;color:#33679C;">{w.detail}</a>

@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../lib/icons";
 /**
  * "Care Dial" — an instrument-style rotating ring of pillars synced to a
  * glass detail card. Built for the homepage's "Why Breathe" section;
@@ -48,13 +49,13 @@ const nodeTransform = (i: number) => {
           <circle cx="230" cy="230" r="150" fill="none" stroke="rgba(227,178,124,0.1)" stroke-width="1"></circle>
         </svg>
       </div>
-      <div class="dial-hub"><span class="msym">spa</span></div>
+      <div class="dial-hub"><span class="msym">{msymChar("spa")}</span></div>
       <div class="dial-ring" id={`${id}-ring`}>
         {pillars.map((p, i) => (
           <div class="node-slot" data-index={i} style={`transform:${nodeTransform(i)};`}>
             <div class="node-inner">
               <button class="node-btn" type="button" aria-label={p.title} data-index={i}>
-                <span class="msym">{p.icon}</span>
+                <span class="msym">{msymChar(p.icon)}</span>
               </button>
               <div class="node-label">{p.label[0]}<br />{p.label[1]}</div>
             </div>
@@ -74,14 +75,14 @@ const nodeTransform = (i: number) => {
     <div class="card-wrap">
       <div class="glass-card" id={`${id}-card`}>
         <div class="card-top">
-          <div class="card-icon"><span class="msym" id={`${id}-icon`}>{pillars[0].icon}</span></div>
+          <div class="card-icon"><span class="msym" id={`${id}-icon`}>{msymChar(pillars[0].icon)}</span></div>
           <div class="card-count"><b id={`${id}-index`}>01</b> / {String(N).padStart(2, "0")}</div>
         </div>
         <h3 id={`${id}-title`}>{pillars[0].title}</h3>
         <p class="desc" id={`${id}-desc`}>{pillars[0].desc}</p>
         <ul class="highlights" id={`${id}-highlights`}>
           {pillars[0].highlights.map((h) => (
-            <li><span class="msym">check_circle</span><span>{h}</span></li>
+            <li><span class="msym">{msymChar("check_circle")}</span><span>{h}</span></li>
           ))}
         </ul>
         <a class="cta" href={ctaHref} style="background:#33679C;color:#FFFFFF;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);">{ctaLabel}</a>
@@ -92,7 +93,7 @@ const nodeTransform = (i: number) => {
   <div class="stack">
     {pillars.map((p) => (
       <div class="stack-card">
-        <div class="card-icon"><span class="msym">{p.icon}</span></div>
+        <div class="card-icon"><span class="msym">{msymChar(p.icon)}</span></div>
         <h4>{p.title}</h4>
         <p>{p.desc}</p>
       </div>

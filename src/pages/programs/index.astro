@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /programs/ — Programs & Levels of Care overview (sitemap: "Levels of Care
  * (overview)"). Every fact on this page is reused verbatim (or lightly
@@ -202,7 +203,7 @@ const ld = {
                 <div style="position:relative;flex:0 0 auto;">
                   <img src={levelImages[l.title]} alt="" width="240" height="200" style="display:block;width:240px;height:200px;object-fit:cover;border-radius:12px;" />
                   <span style="position:absolute;bottom:-14px;right:-14px;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#33679C;border:3px solid #F7F5F1;">
-                    <span class="msym" style="font-size:26px;color:#FFFFFF;">{levelIcons[l.title]}</span>
+                    <span class="msym" style="font-size:26px;color:#FFFFFF;">{msymChar(levelIcons[l.title])}</span>
                   </span>
                 </div>
                 <div style="flex:1 1 380px;">
@@ -219,7 +220,7 @@ const ld = {
                 <div style="position:relative;">
                   <img src={levelImages[l.title]} alt="" width="400" height="150" style="display:block;width:100%;height:150px;object-fit:cover;" />
                   <span style="position:absolute;bottom:-18px;left:20px;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:#33679C;border:3px solid #F7F5F1;">
-                    <span class="msym" style="font-size:22px;color:#FFFFFF;">{levelIcons[l.title]}</span>
+                    <span class="msym" style="font-size:22px;color:#FFFFFF;">{msymChar(levelIcons[l.title])}</span>
                   </span>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:14px;padding:26px 26px 28px;flex:1;">
@@ -250,7 +251,7 @@ const ld = {
                 <div style="position:relative;">
                   <img src={c.img} alt="" width="400" height="150" style="display:block;width:100%;height:150px;object-fit:cover;" />
                   <span style={`position:absolute;bottom:-18px;left:20px;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${accent};border:3px solid #FFFFFF;`}>
-                    <span class="msym" style="font-size:22px;color:#FFFFFF;">{c.icon}</span>
+                    <span class="msym" style="font-size:22px;color:#FFFFFF;">{msymChar(c.icon)}</span>
                   </span>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:14px;padding:26px 26px 28px;flex:1;">
@@ -291,7 +292,7 @@ const ld = {
           {whyPicks.map(([icon, color, h, p]) => (
             <div style="padding:32px 30px;">
               <span style={`display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:${color === "#478694" ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};margin-bottom:16px;`}>
-                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{icon}</span>
+                <span class="msym" style={`font-size:24px;color:${color === "#478694" ? "#2C5A64" : "#33679C"};`}>{msymChar(icon)}</span>
               </span>
               <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 10px;text-wrap:balance;">{h}</h3>
               <p style={S.card}>{p}</p>

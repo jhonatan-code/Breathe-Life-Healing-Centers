@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /about/sero-mental-health/ — built from Breathe_Life_Sero_Mental_Health_Page_Brief.docx
  * (2026-09-10). Per that brief: Sero Mental Health is the parent network Breathe
@@ -106,7 +107,7 @@ const ld = {
         </div>
         <div style="text-align:center;margin-bottom:36px;">
           <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(51,103,156,0.08);border:1px solid rgba(51,103,156,0.2);border-radius:999px;padding:9px 18px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;color:#33679C;">
-            <span class="msym" style="font-size:17px;">location_on</span>
+            <span class="msym" style="font-size:17px;">{msymChar("location_on")}</span>
             You are here: Breathe Life Healing Centers, Los Angeles, California
           </span>
         </div>
@@ -119,7 +120,7 @@ const ld = {
               <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.02em;color:#646D76;line-height:1.5;">{c.who} <br /> {c.where}</div>
               <a href={`https://${c.domain}/`} target="_blank" rel="noopener noreferrer" style="margin-top:6px;display:inline-flex;align-items:center;gap:6px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;">
                 Visit {c.domain}
-                <span class="msym" style="font-size:16px;">open_in_new</span>
+                <span class="msym" style="font-size:16px;">{msymChar("open_in_new")}</span>
               </a>
             </div>
           ))}

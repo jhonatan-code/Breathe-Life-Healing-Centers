@@ -1,4 +1,5 @@
 ---
+import { msymChar } from "../../lib/icons";
 /**
  * /conditions/trauma/ — clinical content and FAQ sourced from
  * Breathe_Life_Trauma_Content_and_FAQ.docx (2026-09-14), which defers to
@@ -197,7 +198,7 @@ const ld = {
               {causes.map((c) => (
                 <div style="display:flex;gap:12px;align-items:flex-start;">
                   <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
-                    <span class="msym" style="font-size:14px;">check</span>
+                    <span class="msym" style="font-size:14px;">{msymChar("check")}</span>
                   </span>
                   <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{c}</span>
                 </div>
@@ -210,7 +211,7 @@ const ld = {
               {symptoms.map((s) => (
                 <div style="display:flex;gap:12px;align-items:flex-start;">
                   <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(71,134,148,0.12);color:#2C5A64;margin-top:1px;">
-                    <span class="msym" style="font-size:14px;">check</span>
+                    <span class="msym" style="font-size:14px;">{msymChar("check")}</span>
                   </span>
                   <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
                 </div>
@@ -226,7 +227,7 @@ const ld = {
       <div style="max-width:1100px;margin:0 auto;">
         <div style="border:2px dashed #C9862B;background:repeating-linear-gradient(135deg,rgba(201,134,43,0.06),rgba(201,134,43,0.06) 10px,rgba(201,134,43,0.12) 10px,rgba(201,134,43,0.12) 20px);border-radius:14px;padding:60px 30px;text-align:center;">
           <span style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(201,134,43,0.14);margin-bottom:18px;">
-            <span class="msym" style="font-size:40px;color:#8A5A1E;">play_circle</span>
+            <span class="msym" style="font-size:40px;color:#8A5A1E;">{msymChar("play_circle")}</span>
           </span>
           <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#8A5A1E;margin-bottom:8px;">[VIDEO, ASSET NEEDED]</div>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#6B5233;margin:0 auto;max-width:52ch;">The sitemap flags a video as mandatory for this page. No video asset exists yet, this placeholder marks where it belongs rather than fabricating an embed.</p>
@@ -247,7 +248,7 @@ const ld = {
             return (
               <div class="treat-card" style={`display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid ${teal ? "#478694" : "#33679C"};border-radius:12px;padding:28px 26px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);`}>
                 <span style={`display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:${teal ? "rgba(71,134,148,0.12)" : "rgba(51,103,156,0.10)"};`}>
-                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{c.icon}</span>
+                  <span class="msym" style={`font-size:24px;color:${teal ? "#2C5A64" : "#33679C"};`}>{msymChar(c.icon)}</span>
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
                 <p style={`${S.card}flex:1;`}>{c.text}</p>
@@ -291,7 +292,7 @@ const ld = {
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
-                <span class="msym" style="font-size:24px;color:#33679C;">{w.icon}</span>
+                <span class="msym" style="font-size:24px;color:#33679C;">{msymChar(w.icon)}</span>
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>
