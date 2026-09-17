@@ -1,6 +1,6 @@
 ---
-title: "Can You Force Someone to Go to Rehab? | Breathe"
-description: "What involuntary commitment laws actually allow, why forced treatment so often fails, and the evidence-based alternatives that work better, from Breathe Life Healing Centers."
+title: "Can You Force Someone to Go to Rehab?"
+description: "Involuntary commitment laws vary by state and rarely apply, and forced treatment usually works worse than voluntary care. What actually helps a resistant loved one."
 category: "for-the-family"
 author: "shoshana-katz"
 order: 7

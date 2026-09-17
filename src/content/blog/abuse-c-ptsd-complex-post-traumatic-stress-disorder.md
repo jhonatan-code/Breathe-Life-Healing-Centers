@@ -1,6 +1,6 @@
 ---
-title: "Abuse and C-PTSD: Understanding Complex Trauma | Breathe"
-description: "What complex PTSD is, how it differs from PTSD, why abuse and entrapment are so strongly connected to it, and what real recovery involves."
+title: "Abuse and C-PTSD: Understanding Complex Trauma"
+description: "Complex PTSD comes from prolonged trauma like abuse or captivity, not a single event, and it's often harder to recover from than PTSD. Here's how it's different."
 category: "understanding-trauma"
 author: "beck-gee"
 order: 8

@@ -1,6 +1,6 @@
 ---
-title: "Grindr, Hookup Culture, and Substance Use: What Queer Men Should Know | Breathe"
-description: "Why chemsex and hookup apps are linked to substance use in queer men, and what sex-positive, shame-free treatment for chemsex actually looks like."
+title: "Grindr, Hookup Culture, and Substance Use in Queer Men"
+description: "Nearly 85 percent of queer men use dating apps to meet partners, and chemsex is significantly more common in this population. What's actually driving that link."
 category: "lgbtqia"
 author: "beck-gee"
 publishDate: 2026-09-03

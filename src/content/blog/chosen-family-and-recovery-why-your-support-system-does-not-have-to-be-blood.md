@@ -1,6 +1,6 @@
 ---
-title: "Chosen Family and Recovery: Why Your Support System Doesn't Have to Be Blood | Breathe"
-description: "For many queer people, chosen family is the primary support system in recovery, not a backup plan. What that looks like at Breathe, and why it matters."
+title: "Why Chosen Family Matters So Much in Recovery"
+description: "For many queer people in recovery, chosen family isn't a backup plan, it's the primary support system. What that looks like and why it matters."
 category: "for-the-family"
 author: "shoshana-katz"
 publishDate: 2026-09-11

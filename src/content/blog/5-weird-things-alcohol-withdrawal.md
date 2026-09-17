@@ -1,6 +1,6 @@
 ---
-title: "5 Things You Probably Didn't Know About Alcohol Withdrawal | Breathe"
-description: "How alcohol withdrawal actually behaves: why it's unpredictable, why it gets worse each time, what medical detox involves, and when it becomes a medical emergency."
+title: "5 Surprising Facts About Alcohol Withdrawal"
+description: "Withdrawal can start in as little as six hours and tends to get worse with each attempt to quit. Five things about alcohol withdrawal most people don't expect."
 category: "understanding-addiction"
 author: "beck-gee"
 order: 5

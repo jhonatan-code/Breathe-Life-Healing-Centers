@@ -1,6 +1,6 @@
 ---
-title: "Dr. Steve Karp Joins Breathe Life Healing Centers as CMO | Breathe"
-description: "Breathe Life Healing Centers announced Dr. Steve Karp, D.O., FACN, as Chief Medical Officer, bringing decades of experience in addiction medicine and eating disorder treatment."
+title: "Dr. Steve Karp Joins Breathe as Chief Medical Officer"
+description: "Steve Karp, D.O., FACN, brings decades of experience in addiction medicine and eating disorder treatment to his new role as Breathe's CMO."
 category: "news"
 author: "beck-gee"
 order: 12

@@ -1,6 +1,6 @@
 ---
-title: "This Is What Toxic Codependency Looks Like | Breathe"
-description: "What codependency actually is, the signs it's grown unhealthy, and the most common patterns it takes in relationships. From Breathe Life Healing Centers."
+title: "This Is What Toxic Codependency Looks Like"
+description: "Codependency traces back to Al-Anon in 1935 and isn't limited to alcoholism. What it actually is, and the most common patterns it shows up in."
 category: "for-the-family"
 author: "beck-gee"
 order: 1

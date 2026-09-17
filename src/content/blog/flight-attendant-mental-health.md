@@ -1,6 +1,6 @@
 ---
-title: "Flight Attendant Mental Health | Breathe"
-description: "Why aviation crew face a unique kind of burnout, anxiety, and substance use risk, what the warning signs look like, and how treatment can be matched to what you're carrying."
+title: "Flight Attendant Mental Health"
+description: "Long shifts, time-zone changes, and constant composure take a real toll. The warning signs of flight-crew burnout, anxiety, and substance use, and what helps."
 category: "understanding-addiction"
 author: "beck-gee"
 order: 18

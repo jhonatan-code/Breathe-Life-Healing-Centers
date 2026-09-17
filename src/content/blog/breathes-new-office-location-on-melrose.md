@@ -1,6 +1,6 @@
 ---
-title: "Breathe's New Office Location on Melrose | Breathe"
-description: "Breathe's outpatient offices moved to a bigger, brighter space on Melrose Avenue, built to better serve clients and support our health and safety standards."
+title: "Breathe's New Office Location on Melrose"
+description: "Breathe's outpatient offices moved to a bigger, brighter space on Melrose Avenue, built from the ground up for better check-ins, comfort, and client care."
 category: "news"
 author: "beck-gee"
 order: 14

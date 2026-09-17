@@ -1,6 +1,6 @@
 ---
-title: "What Happens to Your Body and Mind When You Stop Using Meth After Chemsex | Breathe"
-description: "What meth withdrawal after chemsex actually feels like, from the crash to sober intimacy, and what real support looks like during that recovery."
+title: "What Happens When You Stop Using Meth After Chemsex"
+description: "Stopping meth after chemsex isn't just physical withdrawal, it's losing the version of yourself that felt confident and desired. What the first weeks feel like."
 category: "lgbtqia"
 author: "beck-gee"
 publishDate: 2026-09-03
