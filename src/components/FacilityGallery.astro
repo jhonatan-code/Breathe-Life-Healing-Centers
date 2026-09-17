@@ -325,10 +325,21 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
      attribute gives `.fg-mobile-strip` higher specificity than the
      sitewide `.m-only-block { display: none; }` base rule, so an
      unconditional `display: flex` here would win at every width,
-     including desktop where it must stay hidden. */
+     including desktop where it must stay hidden.
+
+     `!important` is required on `display` specifically: global.css's own
+     mobile layer forces `.m-only-block { display: block !important; }` at
+     this same breakpoint (global.css:316) so mobile-only elements default
+     to visible. That's correct for the plain block elements it was written
+     for, but this element also carries `.m-only-block` for its
+     show/hide-at-breakpoint behavior while needing `flex`, not `block` —
+     and a normal-priority declaration never beats `!important` regardless
+     of specificity. Confirmed via live DOM inspection: without this, the
+     strip computes to `display:block` and the thumbnails wrap into a grid
+     instead of scrolling. */
   @media (max-width: 1024px) {
     .fg-mobile-strip {
-      display: flex;
+      display: flex !important;
       gap: 12px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
