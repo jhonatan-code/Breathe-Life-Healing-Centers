@@ -130,6 +130,7 @@ const ld = {
         <article class="post-content" id="post-body">
           <slot />
           <div class="post-foot-share">
+            <div class="share-label share-label--light">Share on</div>
             <ShareButtons url={canonicalUrl} title={data.title.replace(/\s*\|\s*Breathe$/, '')} variant="light" />
           </div>
         </article>
@@ -177,6 +178,15 @@ const ld = {
   buildTOC('toc-list');
   buildTOC('toc-list-mobile');
   buildTOC('toc-list-banner');
+
+  // Tag the "Sources" citation list (if a post has one) so it can be
+  // styled distinctly from every other list in the article body, without
+  // touching the markdown content itself.
+  document.querySelectorAll('#post-body h2, #post-body h3').forEach((h) => {
+    if (h.textContent?.trim() !== 'Sources') return;
+    const list = h.nextElementSibling;
+    if (list && (list.tagName === 'UL' || list.tagName === 'OL')) list.classList.add('sources-list');
+  });
 
   document.querySelectorAll('.toc-list a').forEach((a) => {
     a.addEventListener('click', (e) => {
@@ -275,6 +285,7 @@ const ld = {
   .dot { opacity: .5; }
   .share-wrap { margin-top: 24px; }
   .share-label { font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9DB2C2; text-align: right; margin-bottom: 8px; }
+  .share-label--light { color: #646D76; text-align: left; }
   .mobile-toc { display: none; }
 
   /* Desktop-only byline split: author left (fixed width, now that it
@@ -328,6 +339,8 @@ const ld = {
   .post-content :global(p) { margin: 0 0 16px; }
   .post-content :global(ul), .post-content :global(ol) { margin: 0 0 16px; padding-left: 20px; }
   .post-content :global(li) { margin-bottom: 6px; }
+  .post-content :global(.sources-list) { list-style-type: decimal; font-size: 15px; line-height: 1.5; }
+  .post-content :global(.sources-list li) { margin-bottom: 8px; }
   .post-content :global(a) { color: #33679C; font-weight: 600; }
   .post-content :global(strong) { color: #14181C; font-weight: 600; }
   .post-content :global(blockquote) {
@@ -349,7 +362,7 @@ const ld = {
   /* Same 3-up card grid as /blog/'s own listing (src/pages/blog/[...page].astro
      .grid), reusing the identical BlogCard component so a related post
      looks exactly like it does everywhere else on the site. */
-  .related-section { max-width: 1180px; margin: 60px auto 0; padding: 0 37px 20px; }
+  .related-section { max-width: 1180px; margin: 10px auto 0; padding: 0 37px 60px; }
   .related-section .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; margin-bottom: 18px; }
   .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   @media (max-width: 900px) { .related-grid { grid-template-columns: 1fr 1fr; } }
