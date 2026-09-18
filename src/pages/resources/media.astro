@@ -6,13 +6,20 @@ import { msymChar } from "../../lib/icons";
  * standalone "How to Choose Treatment" and "Brochures" pages, so it carries
  * general structural framing for both: a press/media-inquiries block, a
  * generic (non-clinical) "what to look for" section for anyone comparing
- * treatment centers, and an honest placeholder for downloadable materials
- * that don't exist yet — no invented brochure files.
+ * treatment centers, real downloadable brochures, and a press-coverage
+ * section.
  *
- * ⚠️ Deliberately does NOT reference any specific past press coverage
- * (NYT / Vanity Fair / BuzzFeed per docs/00-INVENTORY.md) — those backlinks
- * were about Brad Lamm specifically, and founder positioning is a blocked
- * open decision (CLAUDE.md). Nothing here claims "as seen in" any outlet.
+ * Brochures (4 PDFs) and press references (5, grouped by category) are
+ * both the same real items the official live site's own
+ * /resources/media/ and /resources/our-brochures/ pages show (checked
+ * 2026-09-18) — downloaded to /Asset/Brochures/ and /Asset/Press/ rather
+ * than hotlinked to the old domain. The earlier version of this file
+ * deliberately omitted any press coverage, since the founder-positioning
+ * block (CLAUDE.md, docs/00-INVENTORY.md) made some specific backlinks
+ * (NYT / Vanity Fair / BuzzFeed, all about Brad Lamm) off-limits — that
+ * block was explicitly lifted 2026-09-15, and the user asked directly
+ * for this section 2026-09-18, so it no longer applies here. Elizabeth
+ * has additional press references beyond these 5 to add once received.
  *
  * Structure per BUILD NOTES: lighter than a clinical funnel — hero → content
  * sections → SiteReviews → SiteLocation → SiteFinalCTA. No forced insurance
@@ -29,6 +36,33 @@ import { galleryImg } from "../../data/home";
 
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
+
+// Same 4 PDFs as the official live site's /resources/our-brochures/
+// (checked 2026-09-18), downloaded to /Asset/Brochures/ rather than
+// hotlinked to the old domain.
+const brochures = [
+  { title: "Breathe Program Overview", text: "A general overview of our levels of care and how treatment works here.", file: "/Asset/Brochures/Breathe_Program_Overview.pdf" },
+  { title: "Living in Recovery at Campus", text: "What day-to-day life looks like on our residential campus.", file: "/Asset/Brochures/Living_in_Recovery_at_Campus.pdf" },
+  { title: "Chemsex Program", text: "Our specialized, sex-positive approach to chemsex and sexualized drug use.", file: "/Asset/Brochures/Chemsex-Brochure_7.26.pdf" },
+  { title: "Family Class at Breathe", text: "How family is involved in treatment, and what Family Class covers.", file: "/Asset/Brochures/Breathe_-_Family_Class.pdf" },
+] as const;
+
+// Media coverage referenced on the official live site's own /resources/media/
+// page (checked 2026-09-18) -- 5 items, grouped the same way that page
+// groups them (Television / Blogs / Print). Logos downloaded to
+// /Asset/Press/. Only Forbes carries a link, to the real, specific article
+// URL -- the official site itself doesn't link the other 4 to anything
+// (Today Show's own link there pointed at an old-site blog post, not the
+// actual segment; the other 3 have no link at all), and per the site's
+// standing rule against linking generic outlet homepages, they're shown as
+// unlinked credits here too rather than inventing a destination.
+const pressRefs = [
+  { category: "Television", name: "Addicted to Food", outlet: "Oprah Winfrey Network (OWN)", logo: "/Asset/Press/oprah-addicted-to-food.jpg", text: "Follows eight people with eating disorders through a 42-day treatment program." },
+  { category: "Television", name: "The Today Show", outlet: "NBC", logo: "/Asset/Press/today-show-media-page.png", text: "A morning news and talk show airing every morning on NBC." },
+  { category: "Television", name: "The View", outlet: "ABC", logo: "/Asset/Press/the-view.png", text: "A morning talk show featuring a panel discussing the day's biggest stories." },
+  { category: "Blogs", name: "Huffington Post", logo: "/Asset/Press/huffington-post.jpg", text: "An online news aggregator and blog founded by Arianna Huffington and colleagues." },
+  { category: "Print", name: "Forbes", logo: "/Asset/Press/forbes.png", text: "“3 Ways Your Company's Mission Can Become Your Best Employee Engagement Tool.”", href: "https://www.forbes.com/sites/larrymyler/2013/11/06/3-ways-your-companys-mission-can-become-your-best-employee-engagement-tool/" },
+] as const;
 
 const title = "Media & Press | Breathe Life Healing Centers";
 const description =
@@ -149,10 +183,62 @@ const ld = {
 
     {/* ══════════════  BROCHURES & MATERIALS  ══════════════ */}
     <section data-screen-label="Brochures & materials" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:800px;margin:0 auto;text-align:center;">
-        <div style={S.eyebrow}>Downloadable materials</div>
-        <h2 style={`${S.h2}max-width:26ch;`}>Brochures & printable overviews</h2>
-        <p style={`${S.intro}max-width:66ch;margin-bottom:0;`}>We're preparing downloadable brochures covering our programs, insurance process, and family resources. In the meantime, our admissions team can walk you through any of it directly, or email you what you need.</p>
+      <div style="max-width:1180px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Downloadable materials</div>
+          <h2 style={`${S.h2}max-width:26ch;`}>Brochures & printable overviews</h2>
+          <p style={`${S.intro}max-width:66ch;margin:0 auto;`}>Real PDFs you can download, print, or share, covering our programs, campus life, family involvement, and the Chemsex Program.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+          {brochures.map((b) => (
+            <a href={b.file} target="_blank" rel="noopener noreferrer" style="display:flex;flex-direction:column;gap:10px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:14px;padding:24px;text-decoration:none;color:inherit;">
+              <span class="msym" style="font-size:28px;color:#33679C;">{msymChar("description")}</span>
+              <h3 style="font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:0;">{b.title}</h3>
+              <p style={`${S.card}font-size:14.5px;flex:1;`}>{b.text}</p>
+              <span style="font-family:'Instrument Sans',sans-serif;font-size:13.5px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Download PDF <span aria-hidden="true">↓</span></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  PRESS & MEDIA COVERAGE  ══════════════
+       Same 5 references the official live site's own /resources/media/
+       page shows (checked 2026-09-18), grouped by category like that page
+       does. Elizabeth has additional references beyond these 5 to add here
+       once received -- this array is built to extend cleanly. */}
+    <section data-screen-label="Press coverage" style="padding:70px 37px;background:#F7F5F1;">
+      <div style="max-width:1180px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>Press coverage</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Where Breathe Has Been Featured</h2>
+          <p style={`${S.intro}max-width:66ch;margin:0 auto;`}>Television, print, and online coverage Breathe has been part of over the years.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+          {pressRefs.map((p) => {
+            const card = (
+              <>
+                <div style="height:54px;display:flex;align-items:center;">
+                  <img src={p.logo} alt={p.name} loading="lazy" style="max-height:54px;max-width:100%;width:auto;object-fit:contain;object-position:left center;display:block;" />
+                </div>
+                <div style="font-family:'Instrument Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2C5A64;margin:14px 0 4px;">{p.category}</div>
+                <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.01em;margin:0 0 6px;">{p.name}{"outlet" in p && p.outlet && <span style="font-weight:400;color:#646D76;"> · {p.outlet}</span>}</h3>
+                <p style={`${S.card}font-size:14px;flex:1;`}>{p.text}</p>
+                {"href" in p && p.href && (
+                  <span style="margin-top:10px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:5px;">
+                    Read the story <span class="msym" style="font-size:15px;">{msymChar("open_in_new")}</span>
+                  </span>
+                )}
+              </>
+            );
+            const style = "display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E2DED7;border-radius:14px;padding:22px;";
+            return "href" in p && p.href ? (
+              <a href={p.href} target="_blank" rel="noopener noreferrer" style={`${style}text-decoration:none;color:inherit;`}>{card}</a>
+            ) : (
+              <div style={style}>{card}</div>
+            );
+          })}
+        </div>
       </div>
     </section>
 
