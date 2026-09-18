@@ -314,13 +314,15 @@ const ld = {
     .share-wrap { grid-area: share; justify-self: end; margin-top: 0; }
   }
 
-  /* Content column is capped at 720px (not just 1fr) so the sidebar sits
-     right up against it with only the grid `gap` between them — with a
-     plain 1fr column, the sidebar could end up ~250px+ away from the
-     actual (narrower, max-width-capped) article text, which read as a
-     much bigger gap than the `gap` value alone suggested. minmax(0,...)
-     lets it shrink below 720px on medium viewports instead of overflowing. */
-  .post-layout { max-width: 1440px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: minmax(0, 720px) 320px; gap: 40px; align-items: start; }
+  /* Content column is 1fr (fills whatever space is left after the fixed
+     320px sidebar), not a fixed/capped width -- capping it at 720px kept
+     it from ever exceeding a "readable" width, but also meant the
+     content+sidebar block stopped short of the container's full 1440px
+     on wide viewports, leaving dead space to the right of the sidebar.
+     .post-content has no max-width of its own (below), so the white card
+     fills this track exactly -- the sidebar still sits only the `gap`
+     away from it, just at whatever width the track actually is. */
+  .post-layout { max-width: 1440px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 40px; align-items: start; }
   @media (min-width: 981px) {
     .post-layout { padding-bottom: 60px; }
   }
