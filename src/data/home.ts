@@ -68,10 +68,10 @@ export const substances = [
 ] as const;
 
 export const mentalHealth = [
-  ["psychology", "Anxiety", "Tools to calm the mind and manage daily stress.", false, "/conditions/anxiety/"],
-  ["sentiment_dissatisfied", "Depression", "Support to rebuild energy, hope, and connection.", false, "/conditions/depression/"],
-  ["healing", "Complex Trauma / PTSD", "Trauma-informed care for deep and lasting healing.", false, "/conditions/complex-trauma/"],
-  ["hub", "Dual Diagnosis", "Integrated care for co-occurring mental health and addiction.", false, "/conditions/dual-diagnosis/"],
+  ["psychology", "Anxiety", "Tools to calm the mind and manage daily stress.", false, "/what-we-treat/anxiety/"],
+  ["sentiment_dissatisfied", "Depression", "Support to rebuild energy, hope, and connection.", false, "/what-we-treat/depression/"],
+  ["healing", "Complex Trauma / PTSD", "Trauma-informed care for deep and lasting healing.", false, "/what-we-treat/complex-trauma/"],
+  ["hub", "Dual Diagnosis", "Integrated care for co-occurring mental health and addiction.", false, "/what-we-treat/dual-diagnosis/"],
   ["restaurant", "Eating Disorders", "Treated alongside substance use, simultaneously — the reason many families call us first.", false, "/what-we-treat/eating-disorders/"],
 ] as const;
 
@@ -87,7 +87,7 @@ export const levels = [
 export const signature = [
   ["diversity_3", "LGBTQIA+ Therapy Services", "Identity- and gender-affirming care woven into every level of treatment — never a separate track.", "Individual, group, and identity-focused therapy", "/signature-services/lgbtq/"],
   ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised", "/signature-services/chemsex-treatment/"],
-  ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work", "/conditions/complex-trauma/"],
+  ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work", "/what-we-treat/complex-trauma/"],
   ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one", "/programs/case-management/"],
   ["family_restroom", "Family Therapy Programs", "A Family Class and a 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
   ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware", "/signature-services/flight-attendant-program/"],

@@ -91,13 +91,16 @@ const faqs = [
   { q: "I'm not sure which substance page applies to me. What do I do?", a: "You don't have to self-diagnose. Call our admissions team and talk through your situation, they'll help point you to the right page and the right level of care." },
   { q: "What if I use more than one substance?", a: "Very common, and treated as one plan, not separate problems. Whichever page best matches your primary concern is a fine place to start, your treatment plan will address everything, not just one substance." },
   { q: "Do you treat mental health conditions as well as substance use?", a: "Yes. Depression, anxiety, trauma, and dual diagnosis are addressed alongside substance use, not as an afterthought." },
-  { q: "What is Dual Diagnosis, and why is it shown at the center of how you treat things?", a: "[Dual Diagnosis](/conditions/dual-diagnosis/) is our model for treating substance use and mental health conditions together, as one plan. Most people we treat have both, so it sits at the center of how care is structured, not as a separate add-on service." },
+  { q: "What is Dual Diagnosis, and why is it shown at the center of how you treat things?", a: "[Dual Diagnosis](/what-we-treat/dual-diagnosis/) is our model for treating substance use and mental health conditions together, as one plan. Most people we treat have both, so it sits at the center of how care is structured, not as a separate add-on service." },
   { q: "Is every substance treated the same way?", a: "No. Each page covers the specific approach for that substance, alcohol and opioid withdrawal, for example, carry different medical risks and require different protocols." },
   { q: "Is this only for LGBTQ+ clients?", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
   { q: "Is treatment covered by insurance no matter which page applies to me?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
-const substancesGroup = primaryNav.find((n) => n.label === "What We Treat")!.groups![0];
+// Both nav groups (Substance Use + Mental Health, merged 2026-09-18) --
+// this ItemList is meant to represent everything under "What We Treat" now,
+// not just the substances half.
+const whatWeTreatLinks = primaryNav.find((n) => n.label === "What We Treat")!.groups!.flatMap((g) => g.links);
 const pageUrl = new URL("/what-we-treat/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
@@ -112,7 +115,7 @@ const ld = {
     {
       "@type": "ItemList",
       name: "What We Treat",
-      itemListElement: substancesGroup.links.map((l, i) => ({
+      itemListElement: whatWeTreatLinks.map((l, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: l.label,

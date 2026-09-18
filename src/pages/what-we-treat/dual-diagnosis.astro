@@ -1,16 +1,22 @@
 ---
 import { msymChar } from "../../lib/icons";
 /**
- * /conditions/dual-diagnosis/ — explains Breathe's integrated dual-diagnosis
+ * /what-we-treat/dual-diagnosis/ — explains Breathe's integrated dual-diagnosis
  * model (substance use + mental health, treated together). Existing pages
  * (alcohol/methamphetamine/cocaine "co-occurring conditions" sections) already
  * link here, so this needs to function as a real hub, not a stub.
+ *
+ * Moved here from /conditions/dual-diagnosis/ (2026-09-18, Elizabeth's nav
+ * consolidation) along with depression, anxiety, trauma, and complex-trauma
+ * -- see site.ts's primaryNav for the merged "What We Treat" mega menu and
+ * astro.config.mjs for the 301s covering the old /conditions/* URLs. Title,
+ * description, and all clinical content below are unchanged by the move.
  *
  * Clinical content and FAQ sourced from
  * Breathe_Life_Dual_Diagnosis_Content_and_FAQ.docx (2026-09-14), which
  * defers to the BLHC Content Client Profile as authoritative and is not
  * going through further client/team review. Unlike the other four
- * Conditions pages, dual diagnosis is a treatment model rather than a
+ * mental-health pages, dual diagnosis is a treatment model rather than a
  * single condition, so the "Understanding" section keeps its existing
  * process-framed "What integrated care looks like" card (structural
  * copy, approved elsewhere, not a clinical claim) and adds a second card
@@ -28,7 +34,7 @@ import { msymChar } from "../../lib/icons";
  *    not named here, same rule as the Depression, Anxiety, and Complex
  *    Trauma pages.
  *
- * The page adds Conditions/Substances link grids to work as a real hub.
+ * The page adds mental-health/substance link grids to work as a real hub.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -70,10 +76,10 @@ const integrated = [
 ];
 
 const conditions: [string, string][] = [
-  ["Depression", "/conditions/depression/"],
-  ["Anxiety", "/conditions/anxiety/"],
-  ["Complex Trauma / C-PTSD", "/conditions/complex-trauma/"],
-  ["Trauma", "/conditions/trauma/"],
+  ["Depression", "/what-we-treat/depression/"],
+  ["Anxiety", "/what-we-treat/anxiety/"],
+  ["Complex Trauma / C-PTSD", "/what-we-treat/complex-trauma/"],
+  ["Trauma", "/what-we-treat/trauma/"],
 ];
 
 const substances: [string, string][] = [
@@ -135,7 +141,7 @@ const why = [
   },
 ];
 
-const pageUrl = new URL("/conditions/dual-diagnosis/", site.domain).href;
+const pageUrl = new URL("/what-we-treat/dual-diagnosis/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
   "@graph": [
@@ -143,7 +149,7 @@ const ld = {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
-        { "@type": "ListItem", position: 2, name: "Conditions", item: new URL("/conditions/", site.domain).href },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
         { "@type": "ListItem", position: 3, name: "Dual Diagnosis", item: pageUrl },
       ],
     },
@@ -155,11 +161,11 @@ const ld = {
 };
 ---
 
-<Layout title={title} description={description} path="/conditions/dual-diagnosis/">
+<Layout title={title} description={description} path="/what-we-treat/dual-diagnosis/">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
-    <SiteHeader current="Conditions" />
+    <SiteHeader current="What We Treat" />
 
     <main id="main">
 
@@ -170,7 +176,7 @@ const ld = {
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
-            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/conditions/" style="color:#7FB3BC;">Conditions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Dual Diagnosis
+            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Dual Diagnosis
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Dual Diagnosis Treatment in Los Angeles</h1>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Substance use and mental health rarely show up separately, so we don't treat them that way. One team, one plan, from the first call.</p>
@@ -234,10 +240,10 @@ const ld = {
     </section>
 
     {/* ══════════════  CONDITIONS & SUBSTANCES WE TREAT TOGETHER  ══════════════ */}
-    <section data-screen-label="Conditions and substances" style="padding:70px 37px;background:#F7F5F1;">
+    <section data-screen-label="What We Treat and substances" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1100px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Treated together</div>
-        <h2 style={`${S.h2}max-width:34ch;`}>Conditions and substances we treat together</h2>
+        <h2 style={`${S.h2}max-width:34ch;`}>Mental health and substances we treat together</h2>
         <p style={`${S.intro}max-width:76ch;margin-bottom:30px;`}>These aren't separate tracks, whichever combination applies to you becomes one plan.</p>
 
         <div style="margin-bottom:30px;">
@@ -258,7 +264,7 @@ const ld = {
           </div>
         </div>
 
-        <a class="cta" href="/conditions/" style={`display:inline-block;${S.ctaBlue}`}>Browse All Conditions</a>
+        <a class="cta" href="/what-we-treat/" style={`display:inline-block;${S.ctaBlue}`}>See Everything We Treat</a>
       </div>
     </section>
 

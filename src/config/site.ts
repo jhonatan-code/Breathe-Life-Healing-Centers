@@ -127,7 +127,7 @@ export const primaryNav = [
     href: "/what-we-treat/",
     groups: [
       {
-        heading: "Substances",
+        heading: "Substance Use",
         links: [
           { label: "Alcohol", href: "/what-we-treat/alcohol/" },
           { label: "Methamphetamine", href: "/what-we-treat/methamphetamine/" },
@@ -142,20 +142,14 @@ export const primaryNav = [
           { label: "Co-Occurring Eating Disorders", href: "/what-we-treat/eating-disorders/" },
         ],
       },
-    ],
-  },
-  {
-    label: "Conditions",
-    href: "/conditions/",
-    groups: [
       {
-        heading: "Conditions",
+        heading: "Mental Health",
         links: [
-          { label: "Depression", href: "/conditions/depression/" },
-          { label: "Anxiety", href: "/conditions/anxiety/" },
-          { label: "Complex Trauma / C-PTSD", href: "/conditions/complex-trauma/" },
-          { label: "Trauma", href: "/conditions/trauma/" },
-          { label: "Dual Diagnosis", href: "/conditions/dual-diagnosis/" },
+          { label: "Depression", href: "/what-we-treat/depression/" },
+          { label: "Anxiety", href: "/what-we-treat/anxiety/" },
+          { label: "Complex Trauma / C-PTSD", href: "/what-we-treat/complex-trauma/" },
+          { label: "Trauma", href: "/what-we-treat/trauma/" },
+          { label: "Dual Diagnosis", href: "/what-we-treat/dual-diagnosis/" },
         ],
       },
     ],

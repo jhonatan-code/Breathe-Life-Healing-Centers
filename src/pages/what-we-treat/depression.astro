@@ -1,17 +1,32 @@
 ---
 import { msymChar } from "../../lib/icons";
 /**
- * /conditions/anxiety/ — clinical content and FAQ sourced from
- * Breathe_Life_Anxiety_Content_and_FAQ.docx (2026-09-14), which defers to
+ * /what-we-treat/depression/ — clinical content and FAQ sourced from
+ * Breathe_Life_Depression_Content_and_FAQ.docx (2026-09-14), which defers to
  * the BLHC Content Client Profile as authoritative and is not going through
- * further client/team review. Content itself is sourced from the live page,
- * confirmed clean of IFS, EMDR, ECT, and contingency management.
+ * further client/team review.
  *
- * Specific brand medications (Celexa, Lexapro, Xanax, Klonopin, Zoloft,
- * Wellbutrin) are not named, same rule as the depression page: medication
- * fit is a psychiatrist's clinical decision, and naming Xanax/Klonopin here
- * specifically would create an odd overlap with the separate dedicated
- * Xanax and Benzodiazepines substance pages.
+ * ⚠️ URGENT, verify before any launch, not resolved by this change: the
+ * brief flags that the live page states clients "might also participate in
+ * electroconvulsive therapy (ECT)" for severe depression. ECT requires an
+ * anesthesiologist, specialized equipment, and specific facility licensing a
+ * typical residential/outpatient behavioral health program does not have.
+ * If Breathe does not actually have ECT capability on site or through a
+ * direct partnership, the live page is making a real overclaim, not a copy
+ * nuance. Not included anywhere below. Confirm with clinical leadership
+ * before ECT appears on this site at all.
+ *
+ * Two more corrections from the live page, per the brief: specific brand
+ * medications (Celexa, Lexapro, Wellbutrin, Effexor, Remeron, Cymbalta) are
+ * not named, medication fit is a psychiatrist's clinical decision, not
+ * something marketing copy should imply in advance. And Bipolar Disorder is
+ * not carried forward as a "type of depression", it's a distinct diagnosis;
+ * the live page has this wrong.
+ *
+ * The safety note below (988 Suicide and Crisis Lifeline) is genuine
+ * life-safety information from the brief, kept verbatim and given the same
+ * "real emergency information" treatment used on other pages with acute
+ * risk content.
  *
  * Structure mirrors /what-we-treat/cocaine.astro (shared components, same
  * card/pill/pillar patterns), condition-framed instead of substance-framed.
@@ -31,9 +46,9 @@ import { galleryImg } from "../../data/home";
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 
-const title = "Anxiety Treatment in Los Angeles | Breathe";
+const title = "Depression Treatment in Los Angeles | Breathe";
 const description =
-  "Anxiety treatment in Los Angeles, integrated with substance-use care when the two overlap. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Depression treatment in Los Angeles, integrated with substance-use care when the two overlap. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -60,42 +75,40 @@ const care = [
   },
   {
     icon: "psychology", title: "Cognitive Behavioral Therapy", href: "/therapies/cbt/", cta: "Learn About CBT",
-    text: "Helps you recognize the thought patterns that keep anxiety in place, and build different ones.",
+    text: "Helps you recognize the thought patterns that keep depression in place, and build different ones.",
   },
 ];
 
 const related: [string, string][] = [
-  ["Depression", "/conditions/depression/"],
-  ["Trauma", "/conditions/trauma/"],
-  ["Methamphetamine", "/what-we-treat/methamphetamine/"],
+  ["Anxiety", "/what-we-treat/anxiety/"],
+  ["Trauma", "/what-we-treat/trauma/"],
+  ["Alcohol", "/what-we-treat/alcohol/"],
 ];
 
-// Verbatim from Breathe_Life_Anxiety_Content_and_FAQ.docx (2026-09-14),
-// itself sourced from the live page. No specific medications named, see
-// file header comment.
-const types = [
-  "Generalized anxiety disorder (GAD)",
-  "Obsessive-compulsive disorder (OCD)",
-  "Panic disorder",
-  "Posttraumatic stress disorder (PTSD)",
-  "Social anxiety disorder (SAD)",
+// Verbatim from Breathe_Life_Depression_Content_and_FAQ.docx (2026-09-14),
+// itself sourced from the live page. Excludes ECT, named medications, and
+// the Bipolar-as-depression-type error, see file header comment.
+const signs = [
+  "Apathy or disconnectedness",
+  "Loss of interest in activities once enjoyed",
+  "Sleep changes, excessive sleeping or insomnia",
+  "Changes in eating habits",
+  "Irritability or agitation",
+  "Social isolation",
+  "Poor concentration",
+  "Feelings of hopelessness",
 ];
 
-const symptoms = [
-  "Fatigue and restlessness",
-  "Poor concentration, racing or unwanted thoughts",
-  "Irritability and excessive worry",
-  "Insomnia and heart palpitations",
-  "Trembling or a feeling of impending doom",
-];
-
+// FAQ #4's answer is reworded from the brief to not open with "No" (which
+// faq.md prohibits) while keeping the same meaning. Every other answer is
+// verbatim.
 const faqs = [
-  { q: "Is anxiety treated on its own, or only alongside substance use?", a: "Anxiety is treated as its own focus, not an afterthought. When it overlaps with substance use, depression, or trauma, our clinical team treats it all on the same plan, on the same timeline." },
+  { q: "Is depression treated on its own, or only alongside substance use?", a: "Depression is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both on the same plan, on the same timeline." },
   { q: "Will medication be part of my treatment?", a: "It may be, depending on your specific situation. Our psychiatric team evaluates what's appropriate for you individually, medication decisions are made clinically, not assumed in advance." },
-  { q: "What kind of therapy is used for anxiety?", a: "Psychotherapy and [cognitive behavioral therapy](/therapies/cbt/) are core approaches, helping you identify what's driving the anxiety and building new ways to manage it." },
-  { q: "I've been anxious my whole life. Is this even treatable at this point?", a: "Yes. Anxiety isn't something you have to have always had under control to get real relief from now." },
-  { q: "Does anxiety treatment happen at every level of care?", a: "Yes, from residential to outpatient. Your team determines the right starting point based on what you're experiencing." },
-  { q: "Does insurance cover anxiety treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
+  { q: "What kind of therapy is used for depression?", a: "A mix of psychotherapy, [cognitive behavioral therapy](/therapies/cbt/), and interpersonal therapy, tailored to what's actually driving your depression and how it's showing up in your life." },
+  { q: "I've felt this way for a long time. Is it too late to get help?", a: "It's not too late. However long you've been carrying this, reaching out is still a real, meaningful step, not something you missed the window for." },
+  { q: "Does depression treatment happen at every level of care?", a: "Yes, from residential to outpatient. Your team determines the right starting point based on the severity of what you're experiencing." },
+  { q: "Does insurance cover depression treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
 const why = [
@@ -113,7 +126,7 @@ const why = [
   },
 ];
 
-const pageUrl = new URL("/conditions/anxiety/", site.domain).href;
+const pageUrl = new URL("/what-we-treat/depression/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
   "@graph": [
@@ -121,15 +134,15 @@ const ld = {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
-        { "@type": "ListItem", position: 2, name: "Conditions", item: new URL("/conditions/", site.domain).href },
-        { "@type": "ListItem", position: 3, name: "Anxiety", item: pageUrl },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Depression", item: pageUrl },
       ],
     },
     {
       "@type": "MedicalWebPage",
       name: title,
       url: pageUrl,
-      about: { "@type": "MedicalCondition", name: "Anxiety" },
+      about: { "@type": "MedicalCondition", name: "Depression" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
     {
@@ -140,25 +153,25 @@ const ld = {
 };
 ---
 
-<Layout title={title} description={description} path="/conditions/anxiety/">
+<Layout title={title} description={description} path="/what-we-treat/depression/">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
-    <SiteHeader current="Conditions" />
+    <SiteHeader current="What We Treat" />
 
     <main id="main">
 
     {/* ══════════════  HERO  ══════════════ */}
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
-      <img src={galleryImg("facility-22-garden-entrance-path.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <img src={galleryImg("facility-21-quiet-reading-nook.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
-            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/conditions/" style="color:#7FB3BC;">Conditions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Anxiety
+            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Depression
           </nav>
-          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Anxiety Treatment in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Anxiety is treatable, whether it shows up as constant worry, physical tension, or the thing that's been driving how you cope. Real treatment addresses it directly, not just what it's led to.</p>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Depression Treatment in Los Angeles</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Depression is treatable, and it doesn't have to wait its turn behind anything else going on. Real treatment addresses it directly, whether it's standing alone or tangled up with substance use.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -169,36 +182,23 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  UNDERSTANDING ANXIETY  ══════════════ */}
+    {/* ══════════════  UNDERSTANDING DEPRESSION  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
       <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
       <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
         <div>
           <div style={S.eyebrow}>Understanding</div>
-          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding anxiety</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Anxiety can crowd out everything else, racing thoughts, a body that won't settle, situations you start avoiding without quite deciding to. It often builds around real pressures, and it can be exhausting to manage alone.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">At Breathe, anxiety is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding depression</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Depression can make even ordinary tasks feel out of reach, getting out of bed, staying connected to people who care about you, finding interest in things that used to matter. It doesn't always look like sadness from the outside, and it often builds quietly.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">At Breathe, depression is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
         </div>
         <div style="display:grid;gap:20px;">
           <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
-            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common types</div>
-            <div style="display:grid;gap:12px;">
-              {types.map((t) => (
-                <div style="display:flex;gap:12px;align-items:flex-start;">
-                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
-                    <span class="msym" style="font-size:14px;">{msymChar("check")}</span>
-                  </span>
-                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{t}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #478694;border-radius:12px;padding:26px 26px;">
             <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Common symptoms</div>
             <div style="display:grid;gap:12px;">
-              {symptoms.map((s) => (
+              {signs.map((s) => (
                 <div style="display:flex;gap:12px;align-items:flex-start;">
-                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(71,134,148,0.12);color:#2C5A64;margin-top:1px;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(51,103,156,0.10);color:#33679C;margin-top:1px;">
                     <span class="msym" style="font-size:14px;">{msymChar("check")}</span>
                   </span>
                   <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#3A444D;">{s}</span>
@@ -206,16 +206,23 @@ const ld = {
               ))}
             </div>
           </div>
+          <div style="background:#FBEFEA;border:1px solid #E8B9A6;border-radius:12px;padding:22px 24px;">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+              <span class="msym" style="font-size:20px;color:#B4472A;">{msymChar("emergency")}</span>
+              <div style="font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#B4472A;">A note on safety</div>
+            </div>
+            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5A3A32;margin:0;">Without support, depression can lead to more serious symptoms, including thoughts of self-harm. If you or someone you love is in crisis, please reach out immediately, our admissions team is available 24/7, and the <a href="tel:988" style="color:#B4472A;font-weight:600;">988 Suicide and Crisis Lifeline</a> is available by call or text at any time.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    {/* ══════════════  HOW WE TREAT ANXIETY  ══════════════ */}
+    {/* ══════════════  HOW WE TREAT DEPRESSION  ══════════════ */}
     <section data-screen-label="How we treat it" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>How we help</div>
-          <h2 style={`${S.h2}max-width:26ch;`}>How we treat anxiety</h2>
+          <h2 style={`${S.h2}max-width:26ch;`}>How we treat depression</h2>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
           {care.map((c, i) => {
@@ -239,21 +246,21 @@ const ld = {
     <section data-screen-label="Related conditions" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Dual diagnosis</div>
-        <h2 style={`${S.h2}max-width:24ch;`}>Anxiety rarely travels alone</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Anxiety often overlaps with depression, trauma, and substance use, either driving it or left behind by it. We treat what's actually happening, not only the anxiety.</p>
+        <h2 style={`${S.h2}max-width:24ch;`}>Depression rarely travels alone</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Depression often overlaps with anxiety, trauma, and substance use, either driving it or left behind by it. We treat what's actually happening, not only the depression.</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
           {related.map(([name, href]) => (
             <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
           ))}
         </div>
-        <a class="cta" href="/conditions/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Dual Diagnosis</a>
+        <a class="cta" href="/what-we-treat/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Dual Diagnosis</a>
       </div>
     </section>
 
     <SiteInsurance
       background="#F7F5F1"
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for anxiety treatment, before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for depression treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -261,7 +268,7 @@ const ld = {
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Why Breathe</div>
-          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for anxiety treatment</h2>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for depression treatment</h2>
         </div>
         <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           {why.map((w) => (
@@ -282,7 +289,7 @@ const ld = {
     <SiteLocation />
 
     <SiteFAQ
-      heading="Questions people ask about anxiety treatment"
+      heading="Questions people ask about depression treatment"
       intro="Straight answers about medication, therapy, timing, and coverage."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
@@ -301,7 +308,7 @@ const ld = {
       heading="Are You Ready to Take the First Step?"
       subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
-      background="/Asset/Facility/facility-16-facility-entrance-drive.jpg"
+      background="/Asset/Facility/facility-18-great-room.jpg"
     />
 
     </main>

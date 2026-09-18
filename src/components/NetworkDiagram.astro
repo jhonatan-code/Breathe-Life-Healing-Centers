@@ -16,10 +16,10 @@ import { msymChar } from "../lib/icons";
  * component.
  */
 const conditions = [
-  { id: "depression", label: "Depression", lines: ["Depression"], href: "/conditions/depression/", text: "Support to rebuild energy, hope, and connection — treated as its own focus, not an afterthought to substance use." },
-  { id: "anxiety", label: "Anxiety", lines: ["Anxiety"], href: "/conditions/anxiety/", text: "Structured, ongoing care for anxiety that's driving — or being driven by — substance use." },
-  { id: "trauma", label: "Trauma", lines: ["Trauma"], href: "/conditions/trauma/", text: "A trauma-informed approach woven into every level of care, not a separate track." },
-  { id: "complex-trauma", label: "Complex Trauma / C-PTSD", lines: ["Complex", "Trauma"], href: "/conditions/complex-trauma/", text: "Trauma-informed care for what built up over time, not a single event." },
+  { id: "depression", label: "Depression", lines: ["Depression"], href: "/what-we-treat/depression/", text: "Support to rebuild energy, hope, and connection — treated as its own focus, not an afterthought to substance use." },
+  { id: "anxiety", label: "Anxiety", lines: ["Anxiety"], href: "/what-we-treat/anxiety/", text: "Structured, ongoing care for anxiety that's driving — or being driven by — substance use." },
+  { id: "trauma", label: "Trauma", lines: ["Trauma"], href: "/what-we-treat/trauma/", text: "A trauma-informed approach woven into every level of care, not a separate track." },
+  { id: "complex-trauma", label: "Complex Trauma / C-PTSD", lines: ["Complex", "Trauma"], href: "/what-we-treat/complex-trauma/", text: "Trauma-informed care for what built up over time, not a single event." },
 ] as const;
 
 const substances = [
@@ -35,7 +35,7 @@ const substances = [
   { id: "inhalants", label: "Inhalants", lines: ["Inhalants"], href: "/what-we-treat/inhalants/", text: "Treatment for inhalant use disorder, with the same seriousness as any other.", links: ["anxiety", "depression", "trauma"] },
 ] as const;
 
-const hub = { id: "dual-diagnosis", label: "Dual Diagnosis", lines: ["Dual", "Diagnosis"], href: "/conditions/dual-diagnosis/", text: "Our integrated model for treating substance use and mental health together, in the same plan." };
+const hub = { id: "dual-diagnosis", label: "Dual Diagnosis", lines: ["Dual", "Diagnosis"], href: "/what-we-treat/dual-diagnosis/", text: "Our integrated model for treating substance use and mental health together, in the same plan." };
 
 // ── Geometry (static — no client-side layout math needed) ─────────────────
 const CX = 450, CY = 450;

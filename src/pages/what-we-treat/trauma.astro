@@ -1,44 +1,26 @@
 ---
 import { msymChar } from "../../lib/icons";
 /**
- * /conditions/complex-trauma/ — Complex Trauma / C-PTSD. Clinical content
- * and FAQ sourced from Breathe_Life_Complex_Trauma_Content_and_FAQ.docx
- * (2026-09-14), which defers to the BLHC Content Client Profile as
- * authoritative and is not going through further client/team review.
- * Distinct page from /conditions/trauma/ — complex/cumulative trauma vs.
- * single-incident/PTSD framing.
+ * /what-we-treat/trauma/ — clinical content and FAQ sourced from
+ * Breathe_Life_Trauma_Content_and_FAQ.docx (2026-09-14), which defers to
+ * the BLHC Content Client Profile as authoritative and is not going through
+ * further client/team review. Distinct page from /what-we-treat/complex-trauma/
+ * (C-PTSD / cumulative trauma).
  *
- * Three corrections from the live page, per the brief, one since reversed:
- *  - Kathleen Murphy, named on the live page as the specialist leading this
- *    treatment (meta description and body copy), was originally left
- *    unnamed here pending confirmation of her current employment status.
- *    REVERSED per Jasmine's direct confirmation (2026-09-14): "if she was
- *    in recent reviews by clients then it's safe to assume she's still a
- *    provider there, unless we get told otherwise by client." She's now
- *    named below as "Kathleen Murphy, MA, LPC, Clinical Director" (the
- *    simpler of two credential variants seen on live sources, used until
- *    the "MA, LMFT, LPC" discrepancy is resolved). Her old extended bio
- *    (30 years' experience, University of Texas Austin, St. Edward's
- *    University, "founding Clinical Director") is deliberately NOT
- *    reintroduced, only her being a current provider is confirmed, not
- *    that specific bio text, which was never checked.
- *  - EMDR, listed twice on the live page (body copy and an already-built
- *    FAQ answer), is excluded, this is the first confirmed instance of EMDR
- *    specifically (as opposed to IFS) found in this project. Per Jasmine's
- *    direct instruction (2026-09-14), the EMDR replacement text now uses her
- *    exact approved phrase, "Trauma-focused therapy: Addressing what is
- *    underneath the substance use, not just the substance use itself," word
- *    for word, so this page matches the corresponding live-WordPress-site
- *    replacement exactly rather than only in principle.
- *  - Specific medications (Paxil, Zoloft) are not named, same rule as the
- *    depression and anxiety pages.
+ * EMDR excluded (third confirmed instance in this project): the live page
+ * names it alongside Prolonged Exposure and Cognitive Processing Therapy,
+ * citing VA guidance. EMDR is not offered per the client profile. Per
+ * Jasmine's direct instruction (2026-09-14), the EMDR replacement text uses
+ * her exact approved phrase, "Trauma-focused therapy: Addressing what is
+ * underneath the substance use, not just the substance use itself," word
+ * for word, so this page matches the corresponding live-WordPress-site
+ * replacement exactly rather than only in principle. Unlike the Complex
+ * Trauma page, this source page never named a specific clinician, so no
+ * correction was needed on that front.
  *
- * The FAQ below replaces the (already-built, EMDR-referencing) FAQ on the
- * live page entirely, per the brief's own "FREQUENTLY ASKED QUESTIONS,
- * CORRECTED" heading.
- *
- * Structure mirrors /what-we-treat/cocaine.astro (shared components, same
- * card/pill/pillar patterns), condition-framed instead of substance-framed.
+ * Sitemap flags this page as mandatory and requiring a video. No video asset
+ * exists yet, so a clearly-labeled placeholder block sits where the video
+ * belongs — see the "Video" section below — rather than fabricating an embed.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -55,9 +37,9 @@ import { galleryImg } from "../../data/home";
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 
-const title = "Complex Trauma / C-PTSD Treatment in Los Angeles | Breathe";
+const title = "Trauma Treatment in Los Angeles | Breathe";
 const description =
-  "Complex trauma (C-PTSD) treatment in Los Angeles, integrated with substance-use care when the two overlap. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Trauma-informed treatment in Los Angeles, integrated with substance-use care when the two overlap. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -89,34 +71,42 @@ const care = [
 ];
 
 const related: [string, string][] = [
-  ["Trauma", "/conditions/trauma/"],
-  ["Depression", "/conditions/depression/"],
+  ["Complex Trauma / C-PTSD", "/what-we-treat/complex-trauma/"],
+  ["Depression", "/what-we-treat/depression/"],
   ["Alcohol", "/what-we-treat/alcohol/"],
 ];
 
-// Verbatim from Breathe_Life_Complex_Trauma_Content_and_FAQ.docx
-// (2026-09-14), itself sourced from the live page. Excludes EMDR, named
-// clinician attribution, and specific medications, see file header comment.
+// Verbatim from Breathe_Life_Trauma_Content_and_FAQ.docx (2026-09-14),
+// itself sourced from the live page. Excludes EMDR, see file header comment.
 const causes = [
-  "Repeated sexual, physical, or emotional abuse",
-  "Chronic neglect or abandonment",
-  "Repeated combat exposure",
-  "Sustained captivity or trafficking",
+  "Sexual assault or abuse",
+  "Physical abuse or domestic violence",
+  "Neglect",
+  "Natural disasters",
+  "Combat exposure",
+  "Unexpected loss",
+  "Medical trauma",
 ];
 
 const symptoms = [
-  "Persistent sadness or explosive anger",
-  "Hypervigilance and detachment from surroundings",
-  "Feeling helpless, shameful, or guilty",
-  "Isolation and difficulty trusting others",
-  "Re-experiencing past trauma unexpectedly",
+  "Difficulty concentrating, confusion",
+  "Mood swings, anxiety, fear",
+  "Guilt or shame",
+  "Social isolation, feeling disconnected",
+  "Insomnia, fatigue, muscle tension",
+  "Being easily startled, racing heartbeat",
 ];
 
+// FAQ #4's answer is reworded from the brief to not open with "No" (which
+// faq.md prohibits) while keeping the same meaning. Every other answer is
+// verbatim.
 const faqs = [
-  { q: "What is complex trauma?", a: "Complex trauma results from repeated or prolonged traumatic experiences, such as ongoing abuse, captivity, or chronic neglect, rather than a single traumatic event. It can affect a person's sense of safety, self-worth, and ability to trust others, and often requires a different treatment approach than single-incident PTSD. Further reading: [Abuse and C-PTSD: Understanding Complex Trauma](/blog/abuse-c-ptsd-complex-post-traumatic-stress-disorder/)." },
-  { q: "How is complex PTSD treated?", a: "Treatment typically combines psychotherapy and, when appropriate, medication. [Trauma-focused therapy](/therapies/trauma-focused-therapy/): Addressing what is underneath the substance use, not just the substance use itself, applied through a structured phase-based approach that builds safety and coping skills before processing traumatic memories." },
-  { q: "How long does complex trauma treatment take?", a: "Treatment length varies by individual, depending on the severity and duration of past trauma, co-occurring conditions, and each person's response to therapy. Our clinical team develops a personalized treatment plan and timeline during the initial assessment." },
-  { q: "Is complex trauma treatment covered by insurance?", a: "Coverage depends on your specific insurance plan. Our admissions team can help [verify your benefits](/admissions/insurance/) and explain what your policy covers before you begin treatment." },
+  { q: "Is trauma treated on its own, or only alongside substance use?", a: "Trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both on the same plan, on the same timeline." },
+  { q: "What's the difference between trauma and complex trauma?", a: "Trauma can come from a single event. Complex trauma develops from repeated or prolonged experiences over time. Both are treated seriously here, with an approach matched to what you've actually been through." },
+  { q: "What kind of therapy is used for trauma?", a: "[Trauma-focused therapy](/therapies/trauma-focused-therapy/): Addressing what is underneath the substance use, not just the substance use itself, tailored to your specific history and what you're ready for." },
+  { q: "I've avoided dealing with this for years. Is it too late to start?", a: "It's not too late. However long you've been carrying this, real treatment can still help, whatever point you're starting from." },
+  { q: "Does trauma treatment happen at every level of care?", a: "Yes, from residential to outpatient. Your team determines the right starting point based on what you're experiencing." },
+  { q: "Does insurance cover trauma treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
 const why = [
@@ -134,7 +124,7 @@ const why = [
   },
 ];
 
-const pageUrl = new URL("/conditions/complex-trauma/", site.domain).href;
+const pageUrl = new URL("/what-we-treat/trauma/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
   "@graph": [
@@ -142,15 +132,15 @@ const ld = {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
-        { "@type": "ListItem", position: 2, name: "Conditions", item: new URL("/conditions/", site.domain).href },
-        { "@type": "ListItem", position: 3, name: "Complex Trauma / C-PTSD", item: pageUrl },
+        { "@type": "ListItem", position: 2, name: "What We Treat", item: new URL("/what-we-treat/", site.domain).href },
+        { "@type": "ListItem", position: 3, name: "Trauma", item: pageUrl },
       ],
     },
     {
       "@type": "MedicalWebPage",
       name: title,
       url: pageUrl,
-      about: { "@type": "MedicalCondition", name: "Complex post-traumatic stress disorder" },
+      about: { "@type": "MedicalCondition", name: "Trauma" },
       provider: { "@id": new URL("/#organization", site.domain).href },
     },
     {
@@ -161,25 +151,25 @@ const ld = {
 };
 ---
 
-<Layout title={title} description={description} path="/conditions/complex-trauma/">
+<Layout title={title} description={description} path="/what-we-treat/trauma/">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
-    <SiteHeader current="Conditions" />
+    <SiteHeader current="What We Treat" />
 
     <main id="main">
 
     {/* ══════════════  HERO  ══════════════ */}
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
-      <img src={galleryImg("facility-06-guest-house-exterior.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
+      <img src={galleryImg("facility-17-living-room-lounge.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
           <nav aria-label="Breadcrumb" style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:22px;">
-            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/conditions/" style="color:#7FB3BC;">Conditions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Complex Trauma / C-PTSD
+            <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/what-we-treat/" style="color:#7FB3BC;">What We Treat</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Trauma
           </nav>
-          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Complex Trauma / C-PTSD Treatment in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Complex trauma builds up over time rather than from a single event, and it can shape how safe the world feels years later. Real treatment gives it the time and pace it actually needs.</p>
+          <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Trauma Treatment in Los Angeles</h1>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Trauma can stay with the body long after an event has passed. Real treatment addresses it directly, on a timeline that's yours, not one set for you.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -190,20 +180,20 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  UNDERSTANDING COMPLEX TRAUMA  ══════════════ */}
+    {/* ══════════════  UNDERSTANDING TRAUMA  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
       <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
       <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(320px,1.15fr) minmax(300px,1fr);gap:48px;align-items:start;">
         <div>
           <div style={S.eyebrow}>Understanding</div>
-          <h2 style={`${S.h2}margin:0 0 14px;max-width:32ch;`}>Understanding complex trauma</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Complex trauma, sometimes called C-PTSD, tends to come from prolonged or repeated experiences rather than a single incident, and it can quietly shape how you relate to yourself and other people long after the circumstances have changed. Roughly 70 percent of Americans experience at least one traumatic event in their lives, according to the National Institute of Mental Health, though complex trauma specifically develops from repeated exposure, not a single event.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 0 12px;max-width:58ch;">At Breathe, complex trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Trauma-focused therapy: Addressing what is underneath the substance use, not just the substance use itself. Our clinical team, led by Kathleen Murphy, MA, LPC, Clinical Director, applies a structured, phase-based approach: building safety and coping skills first, processing the trauma itself once that foundation is in place, and consolidating what's been gained.</p>
+          <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>Understanding trauma</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Trauma isn't only about what happened, it's about how the nervous system learned to respond, and how long that response can keep running after the danger is gone. It shows up differently for everyone, sometimes as avoidance, sometimes as being unable to stop thinking about it, and there's no single right way to react. Roughly 70 percent of adults in the United States experience at least one traumatic event in their lives. About 20 percent of those go on to develop PTSD, and more than 13 million American adults currently live with it.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 0 12px;max-width:58ch;">At Breathe, trauma is treated as its own focus, not an afterthought to substance use. When the two overlap, our clinical team treats both in the same plan, on the same timeline.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Trauma-focused therapy: Addressing what is underneath the substance use, not just the substance use itself. Our clinicians help you face and work through what happened rather than avoid it, and examine the beliefs trauma can leave behind against what's actually true.</p>
         </div>
         <div style="display:grid;gap:20px;">
           <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 26px;">
-            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What can lead to complex trauma</div>
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">What can cause trauma</div>
             <div style="display:grid;gap:12px;">
               {causes.map((c) => (
                 <div style="display:flex;gap:12px;align-items:flex-start;">
@@ -232,12 +222,25 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  HOW WE TREAT COMPLEX TRAUMA  ══════════════ */}
+    {/* ══════════════  VIDEO (mandatory per sitemap — asset needed)  ══════════════ */}
+    <section data-screen-label="Video" style="padding:0 37px 70px;background:#FFFFFF;">
+      <div style="max-width:1100px;margin:0 auto;">
+        <div style="border:2px dashed #C9862B;background:repeating-linear-gradient(135deg,rgba(201,134,43,0.06),rgba(201,134,43,0.06) 10px,rgba(201,134,43,0.12) 10px,rgba(201,134,43,0.12) 20px);border-radius:14px;padding:60px 30px;text-align:center;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(201,134,43,0.14);margin-bottom:18px;">
+            <span class="msym" style="font-size:40px;color:#8A5A1E;">{msymChar("play_circle")}</span>
+          </span>
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#8A5A1E;margin-bottom:8px;">[VIDEO, ASSET NEEDED]</div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#6B5233;margin:0 auto;max-width:52ch;">The sitemap flags a video as mandatory for this page. No video asset exists yet, this placeholder marks where it belongs rather than fabricating an embed.</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  HOW WE TREAT TRAUMA  ══════════════ */}
     <section data-screen-label="How we treat it" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>How we help</div>
-          <h2 style={`${S.h2}max-width:28ch;`}>How we treat complex trauma</h2>
+          <h2 style={`${S.h2}max-width:26ch;`}>How we treat trauma</h2>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
           {care.map((c, i) => {
@@ -261,21 +264,21 @@ const ld = {
     <section data-screen-label="Related conditions" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Dual diagnosis</div>
-        <h2 style={`${S.h2}max-width:26ch;`}>Complex trauma rarely travels alone</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Complex trauma often overlaps with depression, anxiety, and substance use, either driving it or left behind by it. We treat what's actually happening, not only the trauma.</p>
+        <h2 style={`${S.h2}max-width:24ch;`}>Trauma rarely travels alone</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:22px;`}>Trauma often overlaps with depression, anxiety, and substance use, either driving it or left behind by it. We treat what's actually happening, not only the trauma.</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px;">
           {related.map(([name, href]) => (
             <a class="link-card" href={href} style="display:inline-flex;align-items:center;gap:8px;background:#F7F5F1;border:1px solid #C9D2DA;border-radius:999px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#14181C;">{name}</a>
           ))}
         </div>
-        <a class="cta" href="/conditions/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Dual Diagnosis</a>
+        <a class="cta" href="/what-we-treat/dual-diagnosis/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Dual Diagnosis</a>
       </div>
     </section>
 
     <SiteInsurance
       background="#F7F5F1"
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for complex trauma treatment, before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for trauma treatment, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -283,7 +286,7 @@ const ld = {
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Why Breathe</div>
-          <h2 style={`${S.h2}max-width:36ch;`}>Why choose Breathe for complex trauma treatment</h2>
+          <h2 style={`${S.h2}max-width:34ch;`}>Why choose Breathe for trauma treatment</h2>
         </div>
         <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           {why.map((w) => (
@@ -304,8 +307,8 @@ const ld = {
     <SiteLocation />
 
     <SiteFAQ
-      heading="Questions people ask about complex trauma treatment"
-      intro="Straight answers about diagnosis, treatment approach, timing, and coverage."
+      heading="Questions people ask about trauma treatment"
+      intro="Straight answers about approach, complex trauma, timing, and coverage."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
     />
@@ -323,7 +326,7 @@ const ld = {
       heading="Are You Ready to Take the First Step?"
       subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
-      background="/Asset/Facility/facility-17-living-room-lounge.jpg"
+      background="/Asset/Facility/facility-21-quiet-reading-nook.jpg"
     />
 
     </main>
