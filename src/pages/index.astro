@@ -76,6 +76,21 @@ const whyPillars = why.map(([icon, , title, desc], i) => ({
 // size (user call 2026-09-10) — thumbnail size stays fixed, so ring size
 // is tuned via count, not card dimensions. Great Room removed per user
 // call 2026-09-10.
+
+// Per-card anchor text for the "Levels of Care & Therapies" section below,
+// replacing generic "Learn more" (Elizabeth, 2026-09-18). Keyed by href
+// rather than added to the shared `levels` array in data/home.ts, since
+// that array also feeds /programs/ and each level's own detail page --
+// this wording is specific to this homepage section only.
+const levelsCta: Record<string, string> = {
+  "/programs/residential-treatment/": "Explore Our Residential Treatment Program",
+  "/programs/medical-detox/": "Is Medical Detox Right for You? Learn More",
+  "/programs/php/": "Learn About Our PHP Day Treatment Program",
+  "/programs/intensive-outpatient/": "Explore Intensive Outpatient Treatment (IOP)",
+  "/programs/sober-living/": "Learn About Transitional & Sober Living",
+  "/programs/outpatient-rehab/": "Explore Our Outpatient Program",
+};
+
 const galleryWheelFiles = [
   "facility-07-pool-waterfall-grotto.jpg",
   "facility-10-fitness-center.jpg",
@@ -141,14 +156,21 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
        (breathelifehealingcenters.com, checked 2026-09-02, per instruction:
        the client built and approved that site themselves, so it's the
        source of truth for content gaps like this one) — same 3 outlets,
-       logo files downloaded to /Asset/Press/. */}
+       logo files downloaded to /Asset/Press/.
+
+       Intentionally NOT linked (removed 2026-09-18, urgent fix): Elizabeth's
+       rule is that these must link to the actual publication that mentions
+       Breathe, never the publisher's generic homepage. No real
+       Breathe-specific article URL exists yet for any of the three, so the
+       logos stay plain images rather than link somewhere that violates that
+       rule. Add real hrefs only once genuine per-article URLs are sourced. */}
     <section id="as-seen-on" data-screen-label="As Seen On" style="padding:44px 37px;background:#F0F5FA;border-top:1px solid #E2DED7;border-bottom:1px solid #E2DED7;">
       <div style="max-width:1100px;margin:0 auto;text-align:center;">
         <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8A94A0;margin-bottom:26px;">As Seen On</div>
         <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:44px 64px;">
-          <a href="https://www.goodmorningamerica.com/" target="_blank" rel="noopener noreferrer" aria-label="Good Morning America"><img src="/Asset/Press/good-morning-america.png" alt="Good Morning America" style="height:54px;width:auto;display:block;opacity:0.85;" /></a>
-          <a href="https://www.oprah.com/" target="_blank" rel="noopener noreferrer" aria-label="The Oprah Winfrey Show"><img src="/Asset/Press/oprah-winfrey-show.png" alt="The Oprah Winfrey Show" style="height:58px;width:auto;display:block;opacity:0.85;" /></a>
-          <a href="https://www.today.com/" target="_blank" rel="noopener noreferrer" aria-label="TODAY Show"><img src="/Asset/Press/today-show.png" alt="TODAY Show" style="height:56px;width:auto;display:block;opacity:0.85;" /></a>
+          <img src="/Asset/Press/good-morning-america.png" alt="Good Morning America" style="height:54px;width:auto;display:block;opacity:0.85;" />
+          <img src="/Asset/Press/oprah-winfrey-show.png" alt="The Oprah Winfrey Show" style="height:58px;width:auto;display:block;opacity:0.85;" />
+          <img src="/Asset/Press/today-show.png" alt="TODAY Show" style="height:56px;width:auto;display:block;opacity:0.85;" />
         </div>
       </div>
     </section>
@@ -272,7 +294,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
                   {"flag" in l && l.flag && <span style="font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF;background:#2C5A64;padding:5px 9px;">{l.flag}</span>}
                 </div>
                 <p style={`${S.card}margin:0 0 10px;`}>{l.text}</p>
-                <a href={l.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                <a href={l.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{levelsCta[l.href] ?? "Learn more"} <span aria-hidden="true">→</span></a>
               </div>
             ))}
             <a class="cta" href={HREF} style={`align-self:start;justify-self:start;${S.ctaBlue}`}>Find the right program for you</a>
