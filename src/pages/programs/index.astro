@@ -351,13 +351,16 @@ const ld = {
      width up), 5 cards leaves the 5th stranded alone in an otherwise-empty
      row -- reported as a visible gap starting around 1445px. Below 1100px
      this is untouched (still the original auto-fit reflow). From 1100px
-     up, locking to 3 fixed columns and letting the last card span 2 fills
-     its row exactly (5 = 3 + 2, and the span-2 card exactly closes the one
-     remaining cell), so there's no orphaned gap at any width in that range. */
+     up: a 6-unit column grid where every regular card spans 2 units (same
+     visual width as a plain 3-column layout), except the last 2 cards
+     (the second, incomplete row: 5 = 3 + 2), which each span 3 units --
+     an even 50/50 split that together fills the row exactly, instead of
+     one card being twice the width of the other. */
   .levels-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   @media (min-width: 1100px) {
-    .levels-grid { grid-template-columns: repeat(3, 1fr); }
-    .levels-grid > :last-child { grid-column: span 2; }
+    .levels-grid { grid-template-columns: repeat(6, 1fr); }
+    .levels-grid > * { grid-column: span 2; }
+    .levels-grid > :nth-last-child(-n+2) { grid-column: span 3; }
   }
 </style>
 
