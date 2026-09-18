@@ -347,22 +347,15 @@ const ld = {
 
 <style>
   /* Levels of care: index 0 is the separate full-width featured card
-     (grid-column:1/-1), leaving 5 regular cards below it. At auto-fit's
-     default 4-column breakpoint (fits comfortably from ~1180px content
-     width up), 5 cards leaves the 5th stranded alone in an otherwise-empty
-     row -- reported as a visible gap starting around 1445px. Below 1100px
-     this is untouched (still the original auto-fit reflow). From 1100px
-     up: a 6-unit column grid where every regular card spans 2 units (same
-     visual width as a plain 3-column layout), except the last 2 cards
-     (the second, incomplete row: 5 = 3 + 2), which each span 3 units --
-     an even 50/50 split that together fills the row exactly, instead of
-     one card being twice the width of the other. */
+     (grid-column:1/-1), leaving 5 regular cards below it, laid out with
+     the site's usual auto-fit(minmax(260px,1fr)) reflow at every width.
+     Whenever that naturally produces an incomplete last row (5 doesn't
+     divide evenly into however many columns fit at the current width),
+     the script below evens out just that trailing row -- see it for the
+     actual fix. Staying plain auto-fit here (no fixed breakpoint) means
+     the fix only ever applies when the cards genuinely don't all fit
+     together in full rows, at whatever width that happens to be. */
   .levels-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  @media (min-width: 1100px) {
-    .levels-grid { grid-template-columns: repeat(6, 1fr); }
-    .levels-grid > * { grid-column: span 2; }
-    .levels-grid > :nth-last-child(-n+2) { grid-column: span 3; }
-  }
 </style>
 
 <script>
@@ -394,4 +387,44 @@ const ld = {
 
   // The insurance-logo marquee and reviews carousel now live in
   // SiteInsurance.astro / SiteReviews.astro, shared across every page.
+
+  // ── Levels-of-care grid: even out an incomplete last row ──────────────
+  //    The grid stays plain auto-fit(minmax(260px,1fr)) in CSS (see the
+  //    <style> block above) so column count keeps responding naturally to
+  //    width. Whenever the regular-card count doesn't divide evenly into
+  //    however many columns that produces, this widens just the trailing
+  //    cards so together they still fill the row -- e.g. 5 cards in a
+  //    3-column row become 3 normal-width cards + 2 cards each exactly
+  //    half the remaining width, never 1 full-width card + empty space.
+  //    Only ever changes anything when the cards genuinely don't fit
+  //    together in full rows; a clean division (or a single column, where
+  //    there's no "row" to fill) leaves the grid untouched.
+  (() => {
+    const grid = document.querySelector<HTMLElement>(".levels-grid");
+    if (!grid) return;
+    const cards = Array.from(grid.children).slice(1) as HTMLElement[]; // skip the full-width featured card
+    const total = cards.length;
+    if (!total) return;
+
+    const apply = () => {
+      grid.style.gridTemplateColumns = "";
+      cards.forEach((c) => { c.style.gridColumn = ""; });
+      const columns = getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length;
+      const remainder = total % columns;
+      if (remainder === 0 || columns <= 1) return;
+      const units = columns * remainder;
+      grid.style.gridTemplateColumns = `repeat(${units}, 1fr)`;
+      cards.forEach((c, i) => {
+        const isTrailing = i >= total - remainder;
+        c.style.gridColumn = `span ${isTrailing ? columns : remainder}`;
+      });
+    };
+
+    apply();
+    let rz: number;
+    window.addEventListener("resize", () => {
+      clearTimeout(rz);
+      rz = window.setTimeout(apply, 150);
+    });
+  })();
 </script>
