@@ -39,7 +39,7 @@ When you're ready, chosen family is welcome to join Breathe Together, our free t
 
 ### Sources
 
-- Jackson Levin, N., et al. (2020). "We just take care of each other": Navigating chosen family in the context of health, illness, and the mutual provision of care amongst queer and transgender young adults. *International Journal of Environmental Research and Public Health*, 17(19), 7346.
-- Gardella, J. M., et al. (2021). Knowledge of chosen family history and depressive symptoms in sexual minority women. *Frontiers in Psychology*, 12, 624641.
-- DelFerro, J., et al. (2024). The role of family support in moderating mental health outcomes for LGBTQ+ youth in primary care. *JAMA Pediatrics*, 178(9), 914–922.
-- Unterrainer, H. (2022). Editorial: Human connection as a treatment for addiction. *Frontiers in Psychology*, 13, 964671.
+- [Jackson Levin, N., et al. (2020). "We just take care of each other": Navigating chosen family in the context of health, illness, and the mutual provision of care amongst queer and transgender young adults. *International Journal of Environmental Research and Public Health*, 17(19), 7346.](https://www.mdpi.com/1660-4601/17/19/7346)
+- [Gardella, J. M., et al. (2021). Knowledge of chosen family history and depressive symptoms in sexual minority women. *Frontiers in Psychology*, 12, 624641.](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.624641/full)
+- [DelFerro, J., et al. (2024). The role of family support in moderating mental health outcomes for LGBTQ+ youth in primary care. *JAMA Pediatrics*, 178(9), 914–922.](https://doi.org/10.1001/jamapediatrics.2024.1956)
+- [Unterrainer, H. (2022). Editorial: Human connection as a treatment for addiction. *Frontiers in Psychology*, 13, 964671.](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.964671/full)

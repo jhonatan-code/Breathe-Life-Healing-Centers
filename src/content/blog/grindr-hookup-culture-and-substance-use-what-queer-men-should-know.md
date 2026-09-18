@@ -39,7 +39,7 @@ Our [chemsex track](/signature-services/chemsex-treatment/) is one of the only p
 
 ### Sources
 
-- Hecht, J., et al. (2025). Swiping for connection: tribe identity and sexual health among sexual minority men who use dating apps. *Frontiers in Communication*.
-- Donndelinger, S. (2025). How apps like Grindr and Sniffies are fueling the meth crisis among gay men. *LGBTQ Nation*.
-- Zervoulis, K., et al. (2019). Use of gay dating apps and its relationship with individual well-being and sense of community in men who have sex with men. ResearchGate.
-- Mundy, L., et al. (2025). The complex social, cultural and psychological drivers of chemsex experiences of men who have sex with men: a systematic review. PMC, National Library of Medicine.
+- [Hecht, J., et al. (2025). Swiping for connection: tribe identity and sexual health among sexual minority men who use dating apps. *Frontiers in Communication*.](https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2025.1683130/full)
+- [Donndelinger, S. (2025). How apps like Grindr and Sniffies are fueling the meth crisis among gay men. *LGBTQ Nation*.](https://www.lgbtqnation.com/2025/05/how-apps-like-grindr-and-sniffies-are-fueling-the-crisis-among-gay-men/)
+- [Zervoulis, K., et al. (2019). Use of gay dating apps and its relationship with individual well-being and sense of community in men who have sex with men. ResearchGate.](https://www.researchgate.net/publication/336814206_Use_of_'gay_dating_apps'_and_its_relationship_with_individual_well-being_and_sense_of_community_in_men_who_have_sex_with_men)
+- [Mundy, L., et al. (2025). The complex social, cultural and psychological drivers of chemsex experiences of men who have sex with men: a systematic review. PMC, National Library of Medicine.](https://pmc.ncbi.nlm.nih.gov/articles/PMC11869904/)

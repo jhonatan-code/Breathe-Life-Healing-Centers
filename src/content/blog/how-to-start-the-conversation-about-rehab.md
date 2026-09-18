@@ -91,12 +91,12 @@ If you've read this far, you're already taking one of the more courageous steps:
 
 ### Sources
 
-- NCBI StatPearls, "Stages of Change Theory"
-- Partnership to End Addiction, "The CRAFT Approach"
-- National Institute on Drug Abuse, "Words Matter: Terms to Use and Avoid When Talking About Addiction"
-- SAMHSA, "Using Motivational Interviewing in Substance Use Disorder Treatment"
-- NCBI, "Chapter 3: Family Counseling Approaches"
-- Mayo Clinic, "Intervention: Help a Loved One Overcome Addiction"
-- Health Canada, "How to Talk to a Family Member or Friend About Their Drug or Alcohol Use"
-- Addiction Policy Forum, "Burnout and Stress Among Family Members: Self-Care Tips to Follow"
-- NCADD, "Talking to Youth and Young Adults"
+- [NCBI StatPearls, "Stages of Change Theory"](https://www.ncbi.nlm.nih.gov/books/NBK556005/)
+- [Partnership to End Addiction, "The CRAFT Approach"](https://drugfree.org/article/craft-community-reinforcement-family-training/)
+- [National Institute on Drug Abuse, "Words Matter: Terms to Use and Avoid When Talking About Addiction"](https://nida.nih.gov/nidamed-medical-health-professionals/health-professions-education/words-matter-terms-to-use-avoid-when-talking-about-addiction)
+- [SAMHSA, "Using Motivational Interviewing in Substance Use Disorder Treatment"](https://www.samhsa.gov/resource/recovery/using-motivational-interviewing-substance-use-disorder-treatment)
+- [NCBI, "Chapter 3: Family Counseling Approaches"](https://www.ncbi.nlm.nih.gov/books/NBK571088/)
+- [Mayo Clinic, "Intervention: Help a Loved One Overcome Addiction"](https://www.mayoclinic.org/diseases-conditions/mental-illness/in-depth/intervention/art-20047451)
+- [Health Canada, "How to Talk to a Family Member or Friend About Their Drug or Alcohol Use"](https://www.canada.ca/en/health-canada/services/substance-use/talking-about-drugs/help-friend.html)
+- [Addiction Policy Forum, "Burnout and Stress Among Family Members: Self-Care Tips to Follow"](https://www.addictionpolicy.org/post/burnout-and-stress-among-family-members-self-care-tips-to-follow)
+- [NCADD, "Talking to Youth and Young Adults"](https://ncaddnational.org/talking-to-youth-and-young-adults/)

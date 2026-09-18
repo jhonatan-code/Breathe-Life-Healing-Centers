@@ -80,13 +80,13 @@ For families, the guidance is simple to state and hard to live: set boundaries t
 
 ### Sources
 
-- Health and Human Rights Journal, "The Expansion of Involuntary Commitment in the United States" (2025)
-- PMC, "The Effectiveness of Compulsory Drug Treatment"
-- PMC, "Does Mandating Offenders to Treatment Improve Completion Rates?"
-- Mayo Clinic, "Intervention: Help a Loved One Overcome Addiction"
-- Johns Hopkins Opioid Principles, "What to Know About Mandated Treatment Programs"
-- PMC, "The Community Reinforcement Approach: An Update of the Evidence"
-- Social Work Today, "Motivational Interviewing and Addictions: Collaboration, Not Confrontation"
-- Recovery Research Institute, "What Happens to Patients' Motivation if They Are Mandated to Treatment?"
-- PMC, "Family-Focused Practices in Addictions: A Scoping Review Protocol"
-- Mintz, "New California Mental Health and Addiction Treatment Laws"
+- [Health and Human Rights Journal, "The Expansion of Involuntary Commitment in the United States" (2025)](https://www.hhrjournal.org/2025/05/12/whats-old-is-new-again-in-addiction-treatment-the-expansion-of-involuntary-commitment-in-the-united-states/)
+- [PMC, "The Effectiveness of Compulsory Drug Treatment"](https://pmc.ncbi.nlm.nih.gov/articles/PMC4752879/)
+- [PMC, "Does Mandating Offenders to Treatment Improve Completion Rates?"](https://pubmed.ncbi.nlm.nih.gov/23192219/)
+- [Mayo Clinic, "Intervention: Help a Loved One Overcome Addiction"](https://www.mayoclinic.org/diseases-conditions/mental-illness/in-depth/intervention/art-20047451)
+- [Johns Hopkins Opioid Principles, "What to Know About Mandated Treatment Programs"](https://opioidprinciples.jhsph.edu/what-to-know-about-mandated-treatment-programs/)
+- [PMC, "The Community Reinforcement Approach: An Update of the Evidence"](https://pmc.ncbi.nlm.nih.gov/articles/PMC3860533/)
+- [Social Work Today, "Motivational Interviewing and Addictions: Collaboration, Not Confrontation"](https://www.socialworktoday.com/archive/111715p22.shtml)
+- [Recovery Research Institute, "What Happens to Patients' Motivation if They Are Mandated to Treatment?"](https://www.recoveryanswers.org/research-post/mandated-treatment-motivation-change/)
+- [PMC, "Family-Focused Practices in Addictions: A Scoping Review Protocol"](https://pubmed.ncbi.nlm.nih.gov/29331973/)
+- [Mintz, "New California Mental Health and Addiction Treatment Laws"](https://www.mintz.com/insights-center/viewpoints/2146/2023-05-04-new-california-mental-health-and-addiction-treatment)

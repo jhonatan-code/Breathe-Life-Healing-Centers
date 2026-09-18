@@ -45,6 +45,6 @@ We've been doing this work since 2013. Our [chemsex track](/signature-services/c
 
 ### Sources
 
-- McGregor, C., et al. (2005). The nature, time course and severity of methamphetamine withdrawal. *Addiction*, 100(9), 1320–1329.
-- Li, M. J., & Shoptaw, S. J. (2023). Clinical management of psychostimulant withdrawal: Review of the evidence. *Addiction*, 118(4), 750–762.
-- Giorgetti, R., et al. (2025). Drugs used in chemsex/sexualized drug behaviour: Overview of the related clinical psychopharmacological issues. PMC, National Library of Medicine.
+- [McGregor, C., et al. (2005). The nature, time course and severity of methamphetamine withdrawal. *Addiction*, 100(9), 1320–1329.](https://pubmed.ncbi.nlm.nih.gov/16128721/)
+- [Li, M. J., & Shoptaw, S. J. (2023). Clinical management of psychostimulant withdrawal: Review of the evidence. *Addiction*, 118(4), 750–762.](https://pmc.ncbi.nlm.nih.gov/articles/PMC10069411/)
+- [Giorgetti, R., et al. (2025). Drugs used in chemsex/sexualized drug behaviour: Overview of the related clinical psychopharmacological issues. PMC, National Library of Medicine.](https://pmc.ncbi.nlm.nih.gov/articles/PMC12110642/)
