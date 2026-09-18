@@ -53,6 +53,7 @@ const accreditations: [string, string, string?][] = [
   ["/Asset/Accreditations/Legit.svg", "LegitScript Certified", "https://www.legitscript.com/websites/?checker_keywords=breathelifehealingcenters.com"],
   ["/Asset/Accreditations/Fair%20Care.svg", "Fair Care Promise"],
   ["/Asset/Accreditations/DHCS.svg", "Licensed by the California Department of Health Care Services", "https://www.dhcs.ca.gov/provgovpart/Pages/Licensing_and_Certification_Division.aspx"],
+  ["/Asset/Accreditations/NAATP.svg", "NAATP Member", "https://www.naatp.org/resources/addiction-industry-directory/101/breathe-life-healing-centers"],
 ];
 
 const explore = [
@@ -154,10 +155,9 @@ const ld = {
     {/* ══════════════  ACCREDITATIONS — Verification Trail  ══════════════
        The real logos sit inside seal-style medallions along one connecting
        line, reading as a sequence of independent checks. Descriptions are
-       generic, publicly-verifiable facts about only the three the client
-       named; "Fair Care Promise" gets its name and logo like the other
-       three but no invented description, since none exists anywhere in
-       this project beyond the badge name itself. */}
+       generic, publicly-verifiable facts, confirmed by the client for each
+       badge shown (Fair Care Promise's "Delivering Excellence Since 2013"
+       added 2026-09-18, tied to the confirmed founding year). */}
     <section data-screen-label="Accreditations" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1000px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Trust &amp; credentials</div>
@@ -174,11 +174,16 @@ const ld = {
                   ? "Verified as a legitimate treatment provider."
                   : alt === "Licensed by the California Department of Health Care Services"
                   ? `Licensed by the state's DHCS (${site.licenses.map((l) => l.number).join(" · ")}).`
+                  : alt === "Fair Care Promise"
+                  ? "Delivering Excellence Since 2013."
+                  : alt === "NAATP Member"
+                  ? "Member of the National Association of Addiction Treatment Providers."
                   : null;
               const label =
                 alt === "The Joint Commission National Quality Approval Gold Seal" ? "The Joint Commission"
                 : alt === "LegitScript Certified" ? "LegitScript"
                 : alt === "Licensed by the California Department of Health Care Services" ? "California DHCS"
+                : alt === "NAATP Member" ? "NAATP"
                 : alt;
               const ring = (
                 <div class="trail-ring">
