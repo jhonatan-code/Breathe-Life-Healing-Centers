@@ -313,9 +313,8 @@ const ld = {
 
   /* ── Verification Trail — "Trust & credentials" ────────────────────── */
   .trail { position: relative; }
-  .trail-row { --trail-gap: 44px; position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--trail-gap); }
-  .trail-item { position: relative; text-align: center; }
-  .trail-item:not(:first-child)::before { content: ""; position: absolute; top: 35px; left: calc(-1 * var(--trail-gap)); width: var(--trail-gap); height: 2px; background: #E2DED7; }
+  .trail-row { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 44px; }
+  .trail-item { text-align: center; }
   .trail-ring { height: 70px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
   .trail-ring img { height: 70px; width: auto; max-width: 100%; object-fit: contain; }
   .trail-item h3 { font-family: "Instrument Sans", sans-serif; font-size: 16px; font-weight: 600; margin: 0 0 6px; color: #14181C; }
@@ -325,7 +324,7 @@ const ld = {
     font-family: "Instrument Sans", sans-serif; font-size: 16px; font-weight: 700; color: #2C5A64;
   }
   .trail-end .msym { font-size: 18px; }
-  @media (max-width: 760px) { .trail-row { grid-template-columns: 1fr 1fr; row-gap: 26px; } .trail-item::before { display: none; } }
+  @media (max-width: 760px) { .trail-row { grid-template-columns: 1fr 1fr; row-gap: 26px; } }
   @media (max-width: 480px) { .trail-row { grid-template-columns: 1fr; } }
 </style>
 
