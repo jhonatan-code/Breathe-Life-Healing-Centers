@@ -1,5 +1,6 @@
 ---
 import { msymChar } from "../../lib/icons";
+import { LEVEL_CTA } from "../../lib/levelLinks";
 /**
  * /programs/ — Programs & Levels of Care overview (sitemap: "Levels of Care
  * (overview)"). Every fact on this page is reused verbatim (or lightly
@@ -212,7 +213,7 @@ const ld = {
                     {"flag" in l && l.flag && <span style="font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF;background:#2C5A64;padding:5px 9px;border-radius:4px;">{l.flag}</span>}
                   </div>
                   <p style={`${S.card}font-size:16px;max-width:64ch;margin-bottom:14px;`}>{l.text}</p>
-                  <a href={levelHrefs[l.title]} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                  <a href={levelHrefs[l.title]} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{LEVEL_CTA[levelHrefs[l.title]] ?? "Learn more"} <span aria-hidden="true">→</span></a>
                 </div>
               </div>
             ) : (
@@ -226,7 +227,7 @@ const ld = {
                 <div style="display:flex;flex-direction:column;gap:14px;padding:26px 26px 28px;flex:1;">
                   <h3 style="font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0;text-wrap:balance;">{l.title}</h3>
                   <p style={`${S.card}flex:1;`}>{l.text}</p>
-                  <a href={levelHrefs[l.title]} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                  <a href={levelHrefs[l.title]} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{LEVEL_CTA[levelHrefs[l.title]] ?? "Learn more"} <span aria-hidden="true">→</span></a>
                 </div>
               </div>
             )
@@ -261,7 +262,7 @@ const ld = {
                   ) : (
                     <p style={`${S.card}flex:1;font-style:italic;`}>"{c.quote}"<br /><span style="font-style:normal;font-size:13px;color:#646D76;">{c.attribution}</span></p>
                   )}
-                  <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                  <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn About Our {c.title} <span aria-hidden="true">→</span></a>
                 </div>
               </div>
             );

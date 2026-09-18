@@ -150,7 +150,7 @@ const S = {
           <div id="nd-panel-badge" style="display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px;"></div>
           <h3 id="nd-panel-title" style="font-size:20px;font-weight:600;letter-spacing:-0.014em;margin:0 0 8px;"></h3>
           <p id="nd-panel-text" style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;margin:0 0 16px;"></p>
-          <a id="nd-panel-link" href="#" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+          <a id="nd-panel-link" href="#" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;"><span id="nd-panel-link-text">Learn more</span> <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -217,6 +217,7 @@ const S = {
     const panelTitle = document.getElementById("nd-panel-title");
     const panelText = document.getElementById("nd-panel-text");
     const panelLink = document.getElementById("nd-panel-link") as HTMLAnchorElement | null;
+    const panelLinkText = document.getElementById("nd-panel-link-text");
 
     const info: Record<string, { label: string; text: string; href: string; kind: "hub" | "condition" | "substance" }> = {};
     nodes.forEach((n) => {
@@ -244,6 +245,7 @@ const S = {
         panelTitle.textContent = d.label;
         panelText.textContent = d.text;
         panelLink.href = d.href;
+        if (panelLinkText) panelLinkText.textContent = `See How We Treat ${d.label}`;
       }
     };
 
