@@ -45,10 +45,10 @@ const S = {
 };
 
 const care = [
-  { icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", text: "A medically supported start, before moving into ongoing care." },
-  { icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", text: "Full-time structure and clinical support at our Laurel Canyon campus." },
-  { icon: "wb_sunny", title: "PHP & IOP", href: "/programs/php/", text: "Structured day treatment and intensive outpatient options as you step down." },
-  { icon: "diversity_3", title: "What We Treat", href: "/what-we-treat/", text: "Substance use, co-occurring conditions, and more — see everything we treat." },
+  { icon: "monitor_heart", title: "Medical Detox", href: "/programs/medical-detox/", text: "A medically supported start, before moving into ongoing care.", cta: "Learn About Medical Detox" },
+  { icon: "cottage", title: "Residential Treatment", href: "/programs/residential-treatment/", text: "Full-time structure and clinical support at our Laurel Canyon campus.", cta: "Explore Residential Treatment" },
+  { icon: "wb_sunny", title: "PHP & IOP", href: "/programs/php/", text: "Structured day treatment and intensive outpatient options as you step down.", cta: "Learn About PHP & IOP" },
+  { icon: "diversity_3", title: "What We Treat", href: "/what-we-treat/", text: "Substance use, co-occurring conditions, and more — see everything we treat.", cta: "See Everything We Treat" },
 ];
 
 const faqs = [
@@ -191,7 +191,7 @@ const ld = {
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
                 <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></span>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{c.cta} <span aria-hidden="true">→</span></span>
               </a>
             );
           })}

@@ -42,22 +42,30 @@ const S = {
   card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
 };
 
+// cta text is per-item rather than a "Learn About Our {title}" formula
+// (used on the other related-card grids): these four are a media page, a
+// tool, a guide, and a contact form, not treatment offerings, so a single
+// formula didn't fit all of them naturally (title-driven fix, 2026-09-18).
 const links = [
   {
     icon: "newspaper", title: "Media / Press", href: "/resources/media/",
     text: "Press inquiries, guidance on choosing a treatment center, and downloadable materials as we publish them.",
+    cta: "Visit Media & Press",
   },
   {
     icon: "fact_check", title: "Verify Your Insurance", href: "/admissions/insurance/",
     text: "Check what your plan covers before you commit to anything. Our team verifies benefits directly with your carrier.",
+    cta: "Check Your Coverage Now",
   },
   {
     icon: "checklist", title: "Admissions Guide", href: "/admissions/",
     text: "What happens from your first call to your first day — step by step, with nothing skipped.",
+    cta: "Read Our Admissions Guide",
   },
   {
     icon: "forum", title: "Contact Us", href: "/contact-us/",
     text: "Reach our admissions team directly, 24/7, by phone or message.",
+    cta: "Get In Touch With Us",
   },
 ];
 
@@ -142,7 +150,7 @@ const ld = {
                 </span>
                 <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0;text-wrap:balance;">{c.title}</h3>
                 <p style={`${S.card}flex:1;`}>{c.text}</p>
-                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
+                <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">{c.cta} <span aria-hidden="true">→</span></a>
               </div>
             );
           })}
