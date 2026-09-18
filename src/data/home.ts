@@ -169,7 +169,12 @@ export const faqGroups = [
  *  /about/our-team/brad-lamm/ is live with his real bio. */
 export const team = [
   { name: "Brad Lamm", slug: "brad-lamm", badge: "CIP", role: "Founder", photo: "/Asset/Our%20Team/Brad-Lamm.webp",
-    bio: "Founded Breathe after his own recovery in 2003, personally selects every clinician on staff." },
+    bio: "Founded Breathe after his own recovery in 2003, personally selects every clinician on staff.",
+    // First paragraph of his real first-person bio on /about/our-team/brad-lamm/
+    // (itself verbatim from the official site, per that page's own header
+    // comment), reused here verbatim for the blog "About the author" card —
+    // same treatment as a staff bio quote, so the em dash stays as he wrote it.
+    authorBio: "Some moments in life define us. For me, it was the realization that a single yes—a willingness to receive help—can be the turning point in someone's journey. That yes is where transformation begins, and supporting people in reaching that moment is the greatest use of my time, talent, and life that I can imagine." },
   { name: "Beck Gee", slug: "beck-gee", badge: "CADC-II, AMFT", role: "Chief Executive Officer", photo: "/Asset/Our%20Team/Beck-Gee.jpg",
     bio: "A trans man in recovery, leading Breathe's clinical and operational vision day to day.",
     // Short first-person bio, verbatim from the live site's author archive

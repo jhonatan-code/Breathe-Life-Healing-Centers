@@ -118,7 +118,7 @@ export function getAuthor(authorSlug: string | undefined): AuthorInfo | null {
   }
   for (const group of roster) {
     const person = group.people.find((p) => p.slug === authorSlug);
-    if (person) return { name: person.name, role: person.role, photo: person.photo, slug: person.slug, bio: (person as { bio?: string }).bio };
+    if (person) return { name: person.name, role: person.role, photo: person.photo, slug: person.slug, bio: person.bio, authorBio: person.authorBio };
   }
   return null;
 }

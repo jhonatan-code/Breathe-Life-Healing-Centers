@@ -15,7 +15,7 @@ import { team } from "./home";
  * + "More from this department" strip via TeamProfile.astro, added
  * 2026-09-15). Do not duplicate this array anywhere else.
  */
-export const roster: { dept: string; people: { name: string; role: string; photo: string; slug: string; bio?: string }[] }[] = [
+export const roster: { dept: string; people: { name: string; role: string; photo: string; slug: string; bio?: string; authorBio?: string }[] }[] = [
   {
     dept: "Medical Team",
     people: [
@@ -32,7 +32,12 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Valerio Iovino, PsyD, LAADC, ASAT", role: "Primary Therapist", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "valerio-iovino" },
       { name: "Iza Kiacz, MA, AMFT", role: "Therapist", photo: "/Asset/Our%20Team/iza-kiacz.jpg", slug: "iza-kiacz" },
       { name: "Sarah Johnson, MA, AMFT", role: "Therapist", photo: "/Asset/Our%20Team/sarah-johnson.jpg", slug: "sarah-johnson" },
-      { name: "Shoshana Katz, LMFT", role: "Therapist", photo: "/Asset/Our%20Team/shoshana-katz.jpg", slug: "shoshana-katz", bio: "Brings a relational, trauma-informed approach to individual, adolescent, and family therapy." },
+      { name: "Shoshana Katz, LMFT", role: "Therapist", photo: "/Asset/Our%20Team/shoshana-katz.jpg", slug: "shoshana-katz", bio: "Brings a relational, trauma-informed approach to individual, adolescent, and family therapy.",
+        // First paragraph of her real bio on /about/our-team/shoshana-katz/
+        // (third person there since no first-person quote from her exists
+        // for Breathe specifically, per that page's own header comment),
+        // reused verbatim for the blog "About the author" card.
+        authorBio: "Shoshana Katz is a licensed Marriage and Family Therapist and a trans woman who brings a relational, trauma-informed approach to her work with individuals, adolescents, and families. She holds a B.A. in Cultural Anthropology, an MSc in Psychological and Psychiatric Anthropology from Brunel University in London, and an M.A. in Clinical Psychology from Antioch University, Los Angeles." },
       { name: "Rachel Aiono, ASW", role: "Therapist", photo: "/Asset/Our%20Team/rachel-aiono.jpg", slug: "rachel-aiono" },
       { name: "Vivian Rubio, CADC-II", role: "Counselor", photo: "/Asset/Our%20Team/vivian-rubio.jpg", slug: "vivian-rubio" },
       { name: "Blake Dinger, CADC", role: "Counselor", photo: "/Asset/Our%20Team/blake-dinger.jpg", slug: "blake-dinger" },

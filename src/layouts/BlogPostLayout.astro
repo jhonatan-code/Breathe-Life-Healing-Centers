@@ -91,10 +91,14 @@ const ld = {
             <h1>{data.title.replace(/\s*\|\s*Breathe$/, '')}</h1>
             <div class="post-byline">
               {author ? (
-                <a class="author-chip" href={`/about/our-team/${author.slug}/`}>
-                  <img src={author.photo} alt={author.name} loading="lazy" />
-                  <span><span class="name">{author.name}</span>{author.badge && <><br /><span class="cred">{author.badge}</span></>}</span>
-                </a>
+                <div class="author-chip">
+                  <a href={`/about/our-team/${author.slug}/`} class="author-chip-top">
+                    <img src={author.photo} alt={author.name} loading="lazy" />
+                    <span><span class="name">{author.name}</span>{author.badge && <><br /><span class="cred">{author.badge}</span></>}</span>
+                  </a>
+                  {(author.authorBio || author.bio) && <p class="author-chip-bio">{author.authorBio || author.bio}</p>}
+                  <a href={`/about/our-team/${author.slug}/`} class="author-chip-more">Learn more about {author.name.split(' ')[0]} &rarr;</a>
+                </div>
               ) : (
                 <a class="author-chip" href="/blog/"><span class="name">Breathe Team</span></a>
               )}
@@ -126,19 +130,6 @@ const ld = {
           <div class="post-foot-share">
             <ShareButtons url={canonicalUrl} title={data.title.replace(/\s*\|\s*Breathe$/, '')} variant="light" />
           </div>
-          {author && (
-            <div class="author-box">
-              <a href={`/about/our-team/${author.slug}/`} class="author-box-photo">
-                <img src={author.photo} alt={author.name} loading="lazy" />
-              </a>
-              <div class="author-box-body">
-                <div class="author-box-label">Written by</div>
-                <a href={`/about/our-team/${author.slug}/`} class="author-box-name">{author.name}{author.badge && <span class="author-box-cred">, {author.badge}</span>}</a>
-                {author.bio && <p class="author-box-bio">{author.bio}</p>}
-                <a href={`/about/our-team/${author.slug}/`} class="author-box-more">Read more about {author.name.split(' ')[0]} &rarr;</a>
-              </div>
-            </div>
-          )}
         </article>
 
         <BlogSidebar related={related} />
@@ -262,34 +253,47 @@ const ld = {
   .post-banner .banner-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
   .post-banner .banner-overlay { position: absolute; inset: 0; background: linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.55) 100%); }
   .post-banner .inner { position: relative; max-width: 1440px; margin: 0 auto; }
-  .post-banner .banner-col { max-width: 900px; }
+  /* No max-width cap here on purpose: the meta row (category badge, date,
+     share icons) needs to reach the same full edge as every other section
+     on the site, not sit confined to a narrower reading-width block. The
+     headline still reads comfortably because .post-banner h1 caps its own
+     width below. */
   .crumbs { font-family: 'Instrument Sans', sans-serif; font-size: 12px; color: #9DB2C2; margin-bottom: 18px; }
   .crumbs a { color: #9DB2C2; text-decoration: none; }
   .crumbs a:hover { color: #fff; }
   .post-cat { display: inline-block; font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #16293D; background: #7FB3BC; padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; }
   .post-banner h1 { font-size: clamp(30px,4vw,46px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 22px; max-width: 850px; text-wrap: balance; }
-  .post-byline { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 14px; color: #C7D4DE; }
-  .author-chip { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .post-byline { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 14px; color: #C7D4DE; }
+  .author-chip { display: flex; flex-direction: column; gap: 10px; max-width: 340px; text-decoration: none; }
   .author-chip:hover .name { text-decoration: underline; }
-  .author-chip img { width: 36px; height: 36px; border-radius: 999px; object-fit: cover; flex: 0 0 auto; }
+  .author-chip-top { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .author-chip-top:hover .name { text-decoration: underline; }
+  .author-chip-top img { width: 44px; height: 44px; border-radius: 999px; object-fit: cover; flex: 0 0 auto; }
   .author-chip .name { color: #fff; font-weight: 600; }
   .author-chip .cred { color: #9DB2C2; font-size: 12px; }
+  .author-chip-bio {
+    font-family: 'Montserrat', sans-serif; font-size: 13.5px; line-height: 1.55; color: #C7D4DE; margin: 0;
+    display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .author-chip-more { font-family: 'Instrument Sans', sans-serif; font-size: 12.5px; font-weight: 600; color: #7FB3BC; text-decoration: none; }
+  .author-chip-more:hover { text-decoration: underline; }
   .byline-meta { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .dot { opacity: .5; }
   .share-wrap { margin-top: 24px; }
   .mobile-toc { display: none; }
 
-  /* Desktop-only byline split: author left, category/date/share stacked
-     right. .post-byline dissolves via display:contents so its two children
-     (author-chip, byline-meta) become direct grid items alongside .post-cat
-     and .share-wrap, which otherwise live outside it in the DOM — grid-area
-     placement is what lets all four reflow into one banner-col grid without
-     re-ordering markup. Below 981px none of this applies; .post-byline stays
-     a plain flex row exactly as before. */
+  /* Desktop-only byline split: author left (fixed width, now that it
+     carries a 3+ line bio), category/date/share stacked right, stretched
+     to the banner's full width. .post-byline dissolves via display:contents
+     so its two children (author-chip, byline-meta) become direct grid
+     items alongside .post-cat and .share-wrap, which otherwise live outside
+     it in the DOM — grid-area placement is what lets all four reflow into
+     one banner-col grid without re-ordering markup. Below 981px none of
+     this applies; .post-byline stays a plain flex row exactly as before. */
   @media (min-width: 981px) {
     .banner-col {
       display: grid;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 340px 1fr;
       column-gap: 48px;
       row-gap: 10px;
       align-items: start;
@@ -310,11 +314,17 @@ const ld = {
     .share-wrap { grid-area: share; justify-self: end; margin-top: 0; }
   }
 
-  .post-layout { max-width: 1440px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: 1fr 320px; gap: 32px; align-items: start; }
+  /* Content column is capped at 720px (not just 1fr) so the sidebar sits
+     right up against it with only the grid `gap` between them — with a
+     plain 1fr column, the sidebar could end up ~250px+ away from the
+     actual (narrower, max-width-capped) article text, which read as a
+     much bigger gap than the `gap` value alone suggested. minmax(0,...)
+     lets it shrink below 720px on medium viewports instead of overflowing. */
+  .post-layout { max-width: 1440px; margin: 0 auto; padding: 48px 37px 0; display: grid; grid-template-columns: minmax(0, 720px) 320px; gap: 40px; align-items: start; }
   @media (min-width: 981px) {
     .post-layout { padding-bottom: 60px; }
   }
-  .post-content { font-family: 'Montserrat', sans-serif; font-size: 17px; line-height: 1.75; color: #3A444D; max-width: 720px; }
+  .post-content { font-family: 'Montserrat', sans-serif; font-size: 17px; line-height: 1.75; color: #3A444D; background: #FFFFFF; border: 1px solid #E5E1D8; border-radius: 16px; padding: 40px; }
   .post-content :global(h2) { font-family: 'Instrument Sans', sans-serif; font-size: clamp(22px,2.6vw,28px); line-height: 1.25; font-weight: 600; letter-spacing: -0.02em; color: #14181C; margin: 36px 0 14px; scroll-margin-top: 100px; }
   .post-content :global(h2:first-child) { margin-top: 0; }
   .post-content :global(h3) { font-family: 'Instrument Sans', sans-serif; font-size: 19px; line-height: 1.3; font-weight: 600; color: #14181C; margin: 28px 0 12px; scroll-margin-top: 100px; }
@@ -338,24 +348,6 @@ const ld = {
   .post-content :global(th) { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #2C5A64; border-bottom: 2px solid #E5E1D8; }
   .post-content :global(table) { display: block; overflow-x: auto; }
   .post-foot-share { margin: 40px 0 0; }
-
-  .author-box {
-    display: flex; gap: 16px; align-items: flex-start; margin-top: 32px; padding: 22px;
-    background: #FFFFFF; border: 1px solid #E5E1D8; border-radius: 14px;
-  }
-  .author-box-photo { flex: 0 0 auto; display: block; }
-  .author-box-photo img { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; display: block; }
-  .author-box-label { font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB3BC; margin-bottom: 4px; }
-  .author-box-name { font-family: 'Instrument Sans', sans-serif; font-size: 16px; font-weight: 600; color: #14181C; text-decoration: none; }
-  .author-box-name:hover { text-decoration: underline; }
-  .author-box-cred { font-weight: 400; color: #646D76; }
-  .author-box-bio {
-    font-family: 'Montserrat', sans-serif; font-size: 14.5px; line-height: 1.5; color: #3A444D;
-    margin: 6px 0 8px;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  }
-  .author-box-more { font-family: 'Instrument Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: #33679C; text-decoration: none; }
-  .author-box-more:hover { text-decoration: underline; }
 
   .related-section { max-width: 1180px; margin: 60px auto 0; padding: 0 37px 20px; }
   .related-section .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; margin-bottom: 18px; }
@@ -395,6 +387,7 @@ const ld = {
   }
   @media (max-width: 640px) {
     .post-layout { padding-inline: 20px; }
+    .post-content { padding: 24px; }
     .related-section { padding-inline: 20px; }
   }
 </style>
