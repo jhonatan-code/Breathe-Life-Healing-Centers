@@ -196,7 +196,7 @@ const ld = {
           <h2 style={`${S.h2}max-width:40ch;`}>Flexible, Structured Levels of Care</h2>
           <p style={`${S.intro}max-width:80ch;`}>Every stay starts with an assessment, then moves through whichever of these levels fit, in either direction, as your needs change.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+        <div class="levels-grid" style="display:grid;gap:20px;">
           {levels.map((l, i) => (
             i === 0 ? (
               <div class="treat-card" style="grid-column:1/-1;display:flex;align-items:center;gap:32px;flex-wrap:wrap;background:linear-gradient(120deg,#F7F5F1 0%,#EDF3F6 100%);border-top:3px solid #33679C;border-radius:16px;padding:24px 36px 24px 24px;overflow:hidden;">
@@ -343,6 +343,23 @@ const ld = {
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </div>
 </Layout>
+
+<style>
+  /* Levels of care: index 0 is the separate full-width featured card
+     (grid-column:1/-1), leaving 5 regular cards below it. At auto-fit's
+     default 4-column breakpoint (fits comfortably from ~1180px content
+     width up), 5 cards leaves the 5th stranded alone in an otherwise-empty
+     row -- reported as a visible gap starting around 1445px. Below 1100px
+     this is untouched (still the original auto-fit reflow). From 1100px
+     up, locking to 3 fixed columns and letting the last card span 2 fills
+     its row exactly (5 = 3 + 2, and the span-2 card exactly closes the one
+     remaining cell), so there's no orphaned gap at any width in that range. */
+  .levels-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  @media (min-width: 1100px) {
+    .levels-grid { grid-template-columns: repeat(3, 1fr); }
+    .levels-grid > :last-child { grid-column: span 2; }
+  }
+</style>
 
 <script>
   // ── Section reveal on scroll (same behaviour as the homepage) ────────────
