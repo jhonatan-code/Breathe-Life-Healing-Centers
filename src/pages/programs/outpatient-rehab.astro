@@ -1,5 +1,6 @@
 ---
 import { msymChar } from "../../lib/icons";
+import { LEVEL_CTA } from "../../lib/levelLinks";
 /**
  * /programs/outpatient-rehab/ — structural/marketing copy only; the core
  * definition line reuses the already-approved `levels` entry ("Outpatient
@@ -224,7 +225,7 @@ const ld = {
                   <p class="op-fork-prompt">{f.prompt}</p>
                   <h3 class="op-fork-title">{f.title}</h3>
                   <p class="op-fork-text">{f.text}</p>
-                  <a class="op-fork-link" href={f.href}>Learn more <span aria-hidden="true">→</span></a>
+                  <a class="op-fork-link" href={f.href}>{LEVEL_CTA[f.href] ?? "Learn more"} <span aria-hidden="true">→</span></a>
                 </div>
               );
             })}

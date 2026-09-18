@@ -1,5 +1,6 @@
 ---
 import { msymChar } from "../../lib/icons";
+import { LEVEL_CTA } from "../../lib/levelLinks";
 /**
  * /programs/intensive-outpatient/ — structural/marketing copy only; the core
  * definition line reuses the already-approved `levels` entry ("IOP —
@@ -219,7 +220,7 @@ const ld = {
               <p class="iop-strip-when">{step.n}</p>
               <p class="iop-strip-title">{step.title}</p>
               <p class="iop-strip-text">{step.text}</p>
-              {step.href && <a class="iop-strip-link" href={step.href}>Learn more <span aria-hidden="true">→</span></a>}
+              {step.href && <a class="iop-strip-link" href={step.href}>{LEVEL_CTA[step.href] ?? "Learn more"} <span aria-hidden="true">→</span></a>}
             </div>
           ))}
         </div>

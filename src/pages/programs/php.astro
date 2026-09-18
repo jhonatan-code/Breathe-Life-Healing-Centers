@@ -1,5 +1,6 @@
 ---
 import { msymChar } from "../../lib/icons";
+import { LEVEL_CTA } from "../../lib/levelLinks";
 /**
  * /programs/php/ — structural/marketing copy only; the core definition line
  * reuses the already-approved `levels` entry ("PHP — Day Treatment (SUD, MH)")
@@ -217,7 +218,7 @@ const ld = {
               </>
             );
             return step.href ? (
-              <a href={step.href} class="ladder-step">{inner}<span class="ladder-link">Learn more <span aria-hidden="true">→</span></span></a>
+              <a href={step.href} class="ladder-step">{inner}<span class="ladder-link">{LEVEL_CTA[step.href] ?? "Learn more"} <span aria-hidden="true">→</span></span></a>
             ) : (
               <div class="ladder-step ladder-step--active">{inner}</div>
             );
