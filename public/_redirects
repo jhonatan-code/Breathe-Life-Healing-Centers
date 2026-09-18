@@ -257,3 +257,8 @@
 /conditions/complex-trauma/ /what-we-treat/complex-trauma/ 301
 /conditions/trauma/ /what-we-treat/trauma/ 301
 /conditions/dual-diagnosis/ /what-we-treat/dual-diagnosis/ 301
+
+# /about/outpatient-photos/ merged into /about/campus-photos/ (2026-09-18,
+# duplicate gallery removed) -- see astro.config.mjs's
+# outpatientPhotosMergeRedirects.
+/about/outpatient-photos/ /about/campus-photos/ 301

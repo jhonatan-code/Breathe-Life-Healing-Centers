@@ -93,10 +93,24 @@ const conditionsMergeRedirects = {
   "/conditions/dual-diagnosis/": "/what-we-treat/dual-diagnosis/",
 };
 
+// /about/outpatient-photos/ removed (2026-09-18, user feedback): it was a
+// near-duplicate of /about/campus-photos/ using the same facility photo set
+// (the original build note on that page explains why -- the asset
+// filenames don't reliably distinguish outpatient-office photos from
+// residential-campus ones), which meant bedroom/spa/pool photos were
+// showing up on a page framed as the outpatient (non-residential) location.
+// Consolidated into the one gallery page, matching how the official site
+// (breathelifehealingcenters.com/locations/campus-photos/) has only a
+// single campus-photos page, not two.
+const outpatientPhotosMergeRedirects = {
+  "/about/outpatient-photos/": "/about/campus-photos/",
+};
+
 const redirects = {
   ...tierAMigrationRedirects,
   ...newBeckGeePostRedirects,
   ...conditionsMergeRedirects,
+  ...outpatientPhotosMergeRedirects,
   // Every post now has a real named author (Beck Gee, Shoshana Katz, or
   // Brad Lamm for his one first-person essay) per Elizabeth's 2026-09-14
   // instruction to retire the generic institutional byline. The archive
