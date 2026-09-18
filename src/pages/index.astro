@@ -110,17 +110,21 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.92) 0%,rgba(22,41,61,0.78) 46%,rgba(22,41,61,0.34) 100%);"></div>
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
-          <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 28px;text-wrap:balance;">LGBTQIA+-Affirming Addiction &amp; Mental Health Treatment in Los Angeles</h1>
+          <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 28px;text-wrap:balance;">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(19px,1.9vw,24px);line-height:1.45;font-weight:300;color:#E6EDF4;margin:0 0 28px;">We've built care around one fact:</p>
           <div style="display:grid;gap:16px;margin-bottom:32px;max-width:56ch;">
             {[
-              "You shouldn't have to hide who you are, who you love, or how you identify to get well",
-              "Gender-affirming care and chosen family are part of treatment, not an accommodation",
-              "A clinical team that already understands the LGBTQIA+ experience instead of learning it from you",
-            ].map((t) => (
+              { icon: "diversity_3", text: "Built for the LGBTQ+ community, staff reflect the community from leadership to techs, so clients see themselves in their care team." },
+              { icon: "favorite", text: "Dedicated chemsex/sexualized drug use program, trademarked curriculum for an issue mainstream treatment ignores or mishandles." },
+              { icon: "volunteer_activism", text: "Lived experience at every level, CEO and staff are in recovery themselves, built by the people who lived it." },
+              { icon: "healing", text: "Trauma-focused model, treats substance use and trauma in parallel, using identity affirmation to unlock the deeper work." },
+              { icon: "verified", text: "Gold Seal Joint Commission, 22-acre Laurel Canyon campus, since 2013, 4,000+ clients, premium credibility behind the mission." },
+            ].map((b) => (
               <div style="display:flex;gap:14px;align-items:flex-start;">
-                <span style="flex:0 0 auto;width:24px;font-size:22px;line-height:1.2;color:#FFFFFF;">✓</span>
-                <span style="font-size:17px;line-height:1.6;color:#DCE6EF;">{t}</span>
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,0.12);margin-top:1px;">
+                  <span class="msym" style="font-size:17px;color:#FFFFFF;">{msymChar(b.icon)}</span>
+                </span>
+                <span style="font-size:17px;line-height:1.6;color:#DCE6EF;">{b.text}</span>
               </div>
             ))}
           </div>

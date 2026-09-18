@@ -1,16 +1,18 @@
 ---
 /**
  * /areas-we-service/ — section hub (approved sitemap: "Areas We Service").
- * Card grid linking to the four service-area pages. Pattern follows
+ * Card grid linking to the five service-area pages. Pattern follows
  * /programs/index.astro (hero + grid + shared trust sections), trimmed down
  * since this hub's only job is routing, see page-types.md §7 "Hub pages."
  *
  * Breathe has one physical presence (Melrose Ave outpatient office +
- * Laurel Canyon residential campus, both in Los Angeles), these are not
- * separate facility locations, they're geo-targeted service-area pages for
- * nearby communities. West Hollywood is CONFIRMED in the approved sitemap;
- * Beverly Hills, Santa Monica and Santa Barbara are NEW pages justified by
- * CTM call-volume data (docs/00-INVENTORY.md). No per-city call counts are
+ * Laurel Canyon residential campus, both in Los Angeles). Los Angeles
+ * (added 2026-09-18, per Elizabeth) is that home base, described honestly
+ * as such rather than as a "nearby community" — see los-angeles.astro's own
+ * header comment. West Hollywood, Beverly Hills, Santa Monica, and Santa
+ * Barbara are genuinely nearby-community pages: West Hollywood is CONFIRMED
+ * in the approved sitemap; the other three are NEW pages justified by CTM
+ * call-volume data (docs/00-INVENTORY.md). No per-city call counts are
  * cited here or on the detail pages, the source data isn't broken out by
  * city, so specific numbers aren't fabricated to fill that gap.
  *
@@ -36,7 +38,7 @@ const HREF = site.phoneHref;
 
 const title = "Areas We Service | Breathe Life Healing Centers";
 const description =
-  "Breathe Life Healing Centers serves clients from West Hollywood, Beverly Hills, Santa Monica, Santa Barbara and across the LA area. LGBTQ+-affirming addiction and mental health treatment. Call 24/7.";
+  "Breathe Life Healing Centers serves clients from Los Angeles, West Hollywood, Beverly Hills, Santa Monica, Santa Barbara and beyond. LGBTQ+-affirming addiction and mental health treatment. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -47,6 +49,10 @@ const S = {
 };
 
 const areas = [
+  {
+    city: "Los Angeles", slug: "los-angeles",
+    text: "Home base. Our outpatient office on Melrose Avenue and our residential campus in Laurel Canyon are both right here.",
+  },
   {
     city: "West Hollywood", slug: "west-hollywood",
     text: "Close to home for the community we were built around first, a short drive from our Melrose Avenue office.",
@@ -68,8 +74,8 @@ const areas = [
 // Verbatim from Breathe_Life_Areas_We_Service_Overview_FAQ.docx (2026-09-14).
 const faqs = [
   { q: "Do you have a facility in each of these areas?", a: "Our residential campus is in Laurel Canyon and our admissions office is on Melrose Avenue, both in Los Angeles. We regularly serve clients and families from these communities, we don't have separate facilities in each one." },
-  { q: "Which area is closest to your actual campus?", a: "West Hollywood is closest to our Melrose Avenue admissions office. All four areas are within reasonable reach of our Los Angeles campus." },
-  { q: "Do you serve clients outside these four specific areas?", a: "Yes. These represent where clients most often come from, but our admissions team works with people from across Southern California and beyond." },
+  { q: "Which area is closest to your actual campus?", a: "Los Angeles is where our campus is, both the Melrose Avenue office and the Laurel Canyon residence are within the city. West Hollywood is closest among the surrounding communities we serve." },
+  { q: "Do you serve clients outside these five specific areas?", a: "Yes. These represent where clients most often come from, but our admissions team works with people from across Southern California and beyond." },
   { q: "Is care different depending on which area I'm coming from?", a: "You receive the same full range of programs and levels of care regardless of which community you're coming from." },
   { q: "How do I get to your campus if I'm coming from out of town?", a: "Contact our admissions team for help planning your travel, wherever you're coming from." },
   { q: "Does insurance coverage vary based on my location?", a: "Coverage depends on your specific insurance plan, not your location. Our admissions team [verifies your benefits](/admissions/insurance/) before you commit to anything." },

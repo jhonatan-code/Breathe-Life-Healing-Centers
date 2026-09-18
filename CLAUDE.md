@@ -103,7 +103,10 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
   this change.
 - **"Sea Glass" (`#7fb3bc`)** — decorative only, keep to ~2% of any page's surface (client
   reduced it from the brand book's 4%). Token: `--color-seaglass`. Never carries meaning.
-- **No founding year** on pages until confirmed (design comps show "Since 2013" — unverified).
+- **Founding year: 2013**, confirmed by Elizabeth (2026-09-18) alongside the 22-acre Laurel Canyon
+  campus figure and the 4,000+ clients figure, all now usable without further verification. This
+  reverses the earlier "no 'Since 2013'" exclusion documented in `src/data/home.ts`'s file header
+  (that exclusion predates this confirmation).
 
 ## Writing Style
 

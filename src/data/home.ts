@@ -1,7 +1,9 @@
 /**
  * Homepage content for the design-faithful port of Breathe Life Homepage.dc.html.
  * Copy is the design's, with these client fixes applied (see docs/BUILD-NOTES.md):
- *  - no "Since 2013", no room/home counts
+ *  - no room/home counts. ("Since 2013" was excluded here too as unverified;
+ *    Elizabeth confirmed the founding year 2026-09-18, see CLAUDE.md, so
+ *    that specific exclusion no longer applies, only the room/home-count one.)
  *  - phone from the content brief
  *  - review quotes verbatim from docs/content/Breathe_Life_Reviews_Compilation
  *

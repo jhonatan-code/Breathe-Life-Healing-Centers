@@ -209,6 +209,7 @@ export const primaryNav = [
       {
         heading: "Areas We Service",
         links: [
+          { label: "Los Angeles", href: "/areas-we-service/los-angeles/" },
           { label: "West Hollywood", href: "/areas-we-service/west-hollywood/" },
           { label: "Beverly Hills", href: "/areas-we-service/beverly-hills/" },
           { label: "Santa Monica", href: "/areas-we-service/santa-monica/" },
@@ -229,11 +230,11 @@ export const primaryNav = [
           { label: "What to Bring", href: "/admissions/what-to-bring/" },
           { label: "Professional Referral", href: "/admissions/professional-referral/" },
           { label: "Self-Assessment", href: "/admissions/self-assessment/" },
+          { label: "Contact Us", href: "/contact-us/" },
         ],
       },
     ],
   },
-  { label: "Contact", href: "/contact-us/" },
 ] as const;
 
 /** Footer social set — navigation.md §6 requires at least eight represented.
