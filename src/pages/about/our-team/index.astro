@@ -19,12 +19,6 @@ const title = "Our Team | Breathe Life Healing Centers";
 const description =
   "Meet the people behind Breathe Life Healing Centers, the leadership team guiding our LGBTQ+-affirming treatment community in Los Angeles.";
 
-// Fixed loop buffer, built at compile time (same technique as
-// SiteReviews.astro's carousel — clone `v` items on each end so the track
-// can scroll seamlessly past the real start/end; JS just moves by 1 card).
-const CAROUSEL_BUFFER = 6;
-const withLoop = <T,>(people: T[], v = CAROUSEL_BUFFER) => [...people.slice(-v), ...people, ...people.slice(0, v)];
-
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
   h2: "font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;text-wrap:balance;",
@@ -75,13 +69,14 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  TEAM · tabs + single-line infinite carousel  ══════════════ */}
-    {/* One tab per department (Executive Leadership first), each showing its
-       own horizontal, infinitely-looping carousel of rounded photo cards —
-       replaces the earlier separate "leadership spotlight" + static grid
-       with the single tabbed-carousel pattern requested, referencing the
-       official site's tab structure for the INTERACTION pattern only (not
-       its visual style — palette/typography/hero stay this site's own). */}
+    {/* ══════════════  TEAM · full roster, always in the DOM  ══════════════ */}
+    {/* Every department renders in full below, always — nothing sits behind
+       a click or a carousel drag. "All" (default) shows the whole roster in
+       one continuous scroll; the department pills are a same-page filter
+       layered on top via JS, and plain anchor links so a department pill
+       still jumps to real, already-visible content even without JS. This is
+       deliberate for SEO: a crawler (or a visitor) that never executes a
+       click still gets every person on the page. */}
     <section id="team-section" data-screen-label="Team" style="position:relative;overflow:hidden;padding:70px 37px;background:#F7F5F1;">
       <div id="team-parallax-bg" aria-hidden="true" style="position:absolute;top:-70px;bottom:-70px;left:0;right:0;background-image:url('/Asset/Facility/facility-18-great-room.jpg');background-size:cover;background-position:center;opacity:0.08;filter:saturate(0.7);will-change:transform;"></div>
       <div style="position:relative;max-width:1440px;margin:0 auto;">
@@ -90,69 +85,36 @@ const ld = {
           <h2 style={`${S.h2}max-width:26ch;`}>Every department, every person</h2>
         </div>
 
-        <div id="team-tabs" class="no-scrollbar" role="tablist" aria-label="Team department" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px;">
-          {tabGroups.map((group, i) => (
-            <button type="button" class={`team-tab-btn${i === 0 ? " is-active" : ""}`} data-tab={deptSlug(group.dept)} role="tab" aria-selected={i === 0 ? "true" : "false"}>{group.dept}</button>
+        <div id="team-tabs" class="no-scrollbar" role="tablist" aria-label="Filter team by department" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px;">
+          <a href="#team-list" class="team-tab-btn is-active" data-tab="all" role="tab" aria-selected="true">All</a>
+          {tabGroups.map((group) => (
+            <a href={`#dept-${deptSlug(group.dept)}`} class="team-tab-btn" data-tab={deptSlug(group.dept)} role="tab" aria-selected="false">{group.dept}</a>
           ))}
         </div>
 
-        {tabGroups.map((group, i) => {
-          // Desktop: under 8 people, everyone already fits on one line — a
-          // loop would just be a carousel with nothing to scroll to, so it's
-          // a plain static row instead; only ≥8-person departments get the
-          // looping, autoplaying carousel.
-          // Mobile: the static row wraps into a cramped multi-row grid at
-          // phone widths well before 8 people, so any group of >2 gets the
-          // same swipeable carousel there — desktop keeps the wider >7
-          // threshold since it has the room. Groups that qualify for both
-          // just render the carousel once; groups that need it on mobile
-          // only (3–7 people) render both markups and let the sitewide
-          // .d-only/.m-only-block breakpoint (1024px) pick one.
-          const desktopCarousel = group.people.length > 7;
-          const mobileCarousel = group.people.length > 2;
-          const card = (p: (typeof group.people)[number]) => (
-            <a href={`/about/our-team/${p.slug}/`} class="tc-card-link" style="display:block;background:#FFFFFF;border:1px solid #E2DED7;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.06);color:inherit;height:100%;">
-              <div style="aspect-ratio:4/5;overflow:hidden;background:#F7F5F1;">
-                <img src={p.photo} alt={p.name} loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;" />
-              </div>
-              <div style="padding:16px 16px 18px;">
-                {p.badge && <span style="display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#F0F5FA;color:#2C5A64;padding:3px 8px;border-radius:4px;margin-bottom:8px;">{p.badge}</span>}
-                <div style="font-size:15px;font-weight:600;letter-spacing:-0.008em;line-height:1.3;">{p.name}</div>
-                <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:12.5px;color:#646D76;margin-top:3px;line-height:1.35;">{p.role}</div>
-              </div>
-            </a>
-          );
-          const carousel = (
-            <div class="team-carousel" data-dept={deptSlug(group.dept)} data-real-count={group.people.length} data-autoplay="true">
-              <button type="button" class="tc-arrow tc-arrow--prev msym" data-dir="-1" aria-label="Previous">chevron_left</button>
-              <button type="button" class="tc-arrow tc-arrow--next msym" data-dir="1" aria-label="Next">chevron_right</button>
-              <div class="tc-viewport">
-                <ul class="tc-track">
-                  {withLoop(group.people).map((p) => <li class="tc-card">{card(p)}</li>)}
-                </ul>
-              </div>
+        <div id="team-list">
+          {tabGroups.map((group) => (
+            <div class="team-dept-block" id={`dept-${deptSlug(group.dept)}`} data-dept={deptSlug(group.dept)}>
+              <h3 class="team-dept-heading">{group.dept}</h3>
+              <ul class="tc-static-row">
+                {group.people.map((p) => (
+                  <li class="tc-card">
+                    <a href={`/about/our-team/${p.slug}/`} class="tc-card-link" style="display:block;background:#FFFFFF;border:1px solid #E2DED7;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.06);color:inherit;height:100%;">
+                      <div style="aspect-ratio:4/5;overflow:hidden;background:#F7F5F1;">
+                        <img src={p.photo} alt={p.name} loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;" />
+                      </div>
+                      <div style="padding:16px 16px 18px;">
+                        {p.badge && <span style="display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#F0F5FA;color:#2C5A64;padding:3px 8px;border-radius:4px;margin-bottom:8px;">{p.badge}</span>}
+                        <div style="font-size:15px;font-weight:600;letter-spacing:-0.008em;line-height:1.3;">{p.name}</div>
+                        <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:12.5px;color:#646D76;margin-top:3px;line-height:1.35;">{p.role}</div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          );
-          const staticRow = (
-            <ul class="tc-static-row">
-              {group.people.map((p) => <li class="tc-card">{card(p)}</li>)}
-            </ul>
-          );
-          return (
-            <div class="team-tab-panel" data-tab-panel={deptSlug(group.dept)} hidden={i !== 0}>
-              {desktopCarousel ? (
-                carousel
-              ) : mobileCarousel ? (
-                <>
-                  <div class="d-only">{staticRow}</div>
-                  <div class="m-only-block">{carousel}</div>
-                </>
-              ) : (
-                staticRow
-              )}
-            </div>
-          );
-        })}
+          ))}
+        </div>
 
         <p style="text-align:center;margin:36px 0 0;font-family:'Montserrat',sans-serif;font-size:15px;">
           <a href="/about/" style="color:#33679C;font-weight:600;">← Back to About</a>
@@ -237,53 +199,30 @@ const ld = {
     box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.35), inset 1px -1px 0.5px rgba(0,0,0,0.18),
       0 2px 5px rgba(20,24,28,0.10), 0 8px 18px rgba(20,24,28,0.14);
   }
-  .team-tab-panel[hidden] { display: none; }
-
-  /* ── Single-line carousel (≥8 people: loops + autoplays) or a plain
-       centered row (≤7: everyone already fits, nothing to loop) ── */
-  .team-carousel { position: relative; }
-  .tc-viewport { overflow: hidden; padding: 4px 2px; }
-  /* transition is load-bearing, not decorative: the carousel script's
-     wraparound correction runs inside a `transitionend` listener, so
-     without a real transition here, the loop index just drifts forever and
-     the track eventually scrolls itself completely out of view. */
-  .tc-track { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; will-change: transform; transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1); }
+  /* ── Full roster: every department block stacks in one continuous page.
+       Anchor jumps land below the sticky header, not flush under it. ── */
+  #team-list { scroll-margin-top: 96px; }
+  .team-dept-block { scroll-margin-top: 96px; margin-bottom: 44px; }
+  .team-dept-block:last-child { margin-bottom: 0; }
+  .team-dept-block[hidden] { display: none; }
+  .team-dept-heading {
+    font-family: 'Instrument Sans', sans-serif; font-size: 20px; font-weight: 600;
+    letter-spacing: -0.014em; color: #14181C; margin: 0 0 18px; text-align: center;
+  }
   .tc-static-row { list-style: none; margin: 0; padding: 4px 2px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
   .tc-card { flex: 0 0 var(--tc-card-w, 190px); }
 
-  /* Hover: the whole card lifts and grows slightly, not just the photo —
-     and (for the autoplaying carousels) hovering also pauses the advance,
-     wired in the script below via the same mouseenter/leave. */
+  /* Hover: the whole card lifts and grows slightly. */
   .tc-card-link { transition: transform 320ms cubic-bezier(0.4,0,0.2,1), box-shadow 320ms cubic-bezier(0.4,0,0.2,1); }
   .tc-card-link:hover { transform: scale(1.045); box-shadow: 0 4px 10px rgba(20,24,28,0.08), 0 14px 28px rgba(20,24,28,0.12); }
 
-  .tc-arrow {
-    position: absolute; top: 42%; transform: translateY(-50%); z-index: 2;
-    width: 42px; height: 42px; border: 0; border-radius: 12px; background: #FFFFFF;
-    color: #4A555F; font-size: 22px; display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(30,42,74,0.10), 0 10px 24px rgba(30,42,74,0.16),
-      inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.05);
-    transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
-  }
-  .tc-arrow:hover {
-    background: #16293D; color: #FFFFFF; transform: translateY(-50%) translateY(-1px);
-    box-shadow: 0 3px 6px rgba(30,42,74,0.16), 0 10px 20px rgba(30,42,74,0.20),
-      inset -1px 1px 0.5px rgba(255,255,255,0.35), inset 1px -1px 0.5px rgba(0,0,0,0.25);
-  }
-  .tc-arrow--prev { left: -8px; }
-  .tc-arrow--next { right: -8px; }
-
   @media (max-width: 640px) {
     .tc-card { flex-basis: 148px; }
-    .tc-arrow { width: 36px; height: 36px; font-size: 18px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .tc-card-link, .tc-card-link:hover { transition: none; transform: none; }
-    .tc-track { transition: none !important; }
-    .team-tab-btn, .team-tab-btn:hover, .tc-arrow, .tc-arrow:hover { transition: none; transform: none; }
-    .tc-arrow:hover { transform: translateY(-50%); }
+    .team-tab-btn, .team-tab-btn:hover { transition: none; transform: none; }
   }
 
 </style>
@@ -345,106 +284,22 @@ const ld = {
     update();
   })();
 
-  // ── Department tabs — swap which carousel panel is visible ──
+  // ── Department pills — filter which blocks are visible. Plain anchor
+  //    links underneath (real href="#dept-...") so this is enhancement
+  //    only: with JS disabled, or before it runs, every department block
+  //    is already on the page and a pill just scrolls to it. ──
   (() => {
-    const btns = Array.from(document.querySelectorAll<HTMLButtonElement>('.team-tab-btn'));
-    const panels = Array.from(document.querySelectorAll<HTMLElement>('.team-tab-panel'));
-    if (!btns.length || !panels.length) return;
+    const btns = Array.from(document.querySelectorAll<HTMLAnchorElement>('.team-tab-btn'));
+    const blocks = Array.from(document.querySelectorAll<HTMLElement>('.team-dept-block'));
+    if (!btns.length || !blocks.length) return;
     btns.forEach((btn) => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
         const tab = btn.dataset.tab;
+        if (tab && tab !== 'all') e.preventDefault();
         btns.forEach((b) => { b.classList.toggle('is-active', b === btn); b.setAttribute('aria-selected', String(b === btn)); });
-        panels.forEach((p) => {
-          const show = p.dataset.tabPanel === tab;
-          p.hidden = !show;
-          // A carousel that was hidden on load never had a real width to
-          // measure, so its very first reveal needs a fresh placement pass.
-          if (show) p.querySelector<HTMLElement>('.team-carousel')?.dispatchEvent(new CustomEvent('tc:reveal'));
-        });
+        blocks.forEach((blk) => { blk.hidden = !!tab && tab !== 'all' && blk.dataset.dept !== tab; });
+        if (tab && tab !== 'all') document.getElementById(`dept-${tab}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-    });
-  })();
-
-  // ── Team carousels — infinite loop, one instance per department ──
-  //    Same clone-buffer technique as SiteReviews.astro, generalized to run
-  //    on every `.team-carousel` on the page (only the active tab's is
-  //    visible, but all are initialized so switching tabs is instant).
-  (() => {
-    const BUFFER = 6;
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll<HTMLElement>('.team-carousel').forEach((car) => {
-      const track = car.querySelector<HTMLElement>('.tc-track');
-      const cards = Array.from(car.querySelectorAll<HTMLElement>('.tc-card'));
-      const realCount = parseInt(car.dataset.realCount || '0', 10);
-      if (!track || !cards.length || !realCount) return;
-      let idx = BUFFER;
-      let step = 0;
-      const measure = () => {
-        const first = cards[0];
-        const gap = parseFloat(getComputedStyle(track).gap) || 0;
-        step = first.getBoundingClientRect().width + gap;
-      };
-      const place = (animate: boolean) => {
-        track.style.transition = animate && !reduce ? '' : 'none';
-        track.style.transform = `translateX(${-idx * step}px)`;
-        if (!animate) { void track.offsetWidth; track.style.transition = ''; }
-      };
-      const go = (delta: number) => {
-        idx += delta;
-        place(true);
-      };
-      track.addEventListener('transitionend', () => {
-        if (idx >= BUFFER + realCount) { idx -= realCount; place(false); }
-        else if (idx < BUFFER) { idx += realCount; place(false); }
-      });
-      car.querySelector('[data-dir="-1"]')?.addEventListener('click', () => go(-1));
-      car.querySelector('[data-dir="1"]')?.addEventListener('click', () => go(1));
-
-      // drag / swipe
-      let drag: { x: number; dx: number } | null = null;
-      track.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, dx: 0 }; });
-      track.addEventListener('pointermove', (e) => {
-        if (!drag) return;
-        drag.dx = e.clientX - drag.x;
-        track.style.transform = `translateX(${-idx * step + drag.dx}px)`;
-      });
-      const endDrag = () => {
-        if (!drag) return;
-        const dx = drag.dx; drag = null;
-        const th = (step || 200) * 0.25;
-        if (dx <= -th) go(1);
-        else if (dx >= th) go(-1);
-        else place(true);
-      };
-      track.addEventListener('pointerup', endDrag);
-      track.addEventListener('pointercancel', endDrag);
-      track.addEventListener('pointerleave', endDrag);
-      track.addEventListener('dragstart', (e) => e.preventDefault());
-
-      // ── Autoplay (only departments large enough to need the loop at
-      //    all) — advances one card at a time, pauses on hover/focus/drag
-      //    so browsing never fights the user, and stays off entirely under
-      //    reduced motion or while the tab is hidden. ──
-      if (car.dataset.autoplay === 'true' && !reduce) {
-        let hover = false, focus = false;
-        const tick = () => { if (!hover && !focus && !drag && !document.hidden) go(1); };
-        let timer = window.setInterval(tick, 3200);
-        const kick = () => { clearInterval(timer); timer = window.setInterval(tick, 3200); };
-        car.addEventListener('mouseenter', () => { hover = true; });
-        car.addEventListener('mouseleave', () => { hover = false; kick(); });
-        car.addEventListener('focusin', () => { focus = true; });
-        car.addEventListener('focusout', () => { focus = false; kick(); });
-        document.addEventListener('visibilitychange', kick);
-      }
-
-      let rz: number;
-      addEventListener('resize', () => {
-        clearTimeout(rz);
-        rz = window.setTimeout(() => { measure(); place(false); }, 150);
-      });
-      car.addEventListener('tc:reveal', () => { measure(); place(false); });
-
-      requestAnimationFrame(() => { measure(); place(false); });
     });
   })();
 </script>
