@@ -87,6 +87,10 @@ export interface AuthorInfo {
   photo: string;
   slug: string;
   badge?: string;
+  /** One real sentence, from the person's own team/roster entry — the
+   *  "About the author" card on a post uses this (not `authorBio`, which
+   *  runs several paragraphs and is meant for a fuller bio elsewhere). */
+  bio?: string;
   /** Short first-person bio for the "About the author" card at the bottom
    *  of a post — only set for staff with one on file (see `team` in
    *  src/data/home.ts). Absent for most roster entries. */
@@ -108,12 +112,13 @@ export function getAuthor(authorSlug: string | undefined): AuthorInfo | null {
       photo: fromTeam.photo,
       slug: fromTeam.slug,
       badge: fromTeam.badge as string | undefined,
+      bio: (fromTeam as { bio?: string }).bio,
       authorBio: (fromTeam as { authorBio?: string }).authorBio,
     };
   }
   for (const group of roster) {
     const person = group.people.find((p) => p.slug === authorSlug);
-    if (person) return { name: person.name, role: person.role, photo: person.photo, slug: person.slug };
+    if (person) return { name: person.name, role: person.role, photo: person.photo, slug: person.slug, bio: (person as { bio?: string }).bio };
   }
   return null;
 }

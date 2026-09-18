@@ -15,7 +15,7 @@ import { team } from "./home";
  * + "More from this department" strip via TeamProfile.astro, added
  * 2026-09-15). Do not duplicate this array anywhere else.
  */
-export const roster: { dept: string; people: { name: string; role: string; photo: string; slug: string }[] }[] = [
+export const roster: { dept: string; people: { name: string; role: string; photo: string; slug: string; bio?: string }[] }[] = [
   {
     dept: "Medical Team",
     people: [
@@ -32,7 +32,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Valerio Iovino, PsyD, LAADC, ASAT", role: "Primary Therapist", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "valerio-iovino" },
       { name: "Iza Kiacz, MA, AMFT", role: "Therapist", photo: "/Asset/Our%20Team/iza-kiacz.jpg", slug: "iza-kiacz" },
       { name: "Sarah Johnson, MA, AMFT", role: "Therapist", photo: "/Asset/Our%20Team/sarah-johnson.jpg", slug: "sarah-johnson" },
-      { name: "Shoshana Katz, LMFT", role: "Therapist", photo: "/Asset/Our%20Team/shoshana-katz.jpg", slug: "shoshana-katz" },
+      { name: "Shoshana Katz, LMFT", role: "Therapist", photo: "/Asset/Our%20Team/shoshana-katz.jpg", slug: "shoshana-katz", bio: "Brings a relational, trauma-informed approach to individual, adolescent, and family therapy." },
       { name: "Rachel Aiono, ASW", role: "Therapist", photo: "/Asset/Our%20Team/rachel-aiono.jpg", slug: "rachel-aiono" },
       { name: "Vivian Rubio, CADC-II", role: "Counselor", photo: "/Asset/Our%20Team/vivian-rubio.jpg", slug: "vivian-rubio" },
       { name: "Blake Dinger, CADC", role: "Counselor", photo: "/Asset/Our%20Team/blake-dinger.jpg", slug: "blake-dinger" },
