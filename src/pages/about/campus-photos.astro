@@ -1,11 +1,17 @@
 ---
 /**
  * /about/campus-photos/ — image-forward gallery of the Laurel Canyon
- * residential campus, using the real facility photos in public/Asset/Facility/
- * (23 images, real content — not clinical copy, so no placeholder needed).
- * Captions are plain descriptive labels derived from the asset filenames.
+ * residential campus, mirroring the official live page's own structure
+ * (breathelifehealingcenters.com/locations/campus-photos/): hero, then a
+ * "West Hollywood (LA)" intro section (verbatim official copy), then "The
+ * Campus" grid using the same 14 real photos as that section on the
+ * official page (downloaded to public/Asset/Campus/ since the official
+ * site doesn't caption these individually — same here), then the existing
+ * broader 23-photo facility set below under its own heading.
  *
- * Grid + click-to-enlarge lightbox, vanilla JS, no dependency.
+ * Grid + click-to-enlarge lightbox, vanilla JS, no dependency. Both photo
+ * sets share one lightbox (`allPhotos`), so indices for the second grid
+ * are offset by campusPhotos.length.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -49,6 +55,18 @@ const photos = [
   ["facility-03-clinical-office.jpg", "Clinical Office"],
 ] as const;
 
+// Same 14 images as "The Campus" grid on the official live page, in the
+// same order. That section carries no individual captions on the official
+// site either (every image shares one generic alt text), so this uses a
+// single shared caption rather than inventing 14 distinct ones.
+const campusPhotos = Array.from({ length: 14 }, (_, i) => ({
+  src: `/Asset/Campus/the-campus-${String(i + 1).padStart(2, "0")}.jpg`,
+  cap: "Breathe Life Healing Centers campus",
+}));
+
+const facilityPhotos = photos.map(([file, cap]) => ({ src: galleryImg(file), cap }));
+const allPhotos = [...campusPhotos, ...facilityPhotos];
+
 const pageUrl = new URL("/about/campus-photos/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
@@ -86,12 +104,47 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  GALLERY  ══════════════ */}
-    <section data-screen-label="Gallery" style="padding:70px 37px;background:#FFFFFF;">
+    {/* ══════════════  WEST HOLLYWOOD (LA)  ══════════════
+       Verbatim from the official live page's own section in this same
+       spot, below the hero and above the gallery
+       (breathelifehealingcenters.com/locations/campus-photos/, checked
+       2026-09-18). */}
+    <section data-screen-label="West Hollywood (LA)" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1100px;margin:0 auto;text-align:center;">
+        <div style={S.eyebrow}>Our Location</div>
+        <h2 style={`${S.h2}max-width:20ch;`}>West Hollywood (LA)</h2>
+        <p style={`${S.intro}margin-bottom:16px;`}>Breathe West Hollywood is situated in a beautiful, secluded retreat tucked away in the heart of Laurel Canyon. Breathe's many acres of property includes three modern, luxury homes, lots of outdoor space with beautiful views and natural wildlife. There are an abundance of outdoor features including a spacious community dining room, amphitheater, pool and biodynamic gardens.</p>
+        <p style={S.intro}>At Breathe West Hollywood (LA), we also make regular use of the amazing city around us.</p>
+      </div>
+    </section>
+
+    {/* ══════════════  THE CAMPUS  ══════════════
+       Same 14 photos, same order, as the official page's "The Campus"
+       grid — no per-photo captions, matching that section there. */}
+    <section data-screen-label="The Campus" style="padding:0 37px 70px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <h2 style={`${S.h2}max-width:16ch;`}>The Campus</h2>
+        </div>
+        <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+          {campusPhotos.map((p, i) => (
+            <button type="button" class="gal-item" data-gal-open={i} style="position:relative;display:block;border:0;padding:0;cursor:zoom-in;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#EDF2F7;">
+              <img src={p.src} alt={p.cap} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  GALLERY  ══════════════ */}
+    <section data-screen-label="Gallery" style="padding:0 37px 70px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <h2 style={`${S.h2}max-width:20ch;`}>Grounds &amp; Suites</h2>
+        </div>
         <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
           {photos.map(([file, cap], i) => (
-            <button type="button" class="gal-item" data-gal-open={i} style="position:relative;display:block;border:0;padding:0;cursor:zoom-in;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#EDF2F7;">
+            <button type="button" class="gal-item" data-gal-open={i + campusPhotos.length} style="position:relative;display:block;border:0;padding:0;cursor:zoom-in;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#EDF2F7;">
               <img src={galleryImg(file)} alt={cap} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
               <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0) 55%,rgba(22,41,61,0.72) 100%);"></div>
               <span style="position:absolute;left:14px;bottom:12px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:500;color:#FFFFFF;text-align:left;">{cap}</span>
@@ -127,7 +180,7 @@ const ld = {
   </div>
 </Layout>
 
-<script define:vars={{ photos: photos.map(([file, cap]) => ({ src: galleryImg(file), cap })) }}>
+<script define:vars={{ photos: allPhotos }}>
   (() => {
     const box = document.getElementById("gal-lightbox");
     const img = document.getElementById("gal-img");
