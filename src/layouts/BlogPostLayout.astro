@@ -94,7 +94,7 @@ const ld = {
                 <div class="author-chip">
                   <a href={`/about/our-team/${author.slug}/`} class="author-chip-top">
                     <img src={author.photo} alt={author.name} loading="lazy" />
-                    <span><span class="name">{author.name}</span>{author.badge && <><br /><span class="cred">{author.badge}</span></>}</span>
+                    <span><span class="name">{author.name}</span><br /><span class="cred">{author.role}</span></span>
                   </a>
                   {(author.authorBio || author.bio) && <p class="author-chip-bio">{author.authorBio || author.bio}</p>}
                   <a href={`/about/our-team/${author.slug}/`} class="author-chip-more">Learn more about {author.name.split(' ')[0]} &rarr;</a>
@@ -110,6 +110,7 @@ const ld = {
               </span>
             </div>
             <div class="share-wrap">
+              <div class="share-label">Share on</div>
               <ShareButtons url={canonicalUrl} title={data.title.replace(/\s*\|\s*Breathe$/, '')} variant="dark" />
             </div>
             <div class="mobile-toc">
@@ -264,7 +265,7 @@ const ld = {
   .post-cat { display: inline-block; font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #16293D; background: #7FB3BC; padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; }
   .post-banner h1 { font-size: clamp(30px,4vw,46px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 22px; max-width: 850px; text-wrap: balance; }
   .post-byline { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 14px; color: #C7D4DE; }
-  .author-chip { display: flex; flex-direction: column; gap: 10px; max-width: 560px; text-decoration: none; }
+  .author-chip { display: flex; flex-direction: column; gap: 10px; max-width: 900px; text-decoration: none; }
   .author-chip:hover .name { text-decoration: underline; }
   .author-chip-top { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .author-chip-top:hover .name { text-decoration: underline; }
@@ -280,6 +281,7 @@ const ld = {
   .byline-meta { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .dot { opacity: .5; }
   .share-wrap { margin-top: 24px; }
+  .share-label { font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9DB2C2; text-align: right; margin-bottom: 8px; }
   .mobile-toc { display: none; }
 
   /* Desktop-only byline split: author left (fixed width, now that it
@@ -293,7 +295,7 @@ const ld = {
   @media (min-width: 981px) {
     .banner-col {
       display: grid;
-      grid-template-columns: 560px 1fr;
+      grid-template-columns: minmax(0, 900px) 1fr;
       column-gap: 48px;
       row-gap: 10px;
       align-items: start;
