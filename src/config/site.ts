@@ -110,7 +110,7 @@ export const primaryNav = [
         links: [
           { label: "Medical Detox", href: "/programs/medical-detox/" },
           { label: "Residential Treatment", href: "/programs/residential-treatment/" },
-          { label: "PHP — Day Treatment", href: "/programs/php/" },
+          { label: "PHP, Day Treatment", href: "/programs/php/" },
           { label: "Intensive Outpatient (IOP)", href: "/programs/intensive-outpatient/" },
           { label: "Outpatient Rehab", href: "/programs/outpatient-rehab/" },
           { label: "Enhanced Sober Living", href: "/programs/sober-living/" },

@@ -133,7 +133,7 @@ const { formReactorUrl, formReactorKey } = site.ctm;
           body: payload.toString(),
         });
         if (!res.ok) throw new Error(`FormReactor responded ${res.status}`);
-        setStatus("Thanks — we've got your information. Expect a call shortly, or call us anytime.");
+        setStatus("Thanks, we've got your information. Expect a call shortly, or call us anytime.");
         form.reset();
         form.querySelector<HTMLElement>("[data-sms-consent]")?.setAttribute("hidden", "");
       } catch (err) {

@@ -24,7 +24,7 @@ const HREF = site.phoneHref;
 
 const title = "For Families | Breathe Admissions";
 const description =
-  "What to expect if someone you love is starting treatment at Breathe Life Healing Centers — how to help, what involvement looks like, and how to reach us. Call 24/7.";
+  "What to expect if someone you love is starting treatment at Breathe Life Healing Centers, how to help, what involvement looks like, and how to reach us. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -38,22 +38,22 @@ const S = {
 
 const ways = [
   { icon: "call", title: "Call before they arrive", text: "You can call our admissions line yourself to ask questions about the process, what happens on arrival day, and how to reach the facility once treatment begins." },
-  { icon: "diversity_3", title: "Family isn't limited to blood relatives", text: "Partners, chosen family, and close friends are all welcome to be involved. We don't assume who belongs in someone's support system — they do." },
+  { icon: "diversity_3", title: "Family isn't limited to blood relatives", text: "Partners, chosen family, and close friends are all welcome to be involved. We don't assume who belongs in someone's support system, they do." },
   { icon: "forum", title: "Family therapy, when it's part of the plan", text: "Our Family Program brings loved ones into treatment where appropriate. It's a distinct program with its own details." },
-  { icon: "privacy_tip", title: "Confidentiality still applies", text: "Federal confidentiality protections mean we can't share details about a client's treatment without their consent — even with family. We'll explain what we can and can't discuss." },
+  { icon: "privacy_tip", title: "Confidentiality still applies", text: "Federal confidentiality protections mean we can't share details about a client's treatment without their consent, even with family. We'll explain what we can and can't discuss." },
 ] as const;
 
 const help = [
   "Help them make the first call, or make it with them if they'd rather not do it alone.",
-  "Help gather what they'll need for arrival — see our What to Bring page for a full list.",
+  "Help gather what they'll need for arrival, see our What to Bring page for a full list.",
   "Ask us directly what family involvement could look like once they're in treatment.",
   "Take care of yourself, too. Supporting someone through treatment is real work.",
 ];
 
 const faqs = [
-  { q: "Can I call on behalf of someone else?", a: "Yes. Family members, partners, and chosen family can call our admissions line to ask questions or start the process, though the person entering treatment will need to be involved directly at some point." },
+  { q: "Can I call on behalf of someone else?", a: "Yes. Family members, partners, and chosen family can call our admissions line to ask questions or start the process, though the person entering treatment will need to be involved directly at some point. If you're weighing your legal options too: [Can You Force Someone to Go to Rehab?](/blog/can-you-force-someone-to-go-to-rehab/)" },
   { q: "Will I be able to talk to my loved one during treatment?", a: "Contact policies vary by level of care and are explained during admissions. Our team can walk you through what to expect for the specific program your loved one is entering." },
-  { q: "Can I be involved in treatment as a partner or chosen family, not a blood relative?", a: "Yes. We don't assume 'family' means blood relatives — partners and chosen family are valid participants in someone's support system and treatment, on their terms. See [Chosen Family and Recovery: Why Your Support System Doesn't Have to Be Blood](/blog/chosen-family-and-recovery-why-your-support-system-does-not-have-to-be-blood/)." },
+  { q: "Can I be involved in treatment as a partner or chosen family, not a blood relative?", a: "Yes. We don't assume 'family' means blood relatives, partners and chosen family are valid participants in someone's support system and treatment, on their terms. See [Chosen Family and Recovery: Why Your Support System Doesn't Have to Be Blood](/blog/chosen-family-and-recovery-why-your-support-system-does-not-have-to-be-blood/)." },
   { q: "What if my loved one doesn't want me involved right now?", a: "That's their choice, and we respect it. Confidentiality protections mean we can't share treatment details without their consent. You're still welcome to call us with general questions." },
   { q: "Does insurance cover a loved one's treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify specific benefits](/admissions/insurance/) before any commitment. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
   { q: "Is Breathe only for LGBTQ+ clients? My loved one isn't LGBTQ+.", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
@@ -102,7 +102,7 @@ const ld = {
             <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
             <a class="cta" href="/programs/family-program/" style={S.ctaGhost}>See the Family Program</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -114,7 +114,7 @@ const ld = {
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>Being involved</div>
           <h2 style={`${S.h2}max-width:30ch;`}>What family involvement looks like</h2>
-          <p style={`${S.intro}max-width:74ch;`}>"Family" here means whoever actually shows up for someone — not just blood relatives.</p>
+          <p style={`${S.intro}max-width:74ch;`}>"Family" here means whoever actually shows up for someone, not just blood relatives.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
           {ways.map((w, i) => {
@@ -139,7 +139,7 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Right now</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>If you're not sure what to do today</h2>
-          <p style={`${S.intro}margin:0;max-width:58ch;`}>You don't need a perfect plan to start. A phone call is often the whole first step — for them, or for you, on their behalf.</p>
+          <p style={`${S.intro}margin:0;max-width:58ch;`}>You don't need a perfect plan to start. A phone call is often the whole first step, for them, or for you, on their behalf.</p>
         </div>
         <div class="treat-card" style="background:#FFFFFF;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">A few ways to help</div>
@@ -159,7 +159,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies benefits and explains what's covered — before your loved one commits to anything."
+      intro="Our admissions team verifies benefits and explains what's covered, before your loved one commits to anything."
     />
 
     <SiteReviews />

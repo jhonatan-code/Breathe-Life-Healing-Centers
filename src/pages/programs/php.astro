@@ -41,9 +41,9 @@ import { levels, why } from "../../data/home";
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 
-const title = "PHP — Day Treatment in Los Angeles | Breathe";
+const title = "PHP, Day Treatment in Los Angeles | Breathe";
 const description =
-  "Partial Hospitalization Program (PHP) in Los Angeles — full days of structured treatment, sleeping off-site. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Partial Hospitalization Program (PHP) in Los Angeles, full days of structured treatment, sleeping off-site. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -55,7 +55,7 @@ const S = {
   card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
 };
 
-const level = levels.find((l) => l.title === "PHP — Day Treatment (SUD, MH)")!;
+const level = levels.find((l) => l.title === "PHP, Day Treatment (SUD, MH)")!;
 
 const forYou = [
   "You've completed detox or residential and need continued daily structure",
@@ -71,7 +71,7 @@ const forYou = [
 const included = [
   { label: "Morning", icon: "calendar_month", title: "Full days of structured programming", text: "Group therapy, individual sessions, and clinical care fill the day, most days of the week." },
   { label: "Midday", icon: "psychology", title: "Continued psychiatric and clinical care", text: "The same level of clinical attention as residential care, without living on-site.", pills: ["Group therapy", "Individual therapy", "Psychiatric care"] },
-  { label: "Afternoon", icon: "trending_down", title: "A planned step-down from residential", text: "PHP is usually the next level down after residential — a bridge, not a drop-off.", pills: ["Holistic wellness", "Skill-building", "Relapse prevention"] },
+  { label: "Afternoon", icon: "trending_down", title: "A planned step-down from residential", text: "PHP is usually the next level down after residential, a bridge, not a drop-off.", pills: ["Holistic wellness", "Skill-building", "Relapse prevention"] },
   { label: "Evening", icon: "home_work", title: "Housing support if you need it", text: "If you don't have somewhere stable to sleep at night, we help connect you with sober living." },
 ];
 
@@ -82,7 +82,7 @@ const included = [
 // entry from data/home.ts verbatim rather than inventing new phrasing.
 const ladder = [
   { n: "Before PHP", title: "Residential Treatment", href: "/programs/residential-treatment/", text: "The full-time level of care most people move into before stepping down to PHP." },
-  { n: "You are here", title: "PHP — Day Treatment", href: null, text: level.text, active: true },
+  { n: "You are here", title: "PHP, Day Treatment", href: null, text: level.text, active: true },
   { n: "After PHP", title: "Intensive Outpatient", href: "/programs/intensive-outpatient/", text: "The usual next step down after PHP, with a lighter weekly schedule." },
   { n: "Ongoing support", title: "Outpatient Rehab", href: "/programs/outpatient-rehab/", text: levels.find((l) => l.title === "Outpatient (OP)")!.text },
 ];
@@ -151,7 +151,7 @@ const ld = {
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -163,7 +163,7 @@ const ld = {
         <div style="max-width:640px;margin-bottom:32px;">
           <div style={S.eyebrow}>How the day is built</div>
           <h2 style={`${S.h2}max-width:22ch;`}>Structured like a day, not a stay</h2>
-          <p style={S.intro}>PHP — Partial Hospitalization, sometimes called day treatment — is intensive day treatment; you return home or to transitional living in the evenings instead of staying on-site overnight. It carries much of the structure of residential care during the day, without the full-time stay.</p>
+          <p style={S.intro}>PHP, Partial Hospitalization, sometimes called day treatment, is intensive day treatment; you return home or to transitional living in the evenings instead of staying on-site overnight. It carries much of the structure of residential care during the day, without the full-time stay.</p>
         </div>
 
         <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:26px 28px;margin-bottom:48px;">
@@ -197,7 +197,7 @@ const ld = {
             </div>
           ))}
         </div>
-        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13px;font-style:italic;color:#646D76;margin:20px 0 0;">Order shown is illustrative — Breathe doesn't publish exact hours. Your own schedule is set at intake.</p>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13px;font-style:italic;color:#646D76;margin:20px 0 0;">Order shown is illustrative, Breathe doesn't publish exact hours. Your own schedule is set at intake.</p>
       </div>
     </section>
 
@@ -232,7 +232,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for PHP — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for PHP, before you commit to anything."
     />
 
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
@@ -276,7 +276,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-08-poolside-grotto-overlook.jpg"
     />

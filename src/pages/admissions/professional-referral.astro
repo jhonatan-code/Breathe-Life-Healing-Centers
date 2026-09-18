@@ -25,7 +25,7 @@ const EMAIL_HREF = site.emailHref;
 
 const title = "Professional Referral | Breathe Admissions";
 const description =
-  "Refer a client to Breathe Life Healing Centers — an LGBTQ+-affirming provider offering medical detox, residential, PHP, IOP, and outpatient care in Los Angeles. Call 24/7.";
+  "Refer a client to Breathe Life Healing Centers, an LGBTQ+-affirming provider offering medical detox, residential, PHP, IOP, and outpatient care in Los Angeles. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -39,7 +39,7 @@ const S = {
 
 const process = [
   { icon: "call", title: "Reach our admissions team", text: "Call our admissions line directly, any time, to discuss your client's situation and the levels of care we offer." },
-  { icon: "assignment", title: "Share what's relevant", text: "A general clinical picture helps us match your client to the right level of care — you decide what's appropriate to share at this stage." },
+  { icon: "assignment", title: "Share what's relevant", text: "A general clinical picture helps us match your client to the right level of care, you decide what's appropriate to share at this stage." },
   { icon: "shield", title: "We verify their insurance", text: "Our team contacts their insurer directly and confirms coverage before anyone commits to anything, so you and your client both know where things stand." },
   { icon: "handshake", title: "We keep you in the loop", text: "With appropriate consent from your client, we can coordinate with you on their care as they move through our program." },
 ] as const;
@@ -47,7 +47,7 @@ const process = [
 const levels = [
   { label: "Medical Detox", href: "/programs/medical-detox/" },
   { label: "Residential Treatment", href: "/programs/residential-treatment/" },
-  { label: "PHP — Day Treatment", href: "/programs/php/" },
+  { label: "PHP, Day Treatment", href: "/programs/php/" },
   { label: "Intensive Outpatient (IOP)", href: "/programs/intensive-outpatient/" },
   { label: "Outpatient Rehab", href: "/programs/outpatient-rehab/" },
   { label: "Enhanced Sober Living", href: "/programs/sober-living/" },
@@ -59,7 +59,7 @@ const faqs = [
   { q: "Is Breathe only for LGBTQ+ clients?", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to any client whose values align with how we operate." },
   { q: "Will I stay informed about my client's care?", a: "With appropriate consent from your client, our team can coordinate with you as they move through treatment. Federal confidentiality protections mean this always requires their authorization." },
   { q: "Does Breathe accept my client's insurance?", a: "We're in-network with most major providers and [verify each client's specific benefits](/admissions/insurance/) before anything is decided. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
-  { q: "Who do I contact with questions before referring?", a: "Call our admissions line 24/7, or reach out by email — a real person will get back to you." },
+  { q: "Who do I contact with questions before referring?", a: "Call our admissions line 24/7, or reach out by email, a real person will get back to you." },
 ];
 
 const pageUrl = new URL("/admissions/professional-referral/", site.domain).href;
@@ -185,7 +185,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Let's Talk About Your Client"
-      subhead="Call our admissions line 24/7, or reach out by email — a real person on our team will get back to you."
+      subhead="Call our admissions line 24/7, or reach out by email, a real person on our team will get back to you."
       primaryLabel={`Call Us 24/7: ${PH}`}
       secondary={{ label: "Email Our Team", href: EMAIL_HREF }}
       background="/Asset/Facility/facility-08-poolside-grotto-overlook.jpg"

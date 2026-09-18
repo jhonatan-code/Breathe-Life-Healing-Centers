@@ -44,10 +44,10 @@ const S = {
 };
 
 const steps = [
-  { icon: "contact_page", title: "Share your basics", text: "Tell us your name, number, and insurance carrier — online or over the phone. Your policy ID helps but isn't required to get started." },
+  { icon: "contact_page", title: "Share your basics", text: "Tell us your name, number, and insurance carrier, online or over the phone. Your policy ID helps but isn't required to get started." },
   { icon: "support_agent", title: "We call your insurer", text: "Our admissions team contacts your insurance company directly to check your specific plan, not a generic estimate." },
   { icon: "fact_check", title: "You get a clear answer", text: "We explain what's covered, in plain language, before you commit to anything or share more than you're ready to." },
-  { icon: "event_available", title: "You decide what's next", text: "If you want to move forward, we help you plan admission. If now isn't the time, that's your call — no pressure either way." },
+  { icon: "event_available", title: "You decide what's next", text: "If you want to move forward, we help you plan admission. If now isn't the time, that's your call, no pressure either way." },
 ] as const;
 
 const faqs = [
@@ -55,8 +55,8 @@ const faqs = [
   { q: "Do I need my insurance card to get started?", a: "It helps, but it's not required to make the first call. If you don't have your policy ID handy, we can usually look up your coverage with your name and insurer." },
   { q: "Will checking my insurance cost me anything?", a: "No. Verification is free and doesn't obligate you to anything. You'll know what's covered before you decide anything else." },
   { q: "Is my information kept confidential?", a: "Yes. What you share with us during verification is handled confidentially, whether or not you move forward with treatment." },
-  { q: "What if my insurance isn't listed here?", a: "Call us — many plans are still in-network even if the logo isn't shown, and we verify based on your actual policy, not just the carrier name." },
-  { q: "What happens after my insurance is verified?", a: "We walk you through what's covered, answer your questions, and — if you're ready — help coordinate your assessment and arrival." },
+  { q: "What if my insurance isn't listed here?", a: "Call us, many plans are still in-network even if the logo isn't shown, and we verify based on your actual policy, not just the carrier name." },
+  { q: "What happens after my insurance is verified?", a: "We walk you through what's covered, answer your questions, and, if you're ready, help coordinate your assessment and arrival." },
 ];
 
 const pageUrl = new URL("/admissions/insurance/", site.domain).href;
@@ -159,7 +159,7 @@ const ld = {
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Why this comes first</div>
         <h2 style={`${S.h2}max-width:26ch;`}>No surprises, before or after</h2>
-        <p style={`${S.intro}max-width:76ch;`}>We verify insurance early so you're never guessing what's covered. That's also why our admissions specialists ask for your carrier and policy details up front — not to gatekeep, but so the answer you get back is specific to you, not a generic range.</p>
+        <p style={`${S.intro}max-width:76ch;`}>We verify insurance early so you're never guessing what's covered. That's also why our admissions specialists ask for your carrier and policy details up front, not to gatekeep, but so the answer you get back is specific to you, not a generic range.</p>
       </div>
     </section>
 
@@ -183,7 +183,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Ready to Check Your Coverage?"
-      subhead="Fill out the form above or call us directly — either way, a real person on our admissions team will walk you through what's covered."
+      subhead="Fill out the form above or call us directly, either way, a real person on our admissions team will walk you through what's covered."
       secondary={{ label: "See What to Bring", href: "/admissions/what-to-bring/" }}
       background="/Asset/Facility/facility-07-pool-waterfall-grotto.jpg"
     />

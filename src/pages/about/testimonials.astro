@@ -69,7 +69,7 @@ import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import { site } from "../../config/site";
 
 const title = "Testimonials | Real Stories From Real Recovery | Breathe Life Healing Centers";
-const description = "Real, first-person stories from Breathe Life Healing Centers clients, families, and professional referrals — organized by the kind of story closest to your own situation.";
+const description = "Real, first-person stories from Breathe Life Healing Centers clients, families, and professional referrals, organized by the kind of story closest to your own situation.";
 
 interface Entry { name: string; quote: string }
 interface Category {
@@ -104,7 +104,7 @@ const categories: Category[] = [
   {
     id: "family-program",
     label: "Family Program",
-    blurb: "The largest single group of stories in our archive — families on both sides of treatment.",
+    blurb: "The largest single group of stories in our archive, families on both sides of treatment.",
     featured: { name: "Elissa T.", quote: "Breathe's Family Program services and ongoing family support helped our family better communicate with each other and develop a family plan which made our daughter's return home seamless." },
     cta: { label: "Learn About Our Family Program", href: "/programs/family-program/" },
     entries: [
@@ -157,7 +157,7 @@ const faqGroups = [
   {
     items: [
       { q: "Are these real reviews?", a: "Yes. Every testimonial on this page was submitted directly by a client, family member, or professional referral source." },
-      { q: "Can I share my own story?", a: "Yes — reach out through our contact page. We'd welcome hearing from you." },
+      { q: "Can I share my own story?", a: "Yes, reach out through our contact page. We'd welcome hearing from you." },
       { q: "Do you have reviews on other platforms too?", a: "Yes, you can find additional reviews on our Google Business profile." },
       { q: "Is my family's experience going to look like these?", a: "Every situation is different. These stories reflect real outcomes, but your treatment plan will be built around your specific needs." },
     ],
@@ -230,7 +230,7 @@ const ld = {
           <div style={S.eyebrow}>In their own words</div>
           <h2 style={`${S.h2}max-width:34ch;`}>Find the story closest to yours</h2>
         </div>
-        <p style="text-align:center;font-family:'Instrument Sans',sans-serif;font-size:12px;color:#5B6570;margin:0 0 40px;">Every journey looks different — yours will be built around exactly what you need.</p>
+        <p style="text-align:center;font-family:'Instrument Sans',sans-serif;font-size:12px;color:#5B6570;margin:0 0 40px;">Every journey looks different, yours will be built around exactly what you need.</p>
 
         <div id="testi-tabs" class="no-scrollbar" role="tablist" aria-label="Testimonial category" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:44px;">
           {categories.map((c, i) => (
@@ -246,7 +246,7 @@ const ld = {
 
             <blockquote style="margin:0 auto 40px;padding:0;border:0;max-width:760px;text-align:center;">
               <p style="font-family:'Instrument Sans',sans-serif;font-size:clamp(22px,2.6vw,32px);line-height:1.38;letter-spacing:-0.012em;font-weight:600;color:#16293D;margin:0 0 14px;">“{c.featured.quote}”</p>
-              <footer style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;">— {c.featured.name}</footer>
+              <footer style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;">{c.featured.name}</footer>
             </blockquote>
 
             {c.cta && (
@@ -296,7 +296,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Are You Ready to Take the First Step?"
-      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure — just a real conversation about what comes next."
+      subhead="Whether it's your first call or your fifth, someone who's been where you are will pick up. No script, no pressure, just a real conversation about what comes next."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
       background="/Asset/Facility/facility-03-clinical-office.jpg"
     />

@@ -42,7 +42,7 @@ const HREF = site.phoneHref;
 
 const title = "Programs & Levels of Care | Breathe Life Healing Centers";
 const description =
-  "Every level of care and program at Breathe — medical detox, residential treatment, PHP, IOP, sober living, case management, family and alumni programs. LGBTQ+-affirming care in Los Angeles. Call 24/7.";
+  "Every level of care and program at Breathe: medical detox, residential treatment, PHP, IOP, sober living, case management, family and alumni programs. LGBTQ+-affirming care in Los Angeles. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -59,16 +59,16 @@ const S = {
 const levelIcons: Record<string, string> = {
   "Residential Treatment": "cottage",
   "Detox": "monitor_heart",
-  "PHP — Day Treatment (SUD, MH)": "wb_sunny",
-  "IOP — Intensive Outpatient (SUD, MH)": "calendar_month",
+  "PHP, Day Treatment (SUD, MH)": "wb_sunny",
+  "IOP, Intensive Outpatient (SUD, MH)": "calendar_month",
   "Transitional Living / Enhanced Sober Living": "home_work",
   "Outpatient (OP)": "directions_walk",
 };
 const levelHrefs: Record<string, string> = {
   "Residential Treatment": "/programs/residential-treatment/",
   "Detox": "/programs/medical-detox/",
-  "PHP — Day Treatment (SUD, MH)": "/programs/php/",
-  "IOP — Intensive Outpatient (SUD, MH)": "/programs/intensive-outpatient/",
+  "PHP, Day Treatment (SUD, MH)": "/programs/php/",
+  "IOP, Intensive Outpatient (SUD, MH)": "/programs/intensive-outpatient/",
   "Transitional Living / Enhanced Sober Living": "/programs/sober-living/",
   "Outpatient (OP)": "/programs/outpatient-rehab/",
 };
@@ -77,8 +77,8 @@ const levelHrefs: Record<string, string> = {
 const levelImages: Record<string, string> = {
   "Residential Treatment": galleryImg("facility-24-residence-lounge-deck.jpg"),
   "Detox": galleryImg("facility-16-facility-entrance-drive.jpg"),
-  "PHP — Day Treatment (SUD, MH)": galleryImg("facility-04-community-dining-lounge.jpg"),
-  "IOP — Intensive Outpatient (SUD, MH)": galleryImg("facility-10-fitness-center.jpg"),
+  "PHP, Day Treatment (SUD, MH)": galleryImg("facility-04-community-dining-lounge.jpg"),
+  "IOP, Intensive Outpatient (SUD, MH)": galleryImg("facility-10-fitness-center.jpg"),
   "Transitional Living / Enhanced Sober Living": galleryImg("facility-17-living-room-lounge.jpg"),
   "Outpatient (OP)": galleryImg("facility-25-residence-garden-stairs.png"),
 };
@@ -102,7 +102,7 @@ const support: { icon: string; title: string; href: string; img: string; text?: 
   {
     icon: "family_restroom", title: "Family Program", href: "/programs/family-program/",
     img: galleryImg("facility-19-outdoor-dining-deck.jpg"),
-    text: "Whether that's the family you were born into, the one you chose, or both — our Family Program doesn't assume blood relationships. It makes room for who actually shows up.",
+    text: "Whether that's the family you were born into, the one you chose, or both, our Family Program doesn't assume blood relationships. It makes room for who actually shows up.",
   },
   {
     icon: "groups", title: "Alumni Program", href: "/programs/alumni-program/",
@@ -177,12 +177,12 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Programs
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Programs &amp; Levels of Care</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Recovery isn't one-size-fits-all. We move with you through as many levels of care as you need — built for the LGBTQ+ community first, open to anyone ready to change.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Recovery isn't one-size-fits-all. We move with you through as many levels of care as you need, built for the LGBTQ+ community first, open to anyone ready to change.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta" href="/admissions/insurance/" style={S.ctaWhite}>Verify Your Insurance</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person — no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -194,7 +194,7 @@ const ld = {
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>Levels of care</div>
           <h2 style={`${S.h2}max-width:40ch;`}>Flexible, Structured Levels of Care</h2>
-          <p style={`${S.intro}max-width:80ch;`}>Every stay starts with an assessment, then moves through whichever of these levels fit — in either direction, as your needs change.</p>
+          <p style={`${S.intro}max-width:80ch;`}>Every stay starts with an assessment, then moves through whichever of these levels fit, in either direction, as your needs change.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
           {levels.map((l, i) => (
@@ -259,7 +259,7 @@ const ld = {
                   {c.text ? (
                     <p style={`${S.card}flex:1;`}>{c.text}</p>
                   ) : (
-                    <p style={`${S.card}flex:1;font-style:italic;`}>"{c.quote}"<br /><span style="font-style:normal;font-size:13px;color:#646D76;">— {c.attribution}</span></p>
+                    <p style={`${S.card}flex:1;font-style:italic;`}>"{c.quote}"<br /><span style="font-style:normal;font-size:13px;color:#646D76;">{c.attribution}</span></p>
                   )}
                   <a href={c.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">Learn more <span aria-hidden="true">→</span></a>
                 </div>
@@ -306,7 +306,7 @@ const ld = {
 
     <SiteInsurance
       heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for whichever level of care fits — before you commit to anything."
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for whichever level of care fits, before you commit to anything."
       background="#F7F5F1"
     />
 
