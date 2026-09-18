@@ -159,12 +159,11 @@ const ld = {
        badge shown (Fair Care Promise's "Delivering Excellence Since 2013"
        added 2026-09-18, tied to the confirmed founding year). */}
     <section data-screen-label="Accreditations" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1000px;margin:0 auto;text-align:center;">
+      <div style="max-width:1200px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Trust &amp; credentials</div>
         <h2 style={`${S.h2}max-width:30ch;`}>Accreditations &amp; memberships</h2>
         <p style={`${S.intro}max-width:70ch;margin-bottom:36px;`}>Breathe is licensed and independently verified by the organizations that hold treatment providers accountable.</p>
         <div class="trail">
-          <div class="trail-line" />
           <div class="trail-row">
             {accreditations.map(([src, alt, href]) => {
               const text =
@@ -314,9 +313,9 @@ const ld = {
 
   /* ── Verification Trail — "Trust & credentials" ────────────────────── */
   .trail { position: relative; }
-  .trail-line { position: absolute; left: 10%; right: 10%; top: 35px; height: 2px; background: #E2DED7; z-index: 0; }
-  .trail-row { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-  .trail-item { text-align: center; }
+  .trail-row { --trail-gap: 44px; position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--trail-gap); }
+  .trail-item { position: relative; text-align: center; }
+  .trail-item:not(:first-child)::before { content: ""; position: absolute; top: 35px; left: calc(-1 * var(--trail-gap)); width: var(--trail-gap); height: 2px; background: #E2DED7; }
   .trail-ring { height: 70px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
   .trail-ring img { height: 70px; width: auto; max-width: 100%; object-fit: contain; }
   .trail-item h3 { font-family: "Instrument Sans", sans-serif; font-size: 16px; font-weight: 600; margin: 0 0 6px; color: #14181C; }
@@ -326,7 +325,7 @@ const ld = {
     font-family: "Instrument Sans", sans-serif; font-size: 16px; font-weight: 700; color: #2C5A64;
   }
   .trail-end .msym { font-size: 18px; }
-  @media (max-width: 760px) { .trail-row { grid-template-columns: 1fr 1fr; row-gap: 26px; } .trail-line { display: none; } }
+  @media (max-width: 760px) { .trail-row { grid-template-columns: 1fr 1fr; row-gap: 26px; } .trail-item::before { display: none; } }
   @media (max-width: 480px) { .trail-row { grid-template-columns: 1fr; } }
 </style>
 
