@@ -128,11 +128,13 @@ const ld = {
              instead of blank whitespace — spans 2 tracks so it fills the
              gap in the common 3-column layout without overflowing narrower
              ones (grid clamps an out-of-range span to the last column). */}
-          <a href={site.phoneHref} class="treat-card" style="grid-column:span 2;display:flex;flex-direction:column;justify-content:center;gap:10px;background:#16293D;border:1px solid #16293D;border-radius:14px;padding:26px 24px;text-decoration:none;">
-            <span class="msym" aria-hidden="true" style="font-size:28px;color:#7FB3BC;">{msymChar("support_agent")}</span>
-            <h3 style="font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:0;color:#FFFFFF;">Not sure which center is right for you?</h3>
-            <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#DCE6EF;margin:0;">Call us. Our team can help point you toward the right fit across the Sero network, whether that's Breathe or one of our sister centers.</p>
-            <span style="margin-top:6px;display:inline-flex;align-items:center;gap:8px;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:700;color:#FFFFFF;">
+          <a href={site.phoneHref} class="treat-card" style="grid-column:span 2;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:10px;background:#16293D;border:1px solid #16293D;border-radius:14px;padding:26px 24px;text-decoration:none;">
+            <img src="/Asset/Facility/facility-16-facility-entrance-drive.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.42;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0.84),rgba(22,41,61,0.7));"></div>
+            <span class="msym" aria-hidden="true" style="position:relative;font-size:28px;color:#7FB3BC;">{msymChar("support_agent")}</span>
+            <h3 style="position:relative;font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:0;color:#FFFFFF;">Not sure which center is right for you?</h3>
+            <p style="position:relative;font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#DCE6EF;margin:0;">Call us. Our team can help point you toward the right fit across the Sero network, whether that's Breathe or one of our sister centers.</p>
+            <span style="position:relative;margin-top:6px;display:inline-flex;align-items:center;gap:8px;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:700;color:#FFFFFF;">
               <span class="msym" aria-hidden="true" style="font-size:18px;">{msymChar("phone")}</span>
               Call Now: {site.phoneDisplay}
             </span>
