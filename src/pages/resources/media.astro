@@ -66,8 +66,9 @@ const brochures = [
 // Phillips's abuse allegations against her father, which does mention
 // Breathe in passing but isn't coverage of Breathe itself).
 // darkChip:true = the outlet's logo file is white/light and needs a dark
-// background to read on this page's white cards (Voyage LA and UVU both
-// only publish light-on-transparent logo assets).
+// background to read on this page's white cards. Not used by any current
+// entry (Voyage LA and UVU both ended up with dark-on-transparent logo
+// variants instead), but left wired up for whatever comes next.
 const pressRefs = [
   { category: "Television", name: "Addicted to Food", outlet: "Oprah Winfrey Network (OWN)", logo: "/Asset/Press/oprah-addicted-to-food.jpg", text: "Follows eight people with eating disorders through a 42-day treatment program." },
   { category: "Television", name: "The Today Show", outlet: "NBC", logo: "/Asset/Press/today-show-media-page.png", text: "A morning news and talk show airing every morning on NBC." },
@@ -75,11 +76,11 @@ const pressRefs = [
   { category: "Blogs", name: "Huffington Post", logo: "/Asset/Press/huffington-post.jpg", text: "An online news aggregator and blog founded by Arianna Huffington and colleagues." },
   { category: "Print", name: "Forbes", logo: "/Asset/Press/forbes.png", text: "“3 Ways Your Company's Mission Can Become Your Best Employee Engagement Tool.”", href: "https://www.forbes.com/sites/larrymyler/2013/11/06/3-ways-your-companys-mission-can-become-your-best-employee-engagement-tool/" },
   { category: "Press Release", name: "PR Newswire", logo: "/Asset/Press/pr-newswire.png", text: "“Breathe Life Healing Centers Expands Eating Disorder Unit,” announcing specialized care for eating disorders alongside substance use.", href: "https://www.prnewswire.com/news-releases/breathe-life-healing-centers-expands-eating-disorder-unit-300210753.html" },
-  { category: "Interview", name: "Voyage LA", logo: "/Asset/Press/voyage-la.png", darkChip: true, text: "“Meet Brad Lamm of Breathe Life Healing Centers and Intervention.com,” a profile on his recovery journey and approach to treatment.", href: "https://voyagela.com/interview/meet-brad-lamm-breathe-life-healing-centers-intervention-com-west-hollywood/" },
-  { category: "News", name: "Utah Valley University", logo: "/Asset/Press/uvu.svg", darkChip: true, text: "Coverage of UVU's Conference on Addiction, where Mackenzie Phillips spoke as a member of the Breathe team.", href: "https://www.uvu.edu/news/2020/03/03102020_addiction.html" },
+  { category: "Interview", name: "Voyage LA", logo: "/Asset/Press/voyage-la-footer.png", text: "“Meet Brad Lamm of Breathe Life Healing Centers and Intervention.com,” a profile on his recovery journey and approach to treatment.", href: "https://voyagela.com/interview/meet-brad-lamm-breathe-life-healing-centers-intervention-com-west-hollywood/" },
+  { category: "News", name: "Utah Valley University", logo: "/Asset/Press/uvu-mono.svg", text: "Coverage of UVU's Conference on Addiction, where Mackenzie Phillips spoke as a member of the Breathe team.", href: "https://www.uvu.edu/news/2020/03/03102020_addiction.html" },
   { category: "Video", name: "Brad Lamm: Reading in Recovery", icon: "youtube", iconColor: "#FF0000", text: "A recorded segment with Brad Lamm on recovery.", href: "https://www.youtube.com/watch?v=UtW-Oi_M65I" },
   { category: "Video", name: "Recovery Unplugged", outlet: "Facebook", icon: "facebook", iconColor: "#1877F2", text: "An interview with Emmy Olea, Breathe's Director of Marketing & Business Development.", href: "https://www.facebook.com/RecoveryUnplugged/videos/1366837938984354/" },
-  { category: "Television", name: "Brad Lamm in the Media", photo: "/Asset/Our%20Team/Brad-Lamm.webp", text: "Appearances across The Dr. Phil Show, The Doctors, TODAY, and The Dr. Oz Show.", href: "https://bradlamm.com/brad-lamm-news/" },
+  { category: "Television", name: "Brad Lamm in the Media", logo: "/Asset/Press/brad-lamm-logo.png", text: "Appearances across The Dr. Phil Show, The Doctors, TODAY, and The Dr. Oz Show.", href: "https://bradlamm.com/brad-lamm-news/" },
 ] as const;
 
 const title = "Media & Press | Breathe Life Healing Centers";
