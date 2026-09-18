@@ -15,7 +15,8 @@ import SiteFinalCTA from '../components/SiteFinalCTA.astro';
 import BlogSidebar from '../components/blog/BlogSidebar.astro';
 import BlogMobileTools from '../components/blog/BlogMobileTools.astro';
 import ShareButtons from '../components/blog/ShareButtons.astro';
-import { CATEGORY_LABELS, CATEGORY_PHOTOS, getAuthor, postHref, type BlogEntry } from '../lib/blog';
+import BlogCard from '../components/blog/BlogCard.astro';
+import { CATEGORY_LABELS, CATEGORY_PHOTOS, getAuthor, type BlogEntry } from '../lib/blog';
 import type { MarkdownHeading } from 'astro';
 import { site } from '../config/site';
 
@@ -142,16 +143,8 @@ const ld = {
         <section class="related-section">
           <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Related reading</h2>
           <div class="eyebrow" aria-hidden="true">Related reading</div>
-          <div class="related-list">
-            {related.map((p) => (
-              <a class="related-row" href={postHref(p)}>
-                <span class="msym" aria-hidden="true">{msymChar("article")}</span>
-                <span>
-                  <span class="related-cat">{CATEGORY_LABELS[p.data.category]}</span>
-                  <span class="related-title">{p.data.title.replace(/\s*\|\s*Breathe$/, '')}</span>
-                </span>
-              </a>
-            ))}
+          <div class="related-grid">
+            {related.map((p) => <BlogCard post={p} />)}
           </div>
         </section>
       )}
@@ -353,15 +346,14 @@ const ld = {
   .post-content :global(table) { display: block; overflow-x: auto; }
   .post-foot-share { margin: 40px 0 0; }
 
+  /* Same 3-up card grid as /blog/'s own listing (src/pages/blog/[...page].astro
+     .grid), reusing the identical BlogCard component so a related post
+     looks exactly like it does everywhere else on the site. */
   .related-section { max-width: 1180px; margin: 60px auto 0; padding: 0 37px 20px; }
   .related-section .eyebrow { font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #2C5A64; margin-bottom: 18px; }
-  .related-list { display: flex; flex-direction: column; max-width: 720px; }
-  .related-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px 4px; border-top: 1px solid #E5E1D8; text-decoration: none; color: inherit; }
-  .related-row:first-child { border-top: 0; padding-top: 0; }
-  .related-row .msym { font-size: 22px; color: #7FB3BC; margin-top: 2px; flex: 0 0 auto; }
-  .related-row .related-cat { display: block; font-family: 'Instrument Sans', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #2C5A64; margin-bottom: 4px; }
-  .related-row .related-title { font-family: 'Instrument Sans', sans-serif; font-size: 16px; font-weight: 600; color: #14181C; line-height: 1.4; }
-  .related-row:hover .related-title { text-decoration: underline; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 900px) { .related-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .related-grid { grid-template-columns: 1fr; } }
 
   /* Mobile-only "Table of Contents" popup under the share icons — distinct
      from BlogMobileTools.astro's persistent bottom "Article tools" sheet,
