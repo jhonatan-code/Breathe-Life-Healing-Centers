@@ -12,12 +12,17 @@ interface Props {
   intro: string;
   ctaHref?: string;
   background?: string;
+  /** Keeps `intro` on a single line instead of the default 84ch wrap —
+   *  opt-in per caller since most pages' intro text is long enough that
+   *  forcing nowrap sitewide would overflow on narrower viewports. */
+  introNowrap?: boolean;
 }
 const {
   heading = "We're in-network with most major insurers",
   intro,
   ctaHref = "#verify",
   background = "#FFFFFF",
+  introNowrap = false,
 } = Astro.props;
 
 const S = {
@@ -32,7 +37,7 @@ const S = {
   <div style="max-width:1440px;margin:0 auto;text-align:center;">
     <div style={S.eyebrow}>Cost &amp; coverage</div>
     <h2 style={`${S.h2}max-width:52ch;`}>{heading}</h2>
-    <p style={`${S.intro}max-width:84ch;margin-bottom:30px;`}>{intro}</p>
+    <p style={`${S.intro}${introNowrap ? "white-space:nowrap;" : "max-width:84ch;"}margin-bottom:30px;`}>{intro}</p>
     <div id="ins-wrap" style="margin-bottom:26px;">
       <div id="ins-track" class="no-scrollbar" style="display:flex;align-items:center;overflow-x:auto;">
         {[...insurers, ...insurers, ...insurers, ...insurers].map((i, k) => (

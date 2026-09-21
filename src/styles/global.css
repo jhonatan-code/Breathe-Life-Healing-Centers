@@ -80,7 +80,15 @@ a, button, summary, input, select {
   box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.08),
     0 3px 6px rgba(20,24,28,0.10), 0 10px 20px rgba(20,24,28,0.14);
 }
-.nav-link:hover { color: #33679c !important; }
+/* Desktop header bar is #32679C (blue-on-blue would make the old #33679c
+   hover/active color disappear) — scoped to desktop only; the mobile
+   dropdown panel below stays white-background/dark-text and keeps its own
+   colors via the @media (max-width: 1024px) overrides further down. */
+@media (min-width: 1025px) {
+  .nav-link:hover,
+  .hdr-item:hover .hdr-trigger-link,
+  .hdr-item:hover .hdr-caret-btn { color: #E6EDF4 !important; }
+}
 .icon-btn:hover {
   background: #f1f5f9 !important; transform: translateY(-1px);
   box-shadow: inset -1px 1px 0.5px rgba(255,255,255,0.9), inset 1px -1px 0.5px rgba(20,24,28,0.06),
@@ -236,8 +244,11 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
   background: none; border: 0; padding: 2px; margin: 0; cursor: pointer;
   color: inherit; font: inherit; line-height: 1;
 }
-.hdr-item:hover .hdr-trigger-link,
-.hdr-item:hover .hdr-caret-btn { color: #33679c !important; }
+/* Desktop hover color for these two lives in the scoped @media (min-width:
+   1025px) block near .nav-link:hover, above — this file's header bar is
+   #32679C, and this rule's un-scoped #33679c would be almost invisible
+   there; keeping it here unscoped would also win the cascade tie against
+   the scoped rule since it comes later in source order. */
 .hdr-caret { font-size: 11px; line-height: 1; transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1); }
 .hdr-item:hover .hdr-caret,
 .hdr-item.is-open .hdr-caret { transform: rotate(180deg); }
@@ -329,7 +340,10 @@ img { height: auto; }
     width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
   }
   .hdr-burger span {
-    display: block; width: 24px; height: 2px; background: #14181c; border-radius: 2px;
+    /* white, not #14181c — the burger sits directly on the header bar
+       itself (not the white dropdown panel below), and that bar is
+       #32679C at every breakpoint. */
+    display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px;
     transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
   }
   .hdr-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -351,6 +365,17 @@ img { height: auto; }
     padding: 13px 4px !important; font-size: 16px;
     border-bottom: 1px solid #f1eee8;
   }
+  /* The dropdown panel itself stays white/dark-text on mobile (rule above:
+     .hdr-nav { background: #fff; }), but SiteHeader.astro's inline colors
+     on these elements are now tuned for the #32679C DESKTOP bar (white
+     default, #E6EDF4 active) — override back to dark-on-white here, using
+     !important since a stylesheet !important rule beats a non-!important
+     inline style regardless of the inline style's own specificity. */
+  .hdr-nav .nav-link,
+  .hdr-nav .hdr-trigger-link,
+  .hdr-nav .hdr-caret-btn { color: #14181c !important; }
+  .hdr-nav .nav-link[aria-current="page"],
+  .hdr-nav .hdr-trigger-link[aria-current="page"] { color: #33679c !important; }
 
   /* dropdown items become an in-flow accordion on mobile */
   .hdr-item { width: 100%; }

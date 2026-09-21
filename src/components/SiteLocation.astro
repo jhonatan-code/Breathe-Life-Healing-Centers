@@ -1,12 +1,17 @@
 ---
 import { msymChar } from "../lib/icons";
 /**
- * Map + "getting here" panel — the address is a fixed sitewide fact, so this
- * needs no props. Hover-reveal on the property photo is CSS-only
- * ([data-reveal] rules in global.css), nothing to wire up here.
+ * Map + "getting here" panel — the address is a fixed sitewide fact.
+ * Hover-reveal on the property photo is CSS-only ([data-reveal] rules in
+ * global.css), nothing to wire up here.
  */
 import { galleryImg } from "../data/home";
 import { site } from "../config/site";
+
+interface Props {
+  background?: string;
+}
+const { background = "#FDFBF8" } = Astro.props;
 
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
@@ -19,7 +24,7 @@ const S = {
 };
 ---
 
-<section id="location" data-screen-label="Location" style="padding:70px 37px;background:#FDFBF8;">
+<section id="location" data-screen-label="Location" style={`padding:70px 37px;background:${background};`}>
   <div style="max-width:1440px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:32px;">
       <div style={S.eyebrow}>Find us</div>

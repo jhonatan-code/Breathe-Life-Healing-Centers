@@ -7,13 +7,18 @@
  * edit the behavior once, both pages get it.
  *
  * Design intent (do not simplify away): numbers and their divider lines
- * start white and turn Sea Glass (#7FB3BC) one at a time, cumulatively, as
- * the row scrolls through a comfortable on-screen zone — once lit, a step
+ * start white and turn a pale ice-blue (#E6EDF4) one at a time, cumulatively,
+ * as the row scrolls through a comfortable on-screen zone — once lit, a step
  * stays lit (this is NOT a crossfade; nothing fades back out while
  * scrolling forward). Each activation also gets a one-shot scale+glow pop
  * and a small white sparkle burst so the change reads as an event.
  * Reversible live: scrolling back up un-lights steps in reverse, no pop/
  * sparkle on the way back down.
+ *
+ * #E6EDF4 replaced Sea Glass (#7FB3BC) as the "lit" color 2026-09-21: Sea
+ * Glass read fine (6.4:1) against the section's old near-black background,
+ * but drops to 2.55:1 against the brand-blue #32679C background these
+ * sections now use — #E6EDF4 keeps ~5:1 against #32679C.
  *
  * Caller responsibilities:
  * - `id` must be unique on the page (used for the DOM row + JS lookup).
@@ -82,9 +87,9 @@ const numStyle = circleNumbers
     animation: scroll-step-pop 550ms cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes scroll-step-pop {
-    0% { transform: scale(1); text-shadow: 0 0 0 rgba(127, 179, 188, 0); }
-    40% { transform: scale(1.18); text-shadow: 0 0 22px rgba(127, 179, 188, 0.85); }
-    100% { transform: scale(1); text-shadow: 0 0 0 rgba(127, 179, 188, 0); }
+    0% { transform: scale(1); text-shadow: 0 0 0 rgba(230, 237, 244, 0); }
+    40% { transform: scale(1.18); text-shadow: 0 0 22px rgba(230, 237, 244, 0.85); }
+    100% { transform: scale(1); text-shadow: 0 0 0 rgba(230, 237, 244, 0); }
   }
   /* Circle badges glow around the ring (box-shadow) instead of through
      the glyph (text-shadow) — a text-shadow on a 19px numeral inside a
@@ -93,9 +98,9 @@ const numStyle = circleNumbers
     animation: scroll-step-pop-circle 550ms cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes scroll-step-pop-circle {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(127, 179, 188, 0); }
-    40% { transform: scale(1.14); box-shadow: 0 0 0 8px rgba(127, 179, 188, 0.35), 0 0 20px 4px rgba(127, 179, 188, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(127, 179, 188, 0); }
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 237, 244, 0); }
+    40% { transform: scale(1.14); box-shadow: 0 0 0 8px rgba(230, 237, 244, 0.35), 0 0 20px 4px rgba(230, 237, 244, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 237, 244, 0); }
   }
 
   /* White sparkle burst — small 4-point stars spawned as DOM nodes (see
@@ -129,8 +134,8 @@ const numStyle = circleNumbers
 </style>
 
 <script define:vars={{ id, zoneStartOffset, zoneEndOffset }}>
-  // ── Numbers AND their divider lines turn from white to Sea Glass
-  //    (#7FB3BC) one at a time as the row scrolls through view, staying
+  // ── Numbers AND their divider lines turn from white to #E6EDF4
+  //    one at a time as the row scrolls through view, staying
   //    lit as the next one turns on — cumulative, not a crossfade.
   //    Progress 0→1 while the row is comfortably on screen; zoneStart/
   //    zoneEnd are nudged by the offsets above (not rescaled — a pure
@@ -151,8 +156,8 @@ const numStyle = circleNumbers
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (!row || !nums.length) return;
     if (reduce) {
-      nums.forEach((el) => { el.style.color = '#7FB3BC'; });
-      lines.forEach((el) => { el.style.background = '#7FB3BC'; });
+      nums.forEach((el) => { el.style.color = '#E6EDF4'; });
+      lines.forEach((el) => { el.style.background = '#E6EDF4'; });
       return;
     }
 
@@ -186,7 +191,7 @@ const numStyle = circleNumbers
       nums.forEach((el, i) => {
         const threshold = thresholdFor(i);
         const isActive = progress >= threshold;
-        el.style.color = isActive ? '#7FB3BC' : '#FFFFFF';
+        el.style.color = isActive ? '#E6EDF4' : '#FFFFFF';
         if (isActive && !wasActive[i]) {
           el.classList.remove('is-popping');
           void el.offsetWidth; // restart the keyframe if it fires again later
@@ -197,7 +202,7 @@ const numStyle = circleNumbers
       });
       lines.forEach((el, i) => {
         const threshold = thresholdFor(i);
-        el.style.background = progress >= threshold ? '#7FB3BC' : '#FFFFFF';
+        el.style.background = progress >= threshold ? '#E6EDF4' : '#FFFFFF';
       });
       ticking = false;
     };

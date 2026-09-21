@@ -157,8 +157,8 @@ const S = {
 
     {/* ══ Mobile: grouped list (<1024px) — different interaction, not a shrunk diagram ══ */}
     <div class="nd-mobile" style="display:none;margin-top:28px;">
-      <a href={hub.href} style="display:block;background:#16293D;border-radius:14px;padding:22px 20px;margin-bottom:16px;text-decoration:none;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7FB3BC;margin-bottom:6px;">The integrated model</div>
+      <a href={hub.href} style="display:block;background:#32679C;border-radius:14px;padding:22px 20px;margin-bottom:16px;text-decoration:none;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#E6EDF4;margin-bottom:6px;">The integrated model</div>
         <div style="font-size:19px;font-weight:600;color:#FFFFFF;margin-bottom:6px;">Dual Diagnosis →</div>
         <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.55;color:#C8DAE9;margin:0;">{hub.text}</p>
       </a>
@@ -239,7 +239,7 @@ const S = {
       if (d && panelDefault && panelActive && panelBadge && panelTitle && panelText && panelLink) {
         panelDefault.hidden = true;
         panelActive.hidden = false;
-        const badgeColor = d.kind === "hub" ? "background:#16293D;color:#FFFFFF;" : d.kind === "condition" ? "background:rgba(44,90,100,0.12);color:#2C5A64;" : "background:rgba(51,103,156,0.10);color:#33679C;";
+        const badgeColor = d.kind === "hub" ? "background:#32679C;color:#FFFFFF;" : d.kind === "condition" ? "background:rgba(44,90,100,0.12);color:#2C5A64;" : "background:rgba(51,103,156,0.10);color:#33679C;";
         panelBadge.setAttribute("style", `display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px;${badgeColor}`);
         panelBadge.textContent = d.kind === "hub" ? "Integrated model" : d.kind === "condition" ? "Condition" : "Substance";
         panelTitle.textContent = d.label;

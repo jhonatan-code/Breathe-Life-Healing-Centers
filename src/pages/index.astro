@@ -120,26 +120,26 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
     <SiteHeader />
 
     {/* ══════════════  HERO  ══════════════ */}
-    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
-      <img src={galleryImg("facility-16-facility-entrance-drive.jpg")} alt="Evening arrival at the Breathe Life facility entrance" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.92;" />
-      <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.92) 0%,rgba(22,41,61,0.78) 46%,rgba(22,41,61,0.34) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
-        <div style="flex:1 1 560px;">
-          <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 28px;text-wrap:balance;">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(19px,1.9vw,24px);line-height:1.45;font-weight:300;color:#E6EDF4;margin:0 0 28px;">We've built care around one fact:</p>
-          <div style="display:grid;gap:16px;margin-bottom:32px;max-width:56ch;">
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#32679C;min-height:660px;display:flex;align-items:center;">
+      <img src={galleryImg("facility-07-pool-waterfall-grotto.jpg")} alt="Pool and waterfall grotto at the Breathe Life facility" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.96;" />
+      {/* Client feedback 2026-09-21: reduce the overlay so the photo reads
+         brighter/more vibrant, keeping enough darkening on the left (where
+         the headline sits) for text contrast while the right stays bright. */}
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(4,9,16,0.62) 0%,rgba(4,9,16,0.38) 42%,rgba(4,9,16,0.04) 100%);"></div>
+      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;width:100%;box-sizing:border-box;">
+        <div style="flex:1 1 480px;">
+          <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 24px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
+          <div style="display:grid;gap:14px;margin-bottom:28px;">
             {[
-              { icon: "diversity_3", text: "Built for the LGBTQ+ community, staff reflect the community from leadership to techs, so clients see themselves in their care team." },
-              { icon: "favorite", text: "Dedicated chemsex/sexualized drug use program, trademarked curriculum for an issue mainstream treatment ignores or mishandles." },
-              { icon: "volunteer_activism", text: "Lived experience at every level, CEO and staff are in recovery themselves, built by the people who lived it." },
-              { icon: "healing", text: "Trauma-focused model, treats substance use and trauma in parallel, using identity affirmation to unlock the deeper work." },
-              { icon: "verified", text: "Gold Seal Joint Commission, 22-acre Laurel Canyon campus, since 2013, 4,000+ clients, premium credibility behind the mission." },
+              { icon: "diversity_3", text: "Built for the LGBTQ+ community, at every level of care." },
+              { icon: "healing", text: "Trauma-focused care for addiction and mental health." },
+              { icon: "verified", text: "Gold Seal accredited campus in Laurel Canyon since 2013." },
             ].map((b) => (
-              <div style="display:flex;gap:14px;align-items:flex-start;">
-                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,0.12);margin-top:1px;">
-                  <span class="msym" style="font-size:17px;color:#FFFFFF;">{msymChar(b.icon)}</span>
+              <div style="display:flex;gap:12px;align-items:center;white-space:nowrap;">
+                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.12);">
+                  <span class="msym" style="font-size:22px;color:#FFFFFF;">{msymChar(b.icon)}</span>
                 </span>
-                <span style="font-size:17px;line-height:1.6;color:#DCE6EF;">{b.text}</span>
+                <span style="font-size:18px;line-height:1.4;color:#DCE6EF;text-shadow:0 1px 3px rgba(0,0,0,0.35);">{b.text}</span>
               </div>
             ))}
           </div>
@@ -151,29 +151,10 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       </div>
     </section>
 
-    {/* ══════════════  AS SEEN ON  ══════════════ */}
-    {/* Sourced directly from the official live site's own "As Seen On" row
-       (breathelifehealingcenters.com, checked 2026-09-02, per instruction:
-       the client built and approved that site themselves, so it's the
-       source of truth for content gaps like this one) — same 3 outlets,
-       logo files downloaded to /Asset/Press/.
-
-       Intentionally NOT linked (removed 2026-09-18, urgent fix): Elizabeth's
-       rule is that these must link to the actual publication that mentions
-       Breathe, never the publisher's generic homepage. No real
-       Breathe-specific article URL exists yet for any of the three, so the
-       logos stay plain images rather than link somewhere that violates that
-       rule. Add real hrefs only once genuine per-article URLs are sourced. */}
-    <section id="as-seen-on" data-screen-label="As Seen On" style="padding:44px 37px;background:#F0F5FA;border-top:1px solid #E2DED7;border-bottom:1px solid #E2DED7;">
-      <div style="max-width:1100px;margin:0 auto;text-align:center;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8A94A0;margin-bottom:26px;">As Seen On</div>
-        <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:44px 64px;">
-          <img src="/Asset/Press/good-morning-america.png" alt="Good Morning America" style="height:54px;width:auto;display:block;opacity:0.85;" />
-          <img src="/Asset/Press/oprah-winfrey-show.png" alt="The Oprah Winfrey Show" style="height:58px;width:auto;display:block;opacity:0.85;" />
-          <img src="/Asset/Press/today-show.png" alt="TODAY Show" style="height:56px;width:auto;display:block;opacity:0.85;" />
-        </div>
-      </div>
-    </section>
+    {/* Client feedback 2026-09-21: insurance + reviews moved from near the
+       page bottom to directly below the hero, so trust signals land before
+       a visitor has to scroll far. */}
+    <SiteInsurance intro="Our admissions team works directly with your insurance company to explain exactly what's covered before you commit to anything, no surprises." introNowrap />
 
     {/* ══════════════  FACILITY  ══════════════ */}
     <section id="photos" data-screen-label="Facility" style="padding:70px 37px;background:#FFFFFF;">
@@ -186,6 +167,50 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0;max-width:92ch;">A private, inclusive, and comforting space to recover, residential homes set in the quiet hills of Laurel Canyon, designed with privacy above all else.</p>
         </div>
         <FacilityGallery id="facility-gallery" photos={galleryPhotos} />
+      </div>
+    </section>
+
+    {/* ══════════════  AS SEEN ON  ══════════════ */}
+    {/* Updated 2026-09-18: auto-scrolling marquee (pause on hover/focus,
+       same pattern as the insurance and signature marquees) of all 11
+       pressRefs entries from resources/media.astro, Addicted to Food
+       through Brad Lamm in the Media. Only the entries that carry a real
+       per-article href are wrapped as links (Elizabeth's rule: must link to
+       the actual publication that mentions Breathe, never a generic
+       homepage) - the rest render as plain, unlinked logos.
+       Moved below the Facility gallery per client feedback 2026-09-21. */}
+    <section id="as-seen-on" data-screen-label="As Seen On" style="padding:44px 37px;background:#F0F5FA;border-top:1px solid #C8DAE9;border-bottom:1px solid #C8DAE9;">
+      <div style="max-width:1440px;margin:0 auto;text-align:center;">
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8A94A0;margin-bottom:26px;">As Seen On</div>
+        <div id="asn-wrap">
+          <div id="asn-track" class="no-scrollbar" style="display:flex;align-items:center;overflow-x:auto;gap:40px;">
+            {(() => {
+              const logos: [string, string, string, string?][] = [
+                ["/Asset/Press/oprah-addicted-to-food.jpg", "Addicted to Food, Oprah Winfrey Network (OWN)", "120px"],
+                ["/Asset/Press/today-show-media-page.png", "The Today Show, NBC", "120px"],
+                ["/Asset/Press/the-view.png", "The View, ABC", "120px"],
+                ["/Asset/Press/huffington-post.jpg", "Huffington Post", "120px"],
+                ["/Asset/Press/forbes.png", "Forbes", "150px", "https://www.forbes.com/sites/larrymyler/2013/11/06/3-ways-your-companys-mission-can-become-your-best-employee-engagement-tool/"],
+                ["/Asset/Press/pr-newswire.png", "PR Newswire", "150px", "https://www.prnewswire.com/news-releases/breathe-life-healing-centers-expands-eating-disorder-unit-300210753.html"],
+                ["/Asset/Press/voyage-la-footer.png", "Voyage LA", "150px", "https://voyagela.com/interview/meet-brad-lamm-breathe-life-healing-centers-intervention-com-west-hollywood/"],
+                ["/Asset/Press/uvu-mono.svg", "Utah Valley University", "120px", "https://www.uvu.edu/news/2020/03/03102020_addiction.html"],
+                ["/Asset/Press/reading-in-recovery.png", "Reading in Recovery", "150px", "https://www.youtube.com/watch?v=UtW-Oi_M65I"],
+                ["/Asset/Press/recovery-unplugged.png", "Recovery Unplugged", "160px", "https://www.facebook.com/RecoveryUnplugged/videos/1366837938984354/"],
+                ["/Asset/Press/brad-lamm-logo.png", "Brad Lamm in the Media", "150px", "https://bradlamm.com/brad-lamm-news/"],
+              ];
+              return [...logos, ...logos, ...logos, ...logos].map(([src, alt, maxW, href], k) => {
+                const img = <img src={src} alt={alt} loading="lazy" style={`height:44px;max-width:${maxW};width:auto;object-fit:contain;display:block;opacity:0.85;border-radius:6px;`} />;
+                return (
+                  <div aria-hidden={k >= logos.length ? "true" : undefined} style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0 28px;box-sizing:border-box;">
+                    {href ? (
+                      <a href={href} target="_blank" rel="noopener noreferrer" tabindex={k >= logos.length ? -1 : 0} style="display:block;line-height:0;">{img}</a>
+                    ) : img}
+                  </div>
+                );
+              });
+            })()}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -304,10 +329,10 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
     </section>
 
     {/* ══════════════  SIGNATURE SERVICES  ══════════════ */}
-    <section id="signature" data-screen-label="Signature services" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
+    <section id="signature" data-screen-label="Signature services" style="padding:70px 37px;background:#32679C;color:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
-          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7FB3BC;margin-bottom:14px;">Specialized programs</div>
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E6EDF4;margin-bottom:14px;">Specialized programs</div>
           <h2 style={`${S.h2}max-width:26ch;color:#FFFFFF;`}>Signature Services</h2>
           <p style={`${S.intro}color:#DCE6EF;max-width:88ch;`}>Built for LGBTQIA+ experiences generic treatment programs don't have language for, gender-affirming care, chemsex, and family systems that don't look like everyone else's.</p>
         </div>
@@ -324,8 +349,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
               </a>
             ))}
           </div>
-          <div style="display:flex;align-items:center;gap:12px;margin-top:14px;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#7FB3BC;">
-            <span style="flex:1;height:1px;background:#2E4A66;"></span><span>Hover to pause</span>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:14px;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#E6EDF4;">
+            <span style="flex:1;height:1px;background:rgba(255,255,255,0.3);"></span><span>Hover to pause</span>
           </div>
         </div>
         <div style="text-align:center;margin-top:30px;">
@@ -346,8 +371,10 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       </div>
     </section>
 
+    <SiteReviews />
+
     {/* ══════════════  TEAM  ══════════════ */}
-    <section id="team" data-screen-label="Team" style="padding:70px 37px;background:#F7F5F1;">
+    <section id="team" data-screen-label="Team" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Leadership</div>
@@ -375,27 +402,25 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
     </section>
 
     {/* ══════════════  FOUR STEPS  ══════════════ */}
-    <section id="admissions" data-screen-label="Four steps" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
+    <section id="admissions" data-screen-label="Four steps" style="padding:70px 37px;background:#32679C;color:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
-          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7FB3BC;margin-bottom:14px;">Getting started</div>
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E6EDF4;margin-bottom:14px;">Getting started</div>
           <h2 style={`${S.h2}max-width:20ch;color:#FFFFFF;`}>Four simple steps</h2>
         </div>
         <ScrollActivateSteps id="steps-row" steps={steps.map(([, h, p]) => ({ title: h, text: p }))} circleNumbers />
       </div>
     </section>
 
-    <SiteReviews />
-
-    <SiteLocation />
+    <SiteLocation background="#FFFFFF" />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     {/* The #verify form lives in the hero on desktop; script relocates the
        form node into #verify-mobile-slot at ≤1024px so mobile users meet it
        here, right before the FAQs. */}
-    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#32679C;padding:44px 20px;">
       <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#E6EDF4;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
       </div>
     </section>
 
@@ -403,9 +428,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       heading="The questions people really ask"
       intro="Seven honest answers, the things people and families ask us before they decide anything."
       groups={faqGroups}
+      background="#F0F5FA"
     />
-
-    <SiteInsurance intro="Our admissions team works directly with your insurance company to explain exactly what's covered before you commit to anything, no surprises." />
 
     <SiteFinalCTA
       heading="You don't have to hide who you are to heal"
@@ -485,6 +509,32 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
   (() => {
     const track = document.getElementById("sig-track");
     const wrap = document.getElementById("sig-wrap");
+    if (!track || !wrap) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const SPEED = 0.028;
+    let last = 0, pos: number | null = null, paused = false;
+    wrap.addEventListener("mouseenter", () => (paused = true));
+    wrap.addEventListener("mouseleave", () => (paused = false));
+    wrap.addEventListener("focusin", () => (paused = true));
+    wrap.addEventListener("focusout", () => (paused = false));
+    const step = (t: number) => {
+      const half = track.scrollWidth / 2;
+      if (last && !paused && half > 0) {
+        if (pos == null) pos = track.scrollLeft;
+        pos += (t - last) * SPEED;
+        if (pos >= half) pos -= half;
+        track.scrollLeft = pos;
+      }
+      last = t;
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  })();
+
+  // ── As Seen On marquee (auto-scroll, pause on hover/focus) ────────────────
+  (() => {
+    const track = document.getElementById("asn-track");
+    const wrap = document.getElementById("asn-wrap");
     if (!track || !wrap) return;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     const SPEED = 0.028;

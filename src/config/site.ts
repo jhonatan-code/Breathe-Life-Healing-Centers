@@ -81,7 +81,6 @@ export const primaryNav = [
         links: [
           { label: "Our Team", href: "/about/our-team/" },
           { label: "Testimonials", href: "/about/testimonials/" },
-          { label: "Sero Mental Health", href: "/about/sero-mental-health/" },
         ],
       },
       {

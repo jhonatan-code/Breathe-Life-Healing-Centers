@@ -79,7 +79,7 @@ const pressRefs = [
   { category: "Interview", name: "Voyage LA", logo: "/Asset/Press/voyage-la-footer.png", logoMaxWidth: "150px", text: "“Meet Brad Lamm of Breathe Life Healing Centers and Intervention.com,” a profile on his recovery journey and approach to treatment.", href: "https://voyagela.com/interview/meet-brad-lamm-breathe-life-healing-centers-intervention-com-west-hollywood/" },
   { category: "News", name: "Utah Valley University", logo: "/Asset/Press/uvu-mono.svg", text: "Coverage of UVU's Conference on Addiction, where Mackenzie Phillips spoke as a member of the Breathe team.", href: "https://www.uvu.edu/news/2020/03/03102020_addiction.html" },
   { category: "Video", name: "Brad Lamm: Reading in Recovery", logo: "/Asset/Press/reading-in-recovery.png", logoMaxWidth: "150px", text: "A recorded segment with Brad Lamm on recovery.", href: "https://www.youtube.com/watch?v=UtW-Oi_M65I" },
-  { category: "Video", name: "Recovery Unplugged", outlet: "Facebook", logo: "/Asset/Press/recovery-unplugged.png", darkChip: true, text: "An interview with Emmy Olea, Breathe's Director of Marketing & Business Development.", href: "https://www.facebook.com/RecoveryUnplugged/videos/1366837938984354/" },
+  { category: "Video", name: "Recovery Unplugged", outlet: "Facebook", logo: "/Asset/Press/recovery-unplugged.png", logoMaxWidth: "160px", text: "An interview with Emmy Olea, Breathe's Director of Marketing & Business Development.", href: "https://www.facebook.com/RecoveryUnplugged/videos/1366837938984354/" },
   { category: "Television", name: "Brad Lamm in the Media", logo: "/Asset/Press/brad-lamm-logo.png", logoMaxWidth: "150px", text: "Appearances across The Dr. Phil Show, The Doctors, TODAY, and The Dr. Oz Show.", href: "https://bradlamm.com/brad-lamm-news/" },
 ] as const;
 
@@ -129,7 +129,7 @@ const ld = {
     <main id="main">
 
     {/* ══════════════  HERO  ══════════════ */}
-    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#32679C;">
       <img src={galleryImg("facility-04-community-dining-lounge.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
       <div style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;">
@@ -226,7 +226,16 @@ const ld = {
        /resources/media/ page shows, plus 6 more (checked 2026-09-18) --
        TV, print, a press release, an interview, a news article, and two
        video appearances. Grouped by category like the official page does.
-       Still built to extend cleanly for whatever Elizabeth sends next. */}
+       Still built to extend cleanly for whatever Elizabeth sends next.
+
+       BLOCKED (client feedback 2026-09-21, cannot be resolved by design
+       work alone): client wants this section "completed," but we still
+       lack verified Breathe-specific article URLs for GMA, Oprah, and
+       Today. Of the 7 candidate links reviewed so far: 3 confirmed
+       safe/usable (UVU.edu, The Fem Word Facebook video, Voyage LA with
+       caution), 2 excluded for content conflicts, 2 unresolved. Do not
+       fabricate a link for any of these -- needs a real answer from
+       Elizabeth before this can be called done. */}
     <section data-screen-label="Press coverage" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1180px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
@@ -241,11 +250,11 @@ const ld = {
                 <div style="height:54px;display:flex;align-items:center;">
                   {"logo" in p && p.logo ? (
                     "darkChip" in p && p.darkChip ? (
-                      <span style="display:inline-flex;align-items:center;background:#16293D;border-radius:8px;padding:10px 14px;height:34px;box-sizing:content-box;">
+                      <span style="display:inline-flex;align-items:center;background:#32679C;border-radius:8px;padding:10px 14px;height:34px;box-sizing:content-box;">
                         <img src={p.logo} alt={p.name} loading="lazy" style="max-height:34px;max-width:140px;width:auto;object-fit:contain;display:block;" />
                       </span>
                     ) : (
-                      <img src={p.logo} alt={p.name} loading="lazy" style={`max-height:54px;max-width:${"logoMaxWidth" in p && p.logoMaxWidth ? p.logoMaxWidth : "100%"};width:auto;object-fit:contain;object-position:left center;display:block;`} />
+                      <img src={p.logo} alt={p.name} loading="lazy" style={`max-height:54px;max-width:${"logoMaxWidth" in p && p.logoMaxWidth ? p.logoMaxWidth : "100%"};width:auto;object-fit:contain;object-position:left center;display:block;border-radius:6px;`} />
                     )
                   ) : "icon" in p && p.icon ? (
                     <span style={`display:inline-flex;color:${p.iconColor};`}><Icon name={p.icon} size={40} /></span>

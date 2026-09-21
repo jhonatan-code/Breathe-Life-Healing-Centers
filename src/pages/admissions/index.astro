@@ -117,7 +117,7 @@ const ld = {
     <main id="main">
 
     {/* ══════════════  HERO  ══════════════ */}
-    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#16293D;">
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#32679C;">
       <img src="/Asset/Facility/facility-20-estate-entrance-gate.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.82) 48%,rgba(22,41,61,0.5) 100%);"></div>
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
@@ -138,10 +138,10 @@ const ld = {
     </section>
 
     {/* ══════════════  FOUR SIMPLE STEPS  ══════════════ */}
-    <section data-screen-label="Four steps" style="padding:70px 37px;background:#16293D;color:#F7F5F1;">
+    <section data-screen-label="Four steps" style="padding:70px 37px;background:#32679C;color:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
-          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7FB3BC;margin-bottom:14px;">Getting started</div>
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E6EDF4;margin-bottom:14px;">Getting started</div>
           <h2 style={`${S.h2}max-width:20ch;color:#FFFFFF;`}>How admissions works</h2>
           <p style={`${S.intro}max-width:70ch;color:#DCE6EF;`}>Four steps, from your first call to your first day of treatment.</p>
         </div>
@@ -149,8 +149,8 @@ const ld = {
           {steps.map(([n, h, p], i) => (
             <div style="display:flex;flex-direction:column;gap:16px;">
               <div style="display:flex;align-items:center;gap:14px;">
-                <span style="font-family:'Instrument Sans',sans-serif;font-size:52px;line-height:0.9;font-weight:600;letter-spacing:-0.04em;color:#7FB3BC;">{n}</span>
-                <span style={`flex:1;height:1px;background:${i === steps.length - 1 ? "#478694" : "#2E4A66"};`}></span>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:52px;line-height:0.9;font-weight:600;letter-spacing:-0.04em;color:#E6EDF4;">{n}</span>
+                <span style={`flex:1;height:1px;background:${i === steps.length - 1 ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.3)"};`}></span>
               </div>
               <h3 style="font-size:22px;font-weight:600;letter-spacing:-0.018em;margin:0;color:#FFFFFF;text-wrap:balance;">{h}</h3>
               <p style={`${S.card}color:#DCE6EF;`}>{p}</p>
@@ -203,9 +203,9 @@ const ld = {
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
-    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#16293D;padding:44px 20px;">
+    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#32679C;padding:44px 20px;">
       <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7FB3BC;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#E6EDF4;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
       </div>
     </section>
 

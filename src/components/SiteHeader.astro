@@ -36,15 +36,15 @@ const currentPath = Astro.url.pathname;
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 const ctaBlue =
-  "background:#33679C;color:#FFFFFF;height:40px;box-sizing:border-box;padding:0 18px;font-size:14px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);";
+  "background:#FFFFFF;color:#32679C;height:40px;box-sizing:border-box;padding:0 18px;font-size:14px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);";
 
 const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
-<div class="site-hdr" style="position:sticky;top:0;z-index:50;background:#FFFFFF;border-bottom:1px solid #E2DED7;box-shadow:0 1px 3px rgba(20,24,28,0.06);padding:0 37px;">
+<div class="site-hdr" style="position:sticky;top:0;z-index:50;background:#32679C;border-bottom:1px solid rgba(255,255,255,0.15);box-shadow:0 1px 3px rgba(20,24,28,0.06);padding:0 37px;">
   <div class="hdr-row" style="max-width:1440px;margin:0 auto;padding:14px 0;display:flex;align-items:center;gap:20px;justify-content:space-between;">
     <a href="/" class="hdr-logo" style="flex:0 0 auto;display:flex;align-items:center;">
-      <img src="/Asset/Logo/Vector.svg" alt="Breathe Life Healing Centers" width="144" height="47" style="width:144px;height:auto;display:block;" />
+      <img src="/Asset/Logo/White%20Logo.svg" alt="Breathe Life Healing Centers" width="144" height="47" style="width:144px;height:auto;display:block;" />
     </a>
     <nav id="m-nav" class="hdr-nav" aria-label="Primary" style="display:flex;flex-wrap:wrap;gap:6px 15px;align-items:center;font-size:13.5px;">
       {primaryNav.map((item) => {
@@ -52,7 +52,7 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const panelId = `hdr-panel-${slug(item.label)}`;
         return item.groups ? (
           <div class="hdr-item" data-hdr-item>
-            <span class="hdr-trigger" style={`color:${active ? "#33679C" : "#14181C"};font-weight:${active ? "600" : "400"};`}>
+            <span class="hdr-trigger" style={`color:${active ? "#E6EDF4" : "#FFFFFF"};font-weight:${active ? "600" : "400"};`}>
               <a class="hdr-trigger-link" href={item.href} aria-current={active ? "page" : undefined}>{item.label}</a>
               <button
                 type="button"
@@ -82,7 +82,7 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
             class="nav-link"
             href={item.href}
             aria-current={active ? "page" : undefined}
-            style={`color:${active ? "#33679C" : "#14181C"};font-weight:${active ? "600" : "400"};padding:4px 0;`}
+            style={`color:${active ? "#E6EDF4" : "#FFFFFF"};font-weight:${active ? "600" : "400"};padding:4px 0;`}
           >{item.label}</a>
         );
       })}
