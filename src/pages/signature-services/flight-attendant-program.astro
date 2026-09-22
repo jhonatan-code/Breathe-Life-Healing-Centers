@@ -30,6 +30,15 @@ import { msymChar } from "../../lib/icons";
  * pillar card in the "Why Choose Breathe" section, so the real
  * aviation/LGBTQ+ data point and its link sit with the claim they support
  * instead of isolated between two unrelated sections.
+ *
+ * CONTENT SYNC (2026-09-22, user request): aligned with the official live
+ * page (breathelifehealingcenters.com/therapies/flight-attendant-program/).
+ * Added the FADAP partnership section with the brochure download (same PDF
+ * the live page links), the services + substances section, the aftercare /
+ * BreatheOUT section, and a FADAP pillar in "Why Breathe". The live page's
+ * two stock photos were deliberately not used (user's call). BreatheOUT is
+ * called an "alumni app" on the live page but described as groups + a
+ * private community on /programs/alumni-program/, so "app" is not claimed.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -48,7 +57,7 @@ const HREF = site.phoneHref;
 
 const title = "Flight Attendant Program | Breathe Life Healing Centers";
 const description =
-  "Addiction and mental health treatment shaped around flight crew scheduling, union benefits, and life on the road. LGBTQ+-affirming, in-network with most major insurers. Call 24/7.";
+  "Addiction and mental health treatment for flight attendants from a FADAP partner since 2013, shaped around flight crew schedules and union benefits. LGBTQ+-affirming. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -97,7 +106,41 @@ const faqs = [
   { q: "Does insurance cover treatment through this program?", a: "In most cases, yes. We [verify your specific benefits](/admissions/insurance/), including how union or airline-provided coverage applies, before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
+// Services + substances, from the official live page
+// (breathelifehealingcenters.com/therapies/flight-attendant-program/, checked 2026-09-22).
+const services = [
+  { icon: "assignment", text: "Comprehensive assessment and personalized treatment planning" },
+  { icon: "groups", text: "Individual, group, and family therapy", href: "/programs/family-program/", link: "Family Program" },
+  { icon: "psychology", text: "Dual diagnosis care for co-occurring mental health concerns", href: "/what-we-treat/dual-diagnosis/", link: "Dual Diagnosis" },
+  { icon: "science", text: "Random toxicology screenings for accountability" },
+  { icon: "healing", text: "Trauma-informed care and relapse prevention strategies", href: "/what-we-treat/trauma/", link: "Trauma" },
+];
+
+const substances = [
+  { label: "Alcohol", href: "/what-we-treat/alcohol/" },
+  { label: "Marijuana", href: "/what-we-treat/marijuana/" },
+  { label: "Methamphetamine", href: "/what-we-treat/methamphetamine/" },
+  { label: "Cocaine", href: "/what-we-treat/cocaine/" },
+  { label: "Prescription benzodiazepines", href: "/what-we-treat/benzodiazepines/" },
+  { label: "Opioids", href: "/what-we-treat/opioids/" },
+];
+
+const alumniStops = [
+  { icon: "home_health", label: "At home" },
+  { icon: "flight", label: "In the air" },
+  { icon: "luggage", label: "On a layover halfway around the world" },
+];
+
+const brochure = {
+  href: "/Asset/Brochures/Breathe_FADAP_Flight_Attendant_Brochure.pdf",
+  file: "Breathe_FADAP_Flight_Attendant_Brochure.pdf",
+};
+
 const why = [
+  {
+    icon: "handshake", title: "A FADAP partner since 2013",
+    text: "Over a decade of addiction and mental health treatment, and a long-standing collaboration with FADAP and the airline community.",
+  },
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
@@ -187,6 +230,26 @@ const ld = {
       </div>
     </section>
 
+    {/* ══════════════  FADAP PARTNERSHIP  ══════════════ */}
+    <section data-screen-label="FADAP partnership" style="padding:70px 37px;background:#16293D;">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px;align-items:center;">
+        <div>
+          <div style={`${S.eyebrow}color:#7FB3BC;`}>Our partnership with FADAP</div>
+          <h2 style={`${S.h2}margin:0 0 16px;max-width:26ch;color:#FFFFFF;`}>A Trusted FADAP Partner Since 2013</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:60ch;color:#E6EDF4;`}>We've been a partner of the Flight Attendant Drug and Alcohol Program (FADAP) since 2013. That collaboration means we work hand in hand with FADAP peer representatives and airline EAPs, so your treatment meets industry standards and supports your recovery from the first call.</p>
+          <p style={`${S.intro}margin:0;max-width:60ch;color:#E6EDF4;`}>Every flight attendant's experience is different. We build each treatment plan around your needs, while complying with FADAP and any required referral guidelines.</p>
+        </div>
+        <div style="background:#FFFFFF;border-radius:12px;padding:30px;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 12px 28px rgba(0,0,0,0.18);">
+          <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
+            <span class="msym" style="font-size:24px;color:#33679C;">{msymChar("description")}</span>
+          </span>
+          <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 8px;">FADAP Program Brochure</h3>
+          <p style={`${S.card}font-size:15px;margin:0 0 20px;`}>How our Flight Attendant Program works, what the flight attendant group covers, and how to reach our admissions team. PDF, 4.3 MB.</p>
+          <a class="cta" href={brochure.href} download={brochure.file} style={`${S.ctaBlue}gap:8px;`}>Download the FADAP Brochure</a>
+        </div>
+      </div>
+    </section>
+
     {/* ══════════════  WHAT MAKES THIS DIFFERENT  ══════════════ */}
     <section data-screen-label="What makes this different" style="padding:70px 37px;background:#F0F5FA;">
       <div style="max-width:1440px;margin:0 auto;">
@@ -211,14 +274,87 @@ const ld = {
       </div>
     </section>
 
+    {/* ══════════════  SERVICES + SUBSTANCES  ══════════════ */}
+    <section data-screen-label="Services" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:36px;">
+          <div style={S.eyebrow}>What treatment includes</div>
+          <h2 style={`${S.h2}max-width:30ch;`}>Comprehensive Treatment Tailored to Flight Attendants</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;align-items:start;">
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:18px;">Services include</div>
+            <div style="display:grid;gap:16px;">
+              {services.map((s) => (
+                <div style="display:flex;gap:14px;align-items:flex-start;">
+                  <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(51,103,156,0.10);">
+                    <span class="msym" style="font-size:19px;color:#33679C;">{msymChar(s.icon)}</span>
+                  </span>
+                  <span style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#3A444D;padding-top:5px;">
+                    {s.text}
+                    {s.href && (<> <a href={s.href} style="color:#33679C;font-weight:600;white-space:nowrap;">{s.link} <span aria-hidden="true">→</span></a></>)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #478694;border-radius:12px;padding:30px;">
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:12px;">Substances we treat</div>
+            <p style={`${S.card}font-size:15px;margin:0 0 20px;`}>We address a wide range of substance use disorders, including:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+              {substances.map((x) => (
+                <a href={x.href} style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:#16293D;background:#FFFFFF;border:1px solid #D5DEE7;border-radius:999px;padding:8px 16px;">{x.label}</a>
+              ))}
+            </div>
+            <a href="/what-we-treat/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;">See everything we treat <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════  AFTERCARE + ALUMNI  ══════════════ */}
+    <section data-screen-label="Aftercare" style="padding:70px 37px;background:#F0F5FA;">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px;align-items:center;">
+        <div>
+          <div style={S.eyebrow}>Aftercare and alumni support</div>
+          <h2 style={`${S.h2}margin:0 0 16px;max-width:26ch;`}>Staying Connected After Treatment</h2>
+          <p style={`${S.intro}margin:0 0 16px;max-width:60ch;`}>Recovery doesn't end when treatment does, it's a lifelong journey. We prioritize aftercare so flight attendants can maintain sobriety and strengthen their resilience, no matter where their career takes them.</p>
+          <p style={`${S.intro}margin:0 0 24px;max-width:60ch;`}>Our alumni community, BreatheOUT, keeps former clients connected wherever they are in the world, with support groups, events, and peers who understand the realities of aviation life. You never have to feel alone in your recovery.</p>
+          <a class="cta" href="/programs/alumni-program/" style={S.ctaBlue}>Explore the Alumni Program</a>
+        </div>
+        <div style="background:#FFFFFF;border-radius:12px;padding:30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+          <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:20px;">Support that goes where you go</div>
+          <div style="display:grid;gap:0;">
+            {alumniStops.map((a, i) => (
+              <div style="display:flex;gap:16px;align-items:stretch;">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:rgba(51,103,156,0.10);">
+                    <span class="msym" style="font-size:21px;color:#33679C;">{msymChar(a.icon)}</span>
+                  </span>
+                  {i < alumniStops.length - 1 && <span aria-hidden="true" style="flex:1;width:0;min-height:18px;border-left:2px dashed #C9D6E3;"></span>}
+                </div>
+                <span style={`font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#14181C;font-weight:500;padding-top:9px;${i < alumniStops.length - 1 ? "padding-bottom:18px;" : ""}`}>{a.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      background="#F7F5F1"
+      intro="Our admissions team verifies your specific benefits, including how union or airline-provided coverage applies, before you commit to anything."
+    />
+
     {/* ══════════════  WHY CHOOSE BREATHE  ══════════════ */}
-    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#F7F5F1;">
+    <section data-screen-label="Why Breathe" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Why Breathe</div>
           <h2 style={`${S.h2}max-width:34ch;`}>Why Choose Breathe for the Flight Attendant Program</h2>
         </div>
-        <div class="pillars-row" style="max-width:1100px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
+        <div class="pillars-row" style="max-width:1440px;margin:0 auto;background:#FFFFFF;border-radius:14px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           {why.map((w) => (
             <div style="padding:32px 30px;">
               <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(51,103,156,0.10);margin-bottom:16px;">
@@ -244,11 +380,6 @@ const ld = {
       intro="Straight answers about union and airline coordination, scheduling, and coverage."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits, including how union or airline-provided coverage applies, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

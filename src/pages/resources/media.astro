@@ -41,11 +41,14 @@ const HREF = site.phoneHref;
 // Same 4 PDFs as the official live site's /resources/our-brochures/
 // (checked 2026-09-18), downloaded to /Asset/Brochures/ rather than
 // hotlinked to the old domain.
+// + the FADAP brochure (added 2026-09-22), the same PDF the live
+// /therapies/flight-attendant-program/ page links.
 const brochures = [
   { title: "Breathe Program Overview", text: "A general overview of our levels of care and how treatment works here.", file: "/Asset/Brochures/Breathe_Program_Overview.pdf" },
   { title: "Living in Recovery at Campus", text: "What day-to-day life looks like on our residential campus.", file: "/Asset/Brochures/Living_in_Recovery_at_Campus.pdf" },
   { title: "Chemsex Program", text: "Our specialized, sex-positive approach to chemsex and sexualized drug use.", file: "/Asset/Brochures/Chemsex-Brochure_7.26.pdf" },
   { title: "Family Class at Breathe", text: "How family is involved in treatment, and what Family Class covers.", file: "/Asset/Brochures/Breathe_-_Family_Class.pdf" },
+  { title: "FADAP Flight Attendant Program", text: "Recovery support built around flight crew schedules, from a FADAP partner since 2013.", file: "/Asset/Brochures/Breathe_FADAP_Flight_Attendant_Brochure.pdf" },
 ] as const;
 
 // Media coverage referenced on the official live site's own /resources/media/
@@ -202,13 +205,13 @@ const ld = {
 
     {/* ══════════════  BROCHURES & MATERIALS  ══════════════ */}
     <section data-screen-label="Brochures & materials" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1180px;margin:0 auto;">
+      <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>Downloadable materials</div>
           <h2 style={`${S.h2}max-width:26ch;`}>Brochures & printable overviews</h2>
-          <p style={`${S.intro}max-width:66ch;margin:0 auto;`}>Real PDFs you can download, print, or share, covering our programs, campus life, family involvement, and the Chemsex Program.</p>
+          <p style={`${S.intro}max-width:66ch;margin:0 auto;`}>Real PDFs you can download, print, or share, covering our programs, campus life, family involvement, the Chemsex Program, and the Flight Attendant Program.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
           {brochures.map((b) => (
             <a href={b.file} target="_blank" rel="noopener noreferrer" style="display:flex;flex-direction:column;gap:10px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:14px;padding:24px;text-decoration:none;color:inherit;">
               <span class="msym" style="font-size:28px;color:#33679C;">{msymChar("description")}</span>
