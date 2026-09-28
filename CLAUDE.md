@@ -74,7 +74,7 @@ _These live here because they are true of this client only._
 | **Tag manager** | `<TBD — GTM container ID>` |
 | **Call tracking** | CallTrackingMetrics — account "Breathe Life Healing Center" (Account Id 163520) |
 | **Clinical reviewer(s)** | `<TBD — name, credential; who can sign YMYL content>` |
-| **CEO / author voice** | **Beck Gee** (trans man, lived recovery experience) — spelling confirmed by client 2026-08-31. Ignore "Beck Guy" in the brand book / client profile. |
+| **CEO / author voice** | **Beck Gee**, spelling confirmed by client 2026-08-31. Ignore "Beck Guy" in the brand book / client profile. **Never publish "a trans man in recovery"** (or either half of it) about Beck: Charmaine had the whole phrase removed sitewide 2026-09-25. |
 
 ## Client-specific rules
 
@@ -96,11 +96,24 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
 - **Eating disorders** are framed as co-occurring body-image / emotional-eating issues in
   the context of substance-use and mental-health treatment — **not** a standalone severe-ED
   program.
-- **Brad Lamm** — his bio page was a placeholder pending client sign-off on founder
-  positioning; the user explicitly lifted that block 2026-09-15 and the page now carries his
-  real bio, verbatim from the official site. The **separate** question of reviews that centre
-  him remains an open client decision (see `docs/00-INVENTORY.md` item 10) — not resolved by
-  this change.
+- **Brad Lamm** is **not credited in any leadership role** anywhere on the site (no founder
+  credit, no leadership card, no bio page; `/about/our-team/brad-lamm/` redirects to
+  `/about/our-team/`). Per Charmaine (cc Elizabeth, 2026-09-25). This reverses Jasmine's
+  2026-09-14 "we can leave him on"; the reversal is recorded, not an oversight. Press
+  coverage about him and verbatim reviews that mention him are separate open questions.
+- **Deb Hughes** sits in **Marketing, Business Development & Alumni** (with Emmy Olea), not
+  Executive Leadership (Charmaine, 2026-09-25).
+- **Insurance:** in-network list includes **UnitedHealthcare / Optum** (Charmaine, 2026-09-25).
+  One shared `insurers` array in `src/data/home.ts` drives every insurance display.
+- **Positioning line (Charmaine, 2026-09-25):** "Breathe has particular expertise and cultural
+  competency in serving the LGBTQ+ community, while providing inclusive, affirming care for
+  anyone experiencing chemsex or sexualized drug use, regardless of sexual orientation or
+  gender identity." Tagline pair: "LGBTQ+ Affirming, Inclusive of All" / "Where specialized
+  understanding meets inclusive care."
+- **No "Family Class"** anywhere on the site. The **Family Workshop is in person only**;
+  general family therapy sessions **can** be online. Keep the two distinct.
+- **No luxury / spa framing** ("modern luxury", "luxury homes"), per the Brand Brief's
+  "What to Avoid" and Charmaine 2026-09-25.
 - **"Sea Glass" (`#7fb3bc`)** — decorative only, keep to ~2% of any page's surface (client
   reduced it from the brand book's 4%). Token: `--color-seaglass`. Never carries meaning.
 - **Founding year: 2013**, confirmed by Elizabeth (2026-09-18) alongside the 22-acre Laurel Canyon

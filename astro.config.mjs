@@ -117,6 +117,12 @@ const redirects = {
   // page for it was deleted since it would render with zero posts; this
   // catches anything already indexed or linked to the old URL.
   "/blog/author/breathe-life-team/": "/blog/",
+  // Brad Lamm removed from every leadership credit sitewide per Charmaine
+  // (cc Elizabeth, 2026-09-25), so his bio page is gone. Same target the
+  // approved redirect map already uses for his old-site bio
+  // (/our-team/brad-lamm-cip/ -> /about/our-team/, "Bio removed per client
+  // direction").
+  "/about/our-team/brad-lamm/": "/about/our-team/",
   "/4-ways-to-heal-from-psychological-trauma/": "/what-we-treat/complex-trauma/",
   "/5-absolute-important-steps-take-relapse/": "/programs/alumni-program/",
   "/5-things-cheaper-drug-screening/": "/",

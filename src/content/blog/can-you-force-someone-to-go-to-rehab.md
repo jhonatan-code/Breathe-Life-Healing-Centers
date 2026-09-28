@@ -58,7 +58,7 @@ Healthy boundaries, such as no longer providing money that enables use while sti
 
 ### Family programs
 
-Structured family programming, like a weekly Family Class or an intensive multi-day Family Workshop, teaches practical communication skills, reframes addiction as a brain-based illness rather than a moral failing, and helps reduce the shame and blame that keep families stuck. Family involvement is directly linked to a loved one being more likely to enter and complete treatment.
+Structured family programming, like ongoing family therapy or an intensive, in-person multi-day Family Workshop, teaches practical communication skills, reframes addiction as a brain-based illness rather than a moral failing, and helps reduce the shame and blame that keep families stuck. Family involvement is directly linked to a loved one being more likely to enter and complete treatment.
 
 ## When it genuinely is a crisis
 

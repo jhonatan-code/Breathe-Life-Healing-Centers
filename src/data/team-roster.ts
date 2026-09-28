@@ -15,7 +15,7 @@ import { team } from "./home";
  * + "More from this department" strip via TeamProfile.astro, added
  * 2026-09-15). Do not duplicate this array anywhere else.
  */
-export const roster: { dept: string; people: { name: string; role: string; photo: string; slug: string; bio?: string; authorBio?: string }[] }[] = [
+export const roster: { dept: string; people: { name: string; role: string; photo: string; slug: string; badge?: string; bio?: string; authorBio?: string }[] }[] = [
   {
     dept: "Medical Team",
     people: [
@@ -58,6 +58,9 @@ export const roster: { dept: string; people: { name: string; role: string; photo
     dept: "Marketing, Business Development, & Alumni",
     people: [
       { name: "Emmy Olea", role: "Director of Marketing & Business Development", photo: "/Asset/Our%20Team/emmy-olea.jpg", slug: "emmy-olea" },
+      // Moved here from Executive Leadership per Charmaine (2026-09-25), same
+      // department as Emmy Olea. Title kept as it was (no new title given).
+      { name: "Deb Hughes, CAS", role: "Co-founder, Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg", slug: "deb-hughes", badge: "CAS", bio: "Oversees family programming and community partnerships." },
       { name: "Brian Whisenant", role: "National Clinical Outreach Coordinator", photo: "/Asset/Our%20Team/brian-whisenant.jpg", slug: "brian-whisenant" },
     ],
   },

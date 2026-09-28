@@ -17,6 +17,6 @@ Dr. Karp graduated cum laude from Delaware Valley College of Science and Agricul
 
 > "When my partner Deb Hughes and I envisioned creating a world-class sub-acute trauma program, we had one doctor in mind: Steve Karp. Deb and I had collaborated with him for years, and while our founding Clinical Director Kathleen Murphy was our dream pick at the time, the timing wasn't right for Dr. Karp then. The time is now, and it's perfect."
 >
->, Brad Lamm, Founder
+>, Brad Lamm
 
 Dr. Karp went on to teach, speak, and present alongside Breathe's senior leadership team.

@@ -7,12 +7,13 @@
  *  - phone from the content brief
  *  - review quotes verbatim from docs/content/Breathe_Life_Reviews_Compilation
  *
- * Leadership: Beck Gee (CEO), Brad Lamm (Founder), and Deb Hughes
- * (Co-founder, Strategic Relations) are all shown, per the client's request
- * (2026-08-31) restoring Brad Lamm and Deb Hughes, and per Jasmine's direct
- * confirmation (Breathe_Life_Claude_Code_Instructions.docx, 2026-09-14) that
- * Brad Lamm may be credited as founder wherever leadership is named, with
- * Beck Gee confirmed alongside as current CEO. See the `team` array below.
+ * Leadership: Beck Gee (CEO) only. Per Charmaine (cc Elizabeth, 2026-09-25):
+ * Brad Lamm is removed from every leadership credit sitewide, and Deb Hughes
+ * moves to Marketing & Business Development (src/data/team-roster.ts).
+ * FLAGGED REVERSAL: this overrides Jasmine's earlier confirmation
+ * (Breathe_Life_Claude_Code_Instructions.docx, 2026-09-14) that Brad Lamm
+ * "still is technically the founder" and could stay on. Charmaine's
+ * instruction is the more recent and more specific one.
  *
  * `levels` (Detox/PHP/IOP/Sober Living/Outpatient) and `signature`'s Case
  * Management + MAT descriptions were fleshed out per
@@ -37,7 +38,6 @@ export const gallery = [
   { file: "facility-17-living-room-lounge.jpg", cap: "Living Room Lounge" },
   { file: "facility-18-great-room.jpg", cap: "Great Room" },
   { file: "facility-19-outdoor-dining-deck.jpg", cap: "Outdoor Dining Deck" },
-  { file: "facility-20-estate-entrance-gate.jpg", cap: "Estate Entrance Gate" },
   { file: "facility-21-quiet-reading-nook.jpg", cap: "Quiet Reading Nook" },
   { file: "facility-23-kitchen-common-area.jpg", cap: "Kitchen & Common Area" },
   { file: "facility-01-private-suite-entry.jpg", cap: "Private Suite" },
@@ -89,7 +89,7 @@ export const signature = [
   ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised", "/signature-services/chemsex-treatment/"],
   ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work", "/what-we-treat/complex-trauma/"],
   ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one", "/programs/case-management/"],
-  ["family_restroom", "Family Therapy Programs", "A Family Class and a 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
+  ["family_restroom", "Family Therapy Programs", "Family therapy, in person or online, and an in-person 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
   ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware", "/signature-services/flight-attendant-program/"],
   ["medication", "Medication-Assisted Treatment", "Medical support available where it is clinically appropriate, always paired with therapy and psychiatric oversight, never offered as treatment on its own.", "Prescriber on staff", "/programs/medication-assisted-treatment/"],
 ] as const;
@@ -101,7 +101,7 @@ export const why = [
   ["healing", "#33679C", "Trauma-Informed Approach", "Care built around how trauma actually shows up, for deep and lasting healing."],
   ["cottage", "#33679C", "Residential, Whole-Person Care", "A private, inclusive, and affirming space to live and heal on our Laurel Canyon campus, not just a bed and a schedule."],
   ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate, care that respects who knows you're here, on your terms."],
-  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Family therapy, Family Class, and a 3-Day Family Workshop, with room for chosen family, not only family of origin."],
+  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Family therapy and an in-person 3-Day Family Workshop, with room for chosen family, not only family of origin."],
   ["volunteer_activism", "#478694", "Staff Who've Lived It", "Every person here, from the front desk to clinical leadership, has personal recovery experience, you're not being treated by someone who studied it from the outside."],
 ] as const;
 
@@ -147,7 +147,7 @@ export const faqGroups = [
     label: "While you are here",
     items: [
       { q: "How long does treatment usually last?", a: "It is shaped around your progress rather than a fixed calendar, and it varies by level of care and by what a plan authorises. Most people step down gradually, through PHP, IOP, or transitional living, rather than going straight home, and the plan is built with you and changes as you do." },
-      { q: "Can my family, or my chosen family, be part of it?", a: "Yes. Alongside family therapy we run a Family Class and a 3-Day Family Workshop, and family here means the people who actually show up for you: partners, chosen family, close friends. You stay in contact with them throughout; connection is part of the treatment, not a privilege to earn." },
+      { q: "Can my family, or my chosen family, be part of it?", a: "Yes. Alongside family therapy, which can also happen online, we run a 3-Day Family Workshop in person, and family here means the people who actually show up for you: partners, chosen family, close friends. You stay in contact with them throughout; connection is part of the treatment, not a privilege to earn." },
     ],
   },
   {
@@ -160,23 +160,14 @@ export const faqGroups = [
   },
 ] as const;
 
-/** Leadership — the design's three cards. Brad Lamm and Deb Hughes restored at
- *  the client's request (2026-08-31), reversing the earlier "Beck Gee only".
- *  The founder-positioning question flagged in docs/BUILD-NOTES.md is now
- *  resolved: Jasmine confirmed directly (2026-09-14) that Brad Lamm is still
- *  the founder and may be credited as such, with Beck Gee confirmed
- *  alongside as current CEO wherever leadership is named. His bio page at
- *  /about/our-team/brad-lamm/ is live with his real bio. */
+/** Leadership. Beck Gee only, per Charmaine (2026-09-25): Brad Lamm removed
+ *  from leadership sitewide, Deb Hughes moved to Marketing & Business
+ *  Development in src/data/team-roster.ts. Beck's short bio no longer
+ *  carries "a trans man in recovery" (client-confirmed removal of the whole
+ *  phrase, 2026-09-25). */
 export const team = [
-  { name: "Brad Lamm", slug: "brad-lamm", badge: "CIP", role: "Founder", photo: "/Asset/Our%20Team/Brad-Lamm.webp",
-    bio: "Founded Breathe after his own recovery in 2003, personally selects every clinician on staff.",
-    // First paragraph of his real first-person bio on /about/our-team/brad-lamm/
-    // (itself verbatim from the official site, per that page's own header
-    // comment), reused here verbatim for the blog "About the author" card —
-    // same treatment as a staff bio quote, so the em dash stays as he wrote it.
-    authorBio: "Some moments in life define us. For me, it was the realization that a single yes—a willingness to receive help—can be the turning point in someone's journey. That yes is where transformation begins, and supporting people in reaching that moment is the greatest use of my time, talent, and life that I can imagine." },
   { name: "Beck Gee", slug: "beck-gee", badge: "CADC-II, AMFT", role: "Chief Executive Officer", photo: "/Asset/Our%20Team/Beck-Gee.jpg",
-    bio: "A trans man in recovery, leading Breathe's clinical and operational vision day to day.",
+    bio: "Leading Breathe's clinical and operational vision day to day.",
     // Short first-person bio, verbatim from the live site's author archive
     // (breathelifehealingcenters.com/author/beck/, checked 2026-09-11) —
     // distinct from, and shorter than, the full bio on
@@ -185,8 +176,6 @@ export const team = [
     // converted to commas per CLAUDE.md Writing Style; no wording changed,
     // no LinkedIn URL found on either live page.
     authorBio: "Los Angeles has always been home, but my journey to finding myself, and my purpose, took me far beyond the city limits. I studied at the University of Montana and later at the Hazelden Betty Ford Graduate School, but my greatest education came through my own recovery. I entered this field when I was three years sober, inspired to help others find the hope and healing that transformed my life. Supporting the LGBTQ+ community has always been central to my work because I understand the challenges of identity, belonging, and finding a safe place to heal. What drives me is seeing people reclaim their lives and discover that recovery is about thriving, not just surviving. At Breathe Life Healing Centers, we believe in your strength and your potential. Recovery changed my life, and I'm honored to help others take that first step toward lasting healing and a brighter future." },
-  { name: "Deb Hughes", slug: "deb-hughes", badge: "CAS", role: "Co-founder, Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg",
-    bio: "Oversees family programming and community partnerships." },
 ] as const;
 
 export const insurers = [
@@ -196,4 +185,9 @@ export const insurers = [
   { name: "Cigna", src: "/Asset/Insurances/Cigna.svg", h: 38 },
   { name: "Beacon Health Options", src: "/Asset/Insurances/beacon-logo%201.svg", h: 38 },
   { name: "Carelon", src: "/Asset/Insurances/Carelon.svg", h: 34 },
+  // Added per Charmaine (2026-09-25): UnitedHealthcare / Optum is in-network.
+  // Logos from Wikimedia Commons ("UnitedHealthcare (logo).svg", "Optum logo
+  // 2021.svg"). This one array feeds every insurance display sitewide.
+  { name: "UnitedHealthcare", src: "/Asset/Insurances/UnitedHealthcare.svg", h: 44 },
+  { name: "Optum", src: "/Asset/Insurances/Optum.svg", h: 30 },
 ] as const;

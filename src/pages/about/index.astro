@@ -18,11 +18,10 @@ import { msymChar } from "../../lib/icons";
  * Care Promise" has no description anywhere in this project beyond its own badge name,
  * so it's left as logo-only, same as before, rather than inventing what it verifies.
  *
- * Team preview uses the same `team` array as the homepage (src/data/home.ts) — Brad Lamm
- * is included in the card grid like every other leader. His own bio page
- * (/about/our-team/brad-lamm/) was a placeholder pending client sign-off on
- * founder positioning (CLAUDE.md); the user explicitly lifted that block
- * 2026-09-15 and the page now carries his real bio from the official site.
+ * Team preview uses the same `team` array as the homepage (src/data/home.ts),
+ * Beck Gee only since 2026-09-25: per Charmaine, Brad Lamm is removed from
+ * every leadership credit sitewide (his bio page now redirects to
+ * /about/our-team/) and Deb Hughes moved to Marketing & Business Development.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -96,7 +95,7 @@ const ld = {
           <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> About
         </nav>
         <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;max-width:20ch;text-wrap:balance;">About Breathe Life Healing Centers</h1>
-        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;max-width:62ch;">Breathe was built around one idea: treat every person like family. Here's who we are, who's behind it, and what it's actually like to be part of this community.</p>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;max-width:62ch;">LGBTQ+ affirming, inclusive of all. Breathe has particular expertise and cultural competency in serving the LGBTQ+ community, while providing inclusive, affirming care for anyone experiencing chemsex or sexualized drug use, regardless of sexual orientation or gender identity. Here's who we are, who's behind it, and what it's like to be part of this community.</p>
         <div style="display:flex;flex-wrap:wrap;gap:14px;">
           <a class="cta cta--light" href="/about/our-team/" style={`background:#FFFFFF;color:#16293D;height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(20,24,28,0.10),0 6px 16px rgba(20,24,28,0.07);`}>Meet Our Team</a>
           <a class="cta" href={site.phoneHref} style="background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);height:45px;box-sizing:border-box;padding:0 24px;font-size:15px;font-weight:500;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;">Call Us 24/7: {site.phoneDisplay}</a>
@@ -129,9 +128,9 @@ const ld = {
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Leadership</div>
           <h2 style={`${S.h2}max-width:30ch;`}>The people behind Breathe</h2>
-          <p style={`${S.intro}max-width:80ch;`}>Meet the people who built Breathe and who guide it every day.</p>
+          <p style={`${S.intro}max-width:80ch;`}>Meet the leadership guiding Breathe every day.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto;">
+        <div style={`display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:${team.length === 1 ? 360 : 1100}px;margin:0 auto;`}>
           {team.map((p) => (
             <a href={`/about/our-team/${p.slug}/`} class="team-card" style="position:relative;display:block;border-radius:14px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 1px 2px rgba(20,24,28,0.08),0 10px 24px rgba(20,24,28,0.10);">
               <img src={p.photo} alt={p.name} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 14%;display:block;" />

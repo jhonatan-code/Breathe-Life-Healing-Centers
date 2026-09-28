@@ -5,7 +5,9 @@
  * (breathelifehealingcenters.com/our-team/deb-hughes-cas/, checked
  * 2026-09-02) — the client's own real content, per this session's standing
  * instruction to check the official site rather than placeholder gaps.
- * Photo/badge/role still come from src/data/home.ts.
+ * Photo/badge/role come from src/data/team-roster.ts (Marketing & Business
+ * Development department since 2026-09-25, per Charmaine; she was in the
+ * Executive Leadership group before).
  */
 import Layout from "../../../layouts/Layout.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
@@ -13,9 +15,9 @@ import SiteFooter from "../../../components/SiteFooter.astro";
 import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
 import TeamProfile from "../../../components/TeamProfile.astro";
 import { site } from "../../../config/site";
-import { team } from "../../../data/home";
+import { roster } from "../../../data/team-roster";
 
-const person = team.find((p) => p.slug === "deb-hughes")!;
+const person = roster.flatMap((g) => g.people).find((p) => p.slug === "deb-hughes")!;
 
 const fullBio = [
   "I was born and raised in Oxnard, California, and my journey into the mental health and recovery field is deeply personal. Having experienced the transformative power of support and healing myself, I know firsthand how life-changing it can be to have someone believe in you when you feel lost. That's why I do what I do—because I want to be that person for others. I want to help people reclaim their freedom, rediscover hope, and step into the life they were meant to live. There's nothing more fulfilling than witnessing that moment when someone begins to see their own light again, realizing they are worthy of healing and happiness.",

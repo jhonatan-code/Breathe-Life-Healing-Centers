@@ -58,7 +58,7 @@ const whyHighlights: string[][] = [
   ["Pacing and safety built in, not assumed", "Care shaped around how trauma actually presents", "Foundation for healing that lasts"],
   ["Private, inclusive campus in Laurel Canyon", "A place to live, not just a bed and a schedule", "Whole-person focus, not symptom management"],
   ["Confidentiality built into daily operations", "You decide who knows you're here", "Discretion at every touchpoint"],
-  ["Family therapy & Family Class included", "A 3-Day Family Workshop", "Room for chosen family, not just family of origin"],
+  ["Family therapy included, in person or online", "An in-person 3-Day Family Workshop", "Room for chosen family, not just family of origin"],
   ["Personal recovery experience, front desk to leadership", "Treated by people who've been there", "Lived experience woven through the whole team"],
 ];
 const whyPillars = why.map(([icon, , title, desc], i) => ({
@@ -98,7 +98,7 @@ const galleryWheelFiles = [
   "facility-12-residence-exterior.jpg",
   "facility-13-ensuite-bath-balcony.jpg",
   "facility-14-community-kitchen.jpg",
-  "facility-20-estate-entrance-gate.jpg",
+  "facility-15-pool-deck-canyon-view.jpg",
   "facility-17-living-room-lounge.jpg",
   "facility-09-twin-bedroom-suite.jpg",
   "facility-06-guest-house-exterior.jpg",
@@ -125,21 +125,24 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       {/* Client feedback 2026-09-21: reduce the overlay so the photo reads
          brighter/more vibrant, keeping enough darkening on the left (where
          the headline sits) for text contrast while the right stays bright. */}
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(4,9,16,0.62) 0%,rgba(4,9,16,0.38) 42%,rgba(4,9,16,0.04) 100%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(4,9,16,0.82) 0%,rgba(4,9,16,0.54) 42%,rgba(4,9,16,0.04) 100%);"></div>
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;width:100%;box-sizing:border-box;">
         <div style="flex:1 1 480px;">
           <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 24px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
           <div style="display:grid;gap:14px;margin-bottom:28px;">
             {[
-              { icon: "diversity_3", text: "Built for the LGBTQ+ community, at every level of care." },
-              { icon: "healing", text: "Trauma-focused care for addiction and mental health." },
+              // Order per the homepage design review (client recap): clinical /
+              // dual-diagnosis expertise leads, LGBTQIA+ focus second and softened
+              // (no bold), so referrals from outside the community don't read as excluded.
+              { icon: "healing", text: "Expert trauma-focused care for dual-diagnosis" },
+              { icon: "diversity_3", text: "LGBTQIA+ focus for those that need it, at every level of care" },
               { icon: "verified", text: "Gold Seal accredited campus in Laurel Canyon since 2013." },
             ].map((b) => (
               <div style="display:flex;gap:12px;align-items:center;white-space:nowrap;">
                 <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.12);">
                   <span class="msym" style="font-size:22px;color:#FFFFFF;">{msymChar(b.icon)}</span>
                 </span>
-                <span style="font-size:18px;line-height:1.4;color:#DCE6EF;text-shadow:0 1px 3px rgba(0,0,0,0.35);">{b.text}</span>
+                <span style="font-size:18px;line-height:1.4;color:#DCE6EF;text-shadow:0 1px 3px rgba(0,0,0,0.35);">{b.strong && <strong style="font-weight:700;color:#FFFFFF;">{b.strong}</strong>}{b.text}</span>
               </div>
             ))}
           </div>
@@ -216,25 +219,13 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
 
     {/* ══════════════  BELONGING  ══════════════ */}
     <section id="community" data-screen-label="Belonging" style="padding:70px 37px;background:#F7F5F1;">
-      <div style="max-width:1024px;margin:0 auto;display:grid;grid-template-columns:minmax(340px,1.2fr) minmax(300px,1fr);gap:64px;align-items:center;">
+      {/* 4-photo grid removed per the homepage design review (client recap): text-only, centered. */}
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
         <div>
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">Belonging</div>
-          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 0 14px;max-width:32ch;text-wrap:balance;">LGBTQIA+ Community and Belonging</h2>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.75;color:#3A444D;margin:0 0 26px;max-width:68ch;">Recovery takes enough energy without also managing how you're perceived. Whether you're out to everyone, out to no one, or still figuring it out, whether the people supporting you are the family you were born into or the one you chose, nothing about who you are needs to be hidden, minimized, or explained here.</p>
+          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;max-width:32ch;text-wrap:balance;">Belonging for Underserved Communities</h2>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.75;color:#3A444D;margin:0 auto 26px;max-width:68ch;">Recovery takes enough energy without also managing how you're perceived. Breathe is a place of belonging for communities too often underserved by traditional treatment, with specific expertise and cultural competency in serving the LGBTQ+ community. Whether you're out to everyone, out to no one, or still figuring it out, whether the people supporting you are the family you were born into or the one you chose, nothing about who you are needs to be hidden, minimized, or explained here.</p>
           <a class="cta" href={HREF} style={`display:inline-flex;${S.ctaBlue}`}>Call Now: {PH}</a>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          {[
-            ["facility-15-pool-deck-canyon-view.jpg", "Pool Deck"],
-            ["facility-22-garden-entrance-path.jpg", "Garden Entrance Path"],
-            ["facility-20-estate-entrance-gate.jpg", "Estate Entrance Gate"],
-            ["facility-12-residence-exterior.jpg", "Residence Exterior"],
-          ].map(([f, c]) => (
-            <figure style="margin:0;position:relative;border-radius:12px;overflow:hidden;">
-              <img src={galleryImg(f)} alt={c} loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;border-radius:12px;" />
-              <figcaption style="position:absolute;left:0;right:0;bottom:0;background:linear-gradient(0deg,rgba(22,41,61,0.86),rgba(22,41,61,0.3));backdrop-filter:blur(7px);padding:10px 12px;font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#FFFFFF;">{c}</figcaption>
-            </figure>
-          ))}
         </div>
       </div>
     </section>
@@ -365,7 +356,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Why Breathe</div>
           <h2 style={`${S.h2}max-width:44ch;`}>Why Choose Breathe for LGBTQIA+-Affirming Treatment</h2>
-          <p style={`${S.intro}max-width:96ch;`}>Breathe is a residential, LGBTQIA+-affirming healing center treating addiction and mental health as equal, connected parts of the same journey. Affirming care here means clinicians who understand minority stress, staff who use your pronouns without being asked twice, and a community where your energy goes into recovery instead of into managing how you're seen.</p>
+          <p style={`${S.intro}max-width:96ch;`}>Where specialized understanding meets inclusive care. Breathe has particular expertise and cultural competency in serving the LGBTQIA+ community, while providing inclusive, affirming care for anyone experiencing chemsex or sexualized drug use, regardless of sexual orientation or gender identity. We treat addiction and mental health as equal, connected parts of the same journey, and affirming care here means clinicians who understand minority stress, staff who use your pronouns without being asked twice, and a community where your energy goes into recovery instead of into managing how you're seen.</p>
         </div>
         <CareDial id="why-dial" pillars={whyPillars} ctaHref={HREF} />
       </div>
@@ -379,9 +370,9 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Leadership</div>
           <h2 style={`${S.h2}max-width:30ch;`}>The people behind Breathe</h2>
-          <p style={`${S.intro}max-width:80ch;`}>Three leaders who built Breathe around one idea: treat every person like family.</p>
+          <p style={`${S.intro}max-width:80ch;`}>The leadership guiding Breathe every day, around one idea: treat every person like family.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto;">
+        <div style={`display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:${team.length === 1 ? 360 : 1100}px;margin:0 auto;`}>
           {team.map((p) => (
             <a href={`/about/our-team/${p.slug}/`} class="team-card" style="position:relative;display:block;border-radius:14px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 1px 2px rgba(20,24,28,0.08),0 10px 24px rgba(20,24,28,0.10);">
               <img src={p.photo} alt={p.name} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 14%;display:block;" />

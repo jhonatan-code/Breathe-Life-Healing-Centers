@@ -10,6 +10,13 @@ import { msymChar } from "../../lib/icons";
  * Family Workshop, Family Class/Family Intensive Services) into one page
  * with three distinct sections, per the brief's own consolidation note.
  *
+ * 2026-09-25, per Charmaine (cc Elizabeth): "Family Class" is removed
+ * sitewide (its card and its FAQ are gone from this page), and the Family
+ * Workshop is in person only, while general family therapy sessions can be
+ * online. Those two facts are kept separate on purpose. None of the old
+ * Family Class brochure framework (MEND/MOVE/MAINTAIN, "Battleground
+ * Beliefs", the 6-month virtual weekly class) ever appeared on this page.
+ *
  * Never assumes blood relationships (CLAUDE.md, and this page's own brand
  * pillar #5) — partners, chosen family, and community are named explicitly
  * throughout, matching the brief.
@@ -31,7 +38,7 @@ const HREF = site.phoneHref;
 
 const title = "Family Program | Breathe Life Healing Centers";
 const description =
-  "Recovery isn't just individual, family heals too. Ongoing family therapy, Family Class, and a 3-Day Family Workshop, with room for chosen family as well as family of origin. LGBTQ+-affirming.";
+  "Recovery isn't just individual, family heals too. Family therapy in person or online, plus an in-person 3-Day Family Workshop, with room for chosen family as well as family of origin. LGBTQ+-affirming.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -43,21 +50,16 @@ const S = {
   card: "font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3A444D;margin:0;",
 };
 
-// "Three ways family shows up here" — verbatim from the brief.
+// "Two ways family shows up here", from the brief (Family Class card removed 2026-09-25).
 const ways = [
   {
     icon: "family_restroom", title: "Ongoing Family Therapy",
-    text: "Woven into the treatment process itself, structured sessions that involve the people who matter, at the pace recovery actually requires.",
+    text: "Woven into the treatment process itself, structured sessions that involve the people who matter, at the pace recovery actually requires. Sessions can happen in person or online.",
     cta: "Learn About Family Therapy", href: "/therapies/",
   },
   {
-    icon: "school", title: "Family Class (Intensive Services)",
-    text: "Focused, in-depth education and process work for family members who want to understand what their loved one is going through, and what role they can play in it.",
-    cta: "Learn About Family Class", href: "/admissions/for-families/",
-  },
-  {
     icon: "calendar_month", title: "3-Day Family Workshop",
-    text: "A structured, immersive weekend for families ready to do deeper work together, not a single session, a real commitment of time built for real change.",
+    text: "A structured, immersive weekend for families ready to do deeper work together, held in person only. Not a single session, a real commitment of time built for real change.",
     cta: "Learn About the Family Workshop", href: "/admissions/for-families/",
   },
 ];
@@ -80,8 +82,7 @@ const whyFamily = [
 const faqs = [
   { q: "Does “family” have to mean blood relatives?", a: "No. Partners, chosen family, close friends, and community members are all welcome to participate, we don't require a biological or legal relationship. Related reading: [Chosen Family and Recovery: Why Your Support System Doesn't Have to Be Blood](/blog/chosen-family-and-recovery-why-your-support-system-does-not-have-to-be-blood/)." },
   { q: "What if my loved one's biological family isn't involved, or isn't safe to involve?", a: "That's common, and it doesn't limit access to family programming. Many clients build their family system here around chosen family instead." },
-  { q: "What's the difference between Family Class and the Family Workshop?", a: "Family Class is focused, ongoing education and process work. The Family Workshop is a structured 3-day intensive for families ready for a deeper, immersive commitment. Many families do both at different points." },
-  { q: "Can family participate remotely if they're not local to Los Angeles?", a: "Reach out to our admissions team to talk through what's available, remote participation options vary by program component." },
+  { q: "Can family participate remotely if they're not local to Los Angeles?", a: "For family therapy sessions, yes, those can be done online. The 3-Day Family Workshop is different: it is in person only." },
   { q: "Is family participation required?", a: "No, but it's strongly encouraged where it's safe and appropriate. Treatment moves forward either way." },
   { q: "Does insurance cover family programming?", a: "In most cases family therapy sessions are covered as part of the overall treatment plan. Our team [verifies your specific benefits](/admissions/insurance/) before you commit to anything." },
 ];
@@ -155,14 +156,14 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  THREE WAYS FAMILY SHOWS UP HERE  ══════════════ */}
-    <section data-screen-label="Three ways family shows up" style="padding:70px 37px;background:#F7F5F1;">
+    {/* ══════════════  TWO WAYS FAMILY SHOWS UP HERE  ══════════════ */}
+    <section data-screen-label="Two ways family shows up" style="padding:70px 37px;background:#F7F5F1;">
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>How it works</div>
-          <h2 style={`${S.h2}max-width:28ch;`}>Three ways family shows up here</h2>
+          <h2 style={`${S.h2}max-width:28ch;`}>Two ways family shows up here</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:960px;margin:0 auto;">
           {ways.map((c, i) => {
             const teal = i % 2 === 1;
             return (
