@@ -1,15 +1,11 @@
 ---
 /**
- * /about/our-team/stacy-cohen/ — placeholder bio. The official live site's
- * dedicated page for Stacy Cohen
- * (breathelifehealingcenters.com/our-team/stacy-cohen-md/, checked
- * 2026-09-02) carries her name, credential (MD), and role (Medical Director)
- * plus a photo — but no first-person biography text at all (verified with
- * two separate fetch passes, including a full-page-text dump). Per this
- * batch's hard rule, no bio content is invented — the bio section below uses
- * ClinicalPlaceholder instead. Hero/photo/name/role are still real and
- * populated normally. Not in src/data/home.ts's `team` array, so
- * name/role/photo/badge are defined directly below.
+ * /about/our-team/dez-white/ — new team member added per Charmaine
+ * (2026-09-29): name and title only (Marketing, Business Development &
+ * Alumni). No bio prose or headshot provided yet, so no bio section and the
+ * site's standard "B" no-photo placeholder, same as other roster entries
+ * without a headshot. Shares the National Clinical Outreach Coordinator
+ * title with Brian Whisenant; the user confirmed both stay (2026-09-29).
  */
 import Layout from "../../../layouts/Layout.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
@@ -18,15 +14,14 @@ import SiteFinalCTA from "../../../components/SiteFinalCTA.astro";
 import TeamProfile from "../../../components/TeamProfile.astro";
 import { site } from "../../../config/site";
 
-const name = "Stacy Cohen, MD";
-const role = "Medical Director";
-const badge = "MD";
-const photo = "/Asset/Our%20Team/stacy-cohen.jpg";
+const name = "Dez White";
+const role = "National Clinical Outreach Coordinator";
+const photo = "/Asset/Our%20Team/no-photo.jpg";
 
-const title = "Stacy Cohen, MD | Medical Director | Breathe Life Healing Centers";
-const description = "Stacy Cohen, MD is Medical Director at Breathe Life Healing Centers.";
+const title = "Dez White | National Clinical Outreach Coordinator | Breathe Life Healing Centers";
+const description = "Dez White is National Clinical Outreach Coordinator at Breathe Life Healing Centers.";
 
-const pageUrl = new URL("/about/our-team/stacy-cohen/", site.domain).href;
+const pageUrl = new URL("/about/our-team/dez-white/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
   "@graph": [
@@ -52,7 +47,7 @@ const ld = {
 };
 ---
 
-<Layout title={title} description={description} path="/about/our-team/stacy-cohen/">
+<Layout title={title} description={description} path="/about/our-team/dez-white/">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
@@ -60,13 +55,13 @@ const ld = {
 
     <main id="main">
 
-    <TeamProfile name={name} role={role} badge={badge} photo={photo} slug="stacy-cohen" />
+    <TeamProfile name={name} role={role} photo={photo} slug="dez-white" />
 
     <SiteFinalCTA
       heading="Talk to someone who's been where you are"
       subhead="Every clinician on staff has personal recovery experience, you won't have to explain yourself to someone who's only read about it."
       secondary={{ label: "Send Us a Message", href: "/contact-us/" }}
-      background="/Asset/Facility/facility-17-living-room-lounge.jpg"
+      background="/Asset/Facility/facility-18-great-room.jpg"
     />
 
     </main>

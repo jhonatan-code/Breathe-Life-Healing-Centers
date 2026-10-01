@@ -14,16 +14,14 @@ import { LEVEL_CTA } from "../../lib/levelLinks";
  * decision process are all real). That live page is clean, no IFS/EMDR/
  * contingency-management mentions.
  *
- * Flag: the FAQ's insurance answer is deliberately non-committal ("Coverage
- * varies... our admissions team can walk you through what applies"), unlike
- * the flat "In most cases, yes" used on every other program page's FAQ —
- * sober living is housing, not a billed clinical level of care, so this is
- * likely accurate rather than an inconsistency to fix. Worth noting that the
- * SiteInsurance section lower on this same page still says "In-network with
- * most major insurers" / "explains exactly what's covered for sober living",
- * which reads more confident than the FAQ now does. Not changed here since
- * that heading/intro is this page's own SiteInsurance content, not something
- * this brief addressed — flagging for a decision, not resolving it.
+ * CORRECTED 2026-09-29 per Charmaine (client), overriding the FAQ brief and
+ * the live page where they disagree:
+ *  - not a 12-step program, meetings are not mandatory;
+ *  - 15 beds, typically full (not "just a few");
+ *  - technically a treatment program, structured like residential;
+ *  - movement differs by house: PHP house, clients can't come and go as
+ *    they please; IOP house, they can (kept as two rules, never one);
+ *  - NOT covered by insurance, said plainly wherever coverage comes up.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
@@ -43,7 +41,7 @@ const HREF = site.phoneHref;
 
 const title = "Enhanced Sober Living in Los Angeles | Breathe";
 const description =
-  "Enhanced sober living in Los Angeles, structured, substance-free housing for the transition to independent living. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Enhanced sober living in Los Angeles: 15 beds, structured like residential care, for the step toward independent living. LGBTQ+-affirming. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -67,7 +65,7 @@ const forYou = [
 const included = [
   { icon: "home_work", title: "A substance-free living environment", text: "Housing built around recovery, shared with others doing the same work." },
   { icon: "checklist", title: "Structure and accountability", text: "Routines and expectations that support the habits you're building." },
-  { icon: "support_agent", title: "Continued connection to clinical support", text: "Sober living can run alongside outpatient care or case management." },
+  { icon: "support_agent", title: "Continued connection to clinical support", text: "Each house is tied to a level of care, PHP or IOP, so clinical support continues alongside where you live." },
   { icon: "trending_up", title: "A bridge to independent living", text: "A deliberate middle step between treatment and living entirely on your own." },
 ];
 
@@ -91,13 +89,13 @@ const whyPicks = why.filter(([, , h]) =>
 // Verbatim from Breathe_Life_Sober_Living_FAQ.docx (2026-09-11), sourced by
 // that brief from the live /therapies/enhanced-sober-living/ page.
 const faqs = [
-  { q: "What are the rules in a sober living home?", a: "No substances are allowed on the property. Residents follow expectations like curfew, attending meetings, keeping work or school commitments, and helping keep the house maintained. Rules are explained clearly, and not following them can result in being asked to leave." },
-  { q: "How many people live in a sober living home?", a: "Typically just a few residents per home, set in a quiet environment that supports everyone's focus on recovery." },
-  { q: "How is sober living different from residential treatment?", a: "Sober living offers more independence. You come and go for work, school, and daily activities, while still living in a structured, substance-free environment with accountability built in." },
-  { q: "Is sober living a treatment program on its own?", a: "No. It is not a treatment program itself, it is stable, substance-free housing with accountability, often paired with [outpatient rehab](/programs/outpatient-rehab/) or [case management](/programs/case-management/) so clinical support continues." },
+  { q: "What are the rules in a sober living home?", a: "No substances are allowed on the property. Residents follow house expectations like curfew, keeping work or school commitments, and helping keep the house maintained. It is not a 12-step program, and meetings are not mandatory. Rules are explained clearly, and not following them can result in being asked to leave." },
+  { q: "How many people live in a sober living home?", a: "Our enhanced sober living has 15 beds, and they are typically full." },
+  { q: "How is sober living different from residential treatment?", a: "It is structured like residential care, and how much independence you have depends on the house. At our PHP house, clients can't come and go as they please. At our IOP house, they can come and go for work, school, and daily activities, while still living in a structured, substance-free environment with accountability built in." },
+  { q: "Is sober living a treatment program?", a: "Yes. Enhanced sober living is structured like residential care, and each house is tied to a level of care, [PHP](/programs/php/) or [IOP](/programs/intensive-outpatient/), so clinical support continues alongside where you live." },
   { q: "How is it decided whether I should move into sober living?", a: "You and your treatment team assess your progress and ongoing needs together. There is no fixed timeline, everyone recovers at their own pace." },
   { q: "What are the benefits of sober living compared to going straight home?", a: "A built-in support system of people who understand what you are going through, structure that helps rebuild responsibility, and an environment kept free of the substances and situations that could trigger relapse." },
-  { q: "Is sober living covered by insurance?", a: "Coverage varies. Our admissions team can walk you through what applies to your specific situation and [verify your benefits](/admissions/insurance/) before you commit to anything." },
+  { q: "Is sober living covered by insurance?", a: "No. Sober living is not covered by insurance. The clinical care that runs alongside it, like [PHP](/programs/php/) or [IOP](/programs/intensive-outpatient/), is a separate question, and our admissions team can [verify those benefits](/admissions/insurance/) before you commit to anything." },
 ];
 
 const pageUrl = new URL("/programs/sober-living/", site.domain).href;
@@ -162,8 +160,8 @@ const ld = {
         <div>
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>What sober living looks like</h2>
-          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Sober living is a structured, supportive environment for the transition to independent living. It's not a treatment program in itself, it's stable, substance-free housing with accountability built in, for people who need more support than living entirely on their own right away.</p>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">Many residents pair sober living with outpatient rehab or case management, so clinical support continues alongside the housing.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Enhanced sober living is a structured, substance-free living environment for the transition to independent living. It's a treatment program, structured like residential care, with 15 beds that are typically full, for people who need more support than living entirely on their own right away.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">How much independence you have depends on the house. At our PHP house, clients can't come and go as they please. At our IOP house, they can. It is not a 12-step program, meetings are not mandatory, and sober living is not covered by insurance.</p>
         </div>
         <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Sober living may be right for you if</div>
@@ -284,13 +282,13 @@ const ld = {
 
     <SiteInsurance
       background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for sober living, before you commit to anything."
+      heading="Sober living is not covered by insurance"
+      intro="The clinical care that runs alongside it, like PHP or IOP, can be. Our admissions team verifies your benefits for that care before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
     <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#32679C;padding:44px 20px;">
-      <div id="verify-mobile-slot" style="max-width:440px;margin:0 auto;">
+      <div id="verify-mobile-slot" style="max-width:500px;margin:0 auto;">
         <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#E6EDF4;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
       </div>
     </section>

@@ -19,7 +19,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
   {
     dept: "Medical Team",
     people: [
-      { name: "Stacy Cohen, MD", role: "Medical Director", photo: "/Asset/Our%20Team/stacy-cohen.webp", slug: "stacy-cohen" },
+      { name: "Stacy Cohen, MD", role: "Medical Director", photo: "/Asset/Our%20Team/stacy-cohen.jpg", slug: "stacy-cohen" },
       { name: "Mayra Lopez, LVN", role: "Lead Nurse", photo: "/Asset/Our%20Team/mayra-lopez.jpg", slug: "mayra-lopez" },
     ],
   },
@@ -59,9 +59,14 @@ export const roster: { dept: string; people: { name: string; role: string; photo
     people: [
       { name: "Emmy Olea", role: "Director of Marketing & Business Development", photo: "/Asset/Our%20Team/emmy-olea.jpg", slug: "emmy-olea" },
       // Moved here from Executive Leadership per Charmaine (2026-09-25), same
-      // department as Emmy Olea. Title kept as it was (no new title given).
-      { name: "Deb Hughes, CAS", role: "Co-founder, Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg", slug: "deb-hughes", badge: "CAS", bio: "Oversees family programming and community partnerships." },
+      // department as Emmy Olea, title "Co-Founder / Strategic Relations".
+      { name: "Deb Hughes, CAS", role: "Co-Founder / Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg", slug: "deb-hughes", badge: "CAS", bio: "Oversees family programming and community partnerships." },
       { name: "Brian Whisenant", role: "National Clinical Outreach Coordinator", photo: "/Asset/Our%20Team/brian-whisenant.jpg", slug: "brian-whisenant" },
+      // Added per Charmaine 2026-09-29; no headshot yet.
+      { name: "Dez White", role: "National Clinical Outreach Coordinator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "dez-white" },
+      // Moved from Operations (was Behavioral Health Technician Shift Lead),
+      // new title per Charmaine 2026-09-29.
+      { name: "Ivis Gutierrez-Lopez", role: "Alumni Coordinator", photo: "/Asset/Our%20Team/ivis-gutierrez-lopez.jpg", slug: "ivis-gutierrez-lopez" },
     ],
   },
   {
@@ -71,7 +76,6 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Keegan Halupowski", role: "Operations Manager", photo: "/Asset/Our%20Team/keegan-halupowski.jpg", slug: "keegan-halupowski" },
       { name: "Jeremy Hanes", role: "Utilization Review Director", photo: "/Asset/Our%20Team/jeremy-hanes.jpg", slug: "jeremy-hanes" },
       { name: "Keone Holt", role: "Head Chef", photo: "/Asset/Our%20Team/keone-holt.jpg", slug: "keone-holt" },
-      { name: "Ivis Gutierrez-Lopez", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/ivis-gutierrez-lopez.jpg", slug: "ivis-gutierrez-lopez" },
       { name: "Wes Werbeck", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/wes-werbeck.jpg", slug: "wes-werbeck" },
       { name: "Hassan Olton", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/hassan-olton.jpg", slug: "hassan-olton" },
       { name: "Nick Michalski", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/nick-michalski.jpg", slug: "nick-michalski" },
@@ -89,7 +93,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Anna Limina, MT-BC", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "anna-limina" },
       { name: "Sue Dinner", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sue-dinner" },
       { name: "Sarah Sitt, CADC-II", role: "Art Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sarah-sitt" },
-      { name: "Bill Reilly, CADC-II", role: "Group Facilitator", photo: "/Asset/Our%20Team/bill-reilly.png", slug: "bill-reilly" },
+      { name: "Bill Reilly, CADC-II", role: "Group Facilitator", photo: "/Asset/Our%20Team/bill-reilly.jpg", slug: "bill-reilly" },
       { name: "Hannah Ayers, LMFT", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "hannah-ayers" },
       { name: "Christina Beck", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "christina-beck" },
     ],

@@ -138,7 +138,7 @@ export const faqGroups = [
     label: "Before you call",
     items: [
       { q: "What is it actually like to be here day to day?", a: "Structured, but not institutional. Mornings start with community and group work, afternoons hold individual therapy and specialised sessions, evenings are quieter: meals together, meetings, time outside. You live in a residential home in Laurel Canyon with other people who understand why you came, not in a ward." },
-      { q: "What happens on the first day I arrive?", a: "Someone meets you at the door, usually the person you spoke to on the phone. There is a medical and clinical intake, a chance to unpack and eat, and a walk-through of the house. Nobody puts you in a group on day one. The first day is about landing safely." },
+      { q: "What happens on the first day I arrive?", a: "Someone meets you at the door. There is a medical and clinical intake, a chance to unpack and eat, and a walk-through of the house. Nobody puts you in a group on day one. The first day is about landing safely." },
       { q: "I am not sure I need rehab. Is it worth calling anyway?", a: "Yes, and that is a very common place to be starting from. You do not need to have decided anything, name it a certain way, or hit some threshold first. Tell us what has been happening and we will tell you honestly what we think, including if we are not the right fit and someone else would serve you better." },
     ],
   },
