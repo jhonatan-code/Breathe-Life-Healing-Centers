@@ -430,6 +430,12 @@ img { height: auto; }
   #top h1 { font-size: clamp(27px, 8vw, 40px) !important; }
   /* hero bullets are nowrap on desktop; let them wrap on phones */
   #top [style*="white-space:nowrap"] { white-space: normal !important; }
+  /* homepage hero (centered panorama): shorter, smaller chips + seal strip */
+  #top:has(.hero-b) { min-height: 0 !important; }
+  #top .hero-b { gap: 32px !important; padding-bottom: 20px !important; }
+  #top .hero-chips li span { font-size: 14px !important; }
+  #top .hero-seals { justify-content: center !important; padding: 16px !important; }
+  #top .hero-seals img { max-height: 44px; }
 
   /* tall images shorter */
   .fg-main { min-height: 240px !important; }

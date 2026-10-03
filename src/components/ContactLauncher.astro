@@ -1,0 +1,189 @@
+---
+/**
+ * Floating "Contact Us" launcher (bottom-right) that holds the shared
+ * VerifyInsuranceForm in a pop-up panel, so a page's hero can drop the form.
+ * Starts as a pill reading "Contact Us"; after COLLAPSE_MS it contracts to a
+ * circle showing only the form icon. Any `a[href="#verify"]` on the page
+ * (hero CTA, insurance "Verify my insurance") opens the panel instead of
+ * jumping to an anchor.
+ *
+ * The form's own hero/mobile relocation script bails out on pages without
+ * #hero-inner, so the form stays inside this panel.
+ */
+import VerifyInsuranceForm from "./VerifyInsuranceForm.astro";
+---
+
+<div class="cl-root" data-contact-launcher>
+  <div class="cl-panel" id="cl-panel" role="dialog" aria-modal="true" aria-labelledby="cl-title" hidden>
+    <div class="cl-panel-head">
+      <span id="cl-title" class="cl-panel-title">Contact Us</span>
+      <button type="button" class="cl-close" data-cl-close aria-label="Close contact form">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <div class="cl-panel-body">
+      <VerifyInsuranceForm />
+    </div>
+  </div>
+
+  <button type="button" class="cl-btn" data-cl-toggle aria-controls="cl-panel" aria-expanded="false" aria-label="Contact Us">
+    <span class="cl-icon cl-icon--form" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"></rect><path d="M9 3.5h6v2.5H9z"></path><path d="M8.5 10.5h7M8.5 14h7M8.5 17.5h4"></path></svg>
+    </span>
+    <span class="cl-icon cl-icon--close" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </span>
+    <span class="cl-label" aria-hidden="true">Contact Us</span>
+  </button>
+</div>
+
+<style>
+  .cl-root {
+    position: fixed; right: 24px; bottom: 24px; z-index: 90;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 14px;
+    font-family: 'Instrument Sans', Helvetica, sans-serif;
+  }
+
+  /* ── launcher: pill → circle ─────────────────────────────────────── */
+  .cl-btn {
+    position: relative; display: inline-flex; align-items: center; justify-content: flex-start;
+    height: 60px; min-width: 60px; padding: 0 26px 0 18px; box-sizing: border-box;
+    border: 0; border-radius: 999px; cursor: pointer;
+    background: #32679C; color: #FFFFFF;
+    box-shadow: 0 2px 6px rgba(20, 24, 28, 0.18), 0 12px 30px rgba(20, 24, 28, 0.22);
+    transition: padding 0.5s cubic-bezier(.4, 0, .2, 1), background-color 0.2s, transform 0.2s;
+  }
+  .cl-btn:hover { background: #24507D; transform: translateY(-1px); }
+  .cl-btn:focus-visible { outline: 3px solid #C8DAE9; outline-offset: 3px; }
+  .cl-icon { display: inline-flex; flex: 0 0 24px; justify-content: center; }
+  .cl-icon--close { display: none; }
+  .cl-label {
+    display: inline-block; overflow: hidden; white-space: nowrap;
+    max-width: 140px; margin-left: 10px; opacity: 1;
+    font-size: 16px; font-weight: 600; letter-spacing: 0.01em;
+    transition: max-width 0.5s cubic-bezier(.4, 0, .2, 1), margin-left 0.5s cubic-bezier(.4, 0, .2, 1), opacity 0.25s;
+  }
+  .cl-root.is-compact .cl-btn,
+  .cl-root.is-open .cl-btn { padding: 0 18px; }
+  .cl-root.is-compact .cl-label,
+  .cl-root.is-open .cl-label { max-width: 0; margin-left: 0; opacity: 0; }
+  .cl-root.is-open .cl-icon--form { display: none; }
+
+  /* Water-drop ripple: once compact (and while closed), two rings spread
+     from the circle every 3s, the second just behind the first. */
+  .cl-btn::before,
+  .cl-btn::after {
+    content: ""; position: absolute; inset: 0; border-radius: 999px;
+    border: 2px solid rgba(50, 103, 156, 0.7);
+    pointer-events: none; opacity: 0;
+  }
+  .cl-root.is-compact:not(.is-open) .cl-btn::before { animation: cl-ripple 3s cubic-bezier(.2, .6, .3, 1) infinite; }
+  .cl-root.is-compact:not(.is-open) .cl-btn::after { animation: cl-ripple 3s cubic-bezier(.2, .6, .3, 1) 0.35s infinite; }
+  @keyframes cl-ripple {
+    0% { transform: scale(1); opacity: 0.85; }
+    55% { transform: scale(2.1); opacity: 0; }
+    100% { transform: scale(2.1); opacity: 0; }
+  }
+  .cl-root.is-open .cl-icon--close { display: inline-flex; }
+
+  /* ── panel ───────────────────────────────────────────────────────── */
+  .cl-panel {
+    width: 520px; max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 120px); overflow: auto;
+    background: #FFFFFF; border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(20, 24, 28, 0.14), 0 28px 64px rgba(20, 24, 28, 0.28);
+    transform-origin: bottom right;
+    animation: cl-in 0.22s ease-out;
+  }
+  .cl-panel[hidden] { display: none; }
+  .cl-panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 12px 0 20px;
+  }
+  .cl-panel-title {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #2C5A64;
+  }
+  .cl-close {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border: 0; border-radius: 8px; background: none; color: #3A444D; cursor: pointer;
+  }
+  .cl-close:hover { background: #F0F5FA; }
+  /* The shared form carries its own card styles inline (sized for a hero
+     slot); flatten them inside the panel. */
+  .cl-panel-body :global(#verify) {
+    max-width: none !important; box-shadow: none !important; border-radius: 0 !important;
+    padding-top: 8px !important;
+  }
+  .cl-panel-body :global(#verify span[style*="white-space:nowrap"]) { white-space: normal !important; }
+
+  @keyframes cl-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Phones: sit above the persistent call bar (52px); panel becomes a sheet. */
+  @media (max-width: 1024px) {
+    .cl-root { right: 16px; bottom: 68px; }
+    .cl-btn { height: 56px; min-width: 56px; padding: 0 22px 0 16px; }
+    .cl-root.is-compact .cl-btn,
+    .cl-root.is-open .cl-btn { padding: 0 16px; }
+    .cl-panel { max-height: calc(100vh - 160px); }
+  }
+  @media (max-width: 640px) {
+    .cl-panel-body :global(#verify > div[style*="grid-template-columns"]) { grid-template-columns: 1fr !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cl-btn, .cl-label { transition: none; }
+    .cl-btn::before, .cl-btn::after { animation: none !important; }
+    .cl-panel { animation: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const COLLAPSE_MS = 10000;
+    const root = document.querySelector<HTMLElement>("[data-contact-launcher]");
+    if (!root) return;
+    const btn = root.querySelector<HTMLButtonElement>("[data-cl-toggle]")!;
+    const panel = root.querySelector<HTMLElement>("#cl-panel")!;
+    const closeBtn = root.querySelector<HTMLButtonElement>("[data-cl-close]")!;
+    let returnFocus: HTMLElement | null = null;
+
+    const collapseTimer = window.setTimeout(() => root.classList.add("is-compact"), COLLAPSE_MS);
+
+    const open = (from?: HTMLElement) => {
+      window.clearTimeout(collapseTimer);
+      returnFocus = from ?? btn;
+      panel.hidden = false;
+      root.classList.add("is-open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-label", "Close contact form");
+      panel.querySelector<HTMLInputElement>("input")?.focus({ preventScroll: true });
+    };
+    const close = () => {
+      panel.hidden = true;
+      root.classList.remove("is-open");
+      root.classList.add("is-compact");
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Contact Us");
+      returnFocus?.focus({ preventScroll: true });
+    };
+
+    btn.addEventListener("click", () => (panel.hidden ? open() : close()));
+    closeBtn.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) close();
+    });
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest<HTMLAnchorElement>('a[href="#verify"]');
+      if (link) {
+        e.preventDefault();
+        open(link);
+        return;
+      }
+      if (!panel.hidden && !root.contains(target)) close();
+    });
+  })();
+</script>

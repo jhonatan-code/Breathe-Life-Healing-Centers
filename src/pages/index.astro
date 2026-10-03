@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import Schema from "../components/Schema.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import VerifyInsuranceForm from "../components/VerifyInsuranceForm.astro";
+import ContactLauncher from "../components/ContactLauncher.astro";
 import SiteReviews from "../components/SiteReviews.astro";
 import SiteInsurance from "../components/SiteInsurance.astro";
 import SiteLocation from "../components/SiteLocation.astro";
@@ -106,6 +106,16 @@ const galleryWheelFiles = [
   "facility-19-outdoor-dining-deck.jpg",
   "facility-22-garden-entrance-path.jpg",
 ];
+// Hero "Accredited & Licensed" strip: same seals and alt text as the footer.
+// NAATP uses its colored mark here (the strip is white).
+const heroSeals: [string, string, number][] = [
+  ["/Asset/Accreditations/The%20Joint%20Commission.svg", "The Joint Commission National Quality Approval Gold Seal", 64],
+  ["/Asset/Accreditations/Legit.svg", "LegitScript Certified", 64],
+  ["/Asset/Accreditations/DHCS.svg", "Licensed by the California Department of Health Care Services", 44],
+  ["/Asset/Accreditations/NAATP.svg", "NAATP Member", 44],
+  ["/Asset/Accreditations/Fair%20Care.svg", "Fair Care Promise", 58],
+];
+
 const galleryPhotos = galleryWheelFiles.map((f) => {
   const g = gallery.find((x) => x.file === f)!;
   return { src: galleryImg(g.file), cap: g.cap };
@@ -120,37 +130,48 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
     <SiteHeader />
 
     {/* ══════════════  HERO  ══════════════ */}
-    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#32679C;min-height:660px;display:flex;align-items:center;">
-      <img src={galleryImg("facility-07-pool-waterfall-grotto.jpg")} alt="Pool and waterfall grotto at the Breathe Life facility" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.96;" />
-      {/* Client feedback 2026-09-21: reduce the overlay so the photo reads
-         brighter/more vibrant, keeping enough darkening on the left (where
-         the headline sits) for text contrast while the right stays bright. */}
-      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(4,9,16,0.82) 0%,rgba(4,9,16,0.54) 42%,rgba(4,9,16,0.04) 100%);"></div>
-      <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;width:100%;box-sizing:border-box;">
-        <div style="flex:1 1 480px;">
-          <h1 style="font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-0.032em;font-weight:600;color:#FFFFFF;margin:0 0 24px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
-          <div style="display:grid;gap:14px;margin-bottom:28px;">
+    {/* Hero test 2026-10-03 (option B2 from the hero proposals canvas):
+       centered panorama with no form. The admissions form moved into the
+       floating ContactLauncher (bottom-right); "Verify Your Insurance"
+       opens it. */}
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#0A141D;min-height:760px;display:flex;">
+      <img src={galleryImg("facility-07-pool-waterfall-grotto.jpg")} alt="Pool and waterfall grotto at the Breathe Life facility" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,16,0.60) 0%,rgba(4,9,16,0.46) 50%,rgba(4,9,16,0.72) 100%);"></div>
+      <div class="hero-b" style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:120px 37px 36px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:56px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8DAE9;">LGBTQ+ Affirming, Inclusive of All</div>
+          <h1 style="font-size:clamp(40px,4.9vw,70px);line-height:1.02;letter-spacing:-0.034em;font-weight:600;color:#FFFFFF;margin:0;max-width:980px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
+          <ul class="hero-chips" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
             {[
               // Order per the homepage design review (client recap): clinical /
-              // dual-diagnosis expertise leads, LGBTQIA+ focus second and softened
-              // (no bold), so referrals from outside the community don't read as excluded.
-              { icon: "healing", text: "Expert trauma-focused care for dual-diagnosis" },
-              { icon: "diversity_3", text: "LGBTQIA+ focus for those that need it, at every level of care" },
-              { icon: "verified", text: "Gold Seal accredited campus in Laurel Canyon since 2013." },
-            ].map((b) => (
-              <div style="display:flex;gap:12px;align-items:center;white-space:nowrap;">
-                <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.12);">
-                  <span class="msym" style="font-size:22px;color:#FFFFFF;">{msymChar(b.icon)}</span>
-                </span>
-                <span style="font-size:18px;line-height:1.4;color:#DCE6EF;text-shadow:0 1px 3px rgba(0,0,0,0.35);">{b.strong && <strong style="font-weight:700;color:#FFFFFF;">{b.strong}</strong>}{b.text}</span>
-              </div>
+              // dual-diagnosis expertise leads, LGBTQIA+ focus second.
+              "Expert trauma-focused care for dual-diagnosis",
+              "LGBTQIA+ focus for those that need it, at every level of care",
+              "Gold Seal accredited campus in Laurel Canyon since 2013",
+            ].map((t) => (
+              <li style="display:flex;gap:10px;align-items:center;min-height:44px;padding:8px 18px 8px 12px;box-sizing:border-box;border-radius:999px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
+                <span style="font-size:16px;line-height:1.35;color:#FFFFFF;text-align:left;">{t}</span>
+              </li>
             ))}
+          </ul>
+          <div class="hero-ctas" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:8px;">
+            <a class="cta" href={HREF} style={`${S.ctaBlue}height:54px;padding:0 30px;font-size:17px;font-weight:600;gap:10px;`}>
+              <span class="msym" style="font-size:20px;">{msymChar("call")}</span>Call Now: {PH}
+            </a>
+            <a class="cta cta--light" href="#verify" style={`${S.ctaWhite}height:54px;padding:0 28px;font-size:17px;font-weight:600;`}>Verify Your Insurance</a>
           </div>
-          <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Now: {PH}</a>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#DCE6EF;margin:0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
         </div>
 
-        <VerifyInsuranceForm />
+        <div class="hero-seals" style="margin-top:auto;width:100%;max-width:1200px;box-sizing:border-box;min-height:104px;padding:16px 36px;border-radius:16px;background:rgba(255,255,255,0.95);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px;">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;">Accredited &amp; Licensed</span>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px 48px;">
+            {heroSeals.map(([src, alt, h]) => (
+              <img src={src} alt={alt} style={`height:${h}px;width:auto;display:block;`} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -405,16 +426,6 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
 
     <SiteLocation background="#FFFFFF" />
 
-    {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
-    {/* The #verify form lives in the hero on desktop; script relocates the
-       form node into #verify-mobile-slot at ≤1024px so mobile users meet it
-       here, right before the FAQs. */}
-    <section id="verify-mobile-host" data-screen-label="Verify insurance" style="background:#32679C;padding:44px 20px;">
-      <div id="verify-mobile-slot" style="max-width:500px;margin:0 auto;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#E6EDF4;margin-bottom:18px;text-align:center;">Check your coverage in minutes</div>
-      </div>
-    </section>
-
     <SiteFAQ
       heading="The questions people really ask"
       intro="Seven honest answers, the things people and families ask us before they decide anything."
@@ -433,6 +444,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
 
   </div>
 
+  <ContactLauncher />
   <Schema />
 </Layout>
 
@@ -548,8 +560,9 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
     requestAnimationFrame(step);
   })();
 
-  // Mobile nav toggle lives in SiteHeader.astro; verify-form placement and
-  // submit handling live in VerifyInsuranceForm.astro; the insurance-logo
+  // Mobile nav toggle lives in SiteHeader.astro; verify-form submit
+  // handling lives in VerifyInsuranceForm.astro (rendered here inside
+  // ContactLauncher); the insurance-logo
   // marquee lives in SiteInsurance.astro; the reviews carousel lives in
   // SiteReviews.astro; the "Four simple steps" scroll-activate effect
   // lives in ScrollActivateSteps.astro (shared with the Careers page's
