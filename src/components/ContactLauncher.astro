@@ -3,7 +3,8 @@
  * Floating "Contact Us" launcher (bottom-right) that holds the shared
  * VerifyInsuranceForm in a pop-up panel, so a page's hero can drop the form.
  * Starts as a pill reading "Contact Us"; after COLLAPSE_MS it contracts to a
- * circle showing only the form icon. Any `a[href="#verify"]` on the page
+ * circle showing only the form icon (closing the panel re-expands it for
+ * REEXPAND_MS). Any `a[href="#verify"]` on the page
  * (hero CTA, insurance "Verify my insurance") opens the panel instead of
  * jumping to an anchor.
  *
@@ -49,11 +50,20 @@ import VerifyInsuranceForm from "./VerifyInsuranceForm.astro";
     position: relative; display: inline-flex; align-items: center; justify-content: flex-start;
     height: 60px; min-width: 60px; padding: 0 26px 0 18px; box-sizing: border-box;
     border: 0; border-radius: 999px; cursor: pointer;
-    background: #32679C; color: #FFFFFF;
-    box-shadow: 0 2px 6px rgba(20, 24, 28, 0.18), 0 12px 30px rgba(20, 24, 28, 0.22);
-    transition: padding 0.5s cubic-bezier(.4, 0, .2, 1), background-color 0.2s, transform 0.2s;
+    /* Same frosted blue glass as the hero checklist chips, a bit more
+       opaque so the white label still reads over white sections. */
+    color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(50, 103, 156, 0.86) 0%, rgba(22, 41, 61, 0.86) 100%);
+    border: 1px solid rgba(200, 218, 233, 0.40);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) saturate(140%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 2px 6px rgba(20, 24, 28, 0.18), 0 12px 30px rgba(20, 24, 28, 0.22);
+    transition: padding 0.5s cubic-bezier(.4, 0, .2, 1), transform 0.2s;
   }
-  .cl-btn:hover { background: #24507D; transform: translateY(-1px); }
+  .cl-btn:hover {
+    background: linear-gradient(135deg, rgba(50, 103, 156, 0.96) 0%, rgba(22, 41, 61, 0.96) 100%);
+    transform: translateY(-1px);
+  }
   .cl-btn:focus-visible { outline: 3px solid #C8DAE9; outline-offset: 3px; }
   .cl-icon { display: inline-flex; flex: 0 0 24px; justify-content: center; }
   .cl-icon--close { display: none; }
@@ -143,6 +153,9 @@ import VerifyInsuranceForm from "./VerifyInsuranceForm.astro";
 <script>
   (() => {
     const COLLAPSE_MS = 10000;
+    // After the panel is closed the pill re-expands to "Contact Us" for this
+    // long, then collapses back to the circle.
+    const REEXPAND_MS = 20000;
     const root = document.querySelector<HTMLElement>("[data-contact-launcher]");
     if (!root) return;
     const btn = root.querySelector<HTMLButtonElement>("[data-cl-toggle]")!;
@@ -150,7 +163,12 @@ import VerifyInsuranceForm from "./VerifyInsuranceForm.astro";
     const closeBtn = root.querySelector<HTMLButtonElement>("[data-cl-close]")!;
     let returnFocus: HTMLElement | null = null;
 
-    const collapseTimer = window.setTimeout(() => root.classList.add("is-compact"), COLLAPSE_MS);
+    let collapseTimer = 0;
+    const scheduleCollapse = (ms: number) => {
+      window.clearTimeout(collapseTimer);
+      collapseTimer = window.setTimeout(() => root.classList.add("is-compact"), ms);
+    };
+    scheduleCollapse(COLLAPSE_MS);
 
     const open = (from?: HTMLElement) => {
       window.clearTimeout(collapseTimer);
@@ -163,8 +181,8 @@ import VerifyInsuranceForm from "./VerifyInsuranceForm.astro";
     };
     const close = () => {
       panel.hidden = true;
-      root.classList.remove("is-open");
-      root.classList.add("is-compact");
+      root.classList.remove("is-open", "is-compact");
+      scheduleCollapse(REEXPAND_MS);
       btn.setAttribute("aria-expanded", "false");
       btn.setAttribute("aria-label", "Contact Us");
       returnFocus?.focus({ preventScroll: true });
