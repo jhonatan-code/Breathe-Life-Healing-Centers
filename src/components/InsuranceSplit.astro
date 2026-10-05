@@ -1,0 +1,63 @@
+---
+/**
+ * Homepage insurance section, "Blue Split" (option B from the insurance
+ * proposals canvas, approved 2026-10-05): copy + in-network logos on a brand
+ * blue half, the verify form open (flat variant) on the white half. Same copy
+ * and the same shared `insurers` array as SiteInsurance; the logo marquee is
+ * replaced by a static 4×2 panel. Stacks on tablet/phone.
+ */
+import { insurers } from "../data/home";
+import VerifyInsuranceForm from "./VerifyInsuranceForm.astro";
+
+interface Props {
+  heading?: string;
+  intro: string;
+  /** id for this section's form; must differ from the page's other forms. */
+  formId?: string;
+}
+const {
+  heading = "We're in-network with most major insurers",
+  intro,
+  formId = "verify-insurance",
+} = Astro.props;
+---
+
+<section id="insurance" class="ins-split" data-screen-label="Insurance" style="display:flex;flex-wrap:wrap;background:#FFFFFF;">
+  <div class="ins-split-copy" style="flex:1 1 560px;box-sizing:border-box;padding:96px 80px 96px max(37px,calc((100vw - 1440px) / 2 + 37px));background:#32679C;display:flex;flex-direction:column;gap:18px;">
+    <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8DAE9;">Cost &amp; coverage</div>
+    <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;color:#FFFFFF;margin:0;max-width:15ch;text-wrap:balance;">{heading}</h2>
+    <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#DCE6EF;margin:0;max-width:54ch;">{intro}</p>
+    <ul class="ins-split-logos" style="list-style:none;margin:14px 0 0;padding:10px 14px;background:#FFFFFF;border-radius:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));box-shadow:0 18px 40px rgba(4,9,16,0.20);">
+      {insurers.map((i) => (
+        <li style="height:84px;display:flex;align-items:center;justify-content:center;padding:0 10px;">
+          <img src={i.src} alt={i.name} loading="lazy" style={`height:${Math.round(i.h * 0.85)}px;width:auto;max-width:100%;object-fit:contain;`} />
+        </li>
+      ))}
+    </ul>
+    <p style="display:flex;align-items:center;gap:10px;margin:4px 0 0;font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;color:#FFFFFF;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><circle cx="12" cy="12" r="10"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+      We do not accept Medi-Cal or Medicare.
+    </p>
+  </div>
+
+  <div class="ins-split-form" style="flex:1 1 480px;box-sizing:border-box;padding:96px max(37px,calc((100vw - 1440px) / 2 + 37px)) 96px 80px;display:flex;align-items:center;">
+    <div style="width:100%;max-width:560px;">
+      <VerifyInsuranceForm id={formId} variant="flat" />
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 1024px) {
+    /* global mobile layer adds a 20px gutter to every <section>; the two
+       halves carry their own gutter, so the blue half stays full-bleed */
+    #insurance.ins-split { padding-left: 0 !important; padding-right: 0 !important; }
+    .ins-split-copy,
+    .ins-split-form { padding: 56px 20px !important; flex-basis: 100% !important; }
+    .ins-split-form > div { max-width: none !important; }
+  }
+  @media (max-width: 640px) {
+    .ins-split-logos { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .ins-split :global(.ivf-flat-pair) { grid-template-columns: 1fr !important; }
+  }
+</style>

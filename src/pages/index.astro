@@ -6,7 +6,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ContactLauncher from "../components/ContactLauncher.astro";
 import SiteReviews from "../components/SiteReviews.astro";
-import SiteInsurance from "../components/SiteInsurance.astro";
+import InsuranceSplit from "../components/InsuranceSplit.astro";
 import SiteLocation from "../components/SiteLocation.astro";
 import SiteFAQ from "../components/SiteFAQ.astro";
 import SiteFinalCTA from "../components/SiteFinalCTA.astro";
@@ -106,14 +106,18 @@ const galleryWheelFiles = [
   "facility-19-outdoor-dining-deck.jpg",
   "facility-22-garden-entrance-path.jpg",
 ];
-// Hero "Accredited & Licensed" strip: same seals and alt text as the footer.
-// NAATP uses its colored mark here (the strip is white).
-const heroSeals: [string, string, number][] = [
-  ["/Asset/Accreditations/The%20Joint%20Commission.svg", "The Joint Commission National Quality Approval Gold Seal", 64],
-  ["/Asset/Accreditations/Legit.svg", "LegitScript Certified", 64],
-  ["/Asset/Accreditations/DHCS.svg", "Licensed by the California Department of Health Care Services", 44],
-  ["/Asset/Accreditations/NAATP.svg", "NAATP Member", 44],
-  ["/Asset/Accreditations/Fair%20Care.svg", "Fair Care Promise", 58],
+// Hero accreditation logos (under the CTAs, no heading): same seals, alt text
+// and verification links as the footer. [src, alt, sized by "h"eight or
+// "w"idth, px, href?, tone]. The three round/badge seals keep their original
+// colors and share one height (55px); DHCS and NAATP are white, sized by
+// width (2026-10-05). Tone "solid" turns a flat color logo into a pure white
+// silhouette via CSS; "asis" shows the file as it is.
+const seals: [string, string, "h" | "w", number, string | undefined, "solid" | "asis"][] = [
+  ["/Asset/Accreditations/The%20Joint%20Commission.svg", "The Joint Commission National Quality Approval Gold Seal", "h", 55, "https://www.jointcommission.org/en-us/accreditation/behavioral-health-care-and-human-services/provider-locator/566970/589068", "asis"],
+  ["/Asset/Accreditations/Legit.svg", "LegitScript Certified", "h", 55, "https://www.legitscript.com/websites/?checker_keywords=breathelifehealingcenters.com", "asis"],
+  ["/Asset/Accreditations/DHCS.svg", "Licensed by the California Department of Health Care Services", "w", 102, "https://www.dhcs.ca.gov/provgovpart/Pages/Licensing_and_Certification_Division.aspx", "solid"],
+  ["/Asset/Accreditations/NAATP-white.svg", "NAATP Member", "w", 157, "https://www.naatp.org/resources/addiction-industry-directory/101/breathe-life-healing-centers", "asis"],
+  ["/Asset/Accreditations/Fair%20Care.svg", "Fair Care Promise", "h", 55, undefined, "asis"],
 ];
 
 const galleryPhotos = galleryWheelFiles.map((f) => {
@@ -133,14 +137,19 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
     {/* Hero test 2026-10-03 (option B2 from the hero proposals canvas):
        centered panorama with no form. The admissions form moved into the
        floating ContactLauncher (bottom-right); "Verify Your Insurance"
-       opens it. */}
-    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#0A141D;min-height:760px;display:flex;">
+       scrolls to the insurance split section, which carries its own form. */}
+    {/* .hero-fold: on desktop the hero (with its accreditation logos) plus
+       the As Seen On strip fill exactly one screen below the sticky header,
+       so nothing shows half-cut at the fold (2026-10-05). Sizing lives in
+       global.css. */}
+    <div class="hero-fold">
+    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#0A141D;display:flex;">
       <img src={galleryImg("facility-07-pool-waterfall-grotto.jpg")} alt="Pool and waterfall grotto at the Breathe Life facility" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,16,0.60) 0%,rgba(4,9,16,0.46) 50%,rgba(4,9,16,0.72) 100%);"></div>
-      <div class="hero-b" style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:120px 37px 36px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:56px;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;">
+      <div class="hero-b" style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(24px,5vh,110px) 37px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;">
+        <div style="margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,26px);text-align:center;">
           <div style="font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8DAE9;">LGBTQ+ Affirming, Inclusive of All</div>
-          <h1 style="font-size:clamp(40px,4.9vw,70px);line-height:1.02;letter-spacing:-0.034em;font-weight:600;color:#FFFFFF;margin:0;max-width:980px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
+          <h1 style="font-size:clamp(34px,min(4.9vw,6.4vh),70px);line-height:1.02;letter-spacing:-0.034em;font-weight:600;color:#FFFFFF;margin:0;max-width:980px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
           <ul class="hero-chips" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
             {[
               // Order per the homepage design review (client recap): clinical /
@@ -151,7 +160,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
             ].map((t) => (
               <li style="display:flex;gap:10px;align-items:center;min-height:44px;padding:8px 18px 8px 12px;box-sizing:border-box;border-radius:999px;background:linear-gradient(135deg,rgba(50,103,156,0.55) 0%,rgba(22,41,61,0.55) 100%);border:1px solid rgba(200,218,233,0.40);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 4px 14px rgba(4,9,16,0.20);">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
-                <span style="font-size:16px;line-height:1.35;color:#FFFFFF;text-align:left;">{t}</span>
+                <span style="font-size:16px;line-height:1.35;font-weight:600;color:#FFFFFF;text-align:left;">{t}</span>
               </li>
             ))}
           </ul>
@@ -159,38 +168,17 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
             <a class="cta" href={HREF} style={`${S.ctaBlue}height:54px;padding:0 30px;font-size:17px;font-weight:600;gap:10px;`}>
               <span class="msym" style="font-size:20px;">{msymChar("call")}</span>Call Now: {PH}
             </a>
-            <a class="cta cta--light" href="#verify" style={`${S.ctaWhite}height:54px;padding:0 28px;font-size:17px;font-weight:600;`}>Verify Your Insurance</a>
+            <a class="cta cta--light" href="#insurance" style={`${S.ctaWhite}height:54px;padding:0 28px;font-size:17px;font-weight:600;`}>Verify Your Insurance</a>
           </div>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#DCE6EF;margin:0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
+          <ul class="hero-seals" style="list-style:none;margin:clamp(6px,1.6vh,18px) 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px clamp(28px,3.6vw,52px);">
+            {seals.map(([src, alt, dim, px, href, tone]) => {
+              const sizeStyle = dim === "h" ? `height:${px}px;width:auto;display:block;` : `width:${px}px;height:auto;display:block;`;
+              const img = <img src={src} alt={alt} class={`seal seal--${tone}`} style={sizeStyle} />;
+              return <li>{href ? <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">{img}</a> : img}</li>;
+            })}
+          </ul>
         </div>
-
-        <div class="hero-seals" style="margin-top:auto;width:100%;max-width:1200px;box-sizing:border-box;min-height:104px;padding:16px 36px;border-radius:16px;background:rgba(255,255,255,0.95);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px;">
-          <span style="font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;">Accredited &amp; Licensed</span>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px 48px;">
-            {heroSeals.map(([src, alt, h]) => (
-              <img src={src} alt={alt} style={`height:${h}px;width:auto;display:block;`} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Client feedback 2026-09-21: insurance + reviews moved from near the
-       page bottom to directly below the hero, so trust signals land before
-       a visitor has to scroll far. */}
-    <SiteInsurance intro="Our admissions team works directly with your insurance company to explain exactly what's covered before you commit to anything, no surprises." introNowrap />
-
-    {/* ══════════════  FACILITY  ══════════════ */}
-    <section id="photos" data-screen-label="Facility" style="padding:70px 37px;background:#FFFFFF;">
-      <div style="max-width:1440px;margin:0 auto;">
-        <div style="display:grid;gap:14px;margin-bottom:32px;">
-          <div>
-            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">The setting</div>
-            <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0;max-width:28ch;text-wrap:balance;">Our Laurel Canyon facility</h2>
-          </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0;max-width:92ch;">A private, inclusive, and comforting space to recover, residential homes set in the quiet hills of Laurel Canyon, designed with privacy above all else.</p>
-        </div>
-        <FacilityGallery id="facility-gallery" photos={galleryPhotos} />
       </div>
     </section>
 
@@ -202,10 +190,11 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
        per-article href are wrapped as links (Elizabeth's rule: must link to
        the actual publication that mentions Breathe, never a generic
        homepage) - the rest render as plain, unlinked logos.
-       Moved below the Facility gallery per client feedback 2026-09-21. */}
-    <section id="as-seen-on" data-screen-label="As Seen On" style="padding:44px 37px;background:#F0F5FA;border-top:1px solid #C8DAE9;border-bottom:1px solid #C8DAE9;">
+       Moved below the Facility gallery per client feedback 2026-09-21, then
+       up to the second section, right below the hero (2026-10-05). */}
+    <section id="as-seen-on" data-screen-label="As Seen On" style="padding:clamp(22px,3.4vh,44px) 37px;background:#F0F5FA;border-top:1px solid #C8DAE9;border-bottom:1px solid #C8DAE9;">
       <div style="max-width:1440px;margin:0 auto;text-align:center;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8A94A0;margin-bottom:26px;">As Seen On</div>
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8A94A0;margin-bottom:clamp(10px,2vh,26px);">As Seen On</div>
         <div id="asn-wrap">
           <div id="asn-track" class="no-scrollbar" style="display:flex;align-items:center;overflow-x:auto;gap:40px;">
             {(() => {
@@ -223,7 +212,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
                 ["/Asset/Press/brad-lamm-logo.png", "Brad Lamm in the Media", "150px", "https://bradlamm.com/brad-lamm-news/"],
               ];
               return [...logos, ...logos, ...logos, ...logos].map(([src, alt, maxW, href], k) => {
-                const img = <img src={src} alt={alt} loading="lazy" style={`height:44px;max-width:${maxW};width:auto;object-fit:contain;display:block;opacity:0.85;border-radius:6px;`} />;
+                const img = <img src={src} alt={alt} loading="lazy" style={`height:clamp(30px,4.2vh,44px);max-width:${maxW};width:auto;object-fit:contain;display:block;opacity:0.85;border-radius:6px;`} />;
                 return (
                   <div aria-hidden={k >= logos.length ? "true" : undefined} style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0 28px;box-sizing:border-box;">
                     {href ? (
@@ -235,6 +224,26 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
             })()}
           </div>
         </div>
+      </div>
+    </section>
+    </div>
+
+    {/* Client feedback 2026-09-21: insurance + reviews moved from near the
+       page bottom to directly below the hero, so trust signals land before
+       a visitor has to scroll far. */}
+    <InsuranceSplit intro="Our admissions team works directly with your insurance company to explain exactly what's covered before you commit to anything, no surprises." />
+
+    {/* ══════════════  FACILITY  ══════════════ */}
+    <section id="photos" data-screen-label="Facility" style="padding:70px 37px;background:#FFFFFF;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div style="display:grid;gap:14px;margin-bottom:32px;">
+          <div>
+            <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">The setting</div>
+            <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0;max-width:28ch;text-wrap:balance;">Our Laurel Canyon facility</h2>
+          </div>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0;max-width:92ch;">A private, inclusive, and comforting space to recover, residential homes set in the quiet hills of Laurel Canyon, designed with privacy above all else.</p>
+        </div>
+        <FacilityGallery id="facility-gallery" photos={galleryPhotos} />
       </div>
     </section>
 
@@ -452,14 +461,16 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
   // ── Section reveal on scroll ──────────────────────────────────────────────
   // #admissions ("Four simple steps") is excluded — it has its own
   // scroll-driven number/line color effect and doesn't need the generic
-  // section-level fade-in on top of that. rootMargin's bottom offset went
+  // section-level fade-in on top of that. #as-seen-on is excluded too: it
+  // shares the first screen with the hero (.hero-fold) and must appear with
+  // it, not fade in after. rootMargin's bottom offset went
   // from -200px to -50px (150px less restrictive) so every other
   // section's fade-in fires while it's still 150px further down the
   // screen than before — sooner, not slower: the transition itself is
   // still the unchanged 700ms defined on .blhc-reveal in global.css, only
   // the trigger point moved.
   (() => {
-    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top):not(#admissions), footer"));
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("section:not(#top):not(#as-seen-on):not(#admissions), footer"));
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduce || !("IntersectionObserver" in window)) return;
     let lastY = window.scrollY || 0;
@@ -562,8 +573,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
 
   // Mobile nav toggle lives in SiteHeader.astro; verify-form submit
   // handling lives in VerifyInsuranceForm.astro (rendered here inside
-  // ContactLauncher); the insurance-logo
-  // marquee lives in SiteInsurance.astro; the reviews carousel lives in
+  // ContactLauncher); the insurance
+  // section lives in InsuranceSplit.astro; the reviews carousel lives in
   // SiteReviews.astro; the "Four simple steps" scroll-activate effect
   // lives in ScrollActivateSteps.astro (shared with the Careers page's
   // "How to Apply") — all shared across every page that uses them.

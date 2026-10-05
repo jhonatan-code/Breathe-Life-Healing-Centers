@@ -304,6 +304,22 @@ details[open] summary span[data-plus] { transform: rotate(45deg); }
 .hdr-panel-link[aria-current="page"] { color: #33679c; font-weight: 600; }
 .hdr-panel-all[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
 
+/* Homepage hero accreditation logos over the photo (DHCS/NAATP in white). */
+#top .seal { opacity: 0.92; transition: opacity 0.25s; }
+#top a:hover .seal { opacity: 1; }
+#top .seal--solid { filter: brightness(0) invert(1); }
+
+/* Homepage first screen: the hero (accreditation logos under its CTAs) plus the As Seen On strip fill exactly one viewport below the
+   sticky header on desktop; the hero takes whatever height is left.
+   Hero padding and the H1 scale with vh (inline in index.astro) so it fits
+   short screens. --hdr-h is set from the real header height by
+   SiteHeader.astro; 64px is the fallback. */
+.hero-fold { display: flex; flex-direction: column; }
+@media (min-width: 1025px) {
+  .hero-fold { min-height: calc(100vh - var(--hdr-h, 64px)); min-height: calc(100svh - var(--hdr-h, 64px)); }
+  .hero-fold > #top { flex: 1 1 auto; }
+}
+
 /* ═══════════════════════════  MOBILE LAYER  ═══════════════════════════
    The design comp is a 1440px desktop artboard with inline styles. This
    block adapts it for phones/tablets: a real toggle nav, a persistent
@@ -432,10 +448,9 @@ img { height: auto; }
   #top [style*="white-space:nowrap"] { white-space: normal !important; }
   /* homepage hero (centered panorama): shorter, smaller chips + seal strip */
   #top:has(.hero-b) { min-height: 0 !important; }
-  #top .hero-b { gap: 32px !important; padding-bottom: 20px !important; }
   #top .hero-chips li span { font-size: 14px !important; }
-  #top .hero-seals { justify-content: center !important; padding: 16px !important; }
-  #top .hero-seals img { max-height: 44px; }
+  #top .hero-seals { gap: 16px 26px !important; }
+  #top .hero-seals img { max-height: 40px; }
 
   /* tall images shorter */
   .fg-main { min-height: 240px !important; }

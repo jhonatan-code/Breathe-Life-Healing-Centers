@@ -104,6 +104,15 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   // nav rules (@media max-width: 1024px in global.css).
   const mobileQuery = window.matchMedia("(max-width: 1024px)");
 
+  // ── Expose the real header height as --hdr-h (used by .hero-fold) ───────
+  (() => {
+    const hdr = document.querySelector<HTMLElement>(".site-hdr");
+    if (!hdr) return;
+    const set = () => document.documentElement.style.setProperty("--hdr-h", `${hdr.offsetHeight}px`);
+    set();
+    new ResizeObserver(set).observe(hdr);
+  })();
+
   // ── Mobile nav toggle ──────────────────────────────────────────────────
   (() => {
     const burger = document.getElementById("m-burger");

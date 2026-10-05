@@ -7,15 +7,66 @@
  * viewport is wide. On mobile (≤1024px) the script moves this same form node
  * into #verify-mobile-slot — each page places that slot right before its FAQ
  * section (or, if it has none, right before the Final CTA).
+ *
+ * `variant="flat"` renders the same fields (same names, same CTM submit
+ * handling below) as an open, card-less form for a section's white column,
+ * e.g. the homepage insurance split. Give a second form on the same page its
+ * own `id`; only `id="verify"` takes part in the hero/mobile relocation.
  */
 import { site } from "../config/site";
+
+interface Props {
+  id?: string;
+  variant?: "card" | "flat";
+}
+const { id = "verify", variant = "card" } = Astro.props;
 
 const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 const { formReactorUrl, formReactorKey } = site.ctm;
+
+const flatLabel = "display:block;font-size:13px;color:#4A535C;margin-bottom:6px;";
+const flatInput = "width:100%;box-sizing:border-box;height:50px;border:0;border-bottom:2px solid #C9D2DA;border-radius:0;padding:0 2px;font-family:'Instrument Sans',sans-serif;font-size:16px;background:transparent;color:#14181C;";
+const req = '<span aria-hidden="true" style="color:#C0392B;">*</span>';
 ---
 
-<form id="verify" data-ctm-pending data-form-reactor-url={formReactorUrl} data-form-reactor-key={formReactorKey} data-phone-display={PH} style="flex:0 1 500px;max-width:500px;background:#FFFFFF;border-radius:12px;padding:20px;width:100%;box-sizing:border-box;box-shadow:0 2px 6px rgba(0,0,0,0.18),0 20px 44px rgba(0,0,0,0.18);">
+{variant === "flat" ? (
+  <form id={id} class="ivf-flat" data-ctm-pending data-form-reactor-url={formReactorUrl} data-form-reactor-key={formReactorKey} data-phone-display={PH} style="display:flex;flex-direction:column;gap:16px;width:100%;box-sizing:border-box;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <img src="/Asset/Logo/HIPAA.svg" alt="HIPAA Compliant" style="height:44px;width:auto;flex:0 0 auto;display:block;" />
+      <div>
+        <div style="font-size:26px;font-weight:600;letter-spacing:-0.02em;line-height:1.2;">Check Your Coverage</div>
+        <div style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;color:#646D76;margin-top:2px;">Talk to an Admissions Specialist, free and confidential</div>
+      </div>
+    </div>
+    <label style="display:block;margin-top:6px;">
+      <span style={flatLabel}>What's Your Name? <Fragment set:html={req} /></span>
+      <input type="text" name="name" required style={flatInput} />
+    </label>
+    <label style="display:block;">
+      <span style={flatLabel}>What's Your Number? <Fragment set:html={req} /></span>
+      <input type="tel" name="phone" required style={flatInput} />
+    </label>
+    <div class="ivf-flat-pair" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;">
+      <label style="display:block;">
+        <span style={flatLabel}>Membership Policy ID <Fragment set:html={req} /></span>
+        <input type="text" name="member_id" required data-member-id-input style={flatInput} />
+      </label>
+      <label style="display:block;">
+        <span style={flatLabel}>Insurance Carrier <Fragment set:html={req} /></span>
+        <input type="text" name="carrier" required style={flatInput} />
+      </label>
+    </div>
+    <label data-sms-consent hidden style="display:flex;gap:10px;align-items:flex-start;font-family:'Montserrat',sans-serif;font-size:13px;color:#646D76;">
+      <input type="checkbox" name="sms_opt_in" value="yes" style="margin-top:2px;" />
+      <span>Text me about my verification. Message and data rates may apply; reply STOP to opt out. Consent isn't a condition of treatment.</span>
+    </label>
+    <button type="submit" class="cta" style="font-family:'Instrument Sans',sans-serif;background:#16293D;color:#FFFFFF;border:0;height:54px;box-sizing:border-box;padding:0 30px;font-size:16px;font-weight:600;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-top:10px;">Check Your Coverage</button>
+    <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#646D76;margin:0;">Prefer to talk? Call 24/7 at <a href={HREF} style="color:#2C5A64;font-weight:600;">{PH}</a>. Everything you share is confidential. By submitting, you agree to our <a href="/terms-of-use/" style="color:#646D76;text-decoration:underline;">Terms of Use</a> and <a href="/notice-of-privacy-practices/" style="color:#646D76;text-decoration:underline;">Notice of Privacy Practices</a>.</p>
+    <p class="ivf-status" role="status" hidden style="font-family:'Montserrat',sans-serif;font-size:14px;color:#2C5A64;background:#EFF5FA;border-radius:8px;padding:10px 12px;margin:0;"></p>
+  </form>
+) : (
+<form id={id} data-ctm-pending data-form-reactor-url={formReactorUrl} data-form-reactor-key={formReactorKey} data-phone-display={PH} style="flex:0 1 500px;max-width:500px;background:#FFFFFF;border-radius:12px;padding:20px;width:100%;box-sizing:border-box;box-shadow:0 2px 6px rgba(0,0,0,0.18),0 20px 44px rgba(0,0,0,0.18);">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
     <img src="/Asset/Logo/HIPAA.svg" alt="HIPAA Compliant" style="height:40px;width:auto;flex:0 0 auto;display:block;" />
     <span style="font-size:18px;font-weight:600;letter-spacing:-0.015em;white-space:nowrap;">Talk to an Admissions Specialist</span>
@@ -50,6 +101,7 @@ const { formReactorUrl, formReactorKey } = site.ctm;
   <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:10px;line-height:1.5;color:#8A94A0;margin:8px 0 0;text-align:center;">By submitting, you agree to our <a href="/terms-of-use/" style="color:#8A94A0;text-decoration:underline;">Terms of Use</a> and <a href="/notice-of-privacy-practices/" style="color:#8A94A0;text-decoration:underline;">Notice of Privacy Practices</a>.</p>
   <p class="ivf-status" role="status" hidden style="font-family:'Montserrat',sans-serif;font-size:14px;color:#2C5A64;background:#EFF5FA;border-radius:8px;padding:10px 12px;margin:12px 0 0;"></p>
 </form>
+)}
 
 <script>
   // ── Verify form: hero banner on desktop, its own section (pre-FAQ) on mobile ──
@@ -68,7 +120,7 @@ const { formReactorUrl, formReactorKey } = site.ctm;
   })();
 
   // ── SMS consent only makes sense once there's a policy ID to text about ──
-  document.querySelectorAll<HTMLFormElement>("form#verify").forEach((form) => {
+  document.querySelectorAll<HTMLFormElement>("form[data-ctm-pending]").forEach((form) => {
     const memberIdInput = form.querySelector<HTMLInputElement>("[data-member-id-input]");
     const consent = form.querySelector<HTMLElement>("[data-sms-consent]");
     const consentCheckbox = consent?.querySelector<HTMLInputElement>('input[name="sms_opt_in"]');
