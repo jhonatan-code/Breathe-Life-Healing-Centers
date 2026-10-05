@@ -449,8 +449,18 @@ img { height: auto; }
   /* homepage hero (centered panorama): shorter, smaller chips + seal strip */
   #top:has(.hero-b) { min-height: 0 !important; }
   #top .hero-chips li span { font-size: 14px !important; }
-  #top .hero-seals { gap: 16px 26px !important; }
-  #top .hero-seals img { max-height: 40px; }
+  /* hero seals: 3 round badges on row 1, DHCS + NAATP on row 2, larger */
+  #top .hero-seals {
+    display: grid !important; grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 22px 12px !important; justify-items: center; align-items: center;
+    width: 100%; max-width: 360px; margin-top: 10px !important;
+  }
+  #top .seal-li--round { grid-column: span 2; }
+  #top .seal-li--wide { grid-column: span 3; order: 1; }
+  #top .seal-li--round img { height: 70px !important; }
+  #top .seal-li--wide img { width: auto !important; height: 54px !important; max-width: 100%; }
+  /* As Seen On marquee logos larger on phones */
+  #as-seen-on .asn-logo { height: 52px !important; }
 
   /* tall images shorter */
   .fg-main { min-height: 240px !important; }

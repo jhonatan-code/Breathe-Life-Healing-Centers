@@ -175,7 +175,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
             {seals.map(([src, alt, dim, px, href, tone]) => {
               const sizeStyle = dim === "h" ? `height:${px}px;width:auto;display:block;` : `width:${px}px;height:auto;display:block;`;
               const img = <img src={src} alt={alt} class={`seal seal--${tone}`} style={sizeStyle} />;
-              return <li>{href ? <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">{img}</a> : img}</li>;
+              // mobile (global.css): round badges on row 1, the two wide marks on row 2
+              return <li class={`seal-li seal-li--${dim === "h" ? "round" : "wide"}`}>{href ? <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">{img}</a> : img}</li>;
             })}
           </ul>
         </div>
@@ -212,7 +213,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
                 ["/Asset/Press/brad-lamm-logo.png", "Brad Lamm in the Media", "150px", "https://bradlamm.com/brad-lamm-news/"],
               ];
               return [...logos, ...logos, ...logos, ...logos].map(([src, alt, maxW, href], k) => {
-                const img = <img src={src} alt={alt} loading="lazy" style={`height:clamp(30px,4.2vh,44px);max-width:${maxW};width:auto;object-fit:contain;display:block;opacity:0.85;border-radius:6px;`} />;
+                const img = <img src={src} alt={alt} loading="lazy" class="asn-logo" style={`height:clamp(30px,4.2vh,44px);max-width:${maxW};width:auto;object-fit:contain;display:block;opacity:0.85;border-radius:6px;`} />;
                 return (
                   <div aria-hidden={k >= logos.length ? "true" : undefined} style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0 28px;box-sizing:border-box;">
                     {href ? (
