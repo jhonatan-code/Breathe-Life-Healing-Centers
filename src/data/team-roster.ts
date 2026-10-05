@@ -61,7 +61,8 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       // Moved here from Executive Leadership per Charmaine (2026-09-25), same
       // department as Emmy Olea, title "Co-Founder / Strategic Relations".
       { name: "Deb Hughes, CAS", role: "Co-Founder / Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg", slug: "deb-hughes", badge: "CAS", bio: "Oversees family programming and community partnerships." },
-      { name: "Brian Whisenant", role: "National Clinical Outreach Coordinator", photo: "/Asset/Our%20Team/brian-whisenant.jpg", slug: "brian-whisenant" },
+      // Brian Whisenant removed per client request (2026-10-05); his bio page
+      // redirects to /about/our-team/ (astro.config.mjs).
       // Added per Charmaine 2026-09-29; no headshot yet.
       { name: "Dez White", role: "National Clinical Outreach Coordinator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "dez-white" },
       // Moved from Operations (was Behavioral Health Technician Shift Lead),

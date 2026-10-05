@@ -264,3 +264,5 @@
 /about/outpatient-photos/ /about/campus-photos/ 301
 # Brad Lamm bio removed per Charmaine (2026-09-25), see astro.config.mjs
 /about/our-team/brad-lamm/ /about/our-team/ 301
+# Brian Whisenant removed from the team per client (2026-10-05), see astro.config.mjs
+/about/our-team/brian-whisenant/ /about/our-team/ 301

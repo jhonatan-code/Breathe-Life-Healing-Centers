@@ -123,6 +123,9 @@ const redirects = {
   // (/our-team/brad-lamm-cip/ -> /about/our-team/, "Bio removed per client
   // direction").
   "/about/our-team/brad-lamm/": "/about/our-team/",
+  // Brian Whisenant removed from the team (Marketing, Business Development
+  // & Alumni) per client request 2026-10-05; bio page deleted.
+  "/about/our-team/brian-whisenant/": "/about/our-team/",
   "/4-ways-to-heal-from-psychological-trauma/": "/what-we-treat/complex-trauma/",
   "/5-absolute-important-steps-take-relapse/": "/programs/alumni-program/",
   "/5-things-cheaper-drug-screening/": "/",
