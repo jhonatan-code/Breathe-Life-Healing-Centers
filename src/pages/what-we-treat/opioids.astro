@@ -33,7 +33,7 @@ const HREF = site.phoneHref;
 
 const title = "Opioid Addiction Treatment in Los Angeles | Breathe";
 const description =
-  "Opioid addiction treatment in Los Angeles, covering heroin, fentanyl, and prescription opioids. Medical detox, residential care, and dual diagnosis support. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Opioid addiction treatment in Los Angeles, covering heroin, fentanyl, and prescription opioids. Medical detox, residential care, and dual diagnosis support. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -96,8 +96,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "family_restroom", title: "Family involved, on your terms",
@@ -160,6 +160,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for opioid detox and treatment, before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING OPIOID ADDICTION  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -267,12 +274,6 @@ const ld = {
       intro="Straight answers about withdrawal safety, fentanyl-specific risk, MAT, and coverage."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for opioid detox and treatment, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

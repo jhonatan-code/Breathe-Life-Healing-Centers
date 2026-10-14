@@ -56,7 +56,7 @@ const faqs = [
   { q: "Can I be involved in treatment as a partner or chosen family, not a blood relative?", a: "Yes. We don't assume 'family' means blood relatives, partners and chosen family are valid participants in someone's support system and treatment, on their terms. See [Chosen Family and Recovery: Why Your Support System Doesn't Have to Be Blood](/blog/chosen-family-and-recovery-why-your-support-system-does-not-have-to-be-blood/)." },
   { q: "What if my loved one doesn't want me involved right now?", a: "That's their choice, and we respect it. Confidentiality protections mean we can't share treatment details without their consent. You're still welcome to call us with general questions." },
   { q: "Does insurance cover a loved one's treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify specific benefits](/admissions/insurance/) before any commitment. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
-  { q: "Is Breathe only for LGBTQ+ clients? My loved one isn't LGBTQ+.", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
+  { q: "Who does Breathe treat?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and our doors are open to anyone whose values align with how we operate." },
 ];
 
 const pageUrl = new URL("/admissions/for-families/", site.domain).href;
@@ -107,6 +107,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies benefits and explains what's covered, before your loved one commits to anything."
+    />
+
 
     {/* ══════════════  WAYS TO BE INVOLVED  ══════════════ */}
     <section data-screen-label="Ways to be involved" style="padding:70px 37px;background:#FFFFFF;">
@@ -173,11 +179,6 @@ const ld = {
       intro="Straight answers to what partners, parents, and chosen family ask before they get involved."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies benefits and explains what's covered, before your loved one commits to anything."
     />
 
     <SiteFinalCTA

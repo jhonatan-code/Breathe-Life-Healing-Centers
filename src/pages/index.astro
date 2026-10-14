@@ -24,9 +24,9 @@ import {
 const PH = site.phoneDisplay;              // (877) 239-8684  — brief; design showed (877) 516-2604
 const HREF = site.phoneHref;               // tel:+18772398684
 
-const title = "LGBTQ+ Addiction & Mental Health Treatment in Los Angeles | Breathe";
+const title = "Drug & Alcohol Detox and Residential Treatment in Los Angeles | Breathe";
 const description =
-  "LGBTQIA+-affirming addiction, detox and mental health treatment in Los Angeles, residential, PHP and IOP. In-network with most major insurers. Call 24/7.";
+  "Drug and alcohol detox and residential treatment in Los Angeles, with PHP, IOP and mental health care. In-network with most major insurers. Call 24/7.";
 
 // shared inline style fragments (kept identical to the design)
 const S = {
@@ -43,9 +43,9 @@ const S = {
 // not new claims; kept local to the homepage since no other page uses the
 // dial layout.
 const whyLabels: [string, string][] = [
-  ["LGBTQIA+", "Affirming"],
+  ["Medical", "Detox"],
   ["Dual", "Diagnosis"],
-  ["Chemsex", "Treatment"],
+  ["Inclusive", "Care"],
   ["Trauma", "Informed"],
   ["Residential", "Care"],
   ["Protected", "Privacy"],
@@ -53,9 +53,9 @@ const whyLabels: [string, string][] = [
   ["Lived", "Experience"],
 ];
 const whyHighlights: string[][] = [
-  ["Minority-stress-informed clinicians", "Pronouns respected, never re-explained", "Affirming care at every level, not a single track"],
+  ["Withdrawal managed around the clock", "A safe, clinically monitored start", "Straight into residential care on the same campus"],
   ["One coordinated care team, not two", "Anxiety, depression & trauma treated alongside substance use", "Integrated, not sequential, treatment"],
-  ["One of few U.S. programs to address this directly", "Substance use and sexualized drug use treated together", "Clinically distinct from sex-addiction models"],
+  ["Welcoming to every client who walks in", "LGBTQIA+ affirming care at every level", "Chosen family and partners included"],
   ["Pacing and safety built in, not assumed", "Care shaped around how trauma actually presents", "Foundation for healing that lasts"],
   ["Private, inclusive campus in Laurel Canyon", "A place to live, not just a bed and a schedule", "Whole-person focus, not symptom management"],
   ["Confidentiality built into daily operations", "You decide who knows you're here", "Discretion at every touchpoint"],
@@ -149,14 +149,14 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,16,0.60) 0%,rgba(4,9,16,0.46) 50%,rgba(4,9,16,0.72) 100%);"></div>
       <div class="hero-b" style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(24px,5vh,110px) 37px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;">
         <div style="margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,26px);text-align:center;">
-          <div style="font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8DAE9;">LGBTQ+ Affirming, Inclusive of All</div>
-          <h1 style="font-size:clamp(34px,min(4.9vw,6.4vh),70px);line-height:1.02;letter-spacing:-0.034em;font-weight:600;color:#FFFFFF;margin:0;max-width:980px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8DAE9;">Detox · Residential · Outpatient</div>
+          <h1 style="font-size:clamp(34px,min(4.9vw,6.4vh),70px);line-height:1.02;letter-spacing:-0.034em;font-weight:600;color:#FFFFFF;margin:0;max-width:980px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Drug &amp; Alcohol Detox and Residential Treatment in Los Angeles</h1>
           <ul class="hero-chips" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
             {[
-              // Order per the homepage design review (client recap): clinical /
-              // dual-diagnosis expertise leads, LGBTQIA+ focus second.
+              // Repositioned 2026-10-14 (ClickUp): detox and residential lead,
+              // LGBTQIA+ content lives on /signature-services/lgbtq/.
+              "Medically supervised detox, around the clock",
               "Expert trauma-focused care for dual-diagnosis",
-              "LGBTQIA+ focus for those that need it, at every level of care",
               "Gold Seal accredited campus in Laurel Canyon since 2013",
             ].map((t) => (
               <li style="display:flex;gap:10px;align-items:center;min-height:44px;padding:8px 18px 8px 12px;box-sizing:border-box;border-radius:999px;background:linear-gradient(135deg,rgba(50,103,156,0.55) 0%,rgba(22,41,61,0.55) 100%);border:1px solid rgba(200,218,233,0.40);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 4px 14px rgba(4,9,16,0.20);">
@@ -255,8 +255,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       <div style="max-width:820px;margin:0 auto;text-align:center;">
         <div>
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">Belonging</div>
-          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;max-width:32ch;text-wrap:balance;">Belonging for Underserved Communities</h2>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.75;color:#3A444D;margin:0 auto 26px;max-width:68ch;">Recovery takes enough energy without also managing how you're perceived. Breathe is a place of belonging for communities too often underserved by traditional treatment, with specific expertise and cultural competency in serving the LGBTQ+ community. Whether you're out to everyone, out to no one, or still figuring it out, whether the people supporting you are the family you were born into or the one you chose, nothing about who you are needs to be hidden, minimized, or explained here.</p>
+          <h2 style="font-size:clamp(30px,3.2vw,46px);line-height:1.08;letter-spacing:-0.028em;font-weight:600;margin:0 auto 14px;max-width:32ch;text-wrap:balance;">A Place to Belong in Recovery</h2>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.75;color:#3A444D;margin:0 auto 26px;max-width:68ch;">Recovery takes enough energy without also managing how you're perceived. Breathe is a place of belonging for everyone who walks through the door, whatever your background, identity, or story. Whether the people supporting you are the family you were born into or the one you chose, nothing about who you are needs to be hidden, minimized, or explained here. Breathe offers <a href="/signature-services/lgbtq/" style="color:#33679C;font-weight:600;">LGBTQIA+ affirming care</a> at every level of treatment.</p>
           <a class="cta" href={HREF} style={`display:inline-flex;${S.ctaBlue}`}>Call Now: {PH}</a>
         </div>
       </div>
@@ -270,7 +270,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
         <div style="text-align:center;margin-bottom:30px;">
           <div style={S.eyebrow}>Can we help you?</div>
           <h2 style={`${S.h2}max-width:22ch;`}>What we treat</h2>
-          <p style={`${S.intro}max-width:110ch;`}>Substance use, mental health, or both, treated as equally important and deeply connected. For many LGBTQIA+ people, addiction and mental health are tangled up with rejection, minority stress, or trauma. We treat the whole picture, not just the symptom.</p>
+          <p style={`${S.intro}max-width:110ch;`}>Substance use, mental health, or both, treated as equally important and deeply connected. For many people, addiction and mental health are tangled up with trauma, stress, or loss. We treat the whole picture, not just the symptom.</p>
         </div>
 
         <div style="display:flex;justify-content:center;margin-bottom:22px;">
@@ -357,7 +357,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
         <div style="text-align:center;margin-bottom:32px;">
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E6EDF4;margin-bottom:14px;">Specialized programs</div>
           <h2 style={`${S.h2}max-width:26ch;color:#FFFFFF;`}>Signature Services</h2>
-          <p style={`${S.intro}color:#DCE6EF;max-width:88ch;`}>Built for LGBTQIA+ experiences generic treatment programs don't have language for, gender-affirming care, chemsex, and family systems that don't look like everyone else's.</p>
+          <p style={`${S.intro}color:#DCE6EF;max-width:88ch;`}>Specialized programs built around the parts of recovery generic treatment tends to miss: trauma, family systems, and demanding careers like airline work.</p>
         </div>
         <div id="sig-wrap">
           <div id="sig-track" class="no-scrollbar" style="display:flex;gap:18px;overflow-x:auto;align-items:stretch;padding:4px 2px 10px;">
@@ -387,8 +387,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       <div style="max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>Why Breathe</div>
-          <h2 style={`${S.h2}max-width:44ch;`}>Why Choose Breathe for LGBTQIA+-Affirming Treatment</h2>
-          <p style={`${S.intro}max-width:96ch;`}>Where specialized understanding meets inclusive care. Breathe has particular expertise and cultural competency in serving the LGBTQIA+ community, while providing inclusive, affirming care for anyone experiencing chemsex or sexualized drug use, regardless of sexual orientation or gender identity. We treat addiction and mental health as equal, connected parts of the same journey, and affirming care here means clinicians who understand minority stress, staff who use your pronouns without being asked twice, and a community where your energy goes into recovery instead of into managing how you're seen.</p>
+          <h2 style={`${S.h2}max-width:44ch;`}>Why Choose Breathe for Detox and Residential Treatment</h2>
+          <p style={`${S.intro}max-width:96ch;`}>Breathe is a drug and alcohol detox and residential treatment center in Los Angeles, on a Gold Seal accredited campus in Laurel Canyon. Detox, residential care, and step-down programs happen under one clinical team, so nobody has to start over between levels. We treat addiction and mental health as equal, connected parts of the same journey, and every client is welcomed as they are.</p>
         </div>
         <CareDial id="why-dial" pillars={whyPillars} ctaHref={HREF} />
       </div>

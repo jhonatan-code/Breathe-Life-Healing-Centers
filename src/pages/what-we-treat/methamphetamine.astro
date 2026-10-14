@@ -35,7 +35,7 @@ const HREF = site.phoneHref;
 
 const title = "Methamphetamine Addiction Treatment in Los Angeles | Breathe";
 const description =
-  "Medically supervised meth addiction treatment in Los Angeles: detox, residential care, and Chemsex Programming, our program for meth use tied to sex or identity. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Medically supervised meth addiction treatment in Los Angeles: detox, residential care, and Chemsex Programming for meth use tied to sex. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -70,7 +70,7 @@ const care = [
   },
   {
     icon: "diamond", title: "Chemsex Programming", href: "/signature-services/chemsex-treatment/", cta: "Learn About Chemsex Programming",
-    text: "Specialized programming for meth use tied to sex, identity, or compulsion. Works alongside standard treatment, not instead of it.",
+    text: "Specialized programming for meth use tied to sex or compulsive patterns. Works alongside standard treatment, not instead of it.",
   },
 ];
 
@@ -112,8 +112,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "layers", title: "Treating what's underneath",
@@ -127,7 +127,6 @@ const faqs = [
   { q: "Can a family member reach out first, if I'm not ready?", a: "Yes. Many people who contact us are a parent, partner, or close friend calling on behalf of someone they love. We can talk you through where to start." },
   { q: "Is meth withdrawal medically dangerous?", a: "It can involve serious psychiatric symptoms like paranoia or psychosis, along with physical strain and severe sleep disruption. Medical monitoring during early recovery matters. More on what the first weeks actually feel like: [What Happens When You Stop Using Meth After Chemsex](/blog/what-happens-to-your-body-and-mind-when-you-stop-using-meth-after-chemsex/)." },
   { q: "Does insurance cover meth addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
-  { q: "Is this treatment only for LGBTQ+ clients?", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
 ];
 
 const pageUrl = new URL("/what-we-treat/methamphetamine/", site.domain).href;
@@ -186,6 +185,12 @@ const ld = {
       </div>
     </section>
 
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for meth detox and treatment, before you commit to anything."
+    />
+
+
     {/* ══════════════  UNDERSTANDING METH ADDICTION  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
       <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
@@ -213,11 +218,11 @@ const ld = {
       </div>
     </section>
 
-    {/* ══════════════  WHEN METH USE IS TIED TO SEX, INTIMACY, OR IDENTITY  ══════════════ */}
+    {/* ══════════════  WHEN METH USE IS TIED TO SEX OR INTIMACY  ══════════════ */}
     <section data-screen-label="Chemsex context" style="padding:70px 37px;background:#F0F5FA;">
       <div style="max-width:1060px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Why this matters</div>
-        <h2 style={`${S.h2}max-width:40ch;`}>When meth use is tied to sex, intimacy, or identity</h2>
+        <h2 style={`${S.h2}max-width:40ch;`}>When meth use is tied to sex or intimacy</h2>
         <p style={`${S.intro}max-width:78ch;margin-bottom:14px;`}>This is more common than most people expect, and it deserves care that doesn't flinch from it. When meth use is connected to sex, secrecy, or compulsive patterns, generic addiction treatment often misses what's actually going on.</p>
         <p style={`${S.intro}max-width:78ch;margin-bottom:28px;`}>Chemsex Programming, our program built specifically for this, treats it as the real clinical issue it is. Not a moral failing, and not folded into general sex addiction treatment.</p>
         <a class="cta" href="/signature-services/chemsex-treatment/" style={`display:inline-block;${S.ctaBlue}`}>Learn About Chemsex Treatment</a>
@@ -334,11 +339,6 @@ const ld = {
       intro="Straight answers to what people and families ask us before they decide anything."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for meth detox and treatment, before you commit to anything."
     />
 
     <SiteFinalCTA

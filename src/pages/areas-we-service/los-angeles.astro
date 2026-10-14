@@ -39,7 +39,7 @@ const CITY = "Los Angeles";
 
 const title = "Addiction & Mental Health Treatment in Los Angeles | Breathe";
 const description =
-  "LGBTQ+-affirming addiction and mental health treatment in Los Angeles. Outpatient office on Melrose Avenue, residential campus in Laurel Canyon. In-network with most major insurers. Call 24/7.";
+  "Drug and alcohol detox, residential and mental health treatment in Los Angeles. Outpatient office on Melrose Avenue, residential campus in Laurel Canyon. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -68,8 +68,8 @@ const faqs = [
     a: "All of it, and the wider region beyond. Our admissions team works with clients and families from across Los Angeles County and Southern California.",
   },
   {
-    q: "Is Breathe only for LGBTQ+ clients in Los Angeles?",
-    a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), a community with deep roots across Los Angeles, but our doors are open to anyone whose values align with how we operate.",
+    q: "Who does Breathe treat?",
+    a: "Adults working through drug and alcohol use, mental health concerns, or both. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) and welcomes every client as they are, from every corner of Los Angeles.",
   },
   {
     q: "Does insurance cover treatment if I live in Los Angeles?",
@@ -138,7 +138,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/areas-we-service/" style="color:#7FB3BC;">Areas We Service</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Los Angeles
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Addiction &amp; Mental Health Treatment in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Los Angeles isn't just an area we serve, it's home. Our outpatient office sits on Melrose Avenue, and our residential campus is tucked into Laurel Canyon, both built for the LGBTQ+ community first.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Los Angeles isn't just an area we serve, it's home. Our outpatient office sits on Melrose Avenue, and our residential campus is tucked into Laurel Canyon.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -148,6 +148,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+    />
+
 
     {/* ══════════════  SERVING LOS ANGELES  ══════════════ */}
     <section data-screen-label="Serving Los Angeles" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -163,8 +169,8 @@ const ld = {
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#2C5A64;margin-bottom:16px;">Why Los Angeles clients choose Breathe</div>
           <div style="display:grid;gap:14px;">
             {[
-              "Staff with lived recovery experience, many from the LGBTQ+ community itself",
-              "Correct names, correct pronouns, and a team trained in minority stress",
+              "Staff with lived recovery experience, not just clinical training",
+              "Medical detox and residential care under one clinical team",
               "Family therapy that doesn't assume blood relationships",
               "A private, residential setting minutes from the city",
             ].map((s) => (
@@ -222,11 +228,6 @@ const ld = {
       intro="Straight answers to what people and families ask before they decide anything."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     <SiteFinalCTA

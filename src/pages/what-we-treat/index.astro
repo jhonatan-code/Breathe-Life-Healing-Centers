@@ -30,7 +30,7 @@ const HREF = site.phoneHref;
 
 const title = "What We Treat | Substance Use & Addiction Treatment | Breathe";
 const description =
-  "Every substance we treat at Breathe Life Healing Centers: alcohol, opioids, benzodiazepines, stimulants, and more, plus co-occurring mental health and eating disorder support. LGBTQ+-affirming, Los Angeles. Call 24/7.";
+  "Every substance we treat at Breathe Life Healing Centers: alcohol, opioids, benzodiazepines, stimulants, and more, plus co-occurring mental health and eating disorder support in Los Angeles. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -75,8 +75,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "layers", title: "Treating what's underneath",
@@ -93,7 +93,6 @@ const faqs = [
   { q: "Do you treat mental health conditions as well as substance use?", a: "Yes. Depression, anxiety, trauma, and dual diagnosis are addressed alongside substance use, not as an afterthought." },
   { q: "What is Dual Diagnosis, and why is it shown at the center of how you treat things?", a: "[Dual Diagnosis](/what-we-treat/dual-diagnosis/) is our model for treating substance use and mental health conditions together, as one plan. Most people we treat have both, so it sits at the center of how care is structured, not as a separate add-on service." },
   { q: "Is every substance treated the same way?", a: "No. Each page covers the specific approach for that substance, alcohol and opioid withdrawal, for example, carry different medical risks and require different protocols." },
-  { q: "Is this only for LGBTQ+ clients?", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
   { q: "Is treatment covered by insurance no matter which page applies to me?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
@@ -148,7 +147,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> What We Treat
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">What We Treat in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Alcohol, opioids, stimulants, benzodiazepines, and more, plus the anxiety, depression, and trauma that often travel with them. Built for the LGBTQ+ community first, open to anyone ready to change.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Alcohol, opioids, stimulants, benzodiazepines, and more, plus the anxiety, depression, and trauma that often travel with them. For anyone ready to change.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -158,6 +157,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
+    />
+
 
     {/* ══════════════  SUBSTANCES — GROUPED  ══════════════
        "Substance Groups" proposal: the 11 real substance pages clustered
@@ -232,12 +238,6 @@ const ld = {
       intro="Straight answers about finding the right page, co-occurring conditions, and coverage."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
-      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

@@ -131,7 +131,7 @@ const faqs = [
   { q: "Is it confidential?", a: "Yes. Whatever you share with us, whether through a self-assessment or a phone call, is handled confidentially." },
   { q: "What if I'm not sure treatment is 'serious enough' for me?", a: "That's a common feeling, and it isn't a reason to wait. A phone call with our admissions team costs nothing and doesn't commit you to anything." },
   { q: "Do I need insurance to talk to someone?", a: "You can call and talk to our admissions team regardless of insurance status. We'll help you understand coverage separately, when you're ready." },
-  { q: "Is this only for LGBTQ+ people?", a: "We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
+  { q: "Who does Breathe treat?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and our doors are open to anyone whose values align with how we operate." },
 ];
 
 const pageUrl = new URL("/admissions/self-assessment/", site.domain).href;
@@ -182,6 +182,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="If you decide to move forward, our admissions team verifies your specific benefits before you commit to anything."
+    />
+
 
     {/* ══════════════  A FEW THINGS TO CONSIDER  ══════════════ */}
     <section data-screen-label="A few things to consider" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -258,11 +264,6 @@ const ld = {
       intro="Straight answers to what people wonder before they make the call."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="If you decide to move forward, our admissions team verifies your specific benefits before you commit to anything."
     />
 
     <SiteFinalCTA

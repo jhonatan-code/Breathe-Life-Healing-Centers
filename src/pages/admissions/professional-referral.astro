@@ -25,7 +25,7 @@ const EMAIL_HREF = site.emailHref;
 
 const title = "Professional Referral | Breathe Admissions";
 const description =
-  "Refer a client to Breathe Life Healing Centers, an LGBTQ+-affirming provider offering medical detox, residential, PHP, IOP, and outpatient care in Los Angeles. Call 24/7.";
+  "Refer a client to Breathe Life Healing Centers, a drug and alcohol treatment provider offering medical detox, residential, PHP, IOP, and outpatient care in Los Angeles. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -56,7 +56,6 @@ const levels = [
 const faqs = [
   { q: "How do I refer a client to Breathe?", a: "Call our admissions line directly, any time. A member of our team will discuss your client's situation and walk through next steps together." },
   { q: "What levels of care does Breathe offer?", a: "Medical detox, residential treatment, PHP, IOP, outpatient rehab, and enhanced sober living, alongside [case management](/programs/case-management/) and [medication-assisted treatment](/programs/medication-assisted-treatment/) where appropriate." },
-  { q: "Is Breathe only for LGBTQ+ clients?", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to any client whose values align with how we operate." },
   { q: "Will I stay informed about my client's care?", a: "With appropriate consent from your client, our team can coordinate with you as they move through treatment. Federal confidentiality protections mean this always requires their authorization." },
   { q: "Does Breathe accept my client's insurance?", a: "We're in-network with most major providers and [verify each client's specific benefits](/admissions/insurance/) before anything is decided. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
   { q: "Who do I contact with questions before referring?", a: "Call our admissions line 24/7, or reach out by email, a real person will get back to you." },
@@ -100,7 +99,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/admissions/" style="color:#7FB3BC;">Admissions</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Professional Referral
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Professional Referrals in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">For clinicians, therapists, and other providers connecting a client with LGBTQ+-affirming addiction and mental health treatment in Los Angeles.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">For clinicians, therapists, and other providers connecting a client with drug and alcohol detox, residential, and mental health treatment in Los Angeles.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
             <a class="cta" href={EMAIL_HREF} style={S.ctaGhost}>Email Our Team</a>
@@ -110,6 +109,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="We verify your client's specific benefits directly with their insurer before anything is decided."
+    />
+
 
     {/* ══════════════  REFERRAL PROCESS  ══════════════ */}
     <section data-screen-label="Referral process" style="padding:70px 37px;background:#FFFFFF;">
@@ -155,7 +161,7 @@ const ld = {
       <div style="max-width:860px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>Why Breathe</div>
         <h2 style={`${S.h2}max-width:30ch;`}>Why Professionals Refer to Breathe</h2>
-        <p style={`${S.intro}max-width:76ch;`}>Our team is built around lived recovery experience and training in LGBTQ+-specific and minority-stress-informed care, with correct names and pronouns used as a baseline, not an accommodation. We welcome referrals for any client whose values align with how we operate, LGBTQ+ or otherwise.</p>
+        <p style={`${S.intro}max-width:76ch;`}>Our team is built around lived recovery experience, and every client is treated with respect for who they are. Breathe offers <a href="/signature-services/lgbtq/" style="color:#33679C;font-weight:600;">LGBTQIA+ affirming care</a> at every level of treatment, and we welcome referrals for any client whose values align with how we operate.</p>
       </div>
     </section>
 
@@ -175,12 +181,6 @@ const ld = {
       intro="Straight answers to what other clinicians ask before sending us a client."
       groups={[{ items: faqs }]}
       background="#F7F5F1"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="We verify your client's specific benefits directly with their insurer before anything is decided."
     />
 
     <SiteFinalCTA

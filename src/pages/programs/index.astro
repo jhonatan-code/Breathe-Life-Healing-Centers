@@ -43,7 +43,7 @@ const HREF = site.phoneHref;
 
 const title = "Programs & Levels of Care | Breathe Life Healing Centers";
 const description =
-  "Every level of care and program at Breathe: medical detox, residential treatment, PHP, IOP, sober living, case management, family and alumni programs. LGBTQ+-affirming care in Los Angeles. Call 24/7.";
+  "Every level of care and program at Breathe: medical detox, residential treatment, PHP, IOP, sober living, case management, family and alumni programs. Los Angeles. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -116,7 +116,7 @@ const support: { icon: string; title: string; href: string; img: string; text?: 
 // 3 of the homepage's 8 "Why Breathe" cards, most relevant to choosing a
 // program — verbatim.
 const whyPicks = why.filter(([, , h]) =>
-  ["LGBTQIA+-Affirming Care at Every Level", "Addiction and Mental Health, Treated Together", "Residential, Whole-Person Care"].includes(h)
+  ["Medical Detox, Then Residential Care", "Addiction and Mental Health, Treated Together", "Residential, Whole-Person Care"].includes(h)
 );
 
 // Verbatim from Breathe_Life_Programs_Page_Complete_Brief.docx (2026-09-11).
@@ -126,7 +126,7 @@ const faqs = [
   { q: "What if I'm not sure I need Residential care?", a: "That is common, and it is exactly what the assessment call is for. Many people start with a lower level of care and step up only if it is clinically needed." },
   { q: "Is Case Management included automatically, or is it a separate program?", a: "[Case Management](/programs/case-management/) runs alongside your primary level of care. It is one dedicated person who knows your file, your history, and your name for the entire stay." },
   { q: "Does insurance cover every level of care the same way?", a: "Coverage can vary by level of care and by plan. Our admissions team [verifies your specific benefits](/admissions/insurance/) before you commit to anything." },
-  { q: "Is this only for LGBTQ+ clients?", a: "No. Breathe has particular expertise and cultural competency in [serving the LGBTQ+ community](/signature-services/lgbtq/), while providing inclusive, affirming care for anyone experiencing chemsex or sexualized drug use, regardless of sexual orientation or gender identity. LGBTQ+ affirming, inclusive of all." },
+  { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in family programming." },
   { q: "What happens after I complete treatment?", a: "Our [Alumni Program](/programs/alumni-program/) provides ongoing support. Recovery does not end at discharge, and neither does our involvement." },
 ];
 
@@ -178,7 +178,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Programs
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Programs &amp; Levels of Care in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Recovery isn't one-size-fits-all. We move with you through as many levels of care as you need. LGBTQ+ affirming, inclusive of all: where specialized understanding meets inclusive care.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Recovery isn't one-size-fits-all. We move with you through as many levels of care as you need.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta" href="/admissions/insurance/" style={S.ctaWhite}>Verify Your Insurance</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -188,6 +188,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for whichever level of care fits, before you commit to anything."
+      background="#F7F5F1"
+    />
+
 
     {/* ══════════════  LEVELS OF CARE  ══════════════ */}
     <section data-screen-label="Levels of care" style="padding:70px 37px;background:#FFFFFF;">
@@ -321,12 +328,6 @@ const ld = {
       heading="Questions people ask about our programs"
       intro="Straight answers about choosing and moving between levels of care."
       groups={[{ items: faqs }]}
-      background="#F7F5F1"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for whichever level of care fits, before you commit to anything."
       background="#F7F5F1"
     />
 

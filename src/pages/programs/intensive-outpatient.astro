@@ -50,7 +50,7 @@ const HREF = site.phoneHref;
 
 const title = "Intensive Outpatient Program (IOP) in Los Angeles | Breathe";
 const description =
-  "Intensive Outpatient Program (IOP) in Los Angeles. Structured treatment that fits around work, school, or family. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Intensive Outpatient Program (IOP) in Los Angeles. Structured treatment that fits around work, school, or family. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -92,7 +92,7 @@ const ladder = [
 ];
 
 const whyPicks = why.filter(([, , h]) =>
-  ["LGBTQIA+-Affirming Care at Every Level", "Addiction and Mental Health, Treated Together", "Staff Who've Lived It"].includes(h)
+  ["Your Privacy, Protected", "Addiction and Mental Health, Treated Together", "Staff Who've Lived It"].includes(h)
 );
 
 // Verbatim from Breathe_Life_IOP_FAQ.docx (2026-09-11), sourced by that
@@ -104,6 +104,7 @@ const faqs = [
   { q: "Do I still get individual attention in a group-based program?", a: "Yes. One on one therapy sessions are a core part of IOP, alongside group sessions and workshops." },
   { q: "Can I keep working or going to school while in IOP?", a: "Yes. IOP is built around your daily responsibilities rather than asking you to pause them, with sessions structured to work around work, school, or family." },
   { q: "What happens after I complete IOP?", a: "Support continues through our BreatheOUT alumni group, relapse prevention resources, and a gradual step down to standard outpatient care. Family Therapy Programs remain available as well." },
+  { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in family programming." },
   { q: "Is IOP covered by insurance?", a: "In most cases, yes. We are in-network with most major providers, and our team works with your insurer directly to explain costs and coverage before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
@@ -161,6 +162,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for IOP, before you commit to anything."
+    />
+
 
     {/* ══════════════  ROOM FOR BOTH (orbit)  ══════════════ */}
     <section data-screen-label="Room for both" style="padding:70px 37px;background:#FFFFFF;">
@@ -260,11 +267,6 @@ const ld = {
       intro="Straight answers about weekly hours, therapy types, and what comes next."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for IOP, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

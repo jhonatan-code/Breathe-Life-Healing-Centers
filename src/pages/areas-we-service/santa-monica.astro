@@ -28,7 +28,7 @@ const CITY = "Santa Monica";
 
 const title = "Addiction & Mental Health Treatment Near Santa Monica | Breathe";
 const description =
-  "LGBTQ+-affirming addiction and mental health treatment serving Santa Monica and the Westside. Medical detox, residential care, PHP, IOP. In-network with most major insurers. Call 24/7.";
+  "Drug and alcohol detox and residential treatment serving Santa Monica and the Westside. Medical detox, residential care, PHP, IOP. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -57,8 +57,8 @@ const faqs = [
     a: "Every situation is different. Call our admissions team and they'll talk through transportation and travel logistics with you directly.",
   },
   {
-    q: "Is Breathe only for LGBTQ+ clients from Santa Monica?",
-    a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate.",
+    q: "Who does Breathe treat?",
+    a: "Adults working through drug and alcohol use, mental health concerns, or both. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) and welcomes every client as they are.",
   },
   {
     q: "Does insurance cover treatment if I live in Santa Monica?",
@@ -127,7 +127,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/areas-we-service/" style="color:#7FB3BC;">Areas We Service</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Santa Monica
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Addiction &amp; Mental Health Treatment Near Santa Monica</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">LGBTQ+-affirming care for the Westside, a comfortable drive from Santa Monica. Real treatment from people who've lived it, not a script.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Detox and residential care for the Westside, a comfortable drive from Santa Monica. Real treatment from people who've lived it, not a script.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -137,6 +137,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+    />
+
 
     {/* ══════════════  SERVING SANTA MONICA  ══════════════ */}
     <section data-screen-label="Serving Santa Monica" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -153,7 +159,7 @@ const ld = {
           <div style="display:grid;gap:14px;">
             {[
               "Staff with lived recovery experience, not just clinical training",
-              "Correct names, correct pronouns, and a team trained in minority stress",
+              "Medical detox and residential care under one clinical team",
               "A private, residential setting away from the everyday",
               "Family therapy that makes room for who actually shows up",
             ].map((s) => (
@@ -211,11 +217,6 @@ const ld = {
       intro="Straight answers to what people and families ask before they decide anything."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     <SiteFinalCTA

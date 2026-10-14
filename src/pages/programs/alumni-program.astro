@@ -36,7 +36,7 @@ const HREF = site.phoneHref;
 
 const title = "Alumni Program | Breathe Life Healing Centers";
 const description =
-  "Recovery doesn't end at discharge. Breathe's Alumni Program keeps you connected through follow-up, community events, and a peer network built for the LGBTQ+ community first.";
+  "Recovery doesn't end at discharge. Breathe's Alumni Program keeps you connected through follow-up, community events, and a peer network of people who know the road.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -58,7 +58,7 @@ const forYou = [
 const included = [
   { icon: "groups", title: "Ongoing community", text: "A network of people who've been through treatment here and understand what it took to get sober." },
   { icon: "call", title: "Real follow-up", text: "Staff who check in after discharge, not just during your stay." },
-  { icon: "diversity_3", title: "Built for the LGBTQ+ community first", text: "The same affirming space you had in treatment, carried into life after it." },
+  { icon: "diversity_3", title: "The same community, after treatment", text: "The same supportive community you had in treatment, carried into life after it." },
   { icon: "family_restroom", title: "Room for family, too", text: "Family and chosen family stay part of the picture, not just the client alone." },
 ];
 
@@ -70,7 +70,6 @@ const faqs = [
   { q: "Can family members be involved in alumni support?", a: "Family involvement doesn't stop at discharge. [Family Program](/programs/family-program/) options remain part of the picture for alumni and their families." },
   { q: "How do I stay connected after I leave treatment?", a: "Keep your contact information updated with our Alumni Coordinator, and ask about joining the private alumni community for ongoing updates and connection." },
   { q: "Is there a cost to participate in the Alumni Program?", a: "Alumni support is part of our ongoing commitment to your recovery. Reach out to our team for specifics on what's included." },
-  { q: "Is the Alumni Program open to LGBTQ+ and non-LGBTQ+ alumni alike?", a: "Yes. The same affirming space you had in treatment carries into the Alumni Program, open to everyone who came through our care." },
 ];
 
 const related = [
@@ -79,7 +78,7 @@ const related = [
 ];
 
 const whyPicks = why.filter(([, , h]) =>
-  ["Staff Who've Lived It", "LGBTQIA+-Affirming Care at Every Level", "Chosen Family Welcome in Programming"].includes(h)
+  ["Staff Who've Lived It", "Inclusive, Affirming Care", "Chosen Family Welcome in Programming"].includes(h)
 );
 
 const pageUrl = new URL("/programs/alumni-program/", site.domain).href;
@@ -136,6 +135,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for treatment, before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -257,11 +262,6 @@ const ld = {
       intro="Straight answers about who it's for, how it works, and what it costs."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for treatment, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

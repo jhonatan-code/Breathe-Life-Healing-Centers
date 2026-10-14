@@ -88,9 +88,14 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
 - **Do not lead with, or frame punitively, the abstinence-based policy** (no cannabis cards,
   no stimulants for ADHD, no marijuana during treatment).
 - **Do not reference EMDR, IFS, or contingency management** — Breathe does not offer them.
-- **Centre the LGBTQ+ community as the primary audience** in language, imagery and clinical
-  framing — but never position Breathe as *exclusively* for LGBTQ+ people. Aligned
-  cis-hetero clients are welcome.
+- **Positioning (ClickUp, 2026-10-14, supersedes the earlier "LGBTQ+ as primary audience"
+  rule):** Breathe is a **drug and alcohol detox and residential treatment center in Los
+  Angeles**. LGBTQ language is toned down sitewide: none in the homepage, program pages, page
+  titles or headings beyond a light mention here and there. All LGBTQIA+ content lives on one
+  pillar page, `/signature-services/lgbtq/`, linked from the footer and the relevant program
+  pages. "LGBTQ ally" appears in the footer only.
+- **Wording:** "Breathe offers LGBTQIA+ affirming care." **Never "LGBTQ therapy" or "LGBTQ
+  therapy services"** anywhere on the site.
 - **No heteronormative assumptions** — "family" is not assumed to mean blood relatives;
   partners and chosen family are valid participants.
 - **Eating disorders** are framed as co-occurring body-image / emotional-eating issues in
@@ -103,13 +108,12 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
   coverage about him and verbatim reviews that mention him are separate open questions.
 - **Deb Hughes** sits in **Marketing, Business Development & Alumni** (with Emmy Olea), not
   Executive Leadership (Charmaine, 2026-09-25).
-- **Insurance:** in-network list includes **UnitedHealthcare / Optum** (Charmaine, 2026-09-25).
+- **Insurance:** in-network list includes **UnitedHealthcare / Optum** (Charmaine, 2026-09-25); **Anthem replaced by Blue Shield of California** (ClickUp, 2026-10-14).
   One shared `insurers` array in `src/data/home.ts` drives every insurance display.
-- **Positioning line (Charmaine, 2026-09-25):** "Breathe has particular expertise and cultural
-  competency in serving the LGBTQ+ community, while providing inclusive, affirming care for
-  anyone experiencing chemsex or sexualized drug use, regardless of sexual orientation or
-  gender identity." Tagline pair: "LGBTQ+ Affirming, Inclusive of All" / "Where specialized
-  understanding meets inclusive care."
+- **Positioning line (Charmaine, 2026-09-25)**, now used on the LGBTQIA+ pillar page only:
+  "Breathe has particular expertise and cultural competency in serving the LGBTQ+ community,
+  while providing inclusive, affirming care for anyone experiencing chemsex or sexualized drug
+  use, regardless of sexual orientation or gender identity."
 - **No "Family Class"** anywhere on the site. The **Family Workshop is in person only**;
   general family therapy sessions **can** be online. Keep the two distinct.
 - **No luxury / spa framing** ("modern luxury", "luxury homes"), per the Brand Brief's

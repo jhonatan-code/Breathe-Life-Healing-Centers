@@ -44,7 +44,7 @@ const HREF = site.phoneHref;
 
 const title = "Outpatient Rehab in Los Angeles | Breathe";
 const description =
-  "Outpatient rehab in Los Angeles, the most flexible level of care, ideal as a step-down or for ongoing support. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Outpatient rehab in Los Angeles, the most flexible level of care, ideal as a step-down or for ongoing support. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -94,6 +94,7 @@ const faqs = [
   { q: "What kind of therapy is included?", a: "Both group and individual therapy. Group sessions build communication and relapse prevention skills, sometimes through exercises like role play. Individual sessions focus on identifying triggers, setting healthy boundaries, and addressing what is underneath the substance use." },
   { q: "Is outpatient rehab enough if I haven't had a serious consequence from my substance use yet?", a: "Still having parts of your life intact, like a job or relationships, does not mean support is not worth having. Outpatient rehab is often the right level of care before things get more serious." },
   { q: "What happens after I complete the program?", a: "Many clients continue with a personal therapist and community support groups to maintain their progress." },
+  { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in family programming." },
   { q: "Is outpatient rehab covered by insurance?", a: "In most cases, yes. We are in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
@@ -151,6 +152,12 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for outpatient rehab, before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -270,11 +277,6 @@ const ld = {
       intro="Straight answers about schedule, duration, and what comes after."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for outpatient rehab, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

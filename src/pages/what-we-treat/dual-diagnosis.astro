@@ -54,7 +54,7 @@ const HREF = site.phoneHref;
 
 const title = "Dual Diagnosis Treatment in Los Angeles | Breathe";
 const description =
-  "Integrated dual-diagnosis treatment in Los Angeles, mental health and substance use, treated together in one plan. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Integrated dual-diagnosis treatment in Los Angeles, mental health and substance use, treated together in one plan. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -132,8 +132,8 @@ const why = [
     text: "Substance use and mental health are treated together from day one, by the same clinical team, on the same timeline.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "volunteer_activism", title: "Staff who've lived it",
@@ -189,6 +189,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for dual-diagnosis treatment, before you commit to anything."
+      background="#F7F5F1"
+    />
+
 
     {/* ══════════════  UNDERSTANDING DUAL DIAGNOSIS  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -322,12 +329,6 @@ const ld = {
       heading="Questions people ask about dual diagnosis"
       intro="Straight answers about treatment order, detox, medication, and coverage."
       groups={[{ items: faqs }]}
-      background="#F7F5F1"
-    />
-
-    <SiteInsurance
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for dual-diagnosis treatment, before you commit to anything."
       background="#F7F5F1"
     />
 

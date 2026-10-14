@@ -27,7 +27,7 @@ const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 
 const title = "Somatic Therapy | Breathe Life Healing Centers";
-const description = "Somatic therapy at Breathe Life Healing Centers, an LGBTQ+-affirming treatment provider in Los Angeles. Individualized, in-network with most major insurers. Call 24/7.";
+const description = "Somatic therapy at Breathe Life Healing Centers, a drug and alcohol detox and residential treatment center in Los Angeles. Individualized, in-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -62,8 +62,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "family_restroom", title: "Family involved, on your terms",
@@ -111,7 +111,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/therapies/" style="color:#7FB3BC;">Therapies</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Somatic Therapy
           </nav>
           <h1 style="font-size:clamp(36px,4.2vw,56px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Somatic Therapy in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Somatic therapy is one of the therapies your care team may draw on as part of your plan at Breathe, built for the LGBTQ+ community first, open to anyone whose values align.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">Somatic therapy is one of the therapies your care team may draw on as part of your plan at Breathe.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -121,6 +121,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+    />
+
 
     {/* ══════════════  WHAT IS IT  ══════════════ */}
     <section data-screen-label="What is it" style="padding:70px 37px;background:#FFFFFF;">
@@ -204,12 +211,6 @@ const ld = {
       intro="Straight answers about how somatic therapy works at Breathe and how it fits into your plan."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

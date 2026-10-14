@@ -37,7 +37,7 @@ const HREF = site.phoneHref;
 
 const title = "Cocaine Addiction Treatment in Los Angeles | Breathe";
 const description =
-  "Cocaine addiction treatment in Los Angeles, medical detox, residential care, CBT and motivational interviewing. LGBTQ+-affirming. In-network with most major insurers. Call 24/7.";
+  "Cocaine addiction treatment in Los Angeles, medical detox, residential care, CBT and motivational interviewing. In-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -88,8 +88,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "family_restroom", title: "Family involved, on your terms",
@@ -103,7 +103,6 @@ const faqs = [
   { q: "I've tried to quit before and it didn't stick. Will this be different?", a: "A past attempt that didn't hold isn't a sign you can't recover. It usually means the support around you wasn't matched to what you actually needed. On why stopping is hard in the first place: [The Vicious Cycle of Addiction](/blog/vicious-cycle-addiction/)." },
   { q: "Will you address my anxiety or depression, not just the cocaine use?", a: "Yes. Anxiety, depression, and trauma are treated as part of the same plan through our dual diagnosis approach, not as a separate concern." },
   { q: "Does insurance cover cocaine addiction treatment?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
-  { q: "Is this treatment only for LGBTQ+ clients?", a: "No. We're [built for the LGBTQ+ community first](/signature-services/lgbtq/), and that shapes how we treat everyone, but our doors are open to anyone whose values align with how we operate." },
 ];
 
 const pageUrl = new URL("/what-we-treat/cocaine/", site.domain).href;
@@ -161,6 +160,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for cocaine detox and treatment, before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING COCAINE ADDICTION  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -268,12 +274,6 @@ const ld = {
       intro="Straight answers to what people and families ask us before they decide anything."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for cocaine detox and treatment, before you commit to anything."
     />
 
     <SiteFinalCTA

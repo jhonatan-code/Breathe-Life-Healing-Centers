@@ -46,7 +46,7 @@ const HREF = site.phoneHref;
 
 const title = "Medication-Assisted Treatment (MAT) in Los Angeles | Breathe";
 const description =
-  "Medication-assisted treatment at Breathe, pharmaceutical support integrated with therapy and psychiatric oversight, with a prescriber on staff. LGBTQ+-affirming care in Los Angeles.";
+  "Medication-assisted treatment at Breathe, pharmaceutical support integrated with therapy and psychiatric oversight, with a prescriber on staff, in Los Angeles.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -151,6 +151,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for medication-assisted treatment, before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -267,12 +274,6 @@ const ld = {
       intro="Straight answers about how medication fits into your broader care."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for medication-assisted treatment, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

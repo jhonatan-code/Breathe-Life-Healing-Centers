@@ -29,7 +29,7 @@ const PH = site.phoneDisplay;
 const HREF = site.phoneHref;
 
 const title = "Gender-Affirming Care | Breathe Life Healing Centers";
-const description = "Gender-affirming addiction and mental-health treatment at Breathe Life Healing Centers, an LGBTQ+-affirming provider in Los Angeles. Individualized, in-network with most major insurers. Call 24/7.";
+const description = "Gender-affirming addiction and mental-health treatment at Breathe Life Healing Centers, a drug and alcohol detox and residential treatment center in Los Angeles. Individualized, in-network with most major insurers. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -64,8 +64,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Part of our LGBTQIA+ affirming care",
+    text: "Gender-affirming care is one part of the LGBTQIA+ affirming care Breathe offers at every level of treatment.",
   },
   {
     icon: "family_restroom", title: "Family involved, on your terms",
@@ -124,6 +124,13 @@ const ld = {
       </div>
     </section>
 
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+    />
+
+
     {/* ══════════════  WHAT IS IT  ══════════════ */}
     <section data-screen-label="What is it" style="padding:70px 37px;background:#FFFFFF;">
       <div style="max-width:900px;margin:0 auto;text-align:center;">
@@ -136,6 +143,7 @@ const ld = {
           <p style={`${S.intro}margin-bottom:16px;`}>Gender-affirming care is not a specialty add-on at Breathe. It is embedded throughout the program. That means correct names and correct pronouns from your first phone call, access to gender-appropriate facilities, and a clinical team trained in the minority stress model and the specific trauma pathways common in trans and nonbinary experience.</p>
           <p style={S.intro}>Trans and nonbinary clients do not have to fight to be seen correctly while simultaneously trying to do the hard work of recovery. Gender-affirming care shapes how every therapy at Breathe is delivered, not just one part of your plan.</p>
         </div>
+        <p style={`${S.intro}text-align:center;margin:22px auto 0;max-width:74ch;`}>Gender-affirming care is one part of how Breathe supports LGBTQIA+ clients. <a href="/signature-services/lgbtq/" style="color:#33679C;font-weight:600;">Learn more about LGBTQIA+ affirming care at Breathe →</a></p>
       </div>
     </section>
 
@@ -207,12 +215,6 @@ const ld = {
       intro="Straight answers about how gender-affirming care works at Breathe and how it fits into your plan."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

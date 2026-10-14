@@ -21,7 +21,8 @@ import { msymChar } from "../../lib/icons";
  * content, no action taken on /about/ by this change.
  *
  * STRUCTURAL CHANGE (2026-09-14, per the brief and the user's explicit
- * instruction): the "Flight crew work and LGBTQ+ identity often overlap"
+ * instruction; card renamed "Inclusive, affirming care" in the 2026-10-14
+ * repositioning): the "Flight crew work and LGBTQ+ identity often overlap"
  * section previously stood alone as a full-width block between the four
  * differentiator cards and the insurance section, duplicating a claim the
  * "Built for the LGBTQ+ community first" pillar card below already made.
@@ -57,7 +58,7 @@ const HREF = site.phoneHref;
 
 const title = "Flight Attendant Program | Breathe Life Healing Centers";
 const description =
-  "Addiction and mental health treatment for flight attendants from a FADAP partner since 2013, shaped around flight crew schedules and union benefits. LGBTQ+-affirming. Call 24/7.";
+  "Addiction and mental health treatment for flight attendants from a FADAP partner since 2013, shaped around flight crew schedules and union benefits. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -146,8 +147,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Flight crews are one of the most LGBTQ+-represented workforces in the country, and this program is built with that in mind, while welcoming any crew member whose values align.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every crew member is welcomed as they are, and Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "calendar_month", title: "Schedule- and union-aware",
@@ -362,8 +363,8 @@ const ld = {
               </span>
               <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.014em;margin:0 0 10px;text-wrap:balance;">{w.title}</h3>
               <p style={S.card}>{w.text}</p>
-              {w.title === "Built for the LGBTQ+ community first" && (
-                <a href="/signature-services/lgbtq/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;margin-top:12px;">Learn About LGBTQ+ Treatment <span aria-hidden="true">→</span></a>
+              {w.title === "Inclusive, affirming care" && (
+                <a href="/signature-services/lgbtq/" style="font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:#33679C;display:inline-flex;align-items:center;gap:6px;margin-top:12px;">Learn About Our Affirming Care <span aria-hidden="true">→</span></a>
               )}
             </div>
           ))}

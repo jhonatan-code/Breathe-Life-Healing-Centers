@@ -160,7 +160,7 @@ export const primaryNav = [
         heading: "Built for our community",
         links: [
           { label: "Chemsex & Sexualized Drug Use Treatment", href: "/signature-services/chemsex-treatment/" },
-          { label: "LGBTQ+ Treatment", href: "/signature-services/lgbtq/" },
+          { label: "LGBTQIA+ Affirming Care", href: "/signature-services/lgbtq/" },
           { label: "Flight Attendant Program", href: "/signature-services/flight-attendant-program/" },
         ],
       },

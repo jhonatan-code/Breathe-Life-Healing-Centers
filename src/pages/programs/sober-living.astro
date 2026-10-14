@@ -41,7 +41,7 @@ const HREF = site.phoneHref;
 
 const title = "Enhanced Sober Living in Los Angeles | Breathe";
 const description =
-  "Enhanced sober living in Los Angeles: 15 beds, structured like residential care, for the step toward independent living. LGBTQ+-affirming. Call 24/7.";
+  "Enhanced sober living in Los Angeles: 15 beds, structured like residential care, for the step toward independent living. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -152,6 +152,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
+      heading="Sober living is not covered by insurance"
+      intro="The clinical care that runs alongside it, like PHP or IOP, can be. Our admissions team verifies your benefits for that care before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -278,12 +285,6 @@ const ld = {
       intro="Straight answers about house rules, structure, and what continues alongside it."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="linear-gradient(180deg, #F7F5F1 0%, #FFFFFF 100%)"
-      heading="Sober living is not covered by insurance"
-      intro="The clinical care that runs alongside it, like PHP or IOP, can be. Our admissions team verifies your benefits for that care before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

@@ -85,19 +85,19 @@ export const levels = [
 ] as const;
 
 export const signature = [
-  ["diversity_3", "LGBTQIA+ Therapy Services", "Identity- and gender-affirming care woven into every level of treatment, never a separate track.", "Individual, group, and identity-focused therapy", "/signature-services/lgbtq/"],
-  ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised", "/signature-services/chemsex-treatment/"],
+    ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised", "/signature-services/chemsex-treatment/"],
   ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work", "/what-we-treat/complex-trauma/"],
   ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one", "/programs/case-management/"],
   ["family_restroom", "Family Therapy Programs", "Family therapy, in person or online, and an in-person 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
   ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware", "/signature-services/flight-attendant-program/"],
   ["medication", "Medication-Assisted Treatment", "Medical support available where it is clinically appropriate, always paired with therapy and psychiatric oversight, never offered as treatment on its own.", "Prescriber on staff", "/programs/medication-assisted-treatment/"],
+  ["diversity_3", "LGBTQIA+ Affirming Care", "Identity- and gender-affirming care available at every level of treatment, never a separate track.", "Affirming at every level", "/signature-services/lgbtq/"],
 ] as const;
 
 export const why = [
-  ["diversity_3", "#33679C", "LGBTQIA+-Affirming Care at Every Level", "Gender-affirming, identity-affirming clinical care, clinicians who understand minority stress and staff who use your pronouns without being asked twice."],
+  ["monitor_heart", "#33679C", "Medical Detox, Then Residential Care", "A safe, clinically monitored detox with withdrawal managed around the clock, then residential treatment on the same Laurel Canyon campus."],
   ["join_inner", "#33679C", "Addiction and Mental Health, Treated Together", "Integrated dual-diagnosis approach, we don't treat substance use in isolation from anxiety, depression, or trauma."],
-  ["favorite", "#478694", "Dedicated Chemsex Treatment", "One of the few centers in the country with a program addressing substance use and sex together."],
+  ["diversity_3", "#478694", "Inclusive, Affirming Care", "Every client is welcomed as they are, with LGBTQIA+ affirming care available at every level of treatment."],
   ["healing", "#33679C", "Trauma-Informed Approach", "Care built around how trauma actually shows up, for deep and lasting healing."],
   ["cottage", "#33679C", "Residential, Whole-Person Care", "A private, inclusive, and affirming space to live and heal on our Laurel Canyon campus, not just a bed and a schedule."],
   ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate, care that respects who knows you're here, on your terms."],
@@ -180,7 +180,9 @@ export const team = [
 
 export const insurers = [
   { name: "Aetna", src: "/Asset/Insurances/Aetna.svg", h: 34 },
-  { name: "Anthem", src: "/Asset/Insurances/Anthem.svg", h: 44 },
+  // Anthem swapped for Blue Shield of California (ClickUp, 2026-10-14). Logo from
+  // Wikimedia Commons ("Blue Shield of California logo.png").
+  { name: "Blue Shield of California", src: "/Asset/Insurances/BlueShieldCA.png", h: 40 },
   { name: "Blue Cross Blue Shield", src: "/Asset/Insurances/BlueCross.svg", h: 46 },
   { name: "Cigna", src: "/Asset/Insurances/Cigna.svg", h: 38 },
   { name: "Beacon Health Options", src: "/Asset/Insurances/beacon-logo%201.svg", h: 38 },

@@ -37,7 +37,7 @@ const HREF = site.phoneHref;
 
 const title = "Chemsex & Sexualized Drug Use Treatment in Los Angeles | Breathe";
 const description =
-  "Dedicated treatment for chemsex and sexualized drug use in Los Angeles, substance use tied to sex, intimacy, or identity, treated as its own clinical issue. LGBTQ+-affirming. Call 24/7.";
+  "Dedicated treatment for chemsex and sexualized drug use in Los Angeles, substance use tied to sex or intimacy, treated as its own clinical issue, for anyone regardless of orientation. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -63,8 +63,8 @@ const different = [
     text: "This track runs together with medical detox, residential treatment, and PHP/IOP, not instead of them. One coordinated plan, not two separate programs.",
   },
   {
-    icon: "diversity_3", title: "Built with our community in mind",
-    text: "Chemsex and sexualized drug use come up most often in LGBTQ+ men's spaces, and that context shapes how we built this track. It's not limited to that population.",
+    icon: "diversity_3", title: "Open to anyone",
+    text: "Chemsex care here is for anyone experiencing this pattern, regardless of sexual orientation or gender identity.",
   },
 ];
 
@@ -73,9 +73,9 @@ const different = [
 // answer is verbatim from Breathe_Life_Chemsex_FAQ.docx (2026-09-14).
 const faqs = [
   { q: "Is chemsex the same as sex addiction?", a: "Chemsex is a substance use pattern tied to sexual context, not sex addiction. We treat it as its own distinct clinical issue, not folded into that category. More on that distinction: [Sex Addiction and Drug Addiction: The Connection](/blog/sex-addiction-drug-addiction/)." },
-  { q: "Will I be judged for how I have sex, or who I have it with?", a: "This track is sex-positive and identity-affirming. The substance use is what we treat, not your sexuality or how you express it." },
+  { q: "Will I be judged for how I have sex, or who I have it with?", a: "This track is sex-positive and nonjudgmental. The substance use is what we treat, not your sexuality or how you express it." },
   { q: "What substances does this cover?", a: "Methamphetamine, GHB, mephedrone, ketamine, cocaine, and other substances used in sexualized contexts." },
-  { q: "Is this only for gay or bisexual men?", a: "Chemsex shows up most often in gay and queer men's spaces, and that shapes how this track is built, but it's open to anyone experiencing this pattern. See also: [Grindr, Hookup Culture, and Substance Use: What Queer Men Should Know](/blog/grindr-hookup-culture-and-substance-use-what-queer-men-should-know/)." },
+  { q: "Who is this track for?", a: "Anyone experiencing this pattern, regardless of sexual orientation or gender identity. See also: [Grindr, Hookup Culture, and Substance Use: What Queer Men Should Know](/blog/grindr-hookup-culture-and-substance-use-what-queer-men-should-know/)." },
   { q: "Will my HIV status or sexual health history be treated with respect?", a: "Yes. HIV-positive clients are welcomed and treated with clinical competence, not just tolerance." },
   { q: "How does this run alongside standard treatment, like detox or residential care?", a: "This track runs together with medical detox, residential care, and PHP or IOP, one coordinated plan, not two separate programs." },
   { q: "Does insurance cover treatment through this track?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
@@ -87,8 +87,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Judgment-free from day one",
+    text: "Your sexuality, relationships, and history are treated with respect. The substance use is what we treat, not who you are.",
   },
   {
     icon: "lock", title: "Your privacy, protected",
@@ -134,7 +134,7 @@ const ld = {
             <a href="/" style="color:#7FB3BC;">Home</a> <span aria-hidden="true" style="opacity:0.6;">›</span> <a href="/signature-services/" style="color:#7FB3BC;">Signature Services</a> <span aria-hidden="true" style="opacity:0.6;">›</span> Chemsex & Sexualized Drug Use Treatment
           </nav>
           <h1 style="font-size:clamp(34px,4vw,54px);line-height:1.08;letter-spacing:-0.03em;font-weight:600;color:#FFFFFF;margin:0 0 22px;text-wrap:balance;">Chemsex & Sexualized Drug Use Treatment in Los Angeles</h1>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">When substance use gets tied to sex, intimacy, or identity, generic addiction treatment often misses what's actually going on. This is treatment built for that, specifically.</p>
+          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 30px;">When substance use gets tied to sex or intimacy, generic addiction treatment often misses what's actually going on. This is treatment built for that, specifically.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a class="cta cta--light" href="/admissions/" style={S.ctaWhite}>Start Your Treatment</a>
             <a class="cta" href={HREF} style={S.ctaGhost}>Call Us 24/7: {PH}</a>
@@ -145,13 +145,20 @@ const ld = {
       </div>
     </section>
 
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+    />
+
+
     {/* ══════════════  WHAT THIS IS  ══════════════ */}
     <section data-screen-label="What this is" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
       <div aria-hidden="true" style="position:absolute;top:-100px;left:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(51,103,156,0.07),transparent 70%);pointer-events:none;"></div>
       <div style="position:relative;max-width:900px;margin:0 auto;text-align:center;">
         <div style={S.eyebrow}>What this is</div>
         <h2 style={`${S.h2}max-width:34ch;`}>A Dedicated Chemsex Treatment Track</h2>
-        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>Chemsex & Sexualized Drug Use Treatment is for anyone whose substance use has become tangled up with sex, intimacy, hookup culture, or identity, whether that means using to get in the mood, to stay in the moment longer, or to feel comfortable being seen at all. It's one of the few dedicated programs of its kind, and it exists because this pattern deserves its own clinical attention, not a generic addiction script.</p>
+        <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>Chemsex & Sexualized Drug Use Treatment is for anyone whose substance use has become tangled up with sex, intimacy, or hookup culture, whether that means using to get in the mood, to stay in the moment longer, or to feel comfortable being seen at all. It's one of the few dedicated programs of its kind, and it exists because this pattern deserves its own clinical attention, not a generic addiction script.</p>
         <p style={`${S.intro}max-width:78ch;margin-bottom:16px;`}>This is <strong>not</strong> sex addiction treatment, and we don't treat it as one. Sexualized drug use is its own clinical issue, distinct from compulsive sexual behavior, and folding the two together tends to miss both.</p>
         <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0 auto;max-width:70ch;">This pattern shows up most often alongside methamphetamine use, and it's the reason our <a href="/what-we-treat/methamphetamine/" style="color:#33679C;font-weight:600;">Methamphetamine page</a> points here, but it isn't limited to one substance, and it doesn't require a meth-specific starting point to get help.</p>
       </div>
@@ -184,10 +191,10 @@ const ld = {
     {/* ══════════════  RELATED SIGNATURE SERVICE  ══════════════ */}
     <section data-screen-label="Related" style="padding:56px 37px;background:#FFFFFF;">
       <div style="max-width:1060px;margin:0 auto;text-align:center;">
-        <div style={S.eyebrow}>Also built for our community</div>
-        <h2 style={`${S.h2}max-width:36ch;`}>Chemsex Treatment Alongside LGBTQ+ Care</h2>
-        <p style={`${S.intro}max-width:76ch;margin-bottom:24px;`}>Chemsex and sexualized drug use come up most often in LGBTQ+ men's spaces, so this track and our identity-affirming care are built to work together, not as two separate doors.</p>
-        <a class="cta" href="/signature-services/lgbtq/" style={`display:inline-block;${S.ctaBlue}`}>Learn About LGBTQ+ Treatment</a>
+        <div style={S.eyebrow}>Part of every level of care</div>
+        <h2 style={`${S.h2}max-width:36ch;`}>Chemsex Treatment and Affirming Care</h2>
+        <p style={`${S.intro}max-width:76ch;margin-bottom:24px;`}>This track works alongside the LGBTQIA+ affirming care Breathe offers at every level of treatment, one coordinated plan rather than two separate doors.</p>
+        <a class="cta" href="/signature-services/lgbtq/" style={`display:inline-block;${S.ctaBlue}`}>Learn About LGBTQIA+ Affirming Care</a>
       </div>
     </section>
 
@@ -221,12 +228,6 @@ const ld = {
       intro="Straight answers about how this differs from sex addiction treatment, who it's for, and coverage."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

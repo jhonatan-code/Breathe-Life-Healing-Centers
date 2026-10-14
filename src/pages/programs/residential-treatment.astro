@@ -35,7 +35,7 @@ const HREF = site.phoneHref;
 
 const title = "Residential Treatment in Los Angeles | Breathe";
 const description =
-  "Residential addiction and mental health treatment on our Laurel Canyon campus: 24/7 structure, daily therapy, and psychiatric care. LGBTQ+-affirming. In-network with most major insurers.";
+  "Residential addiction and mental health treatment on our Laurel Canyon campus: 24/7 structure, daily therapy, and psychiatric care. In-network with most major insurers.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -95,6 +95,7 @@ const faqs = [
   { q: "What does a typical day actually look like?", a: "A structured daily schedule, therapy, groups, and quiet time balanced across the day, with psychiatric care built in for both addiction and mental health, not treated as separate tracks." },
   { q: "Do I need to complete detox first?", a: "In many cases, yes, if you're medically dependent on a substance. [Detox](/programs/medical-detox/) is usually the first level of care people move into before, or directly into, residential treatment." },
   { q: "Will I be in a clinical, hospital-like environment?", a: "You live on-site in community with others doing the same work, in housing on our Laurel Canyon campus, not a clinical ward." },
+  { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in family programming." },
   { q: "Is residential treatment covered by insurance?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
@@ -156,6 +157,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for residential treatment, before you commit to anything."
+    />
+
 
     {/* ══════════════  UNDERSTANDING  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -284,12 +292,6 @@ const ld = {
       intro="Straight answers about admission, length of stay, and what a day at Breathe actually looks like."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered for residential treatment, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}

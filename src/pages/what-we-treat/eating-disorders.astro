@@ -48,7 +48,7 @@ const HREF = site.phoneHref;
 
 const title = "Co-Occurring Eating Disorder Support in Los Angeles | Breathe";
 const description =
-  "Support for body-image and emotional-eating struggles that show up alongside substance use and mental health treatment at Breathe. LGBTQ+-affirming, Los Angeles. Call 24/7.";
+  "Support for body-image and emotional-eating struggles that show up alongside substance use and mental health treatment at Breathe in Los Angeles. Call 24/7.";
 
 const S = {
   eyebrow: "font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;",
@@ -108,8 +108,8 @@ const why = [
     text: "Every clinician here has personal recovery experience. You're not explaining yourself to someone who's only read about it.",
   },
   {
-    icon: "diversity_3", title: "Built for the LGBTQ+ community first",
-    text: "Correct names, correct pronouns, and a team trained in minority stress. Open to anyone whose values align, without losing that center.",
+    icon: "diversity_3", title: "Inclusive, affirming care",
+    text: "Every client is welcomed as they are. Breathe offers LGBTQIA+ affirming care at every level of treatment.",
   },
   {
     icon: "layers", title: "Treating the whole picture",
@@ -165,6 +165,13 @@ const ld = {
         <VerifyInsuranceForm />
       </div>
     </section>
+
+    <SiteInsurance
+      background="#F7F5F1"
+      heading="In-network with most major insurers"
+      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
+    />
+
 
     {/* ══════════════  HOW WE ADDRESS THIS  ══════════════ */}
     <section data-screen-label="Understanding" style="position:relative;padding:70px 37px;background:#FFFFFF;overflow:hidden;">
@@ -269,12 +276,6 @@ const ld = {
       intro="Straight answers about fit, scope, and how this is addressed alongside your care."
       groups={[{ items: faqs }]}
       background="#FFFFFF"
-    />
-
-    <SiteInsurance
-      background="#F7F5F1"
-      heading="In-network with most major insurers"
-      intro="Our admissions team verifies your specific benefits and explains exactly what's covered, before you commit to anything."
     />
 
     {/* ══════════════  VERIFY INSURANCE · mobile placement  ══════════════ */}
