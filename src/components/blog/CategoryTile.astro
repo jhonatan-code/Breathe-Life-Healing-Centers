@@ -7,7 +7,7 @@
  * preview (blog-templates-preview.html) before this was built.
  */
 interface Props {
-  category: 'understanding-addiction' | 'understanding-trauma' | 'for-the-family' | 'news' | 'lgbtqia';
+  category: 'understanding-addiction' | 'understanding-trauma' | 'for-the-family' | 'news' | 'lgbtqia' | 'eating-disorders';
   seed?: string;
   radius?: string;
 }
@@ -19,6 +19,7 @@ const PALETTES: Record<Props['category'], [string, string]> = {
   'for-the-family': ['#16293D', '#33679C'],
   news: ['#3A444D', '#7FB3BC'],
   lgbtqia: ['#7FB3BC', '#33679C'],
+  'eating-disorders': ['#2C5A64', '#33679C'],
 };
 const [c0, c1] = PALETTES[category];
 
