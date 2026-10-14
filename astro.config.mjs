@@ -377,6 +377,9 @@ const redirects = {
   "/why-is-depression-on-the-rise/": "/what-we-treat/depression/",
   "/world-intervention-day/": "/admissions/for-families/",
   "/you-dont-have-to-do-it-alone/": "/",
+  // Google Ads landing page on the WP site (2026-10-14, docs/13-MIGRATION-CHECKLIST.md):
+  // same "drug rehab" intent as the Los Angeles page.
+  "/drug-rehab/": "/areas-we-service/los-angeles/",
 };
 
 // https://astro.build/config

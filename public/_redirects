@@ -276,3 +276,6 @@
 /about/our-team/brad-lamm/ /about/our-team/ 301
 # Brian Whisenant removed from the team per client (2026-10-05), see astro.config.mjs
 /about/our-team/brian-whisenant/ /about/our-team/ 301
+
+# Google Ads landing page on the WP site (2026-10-14, docs/13-MIGRATION-CHECKLIST.md)
+/drug-rehab/ /areas-we-service/los-angeles/ 301
