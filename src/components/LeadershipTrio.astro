@@ -1,0 +1,103 @@
+---
+/**
+ * "The people behind Breathe": Beck Gee (CEO) featured in the center, larger,
+ * with a brand-blue frame and a "Chief Executive Officer" ribbon; the medical
+ * and clinical directors flank him slightly smaller. Shared by the homepage
+ * and /about/ (both previously showed Beck alone). Data: leadershipTrio in
+ * src/data/team-roster.ts. On phones Beck comes first, full width, and the
+ * two directors sit side by side below him.
+ */
+import { leadershipTrio } from "../data/team-roster";
+
+const { featured, left, right } = leadershipTrio;
+---
+
+<div class="lt">
+  <a href={`/about/our-team/${left.slug}/`} class="lt-card lt-side lt-left">
+    <img src={left.photo} alt={left.name} loading="lazy" />
+    <div class="lt-shade"></div>
+    {left.badge && <span class="lt-badge">{left.badge}</span>}
+    <div class="lt-body">
+      <div class="lt-name">{left.name}</div>
+      <div class="lt-role">{left.role}</div>
+    </div>
+  </a>
+
+  <a href={`/about/our-team/${featured.slug}/`} class="lt-card lt-featured">
+    <img src={featured.photo} alt={featured.name} loading="lazy" />
+    <div class="lt-shade"></div>
+    <span class="lt-badge">{featured.badge}</span>
+    <div class="lt-body">
+      <span class="lt-ribbon">{featured.role}</span>
+      <div class="lt-name">{featured.name}</div>
+      <p class="lt-bio">{featured.bio}</p>
+    </div>
+  </a>
+
+  <a href={`/about/our-team/${right.slug}/`} class="lt-card lt-side lt-right">
+    <img src={right.photo} alt={right.name} loading="lazy" />
+    <div class="lt-shade"></div>
+    {right.badge && <span class="lt-badge">{right.badge}</span>}
+    <div class="lt-body">
+      <div class="lt-name">{right.name}</div>
+      <div class="lt-role">{right.role}</div>
+    </div>
+  </a>
+</div>
+
+<style>
+  .lt {
+    display: flex; align-items: center; justify-content: center; gap: 28px;
+    max-width: 1060px; margin: 0 auto;
+  }
+  .lt-card {
+    position: relative; display: block; overflow: hidden; border-radius: 14px;
+    aspect-ratio: 3 / 4; text-decoration: none; color: inherit;
+    box-shadow: 0 1px 2px rgba(20, 24, 28, 0.08), 0 10px 24px rgba(20, 24, 28, 0.10);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .lt-card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(20, 24, 28, 0.10), 0 18px 36px rgba(20, 24, 28, 0.16); }
+  .lt-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 14%; display: block; }
+  .lt-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22, 41, 61, 0) 40%, rgba(22, 41, 61, 0.55) 70%, rgba(22, 41, 61, 0.94) 100%); }
+  .lt-badge {
+    position: absolute; top: 14px; right: 14px; max-width: calc(100% - 28px);
+    font-family: "Instrument Sans", sans-serif; font-size: 10px; letter-spacing: 0.12em;
+    background: #FFFFFF; color: #2C5A64; padding: 6px 10px; border-radius: 4px;
+  }
+  .lt-body { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 22px; }
+  .lt-name { font-size: 19px; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF; line-height: 1.2; }
+  .lt-role { font-family: "Instrument Sans", sans-serif; font-size: 12px; letter-spacing: 0.08em; color: #7FB3BC; margin-top: 6px; }
+
+  /* the two directors: a touch smaller */
+  .lt-side { flex: 0 1 290px; }
+
+  /* Beck: larger, brand-blue frame, CEO ribbon, bio */
+  .lt-featured {
+    flex: 0 1 370px; z-index: 1;
+    outline: 3px solid #33679C; outline-offset: 5px;
+    box-shadow: 0 2px 6px rgba(20, 24, 28, 0.12), 0 24px 48px rgba(22, 41, 61, 0.24);
+  }
+  .lt-featured .lt-body { padding: 26px 28px; }
+  .lt-featured .lt-name { font-size: 26px; }
+  .lt-ribbon {
+    display: inline-block; margin-bottom: 10px; padding: 6px 12px; border-radius: 999px;
+    background: #33679C; color: #FFFFFF; font-family: "Instrument Sans", sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .lt-bio { font-family: "Montserrat", Helvetica, sans-serif; font-size: 15px; line-height: 1.55; color: #DCE6EF; margin: 8px 0 0; }
+
+  @media (max-width: 860px) {
+    .lt { flex-wrap: wrap; gap: 16px; }
+    .lt-featured { order: -1; flex: 1 1 100%; max-width: 420px; }
+    .lt-side { flex: 1 1 calc(50% - 8px); max-width: 202px; }
+    .lt-side .lt-body { padding: 14px; }
+    .lt-side .lt-name { font-size: 15px; }
+    .lt-side .lt-role { font-size: 11px; }
+    .lt-side .lt-badge { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lt-card { transition: none; }
+    .lt-card:hover { transform: none; }
+  }
+</style>

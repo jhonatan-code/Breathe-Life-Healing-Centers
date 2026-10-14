@@ -130,3 +130,26 @@ export function getTeamContext(slug: string, count = 4) {
   }
   return null;
 }
+
+/**
+ * Leadership trio for the "The people behind Breathe" section (homepage +
+ * /about/, LeadershipTrio.astro): Beck Gee (CEO) featured in the center,
+ * flanked by the medical and clinical directors. Executive Leadership is
+ * Beck alone since the 2026-09-25 corrections, and a lone card read as
+ * empty (user call 2026-10-07). Names, credentials, roles and photos come
+ * straight from the roster above; nothing invented (no bios for the sides).
+ */
+const bySlug = (slug: string) => roster.flatMap((g) => g.people).find((p) => p.slug === slug)!;
+const splitCreds = (full: string) => {
+  const i = full.indexOf(",");
+  return i === -1 ? { name: full, badge: undefined } : { name: full.slice(0, i).trim(), badge: full.slice(i + 1).trim() };
+};
+const side = (slug: string) => {
+  const p = bySlug(slug);
+  return { ...splitCreds(p.name), role: p.role, photo: p.photo, slug: p.slug };
+};
+export const leadershipTrio = {
+  featured: { name: team[0].name, badge: team[0].badge as string, role: team[0].role, photo: team[0].photo, slug: team[0].slug, bio: team[0].bio as string },
+  left: side("stacy-cohen"),
+  right: side("emily-wessel"),
+};

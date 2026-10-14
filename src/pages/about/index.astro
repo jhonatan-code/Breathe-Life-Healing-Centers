@@ -18,19 +18,20 @@ import { msymChar } from "../../lib/icons";
  * Care Promise" has no description anywhere in this project beyond its own badge name,
  * so it's left as logo-only, same as before, rather than inventing what it verifies.
  *
- * Team preview uses the same `team` array as the homepage (src/data/home.ts),
- * Beck Gee only since 2026-09-25: per Charmaine, Brad Lamm is removed from
+ * Team preview uses the shared LeadershipTrio component (same as the homepage):
+ * Beck Gee featured, flanked by the medical and clinical directors (2026-10-07).
+ * Executive Leadership is Beck alone since 2026-09-25: per Charmaine, Brad Lamm is removed from
  * every leadership credit sitewide (his bio page now redirects to
  * /about/our-team/) and Deb Hughes moved to Marketing & Business Development.
  */
 import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
+import LeadershipTrio from "../../components/LeadershipTrio.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import SiteReviews from "../../components/SiteReviews.astro";
 import SiteLocation from "../../components/SiteLocation.astro";
 import SiteFinalCTA from "../../components/SiteFinalCTA.astro";
 import { site } from "../../config/site";
-import { team } from "../../data/home";
 
 const title = "About Breathe Life Healing Centers | Los Angeles";
 const description =
@@ -130,19 +131,7 @@ const ld = {
           <h2 style={`${S.h2}max-width:30ch;`}>The people behind Breathe</h2>
           <p style={`${S.intro}max-width:80ch;`}>Meet the leadership guiding Breathe every day.</p>
         </div>
-        <div style={`display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:${team.length === 1 ? 360 : 1100}px;margin:0 auto;`}>
-          {team.map((p) => (
-            <a href={`/about/our-team/${p.slug}/`} class="team-card" style="position:relative;display:block;border-radius:14px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 1px 2px rgba(20,24,28,0.08),0 10px 24px rgba(20,24,28,0.10);">
-              <img src={p.photo} alt={p.name} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 14%;display:block;" />
-              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0) 38%,rgba(22,41,61,0.55) 68%,rgba(22,41,61,0.94) 100%);"></div>
-              <span style="position:absolute;top:16px;right:16px;font-family:'Instrument Sans',sans-serif;font-size:10px;letter-spacing:0.14em;background:#FFFFFF;color:#2C5A64;padding:6px 10px;border-radius:4px;">{p.badge}</span>
-              <div style="position:absolute;left:0;right:0;bottom:0;padding:24px 26px;">
-                <div style="font-size:22px;font-weight:600;letter-spacing:-0.018em;color:#FFFFFF;">{p.name}</div>
-                <div style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:0.08em;color:#7FB3BC;margin:6px 0 0;">{p.role}</div>
-              </div>
-            </a>
-          ))}
-        </div>
+        <LeadershipTrio />
         <p style="text-align:center;margin:24px 0 0;font-family:'Montserrat',sans-serif;font-size:15px;">
           <a href="/about/our-team/" style="color:#33679C;font-weight:600;">Meet the full team →</a>
         </p>
