@@ -64,7 +64,7 @@ export const substances = [
   ["grass", "Marijuana Addiction", "Help for cannabis dependence at any level of use.", "/what-we-treat/marijuana/"],
   ["air", "Inhalant Addiction", "Care for inhalant use and its health effects.", "/what-we-treat/inhalants/"],
   ["biotech", "Designer Drug Addiction", "Treatment for synthetic and novel substance use.", "/what-we-treat/designer-drugs/"],
-  ["favorite", "Chemsex", "Compassionate, judgment-free chemsex recovery support, one of the few dedicated programs in the country.", "/signature-services/chemsex-treatment/"],
+  ["favorite", "Chemsex", "Compassionate, judgment-free chemsex recovery support, with dedicated groups at every level of care.", "/signature-services/chemsex-treatment/"],
 ] as const;
 
 export const mentalHealth = [
@@ -85,10 +85,10 @@ export const levels = [
 ] as const;
 
 export const signature = [
-    ["favorite", "Chemsex Treatment", "One of the few dedicated programs in the country for substance use and sex, treated together.", "Judgment-free, clinically specialised", "/signature-services/chemsex-treatment/"],
+    ["favorite", "Chemsex Treatment", "A specialized program for substance use in sexual contexts, with three dedicated groups each week at every level of care.", "Judgment-free, clinically specialized", "/signature-services/chemsex-treatment/"],
   ["healing", "Complex Trauma Treatment", "Trauma-informed care for the wounds underneath the substance use, not just the symptoms.", "Somatic and grief work", "/what-we-treat/complex-trauma/"],
   ["support_agent", "Individual Case Management", "One dedicated person who knows your file, your history, and your name for the entire stay, coordinating care across every level so nothing falls through the cracks.", "Assigned on day one", "/programs/case-management/"],
-  ["family_restroom", "Family Therapy Programs", "Family therapy, in person or online, and an in-person 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
+  ["family_restroom", "Family Therapy Programs", "For clients in PHP or IOP: family therapy, in person or online, and an in-person 3-Day Family Workshop, with room for chosen family as well as family of origin.", "Partners and chosen family welcome", "/programs/family-program/"],
   ["flight", "Flight Attendant Program", "Treatment shaped around airline rosters, union benefits, and a workforce we know well.", "Schedule- and union-aware", "/signature-services/flight-attendant-program/"],
   ["medication", "Medication-Assisted Treatment", "Medical support available where it is clinically appropriate, always paired with therapy and psychiatric oversight, never offered as treatment on its own.", "Prescriber on staff", "/programs/medication-assisted-treatment/"],
   ["diversity_3", "LGBTQIA+ Affirming Care", "Identity- and gender-affirming care available at every level of treatment, never a separate track.", "Affirming at every level", "/signature-services/lgbtq/"],
@@ -101,8 +101,8 @@ export const why = [
   ["healing", "#33679C", "Trauma-Informed Approach", "Care built around how trauma actually shows up, for deep and lasting healing."],
   ["cottage", "#33679C", "Residential, Whole-Person Care", "A private, inclusive, and affirming space to live and heal on our Laurel Canyon campus, not just a bed and a schedule."],
   ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate, care that respects who knows you're here, on your terms."],
-  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Family therapy and an in-person 3-Day Family Workshop, with room for chosen family, not only family of origin."],
-  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Every person here, from the front desk to clinical leadership, has personal recovery experience, you're not being treated by someone who studied it from the outside."],
+  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Once clients step down to PHP or IOP, family therapy and an in-person 3-Day Family Workshop, with room for chosen family, not only family of origin."],
+  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Many of our team members, from the front desk to clinical leadership, have personal recovery experience, so you're not only being treated by people who studied it from the outside."],
 ] as const;
 
 export const steps = [
@@ -137,8 +137,8 @@ export const faqGroups = [
     icon: "call",
     label: "Before you call",
     items: [
-      { q: "What is it actually like to be here day to day?", a: "Structured, but not institutional. Mornings start with community and group work, afternoons hold individual therapy and specialised sessions, evenings are quieter: meals together, meetings, time outside. You live in a residential home in Laurel Canyon with other people who understand why you came, not in a ward." },
-      { q: "What happens on the first day I arrive?", a: "Someone meets you at the door. There is a medical and clinical intake, a chance to unpack and eat, and a walk-through of the house. Nobody puts you in a group on day one. The first day is about landing safely." },
+      { q: "What is it actually like to be here day to day?", a: "Structured, but not institutional. Mornings start with medication and time for the gym, meditation or reading. Then come four 90-minute groups with short breaks and an hour for lunch, wrapping at 4 pm, with therapist and case manager sessions fit around them. Evenings hold free time, a community meeting, dinner together and a meeting or time with the community. You live in a residential home in Laurel Canyon, not a ward." },
+      { q: "What happens on the first day I arrive?", a: "Someone meets you at the door, and the nurses see you first. Staff check your bags with you, help you settle into your room and introduce you to the program. Depending on how you feel, you rest or start joining the community and groups at your own pace. Nobody rushes you. The first day is about landing safely." },
       { q: "I am not sure I need rehab. Is it worth calling anyway?", a: "Yes, and that is a very common place to be starting from. You do not need to have decided anything, name it a certain way, or hit some threshold first. Tell us what has been happening and we will tell you honestly what we think, including if we are not the right fit and someone else would serve you better." },
     ],
   },
@@ -146,15 +146,15 @@ export const faqGroups = [
     icon: "home_health",
     label: "While you are here",
     items: [
-      { q: "How long does treatment usually last?", a: "It is shaped around your progress rather than a fixed calendar, and it varies by level of care and by what a plan authorises. Most people step down gradually, through PHP, IOP, or transitional living, rather than going straight home, and the plan is built with you and changes as you do." },
-      { q: "Can my family, or my chosen family, be part of it?", a: "Yes. Alongside family therapy, which can also happen online, we run a 3-Day Family Workshop in person, and family here means the people who actually show up for you: partners, chosen family, close friends. You stay in contact with them throughout; connection is part of the treatment, not a privilege to earn." },
+      { q: "How long does treatment usually last?", a: "It is shaped around your progress rather than a fixed calendar, and it varies by level of care and by what a plan authorizes. Most people step down gradually, through PHP, IOP, or transitional living, rather than going straight home, and the plan is built with you and changes as you do." },
+      { q: "Can my family, or my chosen family, be part of it?", a: "Yes. While you are in residential, your care team keeps your family honestly informed. Once you step down to PHP or IOP, and with your therapist's approval, the family program begins: family therapy, which can also happen online, and an in-person 3-Day Family Workshop. Family here means the people who actually show up for you: partners, chosen family, close friends." },
     ],
   },
   {
     icon: "savings",
     label: "After, and what it costs",
     items: [
-      { q: "What happens when residential treatment ends?", a: "You do not simply leave. Before discharge we build the next step with you: outpatient care, transitional living, therapists, a meeting schedule. Our Alumni Program keeps a real community around you afterwards, with groups and staff who follow up because they want to know how you are." },
+      { q: "What happens when residential treatment ends?", a: "You do not simply leave. Before discharge we build the next step with you: PHP or IOP, where life skills and time management take a bigger role, transitional living, therapists, a meeting schedule. Our Alumni Program keeps a real community around you afterwards, with groups and staff who follow up because they want to know how you are." },
       { q: "Will my insurance help cover this?", a: "Very likely. We are in-network with most major providers, and our team [verifies your specific benefits](/admissions/insurance/) directly with your insurer, at no cost and with no obligation, before you commit to anything. We do not accept Medi-Cal or Medicare, and if that is your coverage we will say so straight away and point you somewhere that can help." },
     ],
   },

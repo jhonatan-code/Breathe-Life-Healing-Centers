@@ -54,9 +54,9 @@ const S = {
 // cards and /therapies/gender-affirming-care/.
 const commitments = [
   { icon: "badge", title: "Correct names and pronouns", text: "From the first phone call, not after an adjustment period. It shouldn't be something you have to ask for twice." },
-  { icon: "psychology", title: "Clinicians trained in minority stress", text: "A clinical team trained in the minority stress model and the trauma pathways common in LGBTQIA+, trans and nonbinary experience." },
+  { icon: "psychology", title: "Clinicians trained in minority stress", text: "A team that includes LGBTQIA+ people and allies, trained in the minority stress model and the trauma pathways common in LGBTQIA+, trans and nonbinary experience." },
   { icon: "home_health", title: "Gender-appropriate facilities", text: "Access to gender-appropriate facilities and living arrangements is part of how care is structured on campus." },
-  { icon: "family_restroom", title: "Chosen family welcomed", text: "Partners and chosen family are valid participants in family therapy and the in-person 3-Day Family Workshop." },
+  { icon: "family_restroom", title: "Chosen family welcomed", text: "Partners and chosen family are valid participants in family therapy and the in-person 3-Day Family Workshop, open to clients in PHP or IOP with therapist approval." },
 ];
 
 // Levels of care, short labels; links are the real program pages.
@@ -74,10 +74,10 @@ const ladder = [
 const modalities = [
   { icon: "healing", title: "Trauma-Focused Therapy", text: "Care shaped around how trauma actually presents, including the identity-related trauma many clients carry.", links: [["Trauma-focused therapy", "/therapies/trauma-focused-therapy/"]] },
   { icon: "diversity_3", title: "Gender-Affirming Care", text: "Shapes how every therapy is delivered, from the name on your chart to how your family is involved.", links: [["Gender-affirming care", "/therapies/gender-affirming-care/"]] },
-  { icon: "psychology", title: "CBT and DBT", text: "Practical skills for cravings, emotions and relationships, applied to the stressors in your actual life.", links: [["CBT", "/therapies/cbt/"], ["DBT", "/therapies/dbt/"]] },
+  { icon: "psychology", title: "CBT, DBT and Motivational Interviewing", text: "Practical skills for cravings, emotions and relationships, built in process groups, skills-based groups and psychoeducation, then applied to the stressors in your actual life.", links: [["CBT", "/therapies/cbt/"], ["DBT", "/therapies/dbt/"], ["Motivational interviewing", "/therapies/motivational-interviewing/"]] },
   { icon: "self_improvement", title: "Somatic Therapy", text: "Body-based work for stress and trauma that talk therapy alone doesn't always reach.", links: [["Somatic therapy", "/therapies/somatic-therapy/"]] },
-  { icon: "family_restroom", title: "Family Program", text: "Family therapy in person or online, plus the in-person 3-Day Family Workshop, with chosen family included.", links: [["Family program", "/programs/family-program/"]] },
-  { icon: "palette", title: "Experiential and Holistic", text: "Art, music, yoga and mindfulness alongside clinical care, for the parts of recovery that aren't about talking.", links: [["Experiential therapies", "/therapies/experiential-therapies/"]] },
+  { icon: "family_restroom", title: "Family Program", text: "For clients in PHP or IOP, with therapist approval: family therapy in person or online, plus the in-person 3-Day Family Workshop, with chosen family included.", links: [["Family program", "/programs/family-program/"]] },
+  { icon: "palette", title: "Experiential and Holistic", text: "Yoga, mindfulness, breathwork, sound baths, art and music alongside clinical care, for the parts of recovery that aren't about talking.", links: [["Experiential therapies", "/therapies/experiential-therapies/"], ["Yoga and mindfulness", "/therapies/yoga-mindfulness/"]] },
 ];
 
 // Beck Gee shown inside the "Staff Who've Lived It" card (from data/home.ts `team`).
@@ -88,18 +88,18 @@ const proofExcerpt =
   "I have brought LGBTQ clients and straight or cis gender clients and both are welcomed equally and given the same overwhelming amount of love and acceptance.";
 
 const faqs = [
-  { q: "Is Breathe only for LGBTQIA+ clients?", a: "Breathe is a drug and alcohol detox and residential treatment center open to everyone. LGBTQIA+ affirming care is part of every level of treatment, and every client is held to the same standard of care." },
+  { q: "Is Breathe only for LGBTQIA+ clients?", a: "Breathe is a drug and alcohol detox and residential treatment center open to everyone. We fully support every client, regardless of gender identity or expression, biological sex, sexual orientation or race. LGBTQIA+ affirming care is part of every level of treatment, and every client is held to the same standard of care." },
   { q: "What does gender-affirming care actually look like day to day?", a: "Correct names and pronouns from the first phone call, not after an adjustment period, and access to gender-appropriate facilities. Staff are trained in the specific weight of being LGBTQIA+ in addiction and mental health treatment, not just in general. More on [gender-affirming care](/therapies/gender-affirming-care/)." },
-  { q: "Does 'family' in your programming mean my biological family?", a: "Partners, chosen family, and community are valid participants in [family therapy](/programs/family-program/), our 3-Day Family Workshop, and every other part of how we involve the people who matter to you." },
-  { q: "Will I be treated by staff who understand LGBTQIA+ experience specifically?", a: "Staff here are trained in minority stress and the specific weight of being LGBTQIA+, not general sensitivity training applied to every population." },
+  { q: "Does 'family' in your programming mean my biological family?", a: "Partners, chosen family, and community are valid participants in [family therapy](/programs/family-program/), our 3-Day Family Workshop, and every other part of how we involve the people who matter to you. The family program begins once you step down to PHP or IOP, with your therapist's approval. During residential care, your care team keeps them informed." },
+  { q: "Will I be treated by staff who understand LGBTQIA+ experience specifically?", a: "Yes. Our team includes LGBTQIA+ people and allies, and staff here are trained in minority stress and the specific weight of being LGBTQIA+, not general sensitivity training applied to every population." },
   { q: "Is chemsex treatment part of this, or a separate thing?", a: "[Chemsex and Sexualized Drug Use Treatment](/signature-services/chemsex-treatment/) is a dedicated track that runs alongside affirming care. It is open to anyone, regardless of sexual orientation or gender identity." },
   { q: "Does insurance cover this the same way as standard treatment?", a: "Yes. In most cases, we're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
 const why: [string, string, string, string][] = [
   ["diversity_3", "#33679C", "LGBTQIA+ Affirming Care at Every Level", "Gender-affirming, identity-affirming clinical care, clinicians who understand minority stress and staff who use your pronouns without being asked twice."],
-  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Every person here, from the front desk to clinical leadership, has personal recovery experience, you're not being treated by someone who studied it from the outside."],
-  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Family therapy and an in-person 3-Day Family Workshop, with room for chosen family, not only family of origin."],
+  ["volunteer_activism", "#478694", "Staff Who've Lived It", "Many of our team members, from the front desk to clinical leadership, have personal recovery experience, so you're not being treated only by people who studied it from the outside."],
+  ["family_restroom", "#33679C", "Chosen Family Welcome in Programming", "Once you step down to PHP or IOP, family therapy and an in-person 3-Day Family Workshop, with room for chosen family, not only family of origin."],
   ["lock", "#33679C", "Your Privacy, Protected", "Confidentiality built into every part of how we operate, care that respects who knows you're here, on your terms."],
 ];
 
@@ -178,7 +178,7 @@ const ld = {
         <div style="text-align:center;margin-bottom:36px;">
           <div style={S.eyebrow}>At Breathe</div>
           <h2 style={`${S.h2}max-width:30ch;`}>What Affirming Care Means at Breathe</h2>
-          <p style={`${S.intro}max-width:80ch;`}>Affirming care is part of every level of treatment here, not a separate track added to a program built with someone else in mind. Breathe is open to everyone, and every client is held to the same standard of care.</p>
+          <p style={`${S.intro}max-width:80ch;`}>Affirming care is part of every level of treatment here, not a separate track added to a program built with someone else in mind. Breathe is open to everyone and fully supports every client, regardless of gender identity or expression, biological sex, sexual orientation or race. Our team includes LGBTQIA+ people and allies, and every client is held to the same standard of care.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
           {commitments.map((c, i) => {
@@ -244,7 +244,7 @@ const ld = {
           <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E6EDF4;margin-bottom:14px;">Chemsex</div>
           <h2 style={`${S.h2}margin-left:0;color:#FFFFFF;max-width:24ch;`}>Chemsex and Sexualized Drug Use</h2>
           <p style={`${S.intro}color:#DCE6EF;margin:0 0 16px;max-width:64ch;`}>Chemsex is substance use that has become tied to sex, intimacy or hookup culture, most often involving methamphetamine. It is its own clinical issue, and Breathe does not treat it as sex addiction.</p>
-          <p style={`${S.intro}color:#DCE6EF;margin:0 0 26px;max-width:64ch;`}>Our dedicated chemsex track works alongside affirming care and is open to anyone, regardless of sexual orientation or gender identity.</p>
+          <p style={`${S.intro}color:#DCE6EF;margin:0 0 26px;max-width:64ch;`}>Our dedicated chemsex track is compassionate, nonjudgmental and sex positive, with three chemsex groups each week at every level of care. It works alongside affirming care and is open to anyone, regardless of sexual orientation or gender identity.</p>
           <a class="cta cta--light" href="/signature-services/chemsex-treatment/" style={S.ctaWhite}>Learn About Chemsex Treatment</a>
         </div>
         <img src={galleryImg("facility-24-residence-lounge-deck.jpg")} alt="Residence lounge deck at the Breathe Life campus" loading="lazy" style="width:100%;max-width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block;" />

@@ -63,11 +63,11 @@ const included = [
   },
   {
     icon: "calendar_month", title: "A structured daily schedule",
-    text: "Therapy, groups, and quiet time balanced across the day, with psychiatric care built in for both addiction and mental health.",
+    text: "Four 90-minute groups that wrap at 4 pm, with individual therapy, case management, and psychiatric care for both addiction and mental health fit around them.",
   },
   {
     icon: "family_restroom", title: "Family involved, on your terms",
-    text: "Family therapy that doesn't assume blood relationships. Partners and chosen family are welcome participants.",
+    text: "Your care team keeps family honestly informed during your stay. The family program begins when you step down to PHP or IOP, with partners and chosen family welcome.",
   },
   {
     icon: "trending_down", title: "A planned step-down",
@@ -88,14 +88,20 @@ const ladder = [
   { n: "Ongoing support", title: "Intensive Outpatient", href: "/programs/intensive-outpatient/", text: levels.find((l) => l.title === "IOP, Intensive Outpatient (SUD, MH)")!.text },
 ];
 
-// Verbatim from Breathe_Life_Residential_Treatment_FAQ.docx (2026-09-14).
+// From Breathe_Life_Residential_Treatment_FAQ.docx (2026-09-14); the daily-schedule
+// answer and the first-day, transfer, therapies, and post-acute withdrawal FAQs
+// follow the clinician questionnaire (docs/context/clinician-questionnaire-2026-10.md).
 const faqs = [
   { q: "What are the admission criteria for residential treatment?", a: "Your clinical team assesses your specific situation, including whether medical detox is needed first, to determine if residential care is the right starting point for you." },
   { q: "How long does residential treatment usually last?", a: "It varies by individual, generally averaging around 90 days. Your specific plan is built around your progress, not a fixed timeline." },
-  { q: "What does a typical day actually look like?", a: "A structured daily schedule, therapy, groups, and quiet time balanced across the day, with psychiatric care built in for both addiction and mental health, not treated as separate tracks." },
+  { q: "What does a typical day in residential treatment look like?", a: "Mornings start with medication and time for the gym, meditation, or reading. Then come four 90-minute groups, with short breaks and an hour for lunch, wrapping at 4 pm. Sessions with your therapist and case manager fit around groups. After that there's free time, a community meeting, dinner, and an evening meeting or time with the community, then evening medication and lights out." },
+  { q: "What happens on the first day of residential treatment?", a: "After intake, you meet with our nurses first. Staff check your bags with you, help you settle in, and introduce you to the program, your therapist, and your peers. Depending on how you feel, you can rest or start joining the community and groups at your own pace. Nobody is pushed into a full schedule on day one." },
+  { q: "Can I transfer to residential treatment from a hospital or another program?", a: "Yes. A transfer is handled the same way as any admission to Breathe. You complete an intake, meet with the nurses, and are introduced to the program, then settle in at a pace that fits how you're feeling. If you're unsure whether you're ready to move from where you are now, call us and we'll talk it through with you." },
+  { q: "What therapies are used in residential treatment?", a: "Residential treatment at Breathe draws on CBT, DBT, motivational interviewing, mindfulness, and psychoeducation, alongside process groups, skills-based and wellness groups, yoga, breathwork, and sound baths. The focus is helping you reconnect with your body, stay regulated, and build the stability needed for the deeper trauma work that comes later in treatment." },
+  { q: "Is it normal to feel low in the first weeks of residential treatment?", a: "Yes. Many people go through post-acute withdrawal during residential treatment, which can affect your mood and how you feel about yourself and where you are. There is often some grief, too, for the substances and the life that came with them. It's a normal part of early recovery, and our clinical team helps you through it rather than expecting you to push past it." },
   { q: "Do I need to complete detox first?", a: "In many cases, yes, if you're medically dependent on a substance. [Detox](/programs/medical-detox/) is usually the first level of care people move into before, or directly into, residential treatment." },
   { q: "Will I be in a clinical, hospital-like environment?", a: "You live on-site in community with others doing the same work, in housing on our Laurel Canyon campus, not a clinical ward." },
-  { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in family programming." },
+  { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in the family program once clients step down to PHP or IOP." },
   { q: "Is residential treatment covered by insurance?", a: "In most cases, yes. We're in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
 ];
 
@@ -173,6 +179,7 @@ const ld = {
           <div style={S.eyebrow}>Understanding</div>
           <h2 style={`${S.h2}margin:0 0 14px;max-width:30ch;`}>What residential treatment looks like</h2>
           <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>Residential treatment is our most structured, primary level of care. You live on-site on our Laurel Canyon campus, with 24/7 supervision, daily therapy, and psychiatric care for both addiction and mental health, rather than fitting recovery around the rest of your life.</p>
+          <p style={`${S.intro}margin:0 0 16px;max-width:58ch;`}>The work blends CBT, DBT, motivational interviewing, mindfulness, and psychoeducation with process groups, skills-based and wellness groups, yoga, breathwork, and sound baths. Residential is where you reconnect with your body and get steady enough for the deeper trauma work that follows.</p>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#646D76;margin:0;max-width:58ch;">It's usually the first full level of care people move into, either directly, or after a medically supervised detox, and it's the foundation the rest of a treatment plan is built on.</p>
         </div>
         <div class="treat-card" style="background:#F7F5F1;border:1px solid #E2DED7;border-top:2px solid #33679C;border-radius:12px;padding:30px 30px;box-shadow:0 1px 2px rgba(20,24,28,0.05),0 6px 16px rgba(20,24,28,0.05);">
@@ -213,9 +220,9 @@ const ld = {
             <div class="dash-top"><span class="dash-tag">Daily</span><span class="dash-live"><span class="dash-live-dot"></span>In session</span></div>
             <h3>{included[1].title}</h3>
             <div class="checklist">
-              <span><span class="checkbox"></span>Therapy</span>
-              <span><span class="checkbox"></span>Groups</span>
-              <span><span class="checkbox"></span>Quiet time</span>
+              <span><span class="checkbox"></span>Morning gym, meditation, or reading</span>
+              <span><span class="checkbox"></span>Four groups, done by 4 pm</span>
+              <span><span class="checkbox"></span>Community meeting and dinner</span>
             </div>
           </div>
           <div class="dash-card">
