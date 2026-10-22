@@ -64,9 +64,12 @@ const S = {
 
 const level = levels.find((l) => l.title === "IOP, Intensive Outpatient (SUD, MH)")!;
 
+// Fit, the IOP5/IOP3 tracks and the hours per the round-2 clinician
+// questionnaire (CW, IOP Program Manager, and RA, 2026-10):
+// docs/context/clinician-questionnaire-2026-10-round2.md
 const forYou = [
   "Balancing treatment with work, school, or family responsibilities",
-  "Completed a higher level of care and need continued support",
+  "Using the tools you've built and ready to try them out in the real world",
   "Want structured therapy several times a week without living on-site",
   "Need more support than standard outpatient care but don't need PHP",
 ];
@@ -76,7 +79,7 @@ const forYou = [
 // from Breathe_Life_IOP_FAQ.docx (2026-09-11, sourced from the live page's
 // "Duration of IOP Treatment" accordion) instead of staying generic.
 const orbitFacts = [
-  { title: "A flexible weekly schedule", text: "IOP typically starts around three hours a day, five days a week. Your schedule is adjusted over time based on your progress, not fixed in advance." },
+  { title: "A flexible weekly schedule", text: "IOP runs on weekday mornings, about three hours a session, five days a week to start and three days a week later on. Your schedule is adjusted over time based on your progress, not fixed in advance." },
   { title: "Group and individual therapy", text: "A mix of group work and one on one sessions each week." },
   { title: "Continued psychiatric care", text: "Ongoing clinical oversight for both addiction and mental health as you step down." },
   { title: "Coordination with your daily life", text: "We work around work, school, or family responsibilities instead of asking you to pause them." },
@@ -98,12 +101,13 @@ const whyPicks = why.filter(([, , h]) =>
 // Verbatim from Breathe_Life_IOP_FAQ.docx (2026-09-11), sourced by that
 // brief from the live /intensive-outpatient-program/ page.
 const faqs = [
-  { q: "How many hours per week does IOP require?", a: "IOP typically starts around three hours a day, five days a week. Your schedule is adjusted over time based on your individual progress, not fixed in advance." },
+  { q: "How many hours per week does IOP require?", a: "IOP meets on weekday mornings for about three hours a session. Most people start five days a week, while they're putting new tools into practice, looking for work, going to meetings and building a community outside treatment. Once you've started working and can regulate your emotions and manage your own schedule, IOP can step down to three days a week. Your schedule is adjusted based on your individual progress, not fixed in advance." },
+  { q: "Who is IOP a good fit for?", a: "People who are using the skills they built in a higher level of care and are ready to try them out in everyday life, with structure and clinical support still in place. Placement is based on a clinical assessment, your stability and your recovery needs." },
   { q: "How long does IOP usually last?", a: "There is no set duration. Length is shaped around your progress and reassessed along the way, rather than following a fixed calendar." },
   { q: "What types of therapy are included in IOP?", a: "A mix of group therapy, individual sessions, and evidence-based approaches like CBT, alongside experiential and wellness practices. IOP also puts more focus on life skills and time management, so treatment fits the life you're rebuilding." },
   { q: "Do I still get individual attention in a group-based program?", a: "Yes. One on one therapy sessions are a core part of IOP, alongside group sessions and workshops." },
   { q: "Can I keep working or going to school while in IOP?", a: "Yes. IOP is built around your daily responsibilities rather than asking you to pause them, with sessions structured to work around work, school, or family." },
-  { q: "What happens after I complete IOP?", a: "Support continues through our BreatheOUT alumni group, relapse prevention resources, and a gradual step down to standard outpatient care. The life skills and time management you practice in IOP carry straight into that next stage." },
+  { q: "What happens after I complete IOP?", a: "Support continues through our BreatheOUT alumni group, relapse prevention resources, and a gradual step down to standard outpatient care. Before you finish, your team helps set up what comes next, such as sober living, an outside therapist and psychiatrist, or a program with case management and life skills if that fits you better. The life skills and time management you practice in IOP carry straight into that next stage." },
   { q: "Can my family be involved while I'm in IOP?", a: "Yes. Our [family program](/programs/family-program/) is for clients in PHP or IOP, with your therapist's approval. It includes family therapy, which can happen in person or online, and an in-person 3-Day Family Workshop. Partners and chosen family are welcome, and participation depends on your willingness and theirs." },
   { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in our family program." },
   { q: "Is IOP covered by insurance?", a: "In most cases, yes. We are in-network with most major providers, and our team works with your insurer directly to explain costs and coverage before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },

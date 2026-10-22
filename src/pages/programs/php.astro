@@ -8,10 +8,9 @@ import { LEVEL_CTA } from "../../lib/levelLinks";
  *
  * FAQ (below) added per Breathe_Life_PHP_FAQ.docx (2026-09-11) — sourced by
  * the brief from the live /day-treatment/ page, confirmed against that page
- * directly. The live page doesn't state exact weekly hours/days, insurance
- * criteria beyond what's already used sitewide, or a specific step-down
- * decision process — the brief deliberately leaves a schedule question out
- * rather than inventing numbers, and this FAQ does the same.
+ * directly. The live page didn't state weekly hours; the round-2 clinician
+ * questionnaire (2026-10) now does, so the hours, fit and transfer FAQs
+ * below come from docs/context/clinician-questionnaire-2026-10-round2.md.
  *
  * Page-specific redesign (2026-09-11, approved — see CLAUDE.md
  * "## Page structure — fixed shared sections"): the generic "Understanding"
@@ -57,8 +56,10 @@ const S = {
 
 const level = levels.find((l) => l.title === "PHP, Day Treatment (SUD, MH)")!;
 
+// Fit and schedule per the round-2 clinician questionnaire (CW, IOP Program
+// Manager, and RA, 2026-10): docs/context/clinician-questionnaire-2026-10-round2.md
 const forYou = [
-  "You've completed detox or residential and need continued daily structure",
+  "You've begun to stabilize, physically and emotionally, and are ready to build the tools you'll carry home",
   "You want intensive treatment during the day, while sleeping elsewhere at night",
   "You're stepping down from residential without stepping down too fast",
   "You need a higher level of support than IOP offers",
@@ -66,10 +67,10 @@ const forYou = [
 
 // Day Arc phases — the same four "What's Included" facts, re-presented as
 // the shape of a day (Morning/Midday/Afternoon/Evening) rather than a
-// generic icon grid. Labels are narrative structure, not a claimed
-// schedule — Breathe doesn't publish exact hours (see FAQ brief above).
+// generic icon grid. PHP runs weekdays, about six hours a day (round-2
+// questionnaire); the phase labels are still narrative, not clock times.
 const included = [
-  { label: "Morning", icon: "calendar_month", title: "Full days of structured programming", text: "Group therapy, individual sessions, and clinical care fill the day, most days of the week." },
+  { label: "Morning", icon: "calendar_month", title: "Full days of structured programming", text: "Group therapy, individual sessions, and clinical care fill the day, five days a week." },
   { label: "Midday", icon: "psychology", title: "Continued psychiatric and clinical care", text: "The same level of clinical attention as residential care, without living on-site.", pills: ["Group therapy", "Individual therapy", "Psychiatric care"] },
   { label: "Afternoon", icon: "trending_down", title: "A planned step-down from residential", text: "PHP is usually the next level down after residential, a bridge, not a drop-off.", pills: ["Holistic wellness", "Skill-building", "Relapse prevention"] },
   { label: "Evening", icon: "home_work", title: "Housing support if you need it", text: "If you don't have somewhere stable to sleep at night, we help connect you with sober living." },
@@ -101,7 +102,9 @@ const faqs = [
   { q: "Can my family take part while I'm in PHP?", a: "Yes. Our [family program](/programs/family-program/) is for clients in PHP or IOP, with your therapist's approval. It includes family therapy, which can happen in person or online, and an in-person 3-Day Family Workshop. Partners and chosen family are welcome, and participation depends on your willingness and theirs." },
   { q: "Who is welcome at Breathe?", a: "Clients of every background. Breathe offers [LGBTQIA+ affirming care](/signature-services/lgbtq/) at every level of treatment, and partners and chosen family are welcome in our family program." },
   { q: "Is PHP covered by insurance?", a: "In most cases, yes. We are in-network with most major providers and [verify your specific benefits](/admissions/insurance/) before you commit to anything. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
-  { q: "Who is PHP a good fit for?", a: "People who need more support than outpatient care offers, but do not require round the clock residential supervision." },
+  { q: "Who is PHP a good fit for?", a: "People who have begun to stabilize, physically and emotionally, and are now gathering the tools they'll take back into daily life. It suits anyone who needs more support than outpatient care offers but doesn't need round the clock residential supervision. Placement is based on a clinical assessment, not a fixed rule." },
+  { q: "How many hours a day is PHP?", a: "PHP runs Monday through Friday, about six hours a day, at our outpatient clinic on Melrose Avenue. Your own schedule is confirmed at intake." },
+  { q: "What if I'm coming to PHP from a hospital or another program?", a: "With your permission, we coordinate with the referring team first, reviewing your treatment history, medications, current needs and goals so your care continues without a gap. On your first day you get an orientation, join your first group, and are paired with a peer buddy." },
 ];
 
 const pageUrl = new URL("/programs/php/", site.domain).href;
@@ -205,7 +208,7 @@ const ld = {
             </div>
           ))}
         </div>
-        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13px;font-style:italic;color:#646D76;margin:20px 0 0;">Order shown is illustrative, Breathe doesn't publish exact hours. Your own schedule is set at intake.</p>
+        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:13px;font-style:italic;color:#646D76;margin:20px 0 0;">PHP runs Monday through Friday, about six hours a day. Your own schedule is confirmed at intake.</p>
       </div>
     </section>
 
