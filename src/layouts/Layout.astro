@@ -11,6 +11,10 @@ interface Props {
 }
 const { title, description, path = "/", ogImage = "/og-default.jpg" } = Astro.props;
 const canonical = new URL(path, site.domain).href;
+// Share images load from the host that actually serves this build: Vercel's production domain (the .vercel.app alias
+// until the real domain is attached). site.domain is still the live WordPress site, where these files 404
+const prodHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const ogImageUrl = new URL(ogImage, prodHost ? `https://${prodHost}` : site.domain).href;
 ---
 
 <!doctype html>
@@ -30,8 +34,12 @@ const canonical = new URL(path, site.domain).href;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(ogImage, site.domain).href} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pool and waterfall grotto at the Breathe Life Healing Centers campus in Laurel Canyon" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
