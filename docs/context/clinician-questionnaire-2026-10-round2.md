@@ -143,3 +143,15 @@ _Site check 2026-10-22: no "cured" or success-rate claims on pages. "Broken" app
 1. **IFS:** add it, since it comes directly from the clinicians ("maybe they got an IFS therapist"). Added to the therapies page (trauma-focused card), IOP therapy FAQ and the dual-diagnosis trauma answer. EMDR and contingency management stay out.
 2. **Family Workshop:** keep "a small group" so it doesn't overpromise if a workshop has 6 families instead of 5. Eligibility stays PHP/IOP with therapist approval (Mark's answer).
 3. **Residential length of stay:** replaced "generally averaging around 90 days" with Jasmine's wording: "Length of stay is different for everyone. Your clinical team reviews your progress throughout treatment and adjusts your plan with you, so you stay as long as you need."
+
+## Alignment pass (María, 2026-10-22)
+
+Every answer in both rounds checked against the site. Changes:
+
+- **Added** homepage FAQ "I have never been in treatment..." (1.1 from all four clinicians, plus unsigned 6.2).
+- **Added** residential FAQ "What if I'm also dealing with depression, anxiety or trauma?" (Mark 1.5).
+- **Fixed** Family Workshop: "immersive weekend" changed to "3-day intensive" (CW 3.2 never says weekend).
+- **Fixed** blog `chosen-family-and-recovery...`: removed "Breathe Together" and "free" (not in any answer) and added the PHP/IOP + therapist-approval eligibility (Mark 3.2).
+- **Fixed** outpatient FAQ: removed "six to eight weeks" (fixed duration; clinicians describe care as individual; what-not-to-publish §2).
+
+Already covered before this pass: schedules, PHP/IOP fit, transfers (orientation, first group, peer buddy), aftercare, family program, chemsex week and workbook, trans rooming, IFS, banned words.
