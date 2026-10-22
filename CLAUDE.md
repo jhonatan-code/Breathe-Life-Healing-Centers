@@ -87,7 +87,12 @@ system repo, not here. Sources: `docs/brand/Breathe_Life_Brand_Brief.docx`,
   own clinical issue.
 - **Do not lead with, or frame punitively, the abstinence-based policy** (no cannabis cards,
   no stimulants for ADHD, no marijuana during treatment).
-- **Do not reference EMDR, IFS, or contingency management** — Breathe does not offer them.
+- **Do not reference EMDR or contingency management**, Breathe does not offer them. **IFS is
+  offered** (round-2 clinicians use it; Jasmine approved adding it, 2026-10-22).
+- **Family Workshop size:** say "a small group", never a number of families (Jasmine,
+  2026-10-22). Eligibility stays PHP/IOP clients with therapist approval.
+- **Residential length of stay:** no average or day count. Use "Length of stay is different for
+  everyone..." wording (Jasmine, 2026-10-22).
 - **Positioning (ClickUp, 2026-10-14, supersedes the earlier "LGBTQ+ as primary audience"
   rule):** Breathe is a **drug and alcohol detox and residential treatment center in Los
   Angeles**. LGBTQ language is toned down sitewide: none in the homepage, program pages, page

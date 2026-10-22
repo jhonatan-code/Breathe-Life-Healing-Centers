@@ -137,3 +137,9 @@ _Site check 2026-10-22: no "cured" or success-rate claims on pages. "Broken" app
 > CW: That when you are here you will be treated like family. (But I think that's a term that Olive Garden uses, lol.)
 
 > Unsigned: What I wish people understood about Breathe is that our work goes beyond treating addiction; it is about helping people understand themselves and create a different relationship with their lives. Sobriety is an essential foundation, but we believe lasting recovery also requires addressing the emotional wounds, relational patterns, shame, and unmet needs that may have contributed to the addiction in the first place.
+
+## Decisions (Jasmine, Slack DM with María, 2026-10-22)
+
+1. **IFS:** add it, since it comes directly from the clinicians ("maybe they got an IFS therapist"). Added to the therapies page (trauma-focused card), IOP therapy FAQ and the dual-diagnosis trauma answer. EMDR and contingency management stay out.
+2. **Family Workshop:** keep "a small group" so it doesn't overpromise if a workshop has 6 families instead of 5. Eligibility stays PHP/IOP with therapist approval (Mark's answer).
+3. **Residential length of stay:** replaced "generally averaging around 90 days" with Jasmine's wording: "Length of stay is different for everyone. Your clinical team reviews your progress throughout treatment and adjusts your plan with you, so you stay as long as you need."
