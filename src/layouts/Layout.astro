@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { site } from "../config/site";
+import CookieConsent from "../components/CookieConsent.astro";
 
 interface Props {
   title: string;
@@ -39,6 +40,9 @@ const canonical = new URL(path, site.domain).href;
       rel="stylesheet"
     />
 
+    <!-- Consent Mode v2 defaults (denied) must run before GTM -->
+    <CookieConsent part="head" prefix="breathe" />
+
     <!-- Google Tag Manager -->
     <script define:vars={{ gtmId: site.gtmContainerId }}>
       (function (w, d, s, l, i) {
@@ -59,5 +63,14 @@ const canonical = new URL(path, site.domain).href;
     <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${site.gtmContainerId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <slot />
+    <CookieConsent
+      prefix="breathe"
+      privacyHref="/notice-of-privacy-practices/"
+      privacyLabel="Notice of Privacy Practices"
+      primary="#33679c"
+      primaryDark="#16293d"
+      text="#16293d"
+      titleFont="'Instrument Sans', sans-serif"
+    />
   </body>
 </html>

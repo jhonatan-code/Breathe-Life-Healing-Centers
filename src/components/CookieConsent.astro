@@ -1,0 +1,154 @@
+---
+// Cookie consent (agency 2026-10-22), the same setup shipped on www.altamirarecovery.com: the CookieYes notice text,
+// driving Google Consent Mode v2. Render it twice in the layout:
+//   <CookieConsent part="head" />  in <head>, BEFORE the GTM snippet: analytics and ads start denied, and a choice
+//                                   saved on an earlier visit is re-applied before any tag runs
+//   <CookieConsent />               in <body>: the banner (first visit only). Reject is one click, the same as accept
+// Any element with data-cookie-prefs (the footer "Cookie Preferences" link) reopens the banner.
+// Each choice is stored in localStorage (`<prefix>_consent`) and pushed to the dataLayer as `<prefix>_consent_update`
+// with `<prefix>_consent_analytics` / `<prefix>_consent_ads` = granted | denied, for non-Google tags in GTM.
+interface Props {
+  part?: 'head' | 'banner';
+  prefix: string;
+  privacyHref?: string;
+  privacyLabel?: string;
+  /** Brand colours and title font */
+  primary?: string;
+  primaryDark?: string;
+  text?: string;
+  titleFont?: string;
+}
+const {
+  part = 'banner',
+  prefix,
+  privacyHref = '/privacy-policy/',
+  privacyLabel = 'Privacy Policy',
+  primary = '#00467E',
+  primaryDark = '#083151',
+  text = '#0B1C33',
+  titleFont = 'inherit',
+} = Astro.props;
+const key = `${prefix}_consent`;
+const theme = `--cc-primary:${primary};--cc-primary-dark:${primaryDark};--cc-text:${text};--cc-title-font:${titleFont};`;
+---
+{part === 'head' ? (
+  <script is:inline define:vars={{ key }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied',
+      functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500,
+    });
+    gtag('set', 'ads_data_redaction', true);
+    try {
+      var saved = JSON.parse(localStorage.getItem(key) || 'null');
+      if (saved) {
+        var a = saved.analytics ? 'granted' : 'denied', m = saved.ads ? 'granted' : 'denied';
+        gtag('consent', 'update', { analytics_storage: a, ad_storage: m, ad_user_data: m, ad_personalization: m });
+      }
+    } catch (e) {}
+  </script>
+) : (
+  <>
+    <div id="cc-banner" class="cc" style={theme} role="dialog" aria-modal="false" aria-labelledby="cc-title" hidden>
+      <p id="cc-title" class="cc__title">Cookies and Tracking Technologies</p>
+      <div class="cc__body">
+        <p>We use cookies and similar technologies to support the functionality and security of our website, understand website usage, and evaluate the effectiveness of our outreach and marketing efforts.</p>
+        <details>
+          <summary>Read full cookie notice</summary>
+          <p>These technologies may collect information such as your IP address, browser and device information, pages visited, and interactions with our website. We may use third-party analytics and advertising services to help us understand website traffic and measure advertising performance.</p>
+          <p>Because we provide behavioral health services, we take privacy seriously. We do not intend to use this website to collect or disclose information about an individual's health or treatment needs through advertising technologies. We take steps to manage tracking technologies in accordance with applicable privacy requirements.</p>
+          <p>You can manage your cookie preferences using our cookie settings. California residents may have additional privacy rights, including the right to opt out of the sale or sharing of personal information where applicable. To learn more about our information practices and how to exercise your privacy rights, please review our <a href={privacyHref}>{privacyLabel}</a>.</p>
+        </details>
+      </div>
+      <fieldset class="cc__prefs" hidden>
+        <legend>Cookie preferences</legend>
+        <label><input type="checkbox" checked disabled /> <span><strong>Necessary</strong> Needed for the site to work. Always on.</span></label>
+        <label><input type="checkbox" name="analytics" /> <span><strong>Analytics</strong> Helps us understand how visitors use the site.</span></label>
+        <label><input type="checkbox" name="ads" /> <span><strong>Advertisement</strong> Measures the performance of our advertising.</span></label>
+      </fieldset>
+      <div class="cc__actions">
+        <button type="button" class="cc__btn cc__btn--ghost" data-cc="customize">Customize</button>
+        <button type="button" class="cc__btn cc__btn--ghost" data-cc="save" hidden>Save My Preferences</button>
+        <button type="button" class="cc__btn" data-cc="reject">Reject All</button>
+        <button type="button" class="cc__btn" data-cc="accept">Accept All</button>
+      </div>
+    </div>
+    <script is:inline define:vars={{ key, prefix }}>
+      (function () {
+        var box = document.getElementById('cc-banner');
+        if (!box) return;
+        var prefs = box.querySelector('.cc__prefs');
+        var analytics = box.querySelector('input[name=analytics]');
+        var ads = box.querySelector('input[name=ads]');
+        var btn = function (name) { return box.querySelector('[data-cc=' + name + ']'); };
+        function read() {
+          try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; }
+        }
+        function gtag() { window.dataLayer = window.dataLayer || []; window.dataLayer.push(arguments); }
+        function apply(choice) {
+          var a = choice.analytics ? 'granted' : 'denied';
+          var m = choice.ads ? 'granted' : 'denied';
+          gtag('consent', 'update', { analytics_storage: a, ad_storage: m, ad_user_data: m, ad_personalization: m });
+          var ev = { event: prefix + '_consent_update' };
+          ev[prefix + '_consent_analytics'] = a;
+          ev[prefix + '_consent_ads'] = m;
+          window.dataLayer.push(ev);
+          try { localStorage.setItem(key, JSON.stringify({ v: 1, analytics: !!choice.analytics, ads: !!choice.ads, at: new Date().toISOString() })); } catch (e) {}
+          box.hidden = true;
+        }
+        function showPrefs(on) {
+          prefs.hidden = !on;
+          btn('customize').hidden = on;
+          btn('save').hidden = !on;
+        }
+        function open() {
+          var saved = read();
+          analytics.checked = !!(saved && saved.analytics);
+          ads.checked = !!(saved && saved.ads);
+          showPrefs(false);
+          box.hidden = false;
+        }
+        btn('accept').addEventListener('click', function () { apply({ analytics: true, ads: true }); });
+        btn('reject').addEventListener('click', function () { apply({ analytics: false, ads: false }); });
+        btn('customize').addEventListener('click', function () { showPrefs(true); });
+        btn('save').addEventListener('click', function () { apply({ analytics: analytics.checked, ads: ads.checked }); });
+        document.addEventListener('click', function (e) {
+          if (e.target.closest && e.target.closest('[data-cookie-prefs]')) { e.preventDefault(); open(); }
+        });
+        if (!read()) open();
+      })();
+    </script>
+  </>
+)}
+
+<style is:global>
+  .cc[hidden], .cc [hidden] { display: none !important; }
+  .cc { position: fixed; right: 20px; bottom: 20px; z-index: 2147483000; width: min(440px, calc(100vw - 32px)); max-height: calc(100vh - 40px);
+    overflow-y: auto; box-sizing: border-box; background: #fff; color: var(--cc-text); border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(11, 28, 51, .25); padding: 22px 22px 18px; font-size: 14px; line-height: 1.55; text-align: left; }
+  .cc *, .cc *::before, .cc *::after { box-sizing: border-box; }
+  .cc__title { font-family: var(--cc-title-font); font-size: 20px; font-weight: 600; line-height: 1.25; margin: 0 0 10px; color: var(--cc-text); }
+  .cc__body p { margin: 0 0 10px; }
+  .cc details { margin: 0 0 12px; }
+  .cc summary { cursor: pointer; color: var(--cc-primary); font-weight: 600; margin-bottom: 8px; }
+  .cc a { color: var(--cc-primary); text-decoration: underline; }
+  .cc__prefs { border: 1px solid #d9e1ea; border-radius: 8px; padding: 10px 12px; margin: 0 0 14px; }
+  .cc__prefs legend { font-weight: 600; padding: 0 4px; }
+  .cc__prefs label { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; cursor: pointer; }
+  .cc__prefs input { margin-top: 4px; accent-color: var(--cc-primary); }
+  .cc__prefs strong { display: block; }
+  .cc__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cc__btn { flex: 1 1 0; min-width: 110px; min-height: 44px; padding: 10px 14px; border-radius: 6px; border: 2px solid var(--cc-primary);
+    background: var(--cc-primary); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  .cc__btn:hover { background: var(--cc-primary-dark); border-color: var(--cc-primary-dark); color: #fff; }
+  .cc__btn--ghost { flex-basis: 100%; background: transparent; color: var(--cc-primary); }
+  .cc__btn--ghost:hover { background: #eef3f8; color: var(--cc-primary-dark); }
+  .cc__btn:focus-visible, .cc summary:focus-visible, .cc a:focus-visible { outline: 3px solid var(--cc-primary); outline-offset: 2px; }
+  /* In a layer so the site's own utility classes (padding, colour) on the footer link still win */
+  @layer base {
+    .cc-link { background: none; border: 0; padding: 0; margin: 0; color: inherit; font: inherit; letter-spacing: inherit; text-align: left; cursor: pointer; }
+    .cc-link:hover { text-decoration: underline; }
+  }
+  @media (max-width: 600px) { .cc { right: 16px; bottom: 16px; padding: 18px 16px 14px; } }
+</style>
