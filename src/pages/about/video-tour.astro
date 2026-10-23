@@ -108,14 +108,24 @@ const ld = {
     <section data-screen-label="Video" style="padding:48px 37px 0;background:#FFFFFF;">
       <div style="max-width:1040px;margin:0 auto;">
         <div style="position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;box-shadow:0 2px 4px rgba(20,24,28,0.08),0 18px 40px rgba(20,24,28,0.12);">
+          {/* YouTube loads only with Functional consent (CookieConsent.astro). It refuses to play without a referrer
+              (error 153), so it gets the origin only, never the page path */}
           <iframe
-            src="https://www.youtube-nocookie.com/embed/5e2yyxDbi2Q?cc_load_policy=1&rel=0"
+            data-consent-src="https://www.youtube-nocookie.com/embed/5e2yyxDbi2Q?cc_load_policy=1&rel=0"
+            referrerpolicy="strict-origin-when-cross-origin"
             title="Breathe In A Minute West Hollywood"
             loading="lazy"
             style="position:absolute;inset:0;width:100%;height:100%;border:0;"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
+          <div data-consent-placeholder style="position:absolute;inset:0;display:grid;place-content:center;gap:14px;padding:24px;text-align:center;background:#16293d;">
+            <p style="margin:0 auto;max-width:40ch;font-size:16px;line-height:1.5;color:#E6EDF4;">This video is hosted on YouTube, which may set cookies, so it plays only once you allow Functional cookies.</p>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+              <button type="button" data-consent-load style="font-family:'Instrument Sans',sans-serif;min-height:44px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;border:0;background:#FFFFFF;color:#16293d;">Play the video</button>
+              <a href="https://www.youtube.com/watch?v=5e2yyxDbi2Q" target="_blank" rel="noopener" style="font-family:'Instrument Sans',sans-serif;min-height:44px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;border:1px solid #FFFFFF;color:#FFFFFF;">Watch on YouTube ↗</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
