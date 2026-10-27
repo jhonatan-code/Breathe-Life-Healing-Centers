@@ -58,7 +58,7 @@ const faqs = [
   { q: "What levels of care does Breathe offer?", a: "Medical detox, residential treatment, PHP, IOP, outpatient rehab, and enhanced sober living, alongside [case management](/programs/case-management/) and [medication-assisted treatment](/programs/medication-assisted-treatment/) where appropriate." },
   { q: "Will I stay informed about my client's care?", a: "With appropriate consent from your client, our team can coordinate with you as they move through treatment. Federal confidentiality protections mean this always requires their authorization." },
   { q: "Does Breathe accept my client's insurance?", a: "We're in-network with most major providers and [verify each client's specific benefits](/admissions/insurance/) before anything is decided. We do not currently accept Medi-Cal or Medicare. If that's your coverage, call us, we'll tell you straight away and point you toward a resource that can help." },
-  { q: "Who do I contact with questions before referring?", a: "Call our admissions line 24/7, or reach out by email, a real person will get back to you." },
+  { q: "Who do I contact with questions before referring?", a: "Call our admissions line 24/7, or reach out by email and our team will get back to you." },
 ];
 
 const pageUrl = new URL("/admissions/professional-referral/", site.domain).href;
@@ -104,7 +104,6 @@ const ld = {
             <a class="cta cta--light" href={HREF} style={S.ctaWhite}>Call Us 24/7: {PH}</a>
             <a class="cta" href={EMAIL_HREF} style={S.ctaGhost}>Email Our Team</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#C8DAE9;margin:18px 0 0;">A real person answers, 24 hours a day.</p>
         </div>
         <VerifyInsuranceForm />
       </div>
@@ -185,7 +184,7 @@ const ld = {
 
     <SiteFinalCTA
       heading="Let's Talk About Your Client"
-      subhead="Call our admissions line 24/7, or reach out by email, a real person on our team will get back to you."
+      subhead="Call our admissions line 24/7, or reach out by email and our team will get back to you."
       primaryLabel={`Call Us 24/7: ${PH}`}
       secondary={{ label: "Email Our Team", href: EMAIL_HREF }}
       background="/Asset/Facility/campus-04-garden-patio-lounge.jpg"
