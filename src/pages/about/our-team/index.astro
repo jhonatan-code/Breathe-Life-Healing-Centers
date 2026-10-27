@@ -76,9 +76,7 @@ const ld = {
        still jumps to real, already-visible content even without JS. This is
        deliberate for SEO: a crawler (or a visitor) that never executes a
        click still gets every person on the page. */}
-    <section id="team-section" data-screen-label="Team" style="position:relative;overflow:hidden;padding:70px 37px;background:#F7F5F1;">
-      <div id="team-parallax-bg" aria-hidden="true" style="position:absolute;top:-70px;bottom:-70px;left:0;right:0;background-image:url('/Asset/Facility/campus-40-lounge.jpg');background-size:cover;background-position:center;opacity:0.08;filter:saturate(0.7);will-change:transform;"></div>
-      <div style="position:relative;max-width:1440px;margin:0 auto;">
+    <section id="team-section" data-screen-label="Team" style="position:relative;overflow:hidden;padding:70px 37px;background:#F7F5F1;">      <div style="position:relative;max-width:1440px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
           <div style={S.eyebrow}>The full team</div>
           <h2 style={`${S.h2}max-width:26ch;`}>Every department, every person</h2>
@@ -258,30 +256,6 @@ const ld = {
     } else {
       run();
     }
-  })();
-
-  // ── Team section background parallax — the photo drifts at a fraction of
-  //    scroll speed (rect.top * 0.15, clamped) rather than tracking 1:1, the
-  //    classic parallax "lag" that reads as depth/activity behind the tabs.
-  //    Static under prefers-reduced-motion. ──
-  (() => {
-    const bg = document.getElementById('team-parallax-bg');
-    const section = document.getElementById('team-section');
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (!bg || !section || reduce) return;
-    let ticking = false;
-    const update = () => {
-      const offset = Math.max(-60, Math.min(60, section.getBoundingClientRect().top * 0.15));
-      bg.style.transform = `translateY(${offset}px)`;
-      ticking = false;
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    update();
   })();
 
   // ── Department pills — filter which blocks are visible. Plain anchor
