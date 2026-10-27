@@ -14,13 +14,9 @@ import { LEVEL_CTA } from "../../lib/levelLinks";
  * verbatim from that brief.
  *
  * Levels-of-care and programs-&-support cards carry a real photo (2026-09-11,
- * CLAUDE.md ## Images) instead of icon-only tiles. Two are freshly pulled from
- * breathelifehealingcenters.com's own 2025 photoshoot (facility-24, -25 —
- * their pages reuse the same handful of campus/garden shots across services
- * rather than one photo per topic, so there's no 1:1 "official photo for
- * Detox" etc. to match); the rest reuse this repo's existing `Asset/Facility`
- * library (itself sourced from the live site earlier), assigned by which
- * room/setting fits each card's copy.
+ * CLAUDE.md ## Images) instead of icon-only tiles. All come from the
+ * 2026 campus photoshoot in `Asset/Facility` (client-supplied 2026-10-26),
+ * assigned by which room or setting fits each card's copy.
  *
  * The 11 individual program pages this hub links to don't exist yet — they
  * 404 until built, same situation as Alcohol's outbound links.
@@ -73,15 +69,13 @@ const levelHrefs: Record<string, string> = {
   "Transitional Living / Enhanced Sober Living": "/programs/sober-living/",
   "Outpatient (OP)": "/programs/outpatient-rehab/",
 };
-// facility-24/-25 are new pulls from the official site's own 2025 photoshoot;
-// the rest are already in this repo's Asset/Facility library.
 const levelImages: Record<string, string> = {
-  "Residential Treatment": galleryImg("facility-24-residence-lounge-deck.jpg"),
-  "Detox": galleryImg("facility-16-facility-entrance-drive.jpg"),
-  "PHP, Day Treatment (SUD, MH)": galleryImg("facility-04-community-dining-lounge.jpg"),
-  "IOP, Intensive Outpatient (SUD, MH)": galleryImg("facility-10-fitness-center.jpg"),
-  "Transitional Living / Enhanced Sober Living": galleryImg("facility-17-living-room-lounge.jpg"),
-  "Outpatient (OP)": galleryImg("facility-25-residence-garden-stairs.png"),
+  "Residential Treatment": galleryImg("campus-15-porch-walkway.jpg"),
+  "Detox": galleryImg("campus-19-residence-entrance.jpg"),
+  "PHP, Day Treatment (SUD, MH)": galleryImg("campus-24-dining-area.jpg"),
+  "IOP, Intensive Outpatient (SUD, MH)": galleryImg("campus-17-shaded-garden-patio.jpg"),
+  "Transitional Living / Enhanced Sober Living": galleryImg("campus-25-living-room.jpg"),
+  "Outpatient (OP)": galleryImg("campus-21-residence-side.jpg"),
 };
 
 // Case Management + MAT text are verbatim from home.ts `signature`. Family
@@ -92,22 +86,22 @@ const alumniQuote = reviews.find((r) => r.name === "Troy Eaton")!;
 const support: { icon: string; title: string; href: string; img: string; text?: string; quote?: string; attribution?: string }[] = [
   {
     icon: "support_agent", title: "Case Management", href: "/programs/case-management/",
-    img: galleryImg("facility-01-private-suite-entry.jpg"),
+    img: galleryImg("campus-36-bedroom-blue.jpg"),
     text: signature.find(([, h]) => h === "Individual Case Management")![2],
   },
   {
     icon: "medication", title: "Medication-Assisted Treatment", href: "/programs/medication-assisted-treatment/",
-    img: galleryImg("facility-03-clinical-office.jpg"),
+    img: galleryImg("campus-23-client-lounge.jpg"),
     text: signature.find(([, h]) => h === "Medication-Assisted Treatment")![2],
   },
   {
     icon: "family_restroom", title: "Family Program", href: "/programs/family-program/",
-    img: galleryImg("facility-19-outdoor-dining-deck.jpg"),
+    img: galleryImg("campus-05-patio-sectional.jpg"),
     text: "Whether that's the family you were born into, the one you chose, or both, our Family Program doesn't assume blood relationships. It's open to clients in PHP or IOP, with their therapist's approval.",
   },
   {
     icon: "groups", title: "Alumni Program", href: "/programs/alumni-program/",
-    img: galleryImg("facility-07-pool-waterfall-grotto.jpg"),
+    img: galleryImg("campus-01-pool-waterfall.jpg"),
     quote: "Their alumni program is incredible as they are big on following up and supporting former patients even after they leave the facility.",
     attribution: `${alumniQuote.name}, Google review`,
   },
@@ -171,7 +165,7 @@ const ld = {
 
     {/* ══════════════  HERO  ══════════════ */}
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#32679C;">
-      <img src={galleryImg("facility-11-clinical-building-exterior.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
+      <img src={galleryImg("campus-09-main-building-entry.jpg")} alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;" />
       <div style="position:absolute;inset:0;background:linear-gradient(98deg,rgba(22,41,61,0.94) 0%,rgba(22,41,61,0.84) 48%,rgba(22,41,61,0.55) 100%);"></div>
       <div id="hero-inner" style="position:relative;max-width:1514px;margin:0 auto;padding:70px 37px;display:flex;flex-wrap:wrap;gap:50px;align-items:center;">
         <div style="flex:1 1 560px;">
@@ -336,7 +330,7 @@ const ld = {
       heading="Not sure which level of care is right for you?"
       subhead="Our admissions team talks through your situation first, then matches you to the right starting point. No pressure, no obligation."
       secondary={{ label: "Verify My Insurance", href: "#verify" }}
-      background="/Asset/Facility/facility-03-clinical-office.jpg"
+      background="/Asset/Facility/campus-23-client-lounge.jpg"
     />
 
     </main>

@@ -29,13 +29,13 @@ export const CATEGORY_SLUGS = Object.keys(CATEGORY_LABELS) as BlogEntry['data'][
  * posts (the same photo alcohol.astro's hero already uses).
  */
 export const CATEGORY_PHOTOS: Record<BlogEntry['data']['category'], string> = {
-  'understanding-addiction': '/Asset/Facility/facility-17-living-room-lounge.jpg',
-  'understanding-trauma': '/Asset/Facility/facility-21-quiet-reading-nook.jpg',
-  'for-the-family': '/Asset/Facility/facility-19-outdoor-dining-deck.jpg',
-  news: '/Asset/Facility/facility-16-facility-entrance-drive.jpg',
-  lgbtqia: '/Asset/Facility/facility-24-residence-lounge-deck.jpg',
+  'understanding-addiction': '/Asset/Facility/campus-25-living-room.jpg',
+  'understanding-trauma': '/Asset/Facility/campus-30-window-seat.jpg',
+  'for-the-family': '/Asset/Facility/campus-05-patio-sectional.jpg',
+  news: '/Asset/Facility/campus-19-residence-entrance.jpg',
+  lgbtqia: '/Asset/Facility/campus-15-porch-walkway.jpg',
   // Shared kitchen for the restored eating-disorder posts (2026-10-14).
-  'eating-disorders': '/Asset/Facility/facility-14-community-kitchen.jpg',
+  'eating-disorders': '/Asset/Facility/campus-33-dining-fireplace.jpg',
 };
 
 /**

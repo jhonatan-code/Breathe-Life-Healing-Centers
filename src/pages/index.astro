@@ -93,19 +93,19 @@ const levelsCta: Record<string, string> = {
 };
 
 const galleryWheelFiles = [
-  "facility-07-pool-waterfall-grotto.jpg",
-  "facility-10-fitness-center.jpg",
-  "facility-11-clinical-building-exterior.jpg",
-  "facility-12-residence-exterior.jpg",
-  "facility-13-ensuite-bath-balcony.jpg",
-  "facility-14-community-kitchen.jpg",
-  "facility-15-pool-deck-canyon-view.jpg",
-  "facility-17-living-room-lounge.jpg",
-  "facility-09-twin-bedroom-suite.jpg",
-  "facility-06-guest-house-exterior.jpg",
-  "facility-05-spa-bathroom-suite.jpg",
-  "facility-19-outdoor-dining-deck.jpg",
-  "facility-22-garden-entrance-path.jpg",
+  "campus-01-pool-waterfall.jpg",
+  "campus-17-shaded-garden-patio.jpg",
+  "campus-09-main-building-entry.jpg",
+  "campus-13-hillside-residence.jpg",
+  "campus-18-covered-porch.jpg",
+  "campus-33-dining-fireplace.jpg",
+  "campus-16-canyon-view.jpg",
+  "campus-25-living-room.jpg",
+  "campus-35-bedroom.jpg",
+  "campus-07-residence-balconies.jpg",
+  "campus-22-client-lounge-sofa.jpg",
+  "campus-05-patio-sectional.jpg",
+  "campus-11-garden-path.jpg",
 ];
 // Hero accreditation logos (under the CTAs, no heading): same seals, alt text
 // and verification links as the footer. [src, alt, sized by "h"eight or
@@ -145,7 +145,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
        global.css. */}
     <div class="hero-fold">
     <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#0A141D;display:flex;">
-      <img src={galleryImg("facility-07-pool-waterfall-grotto.jpg")} alt="Pool and waterfall grotto at the Breathe Life facility" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+      <img src={galleryImg("campus-01-pool-waterfall.jpg")} alt="Pool and waterfall at the Breathe Life campus" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,16,0.60) 0%,rgba(4,9,16,0.46) 50%,rgba(4,9,16,0.72) 100%);"></div>
       <div class="hero-b" style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(24px,5vh,110px) 37px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;">
         <div style="margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,26px);text-align:center;">
@@ -330,7 +330,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
           <p style={`${S.intro}max-width:84ch;`}>Recovery isn't one-size-fits-all. We move with you through as many levels of care as you need.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px;align-items:start;">
-          <img src={galleryImg("facility-22-garden-entrance-path.jpg")} alt="Garden entrance path at Breathe Life Healing Centers" loading="lazy" style="width:100%;height:100%;min-height:440px;object-fit:cover;display:block;border-radius:12px;" />
+          <img src={galleryImg("campus-11-garden-path.jpg")} alt="Garden path at Breathe Life Healing Centers" loading="lazy" style="width:100%;height:100%;min-height:440px;object-fit:cover;display:block;border-radius:12px;" />
           <div style="display:grid;gap:0;">
             {levels.map((l, i) => (
               <div style={i === 0
@@ -434,7 +434,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       heading="You don't have to hide who you are to heal"
       subhead="Whoever you love, however you identify, whatever your chosen family looks like, our admissions team is available 24/7, and they already understand what you're calling about."
       primaryLabel={`Call Now: ${PH}`}
-      background="/Asset/Facility/facility-22-garden-entrance-path.jpg"
+      background="/Asset/Facility/campus-11-garden-path.jpg"
     />
 
     <SiteFooter />

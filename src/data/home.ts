@@ -24,29 +24,29 @@
 
 export const galleryImg = (file: string) => `/Asset/Facility/${file}`;
 
-/** Facility carousel — design's 22-image set mapped to the repo's facility photos. */
+/** Facility carousel, from the 2026 campus photoshoot (Kaela Saez, client-supplied 2026-10-26). */
 export const gallery = [
-  { file: "facility-07-pool-waterfall-grotto.jpg", cap: "Pool & Waterfall Grotto" },
-  { file: "facility-06-guest-house-exterior.jpg", cap: "Guest House" },
-  { file: "facility-08-poolside-grotto-overlook.jpg", cap: "Poolside Grotto" },
-  { file: "facility-09-twin-bedroom-suite.jpg", cap: "Twin Bedroom Suite" },
-  { file: "facility-10-fitness-center.jpg", cap: "Fitness Center" },
-  { file: "facility-11-clinical-building-exterior.jpg", cap: "Clinical Building" },
-  { file: "facility-12-residence-exterior.jpg", cap: "Residence Exterior" },
-  { file: "facility-13-ensuite-bath-balcony.jpg", cap: "Ensuite Bath with Balcony" },
-  { file: "facility-14-community-kitchen.jpg", cap: "Community Kitchen" },
-  { file: "facility-17-living-room-lounge.jpg", cap: "Living Room Lounge" },
-  { file: "facility-18-great-room.jpg", cap: "Great Room" },
-  { file: "facility-19-outdoor-dining-deck.jpg", cap: "Outdoor Dining Deck" },
-  { file: "facility-21-quiet-reading-nook.jpg", cap: "Quiet Reading Nook" },
-  { file: "facility-23-kitchen-common-area.jpg", cap: "Kitchen & Common Area" },
-  { file: "facility-01-private-suite-entry.jpg", cap: "Private Suite" },
-  { file: "facility-02-shared-bedroom-blue.jpg", cap: "Shared Bedroom" },
-  { file: "facility-04-community-dining-lounge.jpg", cap: "Community Dining & Lounge" },
-  { file: "facility-05-spa-bathroom-suite.jpg", cap: "Spa Bathroom Suite" },
-  { file: "facility-22-garden-entrance-path.jpg", cap: "Garden Entrance Path" },
-  { file: "facility-15-pool-deck-canyon-view.jpg", cap: "Pool Deck" },
-  { file: "facility-16-facility-entrance-drive.jpg", cap: "Facility Entrance" },
+  { file: "campus-01-pool-waterfall.jpg", cap: "Pool & Waterfall" },
+  { file: "campus-07-residence-balconies.jpg", cap: "Residence" },
+  { file: "campus-04-garden-patio-lounge.jpg", cap: "Garden Patio Lounge" },
+  { file: "campus-35-bedroom.jpg", cap: "Bedroom" },
+  { file: "campus-17-shaded-garden-patio.jpg", cap: "Shaded Garden Patio" },
+  { file: "campus-09-main-building-entry.jpg", cap: "Main Building Entry" },
+  { file: "campus-13-hillside-residence.jpg", cap: "Hillside Residence" },
+  { file: "campus-18-covered-porch.jpg", cap: "Covered Porch" },
+  { file: "campus-33-dining-fireplace.jpg", cap: "Dining Room & Fireplace" },
+  { file: "campus-25-living-room.jpg", cap: "Living Room" },
+  { file: "campus-40-lounge.jpg", cap: "Lounge" },
+  { file: "campus-05-patio-sectional.jpg", cap: "Outdoor Lounge" },
+  { file: "campus-30-window-seat.jpg", cap: "Window Seat" },
+  { file: "campus-29-sunlit-dining-room.jpg", cap: "Sunlit Dining Room" },
+  { file: "campus-36-bedroom-blue.jpg", cap: "Bedroom" },
+  { file: "campus-37-welcome-kit.jpg", cap: "Welcome Kit" },
+  { file: "campus-24-dining-area.jpg", cap: "Dining Area" },
+  { file: "campus-22-client-lounge-sofa.jpg", cap: "Client Lounge" },
+  { file: "campus-11-garden-path.jpg", cap: "Garden Path" },
+  { file: "campus-16-canyon-view.jpg", cap: "Laurel Canyon View" },
+  { file: "campus-19-residence-entrance.jpg", cap: "Residence Entrance" },
 ];
 
 export const substances = [
