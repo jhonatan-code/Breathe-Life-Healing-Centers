@@ -17,7 +17,7 @@ import CareDial from "../components/CareDial.astro";
 import FacilityGallery from "../components/FacilityGallery.astro";
 import { site } from "../config/site";
 import {
-  gallery, galleryImg, substances, mentalHealth, levels, signature,
+  gallery, galleryImg, campusAll, substances, mentalHealth, levels, signature,
   why, steps, faqGroups,
 } from "../data/home";
 
@@ -242,7 +242,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
           </div>
           <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;line-height:1.7;color:#3A444D;margin:0;max-width:92ch;">A private, inclusive, and comforting space to recover, residential homes set in the quiet hills of Laurel Canyon, designed with privacy above all else.</p>
         </div>
-        <FacilityGallery id="facility-gallery" photos={galleryPhotos} />
+        <FacilityGallery id="facility-gallery" photos={galleryPhotos} allPhotos={campusAll} />
       </div>
     </section>
 

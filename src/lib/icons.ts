@@ -53,6 +53,7 @@ const CODEPOINTS: Record<string, string> = {
   forum: "\ue8af",
   fullscreen: "\ue5d0",
   grain: "\ue3ea",
+  grid_view: "\ue9b0",
   grass: "\uf205",
   groups: "\uf233",
   handshake: "\uebcb",

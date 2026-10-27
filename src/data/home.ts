@@ -49,6 +49,72 @@ export const gallery = [
   { file: "campus-19-residence-entrance.jpg", cap: "Residence Entrance" },
 ];
 
+// 2026 campus photoshoot (Kaela Saez, client-supplied 2026-10-26; three
+// near-duplicate frames left out). Exteriors and grounds fill "The Campus",
+// interiors fill "Grounds & Suites".
+export const campusExteriors = [
+  ["campus-01-pool-waterfall.jpg", "Pool & Waterfall"],
+  ["campus-02-patio-adirondack-chairs.jpg", "Garden Patio"],
+  ["campus-03-adirondack-chairs.jpg", "Garden Seating"],
+  ["campus-04-garden-patio-lounge.jpg", "Garden Patio Lounge"],
+  ["campus-05-patio-sectional.jpg", "Outdoor Lounge"],
+  ["campus-06-hillside-patio.jpg", "Hillside Patio"],
+  ["campus-07-residence-balconies.jpg", "Residence"],
+  ["campus-08-main-building.jpg", "Main Building"],
+  ["campus-09-main-building-entry.jpg", "Main Building Entry"],
+  ["campus-10-interior-detail.jpg", "Interior Detail"],
+  ["campus-11-garden-path.jpg", "Garden Path"],
+  ["campus-12-main-building-hillside.jpg", "Main Building"],
+  ["campus-13-hillside-residence.jpg", "Hillside Residence"],
+  ["campus-15-porch-walkway.jpg", "Covered Walkway"],
+  ["campus-16-canyon-view.jpg", "Laurel Canyon View"],
+  ["campus-17-shaded-garden-patio.jpg", "Shaded Garden Patio"],
+  ["campus-18-covered-porch.jpg", "Covered Porch"],
+  ["campus-19-residence-entrance.jpg", "Residence Entrance"],
+  ["campus-20-residence-garden.jpg", "Residence Garden"],
+  ["campus-21-residence-side.jpg", "Residence"],
+] as const;
+
+export const campusInteriors = [
+  ["campus-22-client-lounge-sofa.jpg", "Client Lounge"],
+  ["campus-23-client-lounge.jpg", "Client Lounge Seating"],
+  ["campus-24-dining-area.jpg", "Dining Area"],
+  ["campus-25-living-room.jpg", "Living Room"],
+  ["campus-27-dining-room-arch.jpg", "Dining Room"],
+  ["campus-28-living-room-built-ins.jpg", "Living Room Built-Ins"],
+  ["campus-29-sunlit-dining-room.jpg", "Sunlit Dining Room"],
+  ["campus-30-window-seat.jpg", "Window Seat"],
+  ["campus-31-window-seat-view.jpg", "Window Seat View"],
+  ["campus-32-dining-staircase.jpg", "Dining Room & Staircase"],
+  ["campus-33-dining-fireplace.jpg", "Dining Room & Fireplace"],
+  ["campus-34-sitting-area.jpg", "Sitting Area"],
+  ["campus-35-bedroom.jpg", "Bedroom"],
+  ["campus-36-bedroom-blue.jpg", "Bedroom"],
+  ["campus-37-welcome-kit.jpg", "Welcome Kit"],
+  ["campus-39-hallway.jpg", "Hallway"],
+  ["campus-40-lounge.jpg", "Lounge"],
+  ["campus-41-lounge-sectional.jpg", "Lounge Seating"],
+] as const;
+
+// Portrait frames (taller than wide): the mosaic gives them a 1x2 tile.
+const campusPortraits = new Set([
+  "campus-03-adirondack-chairs.jpg",
+  "campus-12-main-building-hillside.jpg",
+  "campus-15-porch-walkway.jpg",
+  "campus-21-residence-side.jpg",
+  "campus-28-living-room-built-ins.jpg",
+  "campus-34-sitting-area.jpg",
+  "campus-35-bedroom.jpg",
+  "campus-39-hallway.jpg",
+]);
+
+/** All campus photos, exteriors first: the homepage "View all photos" mosaic. */
+export const campusAll = [...campusExteriors, ...campusInteriors].map(([file, cap]) => ({
+  src: galleryImg(file),
+  cap,
+  portrait: campusPortraits.has(file),
+}));
+
 export const substances = [
   ["liquor", "Alcohol Addiction", "Support for withdrawal, cravings, and long-term sobriety.", "/what-we-treat/alcohol/"],
   ["science", "Meth Addiction", "Structured care for stimulant use and recovery.", "/what-we-treat/methamphetamine/"],

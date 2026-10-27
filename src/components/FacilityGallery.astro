@@ -31,17 +31,27 @@ import { msymChar } from "../lib/icons";
  * Below 1024px this renders a plain horizontal scroll strip over the same
  * fixed photo set instead of the wheel (`.d-only` / `.m-only-block`, the
  * same dual-render pattern the site uses for its department carousels).
+ *
+ * `allPhotos` (optional): the full campus set. The wheel only fits a curated
+ * handful, so when this is passed a "View all N photos" button opens a
+ * mosaic popup of every photo. The mosaic is a packed grid: clicking a tile
+ * grows it in place (3x3, portraits 2x3) and the other tiles slide into the
+ * freed gaps (`grid-auto-flow: dense`, animated FLIP-style in JS). Clicking
+ * the grown tile again opens it in the lightbox, which steps through the full
+ * set and returns to the mosaic on close.
  */
 interface Photo {
   src: string;
   cap: string;
+  portrait?: boolean;
 }
 interface Props {
   id?: string;
   photos: Photo[];
   wheelSize?: number;
+  allPhotos?: Photo[];
 }
-const { id = "facility-gallery", photos, wheelSize = 520 } = Astro.props;
+const { id = "facility-gallery", photos, wheelSize = 520, allPhotos = [] } = Astro.props;
 
 const N = photos.length;
 const stepAngle = 360 / N;
@@ -85,10 +95,15 @@ const nodeTransform = (i: number) => {
 // seam wasn't part of what was asked about, so it's the one absorbing
 // the inconsistency instead of the pool photo.
 const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
+
+// Mosaic tiles that start out 2x2, so the resting grid already has some
+// rhythm before anything is clicked.
+const FEATURE_TILES = [0, 8, 21, 30];
 ---
 
 <div id={id} class="facility-gallery">
   <div class="fg-grid">
+    <div class="fg-left">
     <div class="fg-main" data-fg-main tabindex="0" role="button" aria-label={`Enlarge photo: ${photos[0].cap}`}>
       <img class="fg-main-img" id={`${id}-main-img`} src={photos[0].src} alt={photos[0].cap} />
       <span class="fg-expand"><span class="msym">{msymChar("fullscreen")}</span>Expand View</span>
@@ -98,6 +113,12 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
         <span class="fg-main-title" id={`${id}-main-title`}>{photos[0].cap}</span>
         <span class="fg-main-count" id={`${id}-main-count`}>1 of {photos.length}</span>
       </div>
+    </div>
+    <div class="fg-dots" role="group" aria-label="Choose a photo">
+      {photos.map((p, i) => (
+        <button type="button" class:list={["fg-dot", { "is-active": i === 0 }]} data-dot-index={i} aria-label={`Show ${p.cap}`} aria-current={i === 0 ? "true" : undefined}></button>
+      ))}
+    </div>
     </div>
 
     <div class="fg-wheel-wrap d-only">
@@ -127,7 +148,46 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
       ))}
     </div>
   </div>
+
+  {allPhotos.length > 0 && (
+    <div class="fg-all-row">
+      <button type="button" class="fg-all-btn" data-fg-all aria-haspopup="dialog" aria-controls={`${id}-mosaic`}>
+        <span class="fg-all-thumbs" aria-hidden="true">
+          {allPhotos.slice(1, 4).map((p) => <img src={p.src} alt="" loading="lazy" />)}
+        </span>
+        <span>View all {allPhotos.length} photos</span>
+        <span class="msym" aria-hidden="true">{msymChar("grid_view")}</span>
+      </button>
+    </div>
+  )}
 </div>
+
+{allPhotos.length > 0 && (
+  <div class="fg-mosaic" id={`${id}-mosaic`} role="dialog" aria-modal="true" aria-labelledby={`${id}-mosaic-title`} hidden>
+    <div class="fg-mosaic-head">
+      <div>
+        <h2 class="fg-mosaic-title" id={`${id}-mosaic-title`}>Our Laurel Canyon campus</h2>
+        <p class="fg-mosaic-sub">{allPhotos.length} photos. Tap a photo to bring it forward, tap again to see it full size.</p>
+      </div>
+      <button type="button" class="fg-mosaic-close" data-fg-mosaic-close aria-label="Close photo gallery"><span class="msym">{msymChar("close")}</span></button>
+    </div>
+    <div class="fg-mosaic-scroll">
+      <ul class="fg-mosaic-grid">
+        {allPhotos.map((p, i) => (
+          <li class:list={["fg-cell", { "is-portrait": p.portrait, "is-feature": FEATURE_TILES.includes(i) }]}>
+            <button type="button" class="fg-tile" data-mosaic-index={i} aria-label={`Enlarge photo: ${p.cap}`}>
+              <img src={p.src} alt="" loading="lazy" />
+              <span class="fg-tile-cap">
+                <span>{p.cap}</span>
+                <span class="fg-tile-hint"><span class="msym" aria-hidden="true">{msymChar("fullscreen")}</span>Full size</span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+)}
 
 <div class="fg-lightbox" id={`${id}-lightbox`} role="dialog" aria-modal="true" aria-label="Facility photo viewer" hidden>
   <button class="fg-lb-btn fg-lb-close" type="button" data-fg-close aria-label="Close"><span class="msym">{msymChar("close")}</span></button>
@@ -162,7 +222,9 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
   }
 
   /* ── Left: main display ── */
+  .fg-left { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
   .fg-main {
+    flex: 1;
     position: relative;
     border-radius: 16px;
     overflow: hidden;
@@ -254,6 +316,36 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     transition: opacity 380ms ease;
   }
   .fg-main.is-swapping .fg-main-bar { opacity: 0; }
+  /* Dots under the main photo: one per wheel photo, the active one stretches
+     into a copper pill. The button is a 24px hit area around a small dot. */
+  .fg-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; }
+  .fg-dot {
+    all: unset;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fg-dot::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #c3ccd5;
+    transform: translate(-50%, -50%);
+    transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease;
+  }
+  .fg-dot:hover::before { background: #7c8792; }
+  .fg-dot.is-active { width: 36px; }
+  .fg-dot.is-active::before { width: 26px; background: var(--copper); }
+  .fg-dot:focus-visible { outline: 2px solid var(--copper); outline-offset: -2px; border-radius: 999px; }
+  @media (prefers-reduced-motion: reduce) {
+    .fg-dot, .fg-dot::before { transition: none; }
+  }
   .fg-main-title { font-size: 22px; font-weight: 600; letter-spacing: -0.016em; color: #fff; }
   .fg-main-count {
     font-family: "Instrument Sans", sans-serif;
@@ -404,6 +496,185 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     .fg-main-img { transition: none; }
   }
 
+  /* ── "View all photos" button + mosaic popup ── */
+  .fg-all-row { display: flex; justify-content: center; margin-top: 28px; }
+  .fg-all-btn {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px 8px 8px;
+    border-radius: 999px;
+    background: #16293d;
+    color: #fff;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(20, 24, 28, 0.1), 0 10px 24px rgba(20, 24, 28, 0.14);
+    transition: background-color 200ms ease, transform 200ms ease;
+  }
+  .fg-all-btn:hover { background: #33679c; transform: translateY(-1px); }
+  .fg-all-btn:focus-visible { outline: 3px solid var(--copper); outline-offset: 3px; }
+  .fg-all-btn .msym { font-size: 20px; color: var(--copper-light); }
+  .fg-all-thumbs { display: inline-flex; }
+  .fg-all-thumbs img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #16293d;
+    margin-left: -10px;
+    transition: border-color 200ms ease;
+  }
+  .fg-all-thumbs img:first-child { margin-left: 0; }
+  .fg-all-btn:hover .fg-all-thumbs img { border-color: #33679c; }
+
+  .fg-mosaic {
+    position: fixed;
+    inset: 0;
+    z-index: 290; /* under the lightbox (300), which opens on top of it */
+    background: #f7f5f1;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 260ms ease, transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fg-mosaic[hidden] { display: none; }
+  .fg-mosaic.is-open { opacity: 1; transform: none; }
+  .fg-mosaic-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 37px 18px;
+    box-sizing: border-box;
+  }
+  .fg-mosaic-title { margin: 0; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.1; letter-spacing: -0.024em; font-weight: 600; color: var(--ink); text-wrap: balance; }
+  .fg-mosaic-sub { margin: 6px 0 0; font-family: "Montserrat", Helvetica, sans-serif; font-size: 14px; color: #3a444d; text-wrap: pretty; }
+  .fg-mosaic-close {
+    all: unset;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #16293d;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+  }
+  .fg-mosaic-close:hover { background: #33679c; }
+  .fg-mosaic-close:focus-visible { outline: 3px solid var(--copper); outline-offset: 3px; }
+  .fg-mosaic-close .msym { font-size: 24px; }
+  .fg-mosaic-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+  /* Packed grid. Tiles are 1x1 (landscape), 1x2 (portrait) or 2x2 (feature);
+     the clicked one grows to 3x3 (2x3 portrait). `dense` lets later tiles
+     drop back into the holes that leaves, which is the Tetris-like reflow.
+     Row height tracks the column width so a 1x1 tile stays roughly 4:3. */
+  .fg-mosaic-grid {
+    --cols: 6;
+    --gap: 12px;
+    --pad: 37px;
+    list-style: none;
+    margin: 0 auto;
+    padding: 4px var(--pad) 48px;
+    max-width: 1440px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-auto-rows: calc((min(100vw, 1440px) - 2 * var(--pad) - (var(--cols) - 1) * var(--gap)) / var(--cols) * 0.75);
+    grid-auto-flow: row dense;
+    gap: var(--gap);
+  }
+  @media (max-width: 1024px) { .fg-mosaic-grid { --cols: 4; } }
+  .fg-cell { min-width: 0; }
+  .fg-cell.is-portrait { grid-row: span 2; }
+  .fg-cell.is-feature { grid-column: span 2; grid-row: span 2; }
+  .fg-cell.is-expanded { grid-column: span 3; grid-row: span 3; z-index: 2; }
+  .fg-cell.is-expanded.is-portrait { grid-column: span 2; }
+  .fg-tile {
+    all: unset;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #e6e1d8;
+    box-sizing: border-box;
+    transition: box-shadow 300ms ease;
+  }
+  .fg-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease;
+  }
+  .fg-tile-cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 28px 14px 12px;
+    background: linear-gradient(0deg, rgba(22, 41, 61, 0.85), rgba(22, 41, 61, 0));
+    color: #fff;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 240ms ease, transform 240ms ease;
+  }
+  .fg-tile-hint {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+  }
+  .fg-tile-hint .msym { font-size: 16px; }
+  .fg-tile:hover img, .fg-tile.is-active img { transform: scale(1.05); }
+  .fg-tile:hover .fg-tile-cap, .fg-tile:focus-visible .fg-tile-cap, .fg-tile.is-active .fg-tile-cap { opacity: 1; transform: none; }
+  .fg-tile:focus-visible { outline: 3px solid var(--copper); outline-offset: 2px; }
+  /* Grown tile: caption + "full size" hint always on, copper ring, and the
+     next click opens the lightbox instead. */
+  .fg-cell.is-expanded .fg-tile { cursor: zoom-in; box-shadow: 0 0 0 3px var(--copper), 0 18px 40px rgba(20, 24, 28, 0.22); }
+  .fg-cell.is-expanded .fg-tile img { transform: none; }
+  .fg-cell.is-expanded .fg-tile-cap { opacity: 1; transform: none; font-size: 18px; padding: 40px 18px 16px; }
+  .fg-cell.is-expanded .fg-tile-hint { display: inline-flex; }
+  /* While one tile is forward, the rest step back a little. */
+  .fg-mosaic-grid.has-expanded .fg-cell:not(.is-expanded) .fg-tile img { filter: saturate(0.75) brightness(0.92); }
+  .fg-mosaic-grid.has-expanded .fg-cell:not(.is-expanded) .fg-tile:hover img { filter: none; }
+  @media (max-width: 640px) {
+    .fg-mosaic-head { padding: 16px 16px 12px; }
+    .fg-mosaic-grid { --cols: 2; --gap: 8px; --pad: 16px; padding-bottom: 32px; }
+    .fg-cell.is-feature { grid-column: span 2; grid-row: span 2; }
+    .fg-cell.is-expanded, .fg-cell.is-expanded.is-portrait { grid-column: span 2; grid-row: span 3; }
+    .fg-tile-cap { font-size: 12px; padding: 22px 10px 8px; }
+    .fg-cell.is-expanded .fg-tile-cap { font-size: 15px; padding: 32px 12px 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fg-mosaic, .fg-tile img, .fg-tile-cap { transition: none; }
+  }
+
   /* ── Lightbox ── */
   .fg-lightbox {
     position: fixed;
@@ -480,7 +751,7 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
   }
 </style>
 
-<script define:vars={{ id, photos, N }}>
+<script define:vars={{ id, photos, N, allPhotos }}>
   (() => {
     const main = document.getElementById(id);
     const wheel = document.getElementById(`${id}-wheel`);
@@ -492,6 +763,7 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     const mainCount = document.getElementById(`${id}-main-count`);
     const slots = Array.from(wheel.querySelectorAll(".fg-node-slot"));
     const stripBtns = Array.from(main.querySelectorAll(".fg-strip-btn"));
+    const dots = Array.from(main.querySelectorAll(".fg-dot"));
 
     let rot = 0;
     let activeIndex = 0; // index within the fixed `photos` array (0..N-1)
@@ -507,6 +779,11 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
       mainCount.textContent = `${photoIndex + 1} of ${photos.length}`;
       main.setAttribute("aria-label", `Enlarge photo: ${p.cap}`);
       stripBtns.forEach((b) => b.classList.toggle("is-active", Number(b.dataset.photoIndex) === photoIndex));
+      dots.forEach((d, i) => {
+        d.classList.toggle("is-active", i === photoIndex);
+        if (i === photoIndex) d.setAttribute("aria-current", "true");
+        else d.removeAttribute("aria-current");
+      });
     };
 
     const spinTo = (index) => {
@@ -533,6 +810,14 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     slots[0]?.classList.add("is-active");
     wheel.querySelectorAll(".fg-node-btn").forEach((btn) => {
       btn.addEventListener("click", () => spinTo(Number(btn.dataset.photoIndex)));
+    });
+
+    dots.forEach((d) => {
+      d.addEventListener("click", () => {
+        const i = Number(d.dataset.dotIndex);
+        spinTo(i);
+        stripBtns[i]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      });
     });
 
     main.querySelector('[data-fg-nav="prev"]')?.addEventListener("click", (e) => { e.stopPropagation(); goRelative(-1); });
@@ -582,17 +867,19 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     const lbPrev = lb.querySelector("[data-fg-prev]");
     const lbNext = lb.querySelector("[data-fg-next]");
     let lbIndex = 0;
+    let lbSet = photos; // the wheel's set, or allPhotos when opened from the mosaic
     let lastFocused = null;
 
     const renderLightbox = () => {
-      const p = photos[lbIndex];
+      const p = lbSet[lbIndex];
       lbImg.src = p.src;
       lbImg.alt = p.cap;
       lbTitle.textContent = p.cap;
-      lbCount.textContent = `${lbIndex + 1} of ${photos.length}`;
+      lbCount.textContent = `${lbIndex + 1} of ${lbSet.length}`;
     };
 
-    const openLightbox = (startIndex) => {
+    const openLightbox = (startIndex, set = photos) => {
+      lbSet = set;
       lbIndex = startIndex;
       renderLightbox();
       lastFocused = document.activeElement;
@@ -605,15 +892,17 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
 
     const closeLightbox = () => {
       lb.classList.remove("is-open");
-      document.body.style.overflow = "";
+      // Back to the mosaic (if open underneath): it keeps the page locked.
+      if (!mosaicOpen) document.body.style.overflow = "";
       document.removeEventListener("keydown", onKeydown);
       window.setTimeout(() => { lb.hidden = true; }, 240);
       if (lastFocused instanceof HTMLElement) lastFocused.focus();
     };
 
     const step = (dir) => {
-      lbIndex = (lbIndex + dir + photos.length) % photos.length;
+      lbIndex = (lbIndex + dir + lbSet.length) % lbSet.length;
       renderLightbox();
+      if (mosaicOpen) tiles[lbIndex]?.focus({ preventScroll: true });
     };
 
     const onKeydown = (e) => {
@@ -633,5 +922,115 @@ const zIndexFor = (i: number) => (i === N - 1 ? 0 : i + 1);
     lbPrev.addEventListener("click", () => step(-1));
     lbNext.addEventListener("click", () => step(1));
     lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
+
+    // ── "View all photos" mosaic ──
+    const mosaic = document.getElementById(`${id}-mosaic`);
+    const allBtn = main.querySelector("[data-fg-all]");
+    const tiles = mosaic ? Array.from(mosaic.querySelectorAll(".fg-tile")) : [];
+    let mosaicOpen = false;
+    if (!mosaic || !allBtn) return;
+
+    const grid = mosaic.querySelector(".fg-mosaic-grid");
+    const scroller = mosaic.querySelector(".fg-mosaic-scroll");
+    const cells = Array.from(grid.querySelectorAll(".fg-cell"));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let expandedIndex = -1;
+
+    // FLIP: measure every cell, change the layout, then animate each cell
+    // from where it was to where the grid put it.
+    const reflow = (change) => {
+      const before = cells.map((c) => c.getBoundingClientRect());
+      change();
+      if (reduceMotion.matches) return;
+      cells.forEach((c, i) => {
+        const a = before[i];
+        const b = c.getBoundingClientRect();
+        const dx = a.left - b.left;
+        const dy = a.top - b.top;
+        const sx = a.width / b.width;
+        const sy = a.height / b.height;
+        if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
+        c.animate(
+          [
+            { transformOrigin: "top left", transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})` },
+            { transformOrigin: "top left", transform: "none" },
+          ],
+          { duration: 560, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+        );
+      });
+    };
+
+    const setExpanded = (index) => {
+      reflow(() => {
+        cells.forEach((c, i) => c.classList.toggle("is-expanded", i === index));
+        grid.classList.toggle("has-expanded", index >= 0);
+        tiles.forEach((t, i) => t.setAttribute("aria-label", `${i === index ? "Open full size" : "Enlarge photo"}: ${allPhotos[i].cap}`));
+        expandedIndex = index;
+      });
+      if (index >= 0) {
+        // Bring the grown tile into view once it has settled.
+        window.setTimeout(() => {
+          const r = cells[index].getBoundingClientRect();
+          const sr = scroller.getBoundingClientRect();
+          if (r.top < sr.top + 8 || r.bottom > sr.bottom - 8) {
+            scroller.scrollBy({ top: r.top - sr.top - (sr.height - r.height) / 2, behavior: reduceMotion.matches ? "auto" : "smooth" });
+          }
+        }, reduceMotion.matches ? 0 : 420);
+      }
+    };
+
+    const onMosaicKeydown = (e) => {
+      if (!lb.hidden) return; // the lightbox handles keys while it's on top
+      if (e.key === "Escape") {
+        if (expandedIndex >= 0) setExpanded(-1);
+        else closeMosaic();
+      }
+      else if (e.key === "Tab") {
+        // Keep focus inside the popup.
+        const focusables = [mosaic.querySelector("[data-fg-mosaic-close]"), ...tiles];
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+
+    const openMosaic = () => {
+      mosaicOpen = true;
+      mosaic.hidden = false;
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => mosaic.classList.add("is-open"));
+      mosaic.querySelector("[data-fg-mosaic-close]").focus();
+      document.addEventListener("keydown", onMosaicKeydown);
+    };
+
+    const closeMosaic = () => {
+      mosaicOpen = false;
+      if (expandedIndex >= 0) setExpanded(-1);
+      mosaic.classList.remove("is-open");
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onMosaicKeydown);
+      window.setTimeout(() => { mosaic.hidden = true; }, 260);
+      allBtn.focus();
+    };
+
+    allBtn.addEventListener("click", openMosaic);
+    mosaic.querySelector("[data-fg-mosaic-close]").addEventListener("click", closeMosaic);
+    tiles.forEach((t) => {
+      t.addEventListener("click", () => {
+        const i = Number(t.dataset.mosaicIndex);
+        if (i === expandedIndex) openLightbox(i, allPhotos);
+        else setExpanded(i);
+      });
+    });
+
+    // Touch has no hover: show a tile's caption while it crosses mid-screen.
+    if (window.matchMedia("(hover: none)").matches && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((en) => en.target.classList.toggle("is-active", en.isIntersecting)),
+        { root: mosaic.querySelector(".fg-mosaic-scroll"), rootMargin: "-45% 0px -45% 0px" },
+      );
+      tiles.forEach((t) => io.observe(t));
+    }
   })();
 </script>
