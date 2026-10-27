@@ -19,7 +19,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
   {
     dept: "Medical Team",
     people: [
-      { name: "Stacy Cohen, MD", role: "Medical Director", photo: "/Asset/Our%20Team/stacy-cohen.jpg", slug: "stacy-cohen" },
+      { name: "Stacy Cohen, MD", role: "Medical Director", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "stacy-cohen" },
       { name: "Mayra Lopez, LVN", role: "Lead Nurse", photo: "/Asset/Our%20Team/mayra-lopez.jpg", slug: "mayra-lopez" },
     ],
   },
@@ -75,7 +75,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
     people: [
       { name: "Miguel Palacios", role: "Director of Operations", photo: "/Asset/Our%20Team/miguel-palacios.jpg", slug: "miguel-palacios" },
       { name: "Keegan Halupowski", role: "Operations Manager", photo: "/Asset/Our%20Team/keegan-halupowski.jpg", slug: "keegan-halupowski" },
-      { name: "Jeremy Hanes", role: "Utilization Review Director", photo: "/Asset/Our%20Team/jeremy-hanes.jpg", slug: "jeremy-hanes" },
+      { name: "Jeremy Hanes", role: "Utilization Review Director", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "jeremy-hanes" },
       { name: "Keone Holt", role: "Head Chef", photo: "/Asset/Our%20Team/keone-holt.jpg", slug: "keone-holt" },
       { name: "Wes Werbeck", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/wes-werbeck.jpg", slug: "wes-werbeck" },
       { name: "Hassan Olton", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/hassan-olton.jpg", slug: "hassan-olton" },
@@ -89,12 +89,12 @@ export const roster: { dept: string; people: { name: string; role: string; photo
   {
     dept: "Adjunct Professionals",
     people: [
-      { name: "Angie S. Wang", role: "Group Facilitator", photo: "/Asset/Our%20Team/angie-wang.jpg", slug: "angie-wang" },
+      { name: "Angie S. Wang", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "angie-wang" },
       { name: "Megan Ethridge, LPCC", role: "Group Facilitator", photo: "/Asset/Our%20Team/megan-ethridge.jpg", slug: "megan-ethridge" },
       { name: "Anna Limina, MT-BC", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "anna-limina" },
       { name: "Sue Dinner", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sue-dinner" },
       { name: "Sarah Sitt, CADC-II", role: "Art Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sarah-sitt" },
-      { name: "Bill Reilly, CADC-II", role: "Group Facilitator", photo: "/Asset/Our%20Team/bill-reilly.jpg", slug: "bill-reilly" },
+      { name: "Bill Reilly, CADC-II", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "bill-reilly" },
       { name: "Hannah Ayers, LMFT", role: "Group Facilitator", photo: "/Asset/Our%20Team/hannah-ayers.jpg", slug: "hannah-ayers" },
       { name: "Christina Beck", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "christina-beck" },
     ],
