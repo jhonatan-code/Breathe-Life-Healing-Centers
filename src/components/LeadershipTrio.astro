@@ -6,11 +6,34 @@
  * and /about/ (both previously showed Beck alone). Data: leadershipTrio in
  * src/data/team-roster.ts. On phones Beck comes first, full width, and the
  * two directors sit side by side below him.
+ *
+ * `solo` (homepage, client request 2026-10-26): Beck alone, as a wide card
+ * with the photo on the left and a short excerpt of his own words on the
+ * right, linking to his full bio.
  */
 import { leadershipTrio } from "../data/team-roster";
+import { team } from "../data/home";
 
+const { solo = false } = Astro.props;
 const { featured, left, right } = leadershipTrio;
+// First three sentences of Beck's verbatim first-person bio (team[0].authorBio).
+const soloExcerpt = team[0].authorBio.split(/(?<=\.)\s+/).slice(0, 3).join(" ");
 ---
+
+{solo ? (
+<a href={`/about/our-team/${featured.slug}/`} class="lt-solo">
+  <div class="lt-solo-photo">
+    <img src={featured.photo} alt={featured.name} loading="lazy" />
+  </div>
+  <div class="lt-solo-body">
+    <span class="lt-ribbon">{featured.role}</span>
+    <div class="lt-solo-name">{featured.name}</div>
+    <div class="lt-solo-cred">{featured.badge}</div>
+    <p class="lt-solo-quote">{soloExcerpt}</p>
+    <span class="lt-solo-link">Read Beck's story →</span>
+  </div>
+</a>
+) : (
 
 <div class="lt">
   <a href={`/about/our-team/${left.slug}/`} class="lt-card lt-side lt-left">
@@ -44,6 +67,7 @@ const { featured, left, right } = leadershipTrio;
     </div>
   </a>
 </div>
+)}
 
 <style>
   .lt {
@@ -96,8 +120,29 @@ const { featured, left, right } = leadershipTrio;
     .lt-side .lt-badge { display: none; }
   }
 
+  .lt-solo {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch;
+    max-width: 1060px; margin: 0 auto; overflow: hidden; border-radius: 14px;
+    background: #16293D; text-decoration: none; color: inherit;
+    box-shadow: 0 2px 6px rgba(20, 24, 28, 0.12), 0 24px 48px rgba(22, 41, 61, 0.24);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .lt-solo:hover { transform: translateY(-4px); }
+  .lt-solo-photo { position: relative; min-height: 420px; }
+  .lt-solo-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; }
+  .lt-solo-body { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(28px, 4vw, 56px); }
+  .lt-solo-name { font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF; line-height: 1.15; }
+  .lt-solo-cred { font-family: "Instrument Sans", sans-serif; font-size: 12px; letter-spacing: 0.1em; color: #C8DAE9; margin-top: 6px; }
+  .lt-solo-quote { font-family: "Montserrat", Helvetica, sans-serif; font-size: 16px; line-height: 1.7; color: #DCE6EF; margin: 20px 0 0; text-wrap: pretty; }
+  .lt-solo-link { margin-top: 22px; font-size: 15px; font-weight: 600; color: #FFFFFF; border-bottom: 2px solid #33679C; padding-bottom: 2px; }
+
+  @media (max-width: 760px) {
+    .lt-solo { grid-template-columns: 1fr; max-width: 480px; }
+    .lt-solo-photo { min-height: 0; aspect-ratio: 4 / 3; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .lt-card { transition: none; }
-    .lt-card:hover { transform: none; }
+    .lt-card, .lt-solo { transition: none; }
+    .lt-card:hover, .lt-solo:hover { transform: none; }
   }
 </style>
