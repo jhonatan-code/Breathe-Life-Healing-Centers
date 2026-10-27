@@ -144,14 +144,13 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
        so nothing shows half-cut at the fold (2026-10-05). Sizing lives in
        global.css. */}
     <div class="hero-fold">
-    <section id="top" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#0A141D;display:flex;">
-      <img src={galleryImg("campus-01-pool-waterfall.jpg")} alt="Pool and waterfall at the Breathe Life campus" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
-      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,16,0.60) 0%,rgba(4,9,16,0.46) 50%,rgba(4,9,16,0.72) 100%);"></div>
-      <div class="hero-b" style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(24px,5vh,110px) 37px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;">
-        <div style="margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,26px);text-align:center;">
-          <div style="font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C8DAE9;">Detox · Residential · Outpatient</div>
-          <h1 style="font-size:clamp(34px,min(4.9vw,6.4vh),70px);line-height:1.02;letter-spacing:-0.034em;font-weight:600;color:#FFFFFF;margin:0;max-width:980px;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,0.35);">Drug &amp; Alcohol Detox and Residential Treatment in Los Angeles</h1>
-          <ul class="hero-chips" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+    <section id="top" data-screen-label="Hero" class="hero-v" style="position:relative;overflow:hidden;background:#0A141D;display:flex;">
+      <img class="hero-img" src={galleryImg("campus-01-pool-waterfall.jpg")} alt="Pool and waterfall at the Breathe Life campus" />
+      <div class="hero-shade"></div>
+      <div class="hero-b">
+        <div class="hero-copy">
+          <h1>Drug &amp; Alcohol Detox and Residential Treatment in Los Angeles</h1>
+          <ul class="hero-chips">
             {[
               // Repositioned 2026-10-14 (ClickUp): detox and residential lead,
               // LGBTQIA+ content lives on /signature-services/lgbtq/.
@@ -159,28 +158,27 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
               "Expert trauma-focused care for dual-diagnosis",
               "Gold Seal accredited campus in Laurel Canyon since 2013",
             ].map((t) => (
-              <li style="display:flex;gap:10px;align-items:center;min-height:44px;padding:8px 18px 8px 12px;box-sizing:border-box;border-radius:999px;background:linear-gradient(135deg,rgba(50,103,156,0.55) 0%,rgba(22,41,61,0.55) 100%);border:1px solid rgba(200,218,233,0.40);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 4px 14px rgba(4,9,16,0.20);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
-                <span style="font-size:16px;line-height:1.35;font-weight:600;color:#FFFFFF;text-align:left;">{t}</span>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
+                <span>{t}</span>
               </li>
             ))}
           </ul>
-          <div class="hero-ctas" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:8px;">
-            <a class="cta" href={HREF} style={`${S.ctaBlue}height:54px;padding:0 30px;font-size:17px;font-weight:600;gap:10px;`}>
+          <div class="hero-ctas">
+            <a class="cta" href={HREF} style={`${S.ctaBlue}height:52px;padding:0 28px;font-size:16px;font-weight:600;gap:10px;`}>
               <span class="msym" style="font-size:20px;">{msymChar("call")}</span>Call Now: {PH}
             </a>
-            <a class="cta cta--light" href="#insurance" style={`${S.ctaWhite}height:54px;padding:0 28px;font-size:17px;font-weight:600;`}>Verify Your Insurance</a>
+            <a class="cta cta--light" href="#insurance" style={`${S.ctaWhite}height:52px;padding:0 26px;font-size:16px;font-weight:600;`}>Verify Your Insurance</a>
           </div>
-          <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#DCE6EF;margin:0;">Call 24/7 and talk to a real person, no pressure, no obligation.</p>
-          <ul class="hero-seals" style="list-style:none;margin:clamp(6px,1.6vh,18px) 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px clamp(28px,3.6vw,52px);">
-            {seals.map(([src, alt, dim, px, href, tone]) => {
-              const sizeStyle = dim === "h" ? `height:${px}px;width:auto;display:block;` : `width:${px}px;height:auto;display:block;`;
-              const img = <img src={src} alt={alt} class={`seal seal--${tone}`} style={sizeStyle} />;
-              // mobile (global.css): round badges on row 1, the two wide marks on row 2
-              return <li class={`seal-li seal-li--${dim === "h" ? "round" : "wide"}`}>{href ? <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">{img}</a> : img}</li>;
-            })}
-          </ul>
         </div>
+        <ul class="hero-seals">
+          {seals.map(([src, alt, dim, px, href, tone]) => {
+            const sizeStyle = dim === "h" ? `height:${px}px;width:auto;display:block;` : `width:${px}px;height:auto;display:block;`;
+            const img = <img src={src} alt={alt} class={`seal seal--${tone}`} style={sizeStyle} />;
+            // mobile (global.css): round badges on row 1, the two wide marks on row 2
+            return <li class={`seal-li seal-li--${dim === "h" ? "round" : "wide"}`}>{href ? <a href={href} target="_blank" rel="noopener noreferrer" aria-label={alt} style="display:block;">{img}</a> : img}</li>;
+          })}
+        </ul>
       </div>
     </section>
 
@@ -444,6 +442,46 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
   <ContactLauncher />
   <Schema />
 </Layout>
+
+<style>
+  /* Homepage hero. Client feedback 2026-10-26: the old centered layout put too
+     much text over the photo, so the copy is lighter and the shade only
+     covers the area behind the text. On desktop the copy sits in a left
+     column and the right half of the photo stays clear (option B, picked
+     2026-10-27); tablet and phone keep the centered stack. */
+  .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
+  .hero-shade { position: absolute; inset: 0; background: rgba(4, 9, 16, 0.55); }
+  .hero-b {
+    position: relative; width: 100%; max-width: 1440px; margin: 0 auto;
+    padding: clamp(24px, 5vh, 96px) 37px; box-sizing: border-box;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+  .hero-copy { display: flex; flex-direction: column; align-items: inherit; gap: 18px; }
+  .hero-copy h1 {
+    font-size: clamp(32px, min(4vw, 5.6vh), 56px); line-height: 1.04; letter-spacing: -0.032em;
+    font-weight: 600; color: #FFFFFF; margin: 0; max-width: 900px; text-wrap: balance;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  }
+  .hero-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .hero-chips li { display: flex; gap: 8px; align-items: center; color: #A9C8E4; }
+  .hero-chips svg { flex: 0 0 auto; }
+  .hero-chips span { font-size: 15px; line-height: 1.4; font-weight: 500; color: rgba(255, 255, 255, 0.94); text-align: left; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); }
+  .hero-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
+  .hero-seals {
+    list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: center; gap: 16px 34px; zoom: 0.8;
+  }
+
+  @media (min-width: 1025px) {
+    .hero-shade { background: linear-gradient(90deg, rgba(4, 9, 16, 0.84) 0%, rgba(4, 9, 16, 0.62) 34%, rgba(4, 9, 16, 0) 64%); }
+    .hero-b { align-items: flex-start; text-align: left; }
+    .hero-copy { max-width: 580px; margin-block: auto; }
+    .hero-copy h1 { font-size: clamp(32px, min(3.6vw, 5.6vh), 52px); }
+    .hero-ctas { justify-content: flex-start; }
+    .hero-seals { justify-content: flex-start; margin-top: 0; }
+  }
+</style>
+
 
 <script>
   // ── Section reveal on scroll ──────────────────────────────────────────────
