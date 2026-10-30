@@ -140,7 +140,7 @@ const ld = {
         <h2 style={`${S.h2}max-width:52ch;`}>We're in-network with most major insurers</h2>
         <p style={`${S.intro}max-width:84ch;margin-bottom:30px;`}>Every plan is different, which is why we verify your actual policy instead of quoting a generic estimate. Below are some of the carriers we regularly work with.</p>
         <div id="ins-wrap" style="margin-bottom:26px;">
-          <div id="ins-track" class="no-scrollbar" style="display:flex;align-items:center;overflow-x:auto;">
+          <div id="ins-track" class="no-scrollbar" tabindex="0" role="region" aria-label="Insurance plans we accept" style="display:flex;align-items:center;overflow-x:auto;">
             {[...insurers, ...insurers, ...insurers, ...insurers].map((i, k) => (
               <div aria-hidden={k >= insurers.length ? "true" : undefined} style="flex:0 0 210px;display:flex;align-items:center;justify-content:center;padding:0 8px;box-sizing:border-box;">
                 <img src={i.src} alt={i.name} loading="lazy" style={`height:${i.h}px;width:auto;max-width:170px;object-fit:contain;`} />
