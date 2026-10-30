@@ -4,6 +4,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 import redirectsTrailingSlash from './integrations/redirects-trailing-slash.mjs';
+import sitemap from './integrations/sitemap.mjs';
 
 // Redirects for the ~225 old-site blog/utility URLs that don't get their own
 // page on the rebuilt site (see docs/11-REDIRECTS-GAPFILL.md for the tiering
@@ -399,11 +400,12 @@ export default defineConfig({
   // falls back to with no adapter, per the plan already noted above.
   // Vercel itself is not yet confirmed as the actual host (CLAUDE.md marks
   // it TBD) -- this is prep, not a hosting decision.
+  site: 'https://breathelifehealingcenters.com',
   output: 'static',
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()]
   },
   redirects,
-  integrations: [redirectsTrailingSlash()],
+  integrations: [redirectsTrailingSlash(), sitemap()],
 });
