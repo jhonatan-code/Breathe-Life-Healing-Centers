@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
+import redirectsTrailingSlash from './integrations/redirects-trailing-slash.mjs';
 
 // Redirects for the ~225 old-site blog/utility URLs that don't get their own
 // page on the rebuilt site (see docs/11-REDIRECTS-GAPFILL.md for the tiering
@@ -404,4 +405,5 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   redirects,
+  integrations: [redirectsTrailingSlash()],
 });
