@@ -209,7 +209,7 @@ const ld = {
         <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:clamp(17px,1.7vw,21px);line-height:1.55;font-weight:300;color:#E6EDF4;margin:0 0 26px;max-width:56ch;">Not every story looks the same. These are told in the words of the people and families who lived them.</p>
         <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;">
           <img src="/Asset/Image%20reviews/Google%20Logo.svg" alt="Google" style="height:26px;width:auto;display:block;" />
-          <span style="display:flex;gap:2px;" aria-label={`${site.google.rating} out of 5, ${site.google.count} reviews`}>
+          <span role="img" style="display:flex;gap:2px;" aria-label={`${site.google.rating} out of 5, ${site.google.count} reviews`}>
             {Array.from({ length: 5 }).map(() => (
               <svg viewBox="0 0 24 24" fill="#FFBE5C" width="18" height="18">
                 <path d="m12 2 3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2Z" />
@@ -260,7 +260,7 @@ const ld = {
                 const { preview, rest } = splitQuote(entry.quote);
                 return (
                   <div class="testi-card" style="break-inside:avoid;margin-bottom:24px;background:#F7F5F1;border:1px solid #E2DED7;border-radius:16px;padding:24px;">
-                    <div style="display:flex;gap:2px;margin-bottom:14px;" aria-label="Five out of five stars">
+                    <div role="img" style="display:flex;gap:2px;margin-bottom:14px;" aria-label="Five out of five stars">
                       {Array.from({ length: 5 }).map(() => (
                         <svg viewBox="0 0 24 24" fill="#FFBE5C" width="15" height="15">
                           <path d="m12 2 3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2Z" />
