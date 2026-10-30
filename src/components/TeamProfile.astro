@@ -60,7 +60,7 @@ const articles = await getPostsByAuthor(slug);
       <div style="flex:1 1 360px;min-width:280px;">
         {ctx && <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2C5A64;margin-bottom:14px;">{ctx.dept}</div>}
         <h1 style="font-size:clamp(34px,4vw,52px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;margin:0 0 12px;text-wrap:balance;">{name}</h1>
-        <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:18px;color:#646D76;margin:0 0 16px;">{role}</p>
+        {role && <p style="font-family:'Montserrat',Helvetica,sans-serif;font-size:18px;color:#646D76;margin:0 0 16px;">{role}</p>}
         {badge && <span style="display:inline-block;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.14em;background:#F0F5FA;color:#2C5A64;padding:6px 12px;border-radius:4px;margin-bottom:32px;">{badge}</span>}
 
         {firstPara ? (
@@ -98,7 +98,7 @@ const articles = await getPostsByAuthor(slug);
             </span>
             <span>
               <span style="display:block;font-size:14px;font-weight:600;letter-spacing:-0.008em;">{p.name}</span>
-              <span style="display:block;font-family:'Montserrat',Helvetica,sans-serif;font-size:12.5px;color:#646D76;">{p.role}</span>
+              {p.role && <span style="display:block;font-family:'Montserrat',Helvetica,sans-serif;font-size:12.5px;color:#646D76;">{p.role}</span>}
             </span>
           </a>
         ))}

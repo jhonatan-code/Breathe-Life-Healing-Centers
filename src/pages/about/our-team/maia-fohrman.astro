@@ -1,7 +1,7 @@
 ---
 /**
  * /about/our-team/maia-fohrman/ — new Clinical team member added per client
- * (2026-10-30): name and credentials only. No bio prose or headshot yet,
+ * (2026-10-30): name and credentials only, no title (client gave none). No bio prose or headshot yet,
  * so no bio section and the site's standard "B" no-photo placeholder.
  */
 import Layout from "../../../layouts/Layout.astro";
@@ -12,11 +12,10 @@ import TeamProfile from "../../../components/TeamProfile.astro";
 import { site } from "../../../config/site";
 
 const name = "Maia Fohrman, LCSW, CSAT";
-const role = "Therapist";
 const photo = "/Asset/Our%20Team/no-photo.jpg";
 
-const title = "Maia Fohrman, LCSW, CSAT | Therapist | Breathe Life Healing Centers";
-const description = "Maia Fohrman, LCSW, CSAT is a Therapist at Breathe Life Healing Centers.";
+const title = "Maia Fohrman, LCSW, CSAT | Breathe Life Healing Centers";
+const description = "Maia Fohrman, LCSW, CSAT, is part of the Clinical team at Breathe Life Healing Centers.";
 
 const pageUrl = new URL("/about/our-team/maia-fohrman/", site.domain).href;
 const ld = {
@@ -34,7 +33,6 @@ const ld = {
     {
       "@type": "Person",
       name: name,
-      jobTitle: role,
       image: new URL(photo, site.domain).href,
       url: pageUrl,
       worksFor: { "@id": new URL("/#organization", site.domain).href },
@@ -52,7 +50,7 @@ const ld = {
 
     <main id="main">
 
-    <TeamProfile name={name} role={role} photo={photo} slug="maia-fohrman" />
+    <TeamProfile name={name} role="" photo={photo} slug="maia-fohrman" />
 
     <SiteFinalCTA
       heading="Talk to someone who's been where you are"
