@@ -87,7 +87,6 @@ export const primaryNav = [
         heading: "See the campus",
         links: [
           { label: "Campus Photos", href: "/about/campus-photos/" },
-          { label: "Video Tour", href: "/about/video-tour/" },
         ],
       },
       {
