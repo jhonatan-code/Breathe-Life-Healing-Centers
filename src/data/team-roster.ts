@@ -63,8 +63,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Deb Hughes, CAS", role: "Co-Founder / Strategic Relations", photo: "/Asset/Our%20Team/Deb-Hughes.jpg", slug: "deb-hughes", badge: "CAS", bio: "Oversees family programming and community partnerships." },
       // Brian Whisenant removed per client request (2026-10-05); his bio page
       // redirects to /about/our-team/ (astro.config.mjs).
-      // Added per Charmaine 2026-09-29; no headshot yet.
-      { name: "Dez White", role: "National Clinical Outreach Coordinator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "dez-white" },
+      // Dez White removed per client request 2026-10-30.
       // Moved from Operations (was Behavioral Health Technician Shift Lead),
       // new title per Charmaine 2026-09-29.
       { name: "Ivis Gutierrez-Lopez", role: "Alumni Coordinator", photo: "/Asset/Our%20Team/ivis-gutierrez-lopez.jpg", slug: "ivis-gutierrez-lopez" },
