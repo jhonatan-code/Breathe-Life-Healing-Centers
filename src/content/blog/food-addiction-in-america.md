@@ -5,7 +5,7 @@ category: "eating-disorders"
 order: 45
 readingTime: 3
 ---
-#### Katie Couric hosts a panel on food addiction with tennis champion Monica Seles, interventionist Brad Lamm and Yahoo Finance Markets Correspondent Nicole Sinclair
+## Katie Couric hosts a panel on food addiction with tennis champion Monica Seles, interventionist Brad Lamm and Yahoo Finance Markets Correspondent Nicole Sinclair
 
 You may have heard the word “bingeing” used casually. People binge on food, alcohol, or even a series on Netflix. But Binge Eating Disorder, or B.E.D., is the most common eating disorder in the US. It impacts almost 3 million Americans, making it more common than anorexia and bulimia combined.
 

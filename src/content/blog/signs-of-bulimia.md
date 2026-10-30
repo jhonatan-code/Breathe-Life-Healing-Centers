@@ -39,7 +39,6 @@ According to Mirror-Mirror, a leading support tool in people who struggle with e
 
 Eating disorders are difficult to diagnose, treat, and stay in recovery from for many people, as the relapse rates are very high. People who struggle with disordered eating often go to great lengths to hide their disorder from their loved ones, so it can often be difficult to identify when someone is struggling.
 
-## 
 
 ## Signs of Bulimia
 

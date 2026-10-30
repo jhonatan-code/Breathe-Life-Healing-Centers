@@ -5,7 +5,7 @@ category: "eating-disorders"
 order: 22
 readingTime: 5
 ---
-### “If it were bad for you, they wouldn’t be allowed to sell it!”
+## “If it were bad for you, they wouldn’t be allowed to sell it!”
 
 This is how a lot of us justify taking those non-prescription diet pills with the really incredible claims and flashy marketing. The ads and the packaging tell us we can keep eating what we like, forget about exercise, and still lose weight as long as we’re taking the pills. Even though all of it sounds kind of suspicious, it can be really hard to say no when we’re desperate to get slim.
 
