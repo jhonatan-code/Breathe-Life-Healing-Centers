@@ -12,6 +12,7 @@ import TeamProfile from "../../../components/TeamProfile.astro";
 import { site } from "../../../config/site";
 
 const name = "Scott Self, MA, AMFT, APCC";
+const pronouns = "he/him";
 const role = "Primary Therapist";
 const photo = "/Asset/Our%20Team/no-photo.jpg";
 
@@ -52,7 +53,7 @@ const ld = {
 
     <main id="main">
 
-    <TeamProfile name={name} role={role} photo={photo} slug="scott-self" />
+    <TeamProfile name={`${name} (${pronouns})`} role={role} photo={photo} slug="scott-self" />
 
     <SiteFinalCTA
       heading="Talk to someone who's been where you are"

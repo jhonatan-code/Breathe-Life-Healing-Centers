@@ -39,7 +39,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
         authorBio: "Shoshana Katz is a licensed Marriage and Family Therapist and a trans woman who brings a relational, trauma-informed approach to her work with individuals, adolescents, and families. She holds a B.A. in Cultural Anthropology, an MSc in Psychological and Psychiatric Anthropology from Brunel University in London, and an M.A. in Clinical Psychology from Antioch University, Los Angeles." },
       { name: "Rachel Aiono, ASW", role: "Therapist", photo: "/Asset/Our%20Team/rachel-aiono.jpg", slug: "rachel-aiono" },
       // Added per client 2026-10-30, before the counselors; no headshots yet.
-      { name: "Scott Self, MA, AMFT, APCC", role: "Primary Therapist", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "scott-self" },
+      { name: "Scott Self, MA, AMFT, APCC (he/him)", role: "Primary Therapist", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "scott-self" },
       { name: "Maia Fohrman, LCSW, CSAT", role: "Therapist", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "maia-fohrman" },
       { name: "Vivian Rubio, CADC-II", role: "Counselor", photo: "/Asset/Our%20Team/vivian-rubio.jpg", slug: "vivian-rubio" },
       { name: "Blake Dinger, CADC", role: "Counselor", photo: "/Asset/Our%20Team/blake-dinger.jpg", slug: "blake-dinger" },
