@@ -18,20 +18,20 @@ const review = reviews[1] ?? reviews[0];
 
 <aside class="side-rail" aria-label="Article tools">
   <div class="side-card">
-    <h4>Table of Contents</h4>
+    <h2>Table of Contents</h2>
     <ul class="toc-list" id="toc-list"></ul>
   </div>
 
   <div class="side-card call-card">
-    <h4>Talk to someone now</h4>
+    <h2>Talk to someone now</h2>
     <div class="num">{site.phoneDisplay}</div>
     <a class="btn" href={site.phoneHref}>Call 24/7</a>
   </div>
 
   <div class="side-card">
-    <h4>Coverage</h4>
+    <h2>Coverage</h2>
     <div class="mini-ins-wrap">
-      <div class="mini-ins-track no-scrollbar">
+      <div class="mini-ins-track no-scrollbar" tabindex="0" role="region" aria-label="Insurance plans we accept">
         {[...insurers, ...insurers, ...insurers, ...insurers].map((i, k) => (
           <div class="mini-ins-logo" aria-hidden={k >= insurers.length ? 'true' : undefined}>
             <img src={i.src} alt={i.name} loading="lazy" style={`height:${Math.round(i.h * 0.6)}px;`} />
@@ -44,7 +44,7 @@ const review = reviews[1] ?? reviews[0];
 
   {review && (
     <div class="side-card">
-      <h4>What families say</h4>
+      <h2>What families say</h2>
       <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
       <p class="review-quote">&ldquo;{review.quote.slice(0, 180)}{review.quote.length > 180 ? '…' : ''}&rdquo;</p>
       <div class="review-name">{review.name}, Google review</div>
@@ -53,7 +53,7 @@ const review = reviews[1] ?? reviews[0];
 
   {related.length > 0 && (
     <div class="side-card">
-      <h4>Related articles</h4>
+      <h2>Related articles</h2>
       {related.map((p) => (
         <a class="related-mini" href={postHref(p)}>
           <span class="related-cat">{CATEGORY_LABELS[p.data.category]}</span>
@@ -67,12 +67,12 @@ const review = reviews[1] ?? reviews[0];
 <style>
   .side-rail { position: sticky; top: 88px; display: flex; flex-direction: column; gap: 20px; }
   .side-card { background: #fff; border: 1px solid #E5E1D8; border-radius: 14px; padding: 20px; }
-  .side-card h4 { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #2C5A64; margin: 0 0 14px; }
+  .side-card h2 { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #2C5A64; margin: 0 0 14px; }
   .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; }
   .toc-list a { text-decoration: none; color: #3A444D; display: block; padding: 3px 0 3px 12px; border-left: 2px solid #E5E1D8; }
   .toc-list a.active { color: #16293D; font-weight: 600; border-left-color: #33679C; }
   .call-card { background: #32679C; color: #fff; text-align: center; }
-  .call-card h4 { color: #9DB2C2; }
+  .call-card h2 { color: #E6EDF4; }
   .call-card .num { font-size: 22px; font-weight: 700; font-family: 'Instrument Sans', sans-serif; letter-spacing: -0.01em; margin: 8px 0 12px; }
   .call-card a.btn { display: block; background: #7FB3BC; color: #16293D; font-weight: 700; font-family: 'Instrument Sans', sans-serif; padding: 11px; border-radius: 8px; text-decoration: none; font-size: 14px; }
   .mini-ins-wrap { -webkit-mask-image: linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask-image: linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
