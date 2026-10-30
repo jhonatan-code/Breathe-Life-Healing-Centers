@@ -92,7 +92,7 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Megan Ethridge, LPCC", role: "Group Facilitator", photo: "/Asset/Our%20Team/megan-ethridge.jpg", slug: "megan-ethridge" },
       { name: "Anna Limina, MT-BC", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "anna-limina" },
       { name: "Sue Dinner", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sue-dinner" },
-      { name: "Sarah Sitt, CADC-II", role: "Art Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sarah-sitt" },
+      { name: "Sarah Stitt, CADC-II", role: "Art Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "sarah-stitt" },
       { name: "Bill Reilly, CADC-II", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "bill-reilly" },
       { name: "Hannah Ayers, LMFT", role: "Group Facilitator", photo: "/Asset/Our%20Team/hannah-ayers.jpg", slug: "hannah-ayers" },
       { name: "Christina Beck", role: "Group Facilitator", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "christina-beck" },

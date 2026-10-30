@@ -1,13 +1,12 @@
 ---
 /**
- * /about/our-team/sarah-sitt/ — placeholder profile. The official live
+ * /about/our-team/sarah-stitt/ — placeholder profile. The official live
  * site's dedicated page uses a different slug for this person —
  * breathelifehealingcenters.com/our-team/sara-stitt/ (checked 2026-09-02,
  * their own naming inconsistency) — which carries only a name, title, and
  * (no real headshot) photo; no bio prose exists there to recover. Display
- * name here follows the batch brief: "Sarah Sitt, CADC-II" (how her name
- * reads on the official team roster), even though the official site's own
- * URL and on-page name spell it "Sara Stitt". Per CLAUDE.md / the standing
+ * name "Sarah Stitt, CADC-II" per the client's spelling correction
+ * (2026-10-30; was "Sarah Sitt", that slug redirects here). Per CLAUDE.md / the standing
  * rule never to invent YMYL content without a brief, the bio section below
  * uses ClinicalPlaceholder rather than fabricated copy — see
  * src/pages/about/our-team/brad-lamm.astro for the pattern this follows.
@@ -22,16 +21,16 @@ import TeamProfile from "../../../components/TeamProfile.astro";
 import { site } from "../../../config/site";
 
 const person = {
-  name: "Sarah Sitt, CADC-II",
+  name: "Sarah Stitt, CADC-II",
   role: "Art Group Facilitator",
   photo: "/Asset/Our%20Team/no-photo.jpg",
   badge: "CADC-II",
 };
 
-const title = "Sarah Sitt, CADC-II | Art Group Facilitator | Breathe Life Healing Centers";
-const description = "Sarah Sitt, CADC-II, is an Art Group Facilitator at Breathe Life Healing Centers.";
+const title = "Sarah Stitt, CADC-II | Art Group Facilitator | Breathe Life Healing Centers";
+const description = "Sarah Stitt, CADC-II, is an Art Group Facilitator at Breathe Life Healing Centers.";
 
-const pageUrl = new URL("/about/our-team/sarah-sitt/", site.domain).href;
+const pageUrl = new URL("/about/our-team/sarah-stitt/", site.domain).href;
 const ld = {
   "@context": "https://schema.org",
   "@graph": [
@@ -57,7 +56,7 @@ const ld = {
 };
 ---
 
-<Layout title={title} description={description} path="/about/our-team/sarah-sitt/">
+<Layout title={title} description={description} path="/about/our-team/sarah-stitt/">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
@@ -65,7 +64,7 @@ const ld = {
 
     <main id="main">
 
-    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="sarah-sitt" />
+    <TeamProfile name={person.name} role={person.role} badge={person.badge} photo={person.photo} slug="sarah-stitt" />
 
     <SiteFinalCTA
       heading="Talk to someone who's been where you are"
