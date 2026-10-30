@@ -57,7 +57,7 @@ const authors = [getAuthor('beck-gee'), getAuthor('shoshana-katz')].filter((a) =
           <div class="authors-grid">
             {authors.map((a) => (
               <a class="author-card" href={`/about/our-team/${a.slug}/`}>
-                <img src={a.photo} alt={a.name} loading="lazy" />
+                <img src={a.photo} alt="" loading="lazy" />
                 <span>
                   <span class="author-card-name">{a.name}</span>
                   {a.badge && <span class="author-card-badge">{a.badge}</span>}

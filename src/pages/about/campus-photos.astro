@@ -118,7 +118,7 @@ const ld = {
         <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
           {photos.map(([file, cap], i) => (
             <button type="button" class="gal-item" data-gal-open={i + campusPhotos.length} style="position:relative;display:block;border:0;padding:0;cursor:zoom-in;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#EDF2F7;">
-              <img src={galleryImg(file)} alt={cap} loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+              <img src={galleryImg(file)} alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
               <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,41,61,0) 55%,rgba(22,41,61,0.72) 100%);"></div>
               <span style="position:absolute;left:14px;bottom:12px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:500;color:#FFFFFF;text-align:left;">{cap}</span>
             </button>
