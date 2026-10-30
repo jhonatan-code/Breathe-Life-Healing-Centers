@@ -128,11 +128,13 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
 ---
 
 <Layout title={title} description={description} path="/">
-  <a class="skip-link" href="#top">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <div style="background:#F7F5F1;color:#14181C;font-family:'Instrument Sans',Helvetica,sans-serif;font-size:16px;line-height:1.5;text-wrap:pretty;">
 
     <SiteHeader />
+
+    <main id="main">
 
     {/* ══════════════  HERO  ══════════════ */}
     {/* Hero test 2026-10-03 (option B2 from the hero proposals canvas):
@@ -194,7 +196,7 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
        up to the second section, right below the hero (2026-10-05). */}
     <section id="as-seen-on" data-screen-label="As Seen On" style="padding:clamp(22px,3.4vh,44px) 37px;background:#F0F5FA;border-top:1px solid #C8DAE9;border-bottom:1px solid #C8DAE9;">
       <div style="max-width:1440px;margin:0 auto;text-align:center;">
-        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#8A94A0;margin-bottom:clamp(10px,2vh,26px);">As Seen On</div>
+        <div style="font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5F6A75;margin-bottom:clamp(10px,2vh,26px);">As Seen On</div>
         <div id="asn-wrap">
           <div id="asn-track" class="no-scrollbar" style="display:flex;align-items:center;overflow-x:auto;gap:40px;">
             {(() => {
@@ -434,6 +436,8 @@ const galleryPhotos = galleryWheelFiles.map((f) => {
       primaryLabel={`Call Now: ${PH}`}
       background="/Asset/Facility/campus-11-garden-path.jpg"
     />
+
+    </main>
 
     <SiteFooter />
 

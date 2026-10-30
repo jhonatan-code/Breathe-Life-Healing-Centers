@@ -41,7 +41,7 @@ const ctaBlue =
 const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
-<div class="site-hdr" style="position:sticky;top:0;z-index:50;background:#32679C;border-bottom:1px solid rgba(255,255,255,0.15);box-shadow:0 1px 3px rgba(20,24,28,0.06);padding:0 37px;">
+<header class="site-hdr" style="position:sticky;top:0;z-index:50;background:#32679C;border-bottom:1px solid rgba(255,255,255,0.15);box-shadow:0 1px 3px rgba(20,24,28,0.06);padding:0 37px;">
   <div class="hdr-row" style="max-width:1440px;margin:0 auto;padding:14px 0;display:flex;align-items:center;gap:20px;justify-content:space-between;">
     <a href="/" class="hdr-logo" style="flex:0 0 auto;display:flex;align-items:center;">
       <img src="/Asset/Logo/White%20Logo.svg" alt="Breathe Life Healing Centers" width="144" height="47" style="width:144px;height:auto;display:block;" />
@@ -93,7 +93,7 @@ const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       <span></span><span></span><span></span>
     </button>
   </div>
-</div>
+</header>
 
 <a class="m-callbar m-only" href={HREF} aria-label={`Call Breathe 24/7 at ${PH}`}>
   <Icon name="phone" size={18} /> Call 24/7 · {PH}
