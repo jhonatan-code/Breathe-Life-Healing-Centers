@@ -1,0 +1,62 @@
+---
+// EqualWeb accessibility widget, carried over from the live breathelifehealingcenters.com (WordPress) so the button
+// survives the migration. Embed code copied unchanged from the live site (2026-10-30), licence registered to
+// www.breathelifehealingcenters.com. EqualWeb asks for it immediately above </body> on every page. Production builds
+// only: localhost and previews aren't on the licence. Same pattern as Alta Mira (src/components/Accessibility.astro).
+const on = import.meta.env.PROD;
+---
+{on && (
+  <script is:inline>
+  /*
+  Want to customize your button? visit our documentation page:
+  https://login.equalweb.com/custom-button
+  */
+  window.interdeal = {
+      get sitekey (){ return "2d43b2ea975d4d7744776fcf3bc2e8c5"} ,
+      get domains(){
+          return {
+              "js": "https://cdn.equalweb.com/",
+              "acc": "https://access.equalweb.com/"
+          }
+      },
+      "Position": "left",
+      "Menulang": "EN",
+      "draggable": true,
+      "btnStyle": {
+          "vPosition": [
+              "80%",
+              "80%"
+          ],
+          "margin": [
+              "0",
+              "0"
+          ],
+          "scale": [
+              "0.6",
+              "0.5"
+          ],
+          "color": {
+              "main": "#33679c",
+              "second": "#ffffff"
+          },
+          "icon": {
+              "outline": true,
+              "outlineColor": "#ffffff",
+              "type":  1 ,
+              "shape": "semicircle"
+          }
+      },
+
+  };
+
+  (function(doc, head, body){
+      var coreCall             = doc.createElement('script');
+      coreCall.src             = interdeal.domains.js + 'core/5.2.0/accessibility.js';
+      coreCall.defer           = true;
+      coreCall.integrity       = 'sha512-fHF4rKIzByr1XeM6stpnVdiHrJUOZsKN2/Pm0jikdTQ9uZddgq15F92kUptMnyYmjIVNKeMIa67HRFnBNTOXsQ==';
+      coreCall.crossOrigin     = 'anonymous';
+      coreCall.setAttribute('data-cfasync', true );
+      body? body.appendChild(coreCall) : head.appendChild(coreCall);
+  })(document, document.head, document.body);
+  </script>
+)}

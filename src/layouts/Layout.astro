@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { site } from "../config/site";
 import CookieConsent from "../components/CookieConsent.astro";
+import Accessibility from "../components/Accessibility.astro";
 
 interface Props {
   title: string;
@@ -81,5 +82,6 @@ const ogImageUrl = new URL(ogImage, prodHost ? `https://${prodHost}` : site.doma
       tint="#e6edf4"
       titleFont="'Instrument Sans', sans-serif"
     />
+    <Accessibility />
   </body>
 </html>
