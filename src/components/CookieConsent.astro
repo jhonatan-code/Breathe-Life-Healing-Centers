@@ -165,6 +165,9 @@ const theme = `--cc-primary:${primary};--cc-primary-dark:${primaryDark};--cc-tex
           document.querySelectorAll('iframe[data-consent-src]').forEach(function (f) {
             f.src = f.getAttribute('data-consent-src');
             f.removeAttribute('data-consent-src');
+            // Gated frames stay out of the tab order and the a11y tree until they load
+            f.removeAttribute('tabindex');
+            f.removeAttribute('aria-hidden');
           });
           document.querySelectorAll('[data-consent-placeholder]').forEach(function (p) { p.hidden = true; });
           document.dispatchEvent(new CustomEvent('consent:functional'));
