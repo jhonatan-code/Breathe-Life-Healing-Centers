@@ -185,6 +185,8 @@ const redirects = {
   // Sarah Johnson and Dez White removed per client request 2026-10-30.
   "/about/our-team/sarah-johnson/": "/about/our-team/",
   "/about/our-team/dez-white/": "/about/our-team/",
+  // Keone Holt (Head Chef) removed per client request 2026-11-02.
+  "/about/our-team/keone-holt/": "/about/our-team/",
   // Name corrected to Sarah Stitt per client 2026-10-30.
   "/about/our-team/sarah-sitt/": "/about/our-team/sarah-stitt/",
   // Video Tour page removed per client request 2026-10-30.

@@ -78,7 +78,6 @@ export const roster: { dept: string; people: { name: string; role: string; photo
       { name: "Miguel Palacios", role: "Director of Operations", photo: "/Asset/Our%20Team/miguel-palacios.jpg", slug: "miguel-palacios" },
       { name: "Keegan Halupowski", role: "Operations Manager", photo: "/Asset/Our%20Team/keegan-halupowski.jpg", slug: "keegan-halupowski" },
       { name: "Jeremy Hanes", role: "Utilization Review Director", photo: "/Asset/Our%20Team/no-photo.jpg", slug: "jeremy-hanes" },
-      { name: "Keone Holt", role: "Head Chef", photo: "/Asset/Our%20Team/keone-holt.jpg", slug: "keone-holt" },
       { name: "Wes Werbeck", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/wes-werbeck.jpg", slug: "wes-werbeck" },
       { name: "Hassan Olton", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/hassan-olton.jpg", slug: "hassan-olton" },
       { name: "Nick Michalski", role: "Behavioral Health Technician Shift Lead", photo: "/Asset/Our%20Team/nick-michalski.jpg", slug: "nick-michalski" },
