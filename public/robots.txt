@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://breathelifehealingcenters.com/sitemap.xml
+
+# LLM-readable site map (llmstxt.org): https://breathelifehealingcenters.com/llms.txt
