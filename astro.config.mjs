@@ -6,6 +6,7 @@ import vercel from '@astrojs/vercel';
 import redirectsTrailingSlash from './integrations/redirects-trailing-slash.mjs';
 import sitemap from './integrations/sitemap.mjs';
 import llms from './integrations/llms.mjs';
+import gone from './integrations/gone.mjs';
 import { site as siteFacts } from './src/config/site.ts';
 import { insurers } from './src/data/home.ts';
 
@@ -612,5 +613,11 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   redirects,
-  integrations: [redirectsTrailingSlash(), sitemap(), llms({ site: siteFacts, insurers })],
+  integrations: [
+    redirectsTrailingSlash(),
+    sitemap(),
+    llms({ site: siteFacts, insurers }),
+    // Old WordPress test pages with no content: 410 Gone, not a redirect (ClickUp 1dfm34y06de)
+    gone(['/test/', '/test-page/', '/idea/']),
+  ],
 });
